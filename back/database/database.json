@@ -1,0 +1,19 @@
+{
+  "dev": {
+    "driver": "mysql",
+    "user": "xskillz",
+    "password": "xebia2015",
+    "host": "xskillz-dev.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
+    "database": "xskillzdev",
+    "multipleStatements": true
+  },
+  "tests": {
+    "driver": "mysql",
+    "user": "xskillz",
+    "password": "xebia2015",
+    "host": "xskillz-tests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
+    "database": "xskillztests",
+    "multipleStatements": true
+  },
+  "sql-file": true
+}
