@@ -4,9 +4,7 @@ const _ = require('lodash');
 const gravatar = require('gravatar');
 
 const Factory = {
-
 //-- skills
-
     createSkill: (skill) => {
         return {
             domain: {
@@ -20,15 +18,14 @@ const Factory = {
     },
 
 //-- updates
-
     createUserUpdates: (userUpdates) => {
+        var user = userUpdates[0];
         return {
             user: {
-                companyName: userUpdates[0].company_name,
-                name: userUpdates[0].user_name,
-                id: userUpdates[0].user_id,
-                gravatarUrl: gravatar.url(userUpdates[0].user_email),
-                experienceCounter: new Date().getFullYear() - new Date(userUpdates[0].user_diploma).getFullYear()
+                name: user.user_name,
+                id: user.user_id,
+                gravatarUrl: gravatar.url(user.user_email),
+                experienceCounter: new Date().getFullYear() - new Date(user.user_diploma).getFullYear()
             },
             updates: userUpdates.map((userUpdate)=> {
                 return {
@@ -58,12 +55,10 @@ const Factory = {
     },
 
 //-- users
-
     createUser: (raw)=> {
         return {
             name: raw.name,
             id: raw.id,
-            companyName: raw.company_name,
             gravatarUrl: gravatar.url(raw.email),
             experienceCounter: new Date().getFullYear() - new Date(raw.diploma).getFullYear()
         };
@@ -76,9 +71,10 @@ const Factory = {
     },
 
     createDomain: (domainSkills) => {
+        var domain = domainSkills[0];
         return {
-            id: domainSkills[0].domain_id,
-            name: domainSkills[0].domain_name,
+            id: domain.domain_id,
+            name: domain.domain_name,
             score: Factory.computeScore(domainSkills),
             skills: _(domainSkills)
                 .map((skill)=> {
@@ -92,7 +88,6 @@ const Factory = {
                 .value()
         };
     }
-    
 };
 
 module.exports = Factory;

@@ -2,7 +2,7 @@
   "dev": {
     "driver": "mysql",
     "user": "xskillz",
-    "password": "xebia2015",
+    "password": "xskillz-dev",
     "host": "xskillz-dev.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
     "database": "xskillzdev",
     "multipleStatements": true
@@ -10,7 +10,7 @@
   "tests": {
     "driver": "mysql",
     "user": "xskillz",
-    "password": "xebia2015",
+    "password": "xskillz-tests",
     "host": "xskillz-tests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
     "database": "xskillztests",
     "multipleStatements": true
