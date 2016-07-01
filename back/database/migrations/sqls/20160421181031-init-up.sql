@@ -1,17 +1,3 @@
-CREATE TABLE UserConnection (
-  userId varchar(255) not null,
-  providerId varchar(255) not null,
-  providerUserId varchar(255),
-  rank int not null,
-  displayName varchar(255),
-  profileUrl varchar(512),
-  imageUrl varchar(512),
-  accessToken varchar(1024) not null,
-  secret varchar(255),
-  refreshToken varchar(255),
-  expireTime bigint(20),
-  PRIMARY KEY (userId, providerId, providerUserId));
-
 CREATE TABLE Domain (
   id         BIGINT(20) NOT NULL AUTO_INCREMENT,
   name       VARCHAR(255) DEFAULT NULL,
@@ -35,9 +21,9 @@ CREATE TABLE User (
   id         BIGINT(20) NOT NULL AUTO_INCREMENT,
   diploma    DATETIME     DEFAULT NULL,
   email      VARCHAR(255) DEFAULT NULL,
-  lastLogin  DATETIME     DEFAULT NULL,
   name       VARCHAR(255) DEFAULT NULL,
   manager_id BIGINT(20)   DEFAULT NULL,
+  password   VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -66,3 +52,5 @@ ALTER TABLE UserSkill
 ALTER TABLE UserRole
   ADD CONSTRAINT FKc52d1rv3ijbpu6lo2v3rej1tx FOREIGN KEY (User_id) REFERENCES User (id),
   ADD CONSTRAINT FK7qnwwe579g9frolyprat52l4d FOREIGN KEY (roles_id) REFERENCES Role (id);
+
+INSERT INTO Role (name) VALUES ('Manager');

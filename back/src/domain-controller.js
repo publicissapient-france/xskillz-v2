@@ -14,5 +14,11 @@ module.exports = {
         Repository
             .addDomain(req.body.name)
             .then(() => Repository.findDomainByName(req.body.name))
-            .then((domains) => res.send(domains[0]))
+            .then((domain) => res.send(domain)),
+
+    deleteDomain: (req, res) =>
+        Repository
+            .removeDomainFromSkills(req.params.id)
+            .then(() => Repository.deleteDomain(req.params.id))
+            .then(() => res.jsonp({deleted: true}))
 };

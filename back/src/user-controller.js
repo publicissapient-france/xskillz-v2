@@ -4,12 +4,13 @@ const Repository = require('./repository');
 const Factory = require('./factory');
 const uuid = require('uuid');
 const _ = require('lodash');
+const log = require('winston');
 
 const createUserById = (id) => {
     let user = {domains: []};
     return Repository
         .findUserById(id)
-        .then((users) => Factory.createUser(users[0]))
+        .then((user) => Factory.createUser(user))
         .then((dbUser) => {
             user = _.assignWith(user, dbUser);
             return Repository.findUserSkillsById(user.id)
@@ -22,7 +23,14 @@ const createUserById = (id) => {
                 .value()
                 .forEach((domainSkills) => user.domains.push(Factory.createDomain(domainSkills)));
         })
-        .then(()=> user);
+        .then(()=> user)
+        .then((user) => {
+            return Repository.findUserRolesById(user.id)
+                .then((roles) => {
+                    user.roles = roles.map((r)=>r.name);
+                })
+                .then(() => user)
+        });
 };
 
 
@@ -30,10 +38,12 @@ module.exports = {
     addUser: (req, res) => {
         Repository.addNewUser(req.body)
             .then(() => Repository.findUserByEmail(req.body.email))
-            .then((users) => {
-                res.json(users[0]);
+            .then((user) => Repository.addManagerRole(user, 'Manager'))
+            .then((user) => {
+                res.json(user);
             })
             .catch((err) => {
+                log.error(err.message);
                 res.status(500).send(err.message);
             });
     },
@@ -43,8 +53,19 @@ module.exports = {
             .map((user)=> createUserById(user.id))
             .then((users) => res.json(users))
             .catch((err) => {
-                console.error(err);
+                log.error(err.message);
                 res.status(404).jsonp({error: `Users not found`});
+            });
+    },
+
+    getCurrentUser: (req, res) => {
+        Repository
+            .findUserByEmailAndToken(req.body.email, req.body.token)
+            .then((user) => createUserById(user.id))
+            .then((user) => res.json(user))
+            .catch((err) => {
+                log.error(err.message);
+                res.status(404).jsonp({error: `User ${req.body.email} not found`});
             });
     },
 
@@ -54,33 +75,71 @@ module.exports = {
                 res.json(user);
             })
             .catch((err) => {
+                log.error(err.message);
                 res.status(404).jsonp({error: `User #${req.params.id} not found`, message: err.message});
             });
     },
 
-    getUsers: (req, res) => {
+    getUsers: (req, res) =>
         Repository
             .getUsers()
             .map((user)=> createUserById(user.id))
             .then((users) => res.json(users))
             .catch((err) => {
-                console.error(err);
-                res.status(404).jsonp({error: `Users not found`});
-            });
-    },
+                log.error(err.message);
+                res.status(404).jsonp({error: `Users not found`, cause: err.message});
+            }),
+
+    deleteUserById: (req, res) =>
+        Repository
+            .deleteUserById(req.params.id)
+            .then(() => res.jsonp({deleted: true}))
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).jsonp({cause: err.message})
+            }),
 
     signin: (req, res) => {
         const email = req.body.email;
+        const password = req.body.password;
         Repository
-            .findUserByEmail(email)
+            .findUserByEmailAndPassword(email, password)
             .then((user) => {
+                if(!user) {
+                    throw new Error(`User ${email} not found`);
+                }
                 const token = uuid.v4();
-                Repository.TOKENS[token] = user[0];
-                user[0].token = token;
-                res.json(user[0]);
+                Repository.TOKENS[token] = user;
+                user.token = token;
+                res.json(user);
             })
-            .catch(() => {
+            .catch((err) => {
+                log.error(err.message);
                 res.status(404).jsonp({error: `User ${email} not found`});
             });
+    },
+
+    assignManager: (req, res) => {
+        Repository
+            .assignManager(req.params.id, req.params.managerId)
+            .then(()=> {
+                res.jsonp({assigned: true})
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).jsonp({error: err.message});
+            });
+    },
+
+    updateUser: (req, res) => {
+        Repository
+            .updateUser(req.params.id, req.body)
+            .then(()=> {
+                res.jsonp({updated: true})
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).jsonp({error: err.message});
+            })
     }
 };

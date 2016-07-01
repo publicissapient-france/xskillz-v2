@@ -12,12 +12,9 @@ describe('API', function () {
         require('../src/index');
     });
     beforeEach(() => {
-        return Repository.query('DELETE FROM UserSkill')
-            .then(() => Repository.query('DELETE FROM User'))
-            .then(() => Repository.query('DELETE FROM Skill'))
-            .then(() => Repository.query('DELETE FROM Domain'))
+        return Repository.clear();
     });
-    it('/', (done) =>
+    it('GET /', (done) =>
         request
             .get(`${host}/`)
             .end((err, res) => {
@@ -26,7 +23,7 @@ describe('API', function () {
                 done();
             }));
 
-    it('/domains', (done) => {
+    it('GET /domains', (done) => {
         // Given
         addDomain('MyDomain')
         // When
@@ -40,7 +37,24 @@ describe('API', function () {
             });
     });
 
-    it('/skills', (done) => {
+    it('DELETE /domains/:id', (done) => {
+        // Given
+        addDomain('MyDomain')
+            .then(() => getDomains())
+            // When
+            .then((res) => deleteDomain(res.body.id))
+            // Then
+            .then((res) => {
+                assert.deepEqual(res.body,
+                    {
+                        "deleted": true
+                    });
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('GET /skills', (done) => {
         // Given
         createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => signin('jsmadja@xebia.fr'))
@@ -67,7 +81,58 @@ describe('API', function () {
             .catch((err) => done(err));
     });
 
-    it('/users/:id', (done) => {
+    it('POST /skills', (done) => {
+        // Given
+        createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => signin('jsmadja@xebia.fr'))
+            .then((res) => addSkill('Skill', 2, true, res.body.id))
+            .then(() => createUser('Benjamin', 'blacroix@xebia.fr'))
+            .then(() => signin('jsmadja@xebia.fr'))
+            .then((res) => addSkill('Skill', 1, false, res.body.id))
+            .then(() => getSkills())
+            .then((res) => {
+                delete res.body[0].id;
+                assert.deepEqual(res.body, [
+                    {
+                        "domain": {
+                            "id": null,
+                            "name": null
+                        },
+                        "name": "Skill",
+                        "numAllies": 2
+                    }
+                ]);
+            })
+            .then(done)
+            .catch((err) => done(err));
+    });
+
+    it('PUT /skills', (done) => {
+        // Given
+        let user;
+        createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => signin('jsmadja@xebia.fr'))
+            .then((res) => {
+                user = res.body;
+                return addSkill('Skill1', 2, true, user.id)
+            })
+            .then((res) => addSkill('Skill2', 1, false, user.id))
+            .then(() => getSkills())
+            // When
+            .then((res) => {
+                const skillId1 = res.body[0].id;
+                const skillId2 = res.body[1].id;
+                return mergeSkills(skillId1, skillId2);
+            })
+            // Then
+            .then((res) => {
+                assert.deepEqual(res.body, {merged: true});
+            })
+            .then(done)
+            .catch((err) => done(err));
+    });
+
+    it('GET /users', (done) => {
         let domain;
         // Given
         createUser('Julien', 'jsmadja@xebia.fr')
@@ -106,7 +171,10 @@ describe('API', function () {
                             "experienceCounter": 46,
                             "gravatarUrl": "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
                             "name": "Julien",
-                            "score": 2
+                            "score": 2,
+                            "roles": [
+                                "Manager"
+                            ]
                         }
                     ]);
                 done();
@@ -114,11 +182,29 @@ describe('API', function () {
             .catch((err) => done(err));
     });
 
+    it('GET /updates', (done) => {
+        // Given
+        let user;
+        createUser('Julien', 'jsmadja2@xebia.fr')
+            .then(() => signin('jsmadja2@xebia.fr'))
+            .then((res) => {
+                user = res.body;
+                return addSkill('Skill3', 2, true, user.id)
+            })
+            .then((res) => addSkill('Skill4', 1, false, user.id))
+            .then(() => getUpdates())
+            .then((res) => {
+                assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name), ["Skill3", "Skill4"]);
+            })
+            .then(done)
+            .catch((err) => done(err));
+    });
+
     const createUser = (name, email) =>
         request
             .post(`${host}/users`)
-            .send({name, email})
-            .end((err, res) => {
+            .send({name, email, password: 'azerty'})
+            .end((err) => {
                 if (err) Promise.reject(err);
             });
 
@@ -131,8 +217,8 @@ describe('API', function () {
 
     const signin = (email) =>
         request.post(`${host}/signin`)
-            .send({email: 'jsmadja@xebia.fr'})
-            .end((err, res) => {
+            .send({email, password: 'azerty'})
+            .end((err) => {
                 if (err) Promise.reject(err);
             });
 
@@ -159,6 +245,13 @@ describe('API', function () {
                 if (err) Promise.reject(err);
             });
 
+    const deleteDomain = (id) =>
+        request
+            .del(`${host}/domains/${id}`)
+            .end((err) => {
+                if (err) Promise.reject(err);
+            });
+
     const getDomains = () =>
         request
             .get(`${host}/domains`)
@@ -170,6 +263,21 @@ describe('API', function () {
         request
             .post(`${host}/domains/${domain_id}/skills`)
             .send({skill_id})
+            .end((err) => {
+                if (err) return Promise.reject(err);
+            });
+
+    const mergeSkills = (from, to) =>
+        request
+            .put(`${host}/skills`)
+            .send({from, to})
+            .end((err) => {
+                if (err) return Promise.reject(err);
+            });
+
+    const getUpdates = () =>
+        request
+            .get(`${host}/updates`)
             .end((err) => {
                 if (err) return Promise.reject(err);
             });

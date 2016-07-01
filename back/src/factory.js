@@ -31,7 +31,7 @@ const Factory = {
                 return {
                     id: userUpdate.user_skill_id,
                     skill: {
-                        id: userUpdate.skill_name,
+                        id: userUpdate.skill_id,
                         interested: userUpdate.skill_interested[0] === 1,
                         level: userUpdate.skill_level,
                         name: userUpdate.skill_name
@@ -80,7 +80,7 @@ const Factory = {
                 .map((skill)=> {
                     return {
                         id: skill.skill_id,
-                        interested: skill.interested[0] === 1,
+                        interested: skill.interested,
                         level: skill.level,
                         name: skill.skill_name
                     }
