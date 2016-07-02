@@ -1,25 +1,67 @@
 import React, { Component, PropTypes } from 'react';
-import { red900 } from 'material-ui/styles/colors';
-
-import SigninGoogleButton from './SigninGoogleButton';
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import Card from 'material-ui/Card'
+import './SigninContent.less';
+import Snackbar from 'material-ui/Snackbar';
 
 class SigninContent extends Component {
 
+    static propTypes = {
+        signin: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {email: '', password: ''};
+    }
+
+    onEmailChanged = (event) => {
+        this.setState({email: event.target.value});
+    };
+
+    onPasswordChanged = (event) => {
+        this.setState({email: event.target.value});
+    };
+
+    signin = (event) => {
+        event.preventDefault();
+        const { email, password } = this.state;
+        this.props.signin(email, password);
+    };
+
     render() {
 
-        const { apiSignin, auth } = this.props;
+        const style = {
+            card: {padding: '4rem 2rem 2rem 2rem'},
+            button: {width: '10rem', margin: 'auto'},
+            input: {display: 'none'}
+        };
 
-        var error = '';
-
-        if (auth.tryCount > 0 && auth.success === false) {
-            error = 'Error signin: please signin with your company address.';
-        }
+        const { email, password } = this.state;
+        const { success, tryCount } = this.props.auth;
 
         return (
-            <div style={{marginTop: '30%', textAlign: 'center'}}>
-                <SigninGoogleButton apiSignin={apiSignin}/>
-                {error && <div style={{color: red900, marginTop: '2rem'}}>{error}</div>}
-            </div>
+            <form className="signin" onSubmit={::this.signin}>
+                <Card style={style.card}>
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200"
+                         alt="logo skillz"/>
+                    <div>
+                        <TextField fullWidth floatingLabelText="Email" onChange={::this.onEmailChanged} value={email}/>
+                    </div>
+                    <div>
+                        <TextField fullWidth floatingLabelText="Password" onChange={::this.onPasswordChanged}
+                                   value={password}/>
+                    </div>
+                    <div className="cta" onClick={::this.signin}>
+                        <RaisedButton primary style={style.button} label="Login"/>
+                        <input type="submit" style={style.input}/>
+                    </div>
+                </Card>
+                <Snackbar open={!success&&tryCount>0} message="Sorry, signin fails, please try again."
+                          autoHideDuration="2000"/>
+            </form>
         )
     }
 

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { routeActions } from 'react-router-redux';
 
 import SigninContent from '../../components/Auth/SigninContent';
-import { apiSignin } from '../../actions/auth';
+import { signin } from '../../actions/auth';
 
 const mapStateToProps = (state) => {
     return {
@@ -13,9 +13,9 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        apiSignin: (email) => dispatch(apiSignin(email))
+        signin: (email, password) => dispatch(signin(email, password))
     };
 };
 

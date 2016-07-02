@@ -7,7 +7,7 @@ import Config from '../Config';
 export const API_SIGNIN_SUCCESS = 'API_SIGNIN_SUCCESS';
 export const API_SIGNIN_ERROR = 'API_SIGNIN_ERROR';
 
-export function apiSigninSuccess(user) {
+export function signinSuccess(user) {
 
     store.set('token', user.token);
 
@@ -16,13 +16,7 @@ export function apiSigninSuccess(user) {
     }
 }
 
-export function apiSigninError() {
-
-    //noinspection JSUnresolvedVariable,JSUnresolvedFunction
-    var auth2 = gapi.auth2.getAuthInstance();
-    //noinspection JSUnresolvedFunction
-    auth2.signOut().then(function () {
-    });
+export function signinError() {
 
     store.remove('token');
 
@@ -31,7 +25,7 @@ export function apiSigninError() {
     }
 }
 
-export function apiSignin(email) {
+export function signin(email, password) {
     return (dispatch) => {
 
         const config = {
@@ -40,9 +34,7 @@ export function apiSignin(email) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                email: email
-            })
+            body: JSON.stringify({email, password})
         };
 
         return fetch(`${Config.apiURL}/signin`, config)
@@ -54,11 +46,9 @@ export function apiSignin(email) {
                 }
             })
             .then((json) => {
-                dispatch(apiSigninSuccess(json));
+                dispatch(signinSuccess(json));
                 dispatch(routeActions.push('/updates'));
             })
-            .catch(() => {
-                dispatch(apiSigninError())
-            });
+            .catch(() => dispatch(signinError()));
     }
 }
