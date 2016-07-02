@@ -34,7 +34,7 @@ class SigninContent extends Component {
     render() {
 
         const style = {
-            card: {padding: '4rem 2rem 2rem 2rem'},
+            card: {padding: '4rem 1rem 3rem 1rem'},
             button: {width: '10rem', margin: 'auto'},
             input: {display: 'none'}
         };
