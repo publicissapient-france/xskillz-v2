@@ -1,0 +1,4 @@
+deploy
+dist
+node_modules
+*.iml

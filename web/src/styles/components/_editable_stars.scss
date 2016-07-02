@@ -1,0 +1,61 @@
+/* === STARS NOTATION ============================================================== */
+
+$ok-color: #ffcc00;
+$ko-color: #cecece;
+$star-glyph: "\2605";
+
+/* === CONTAINER === */
+
+.stars-content {
+
+    &:after {
+
+        content: '';
+        display: block;
+        clear: both;
+
+    }
+
+    [class^="star-"] {
+
+        padding-left: 0.2em;
+        position: relative;
+        width: 1.1em;
+        height: 1.1em;
+        float: left;
+
+        &:first-child {
+
+            margin-left: 0;
+
+        }
+
+        &.star-ok {
+
+            color: $ok-color;
+            background: url('../assets/star_yellow.svg') no-repeat;
+
+        }
+
+        &.star-ko {
+
+            color: $ko-color;
+            background: url('../assets/star_grey.svg') no-repeat;
+
+        }
+
+    }
+
+    .stars-count {
+
+        color: $ok-color;
+        font-size: 1.1em;
+        font-style: italic;
+        font-weight: 400;
+        margin-left: 0.5em;
+        margin-top: 2px;
+        float: left;
+
+    }
+
+}
