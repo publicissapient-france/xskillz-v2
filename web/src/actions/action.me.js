@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import store from 'store';
 import { routeActions } from 'react-router-redux';
+import Config from '../Config';
 
 // region fetchMe
 
@@ -25,7 +26,7 @@ export function fetchMe() {
             }
         };
 
-        return fetch(`http://52.29.198.81:8080/users/228`, config)
+        return fetch(`${Config.apiURL}/users/1`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();

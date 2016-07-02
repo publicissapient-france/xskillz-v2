@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import store from 'store';
 import { routeActions } from 'react-router-redux';
+import Config from '../Config';
 
 export const API_SIGNIN_SUCCESS = 'API_SIGNIN_SUCCESS';
 export const API_SIGNIN_ERROR = 'API_SIGNIN_ERROR';
@@ -44,7 +45,7 @@ export function apiSignin(email) {
             })
         };
 
-        return fetch('http://52.29.198.81:8080/signin', config)
+        return fetch(`${Config.apiURL}/signin`, config)
             .then((response) => {
                 if (response.status >= 400) {
                     throw new Error("Signin error");

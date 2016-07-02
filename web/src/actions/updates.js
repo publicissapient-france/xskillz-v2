@@ -1,11 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import { routeActions } from 'react-router-redux';
 import store from 'store';
+import Config from '../Config';
 
 export const REQUEST_UPDATES_BY_COMPANY = 'REQUEST_UPDATES_BY_COMPANY';
 export const RECEIVE_UPDATES = 'RECEIVE_UPDATES';
 
-export function requestUpdatesByCompany(companyId) {
+export function requestUpdates(companyId) {
     return {
         type: REQUEST_UPDATES_BY_COMPANY,
         payload: {
@@ -14,10 +15,10 @@ export function requestUpdatesByCompany(companyId) {
     }
 }
 
-export function fetchUpdatesByCompany(companyId) {
+export function fetchUpdates() {
     return (dispatch) => {
 
-        dispatch(requestUpdatesByCompany(companyId));
+        dispatch(requestUpdates());
 
         const config = {
             method: 'GET',
@@ -27,7 +28,7 @@ export function fetchUpdatesByCompany(companyId) {
             }
         };
 
-        return fetch(`http://52.29.198.81:8080/companies/${companyId}/updates`, config)
+        return fetch(`${Config.apiURL}/updates`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
                     dispatch(routeActions.push('/signin'));
@@ -35,11 +36,11 @@ export function fetchUpdatesByCompany(companyId) {
                     return response.json();
                 }
             })
-            .then(json => dispatch(receiveUpdatesByCompany(json)));
+            .then(json => dispatch(receiveUpdates(json)));
     }
 }
 
-export function receiveUpdatesByCompany(updates) {
+export function receiveUpdates(updates) {
     return {
         type: RECEIVE_UPDATES,
         payload: {

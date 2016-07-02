@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { routeActions } from 'react-router-redux';
 import store from 'store';
+import Config from '../Config';
 
 export const RECEIVE_SKILLS = 'RECEIVE_SKILLS';
 export const SKILL_GOT = 'SKILL_GOT';
@@ -26,7 +27,7 @@ export function fetchSkills() {
             }
         };
 
-        return fetch('http://52.29.198.81:8080/skills', config)
+        return fetch(`${Config.apiURL}/skills`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
                     dispatch(routeActions.push('/signin'));
@@ -67,7 +68,7 @@ export function updateSkill(skill) {
             body: JSON.stringify(skill)
         };
 
-        return fetch('http://52.29.198.81:8080/skills', config)
+        return fetch(`${Config.apiURL}/skills`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -92,7 +93,7 @@ export function addSkill(skill) {
             body: JSON.stringify(skill)
         };
 
-        return fetch('http://52.29.198.81:8080/skills', config)
+        return fetch(`${Config.apiURL}/skills`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -116,7 +117,7 @@ export function removeSkill(id) {
             }
         };
 
-        return fetch(`http://52.29.198.81:8080/skills/${id}`, config)
+        return fetch(`${Config.apiURL}/skills/${id}`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();

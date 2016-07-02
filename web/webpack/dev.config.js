@@ -23,12 +23,10 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: '"development"'
+                NODE_ENV: '"development"',
+                API_URL: '"http://localhost:8080"'
             },
-            __DEVELOPMENT__: true,
-            config: {
-                API_URL: '"http://localhost:8080/"'
-            }
+            __DEVELOPMENT__: true
         }),
         new ExtractTextPlugin('bundle.css'),
         new webpack.optimize.OccurenceOrderPlugin(),

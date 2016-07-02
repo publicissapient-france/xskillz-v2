@@ -6,7 +6,7 @@ import { routeActions } from 'react-router-redux';
 
 import UpdatesContent from '../../components/Updates/UpdatesContent'
 
-import { fetchUpdatesByCompany } from '../../actions/updates';
+import { fetchUpdates } from '../../actions/updates';
 
 const mapStateToProps = (state) => {
     return {
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchUpdatesByCompany: (companyId) => dispatch(fetchUpdatesByCompany(companyId)),
+        fetchUpdatesByCompany: (companyId) => dispatch(fetchUpdates(companyId)),
         onUserClick: (name) => dispatch(routeActions.push(`/users?name=${name}`)),
         onSkillClick: (name) => dispatch(routeActions.push(`/skills?name=${name}`))
     };
