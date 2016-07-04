@@ -26,7 +26,7 @@ Express()
             if(user) {
                 req.body.user_id = user.id;
             }
-            console.log(`token ${token} -> ${req.body.user_id}`);
+            //console.log(`token ${token} -> ${req.body.user_id}`);
         }
         next();
     })

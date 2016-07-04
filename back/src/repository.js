@@ -10,7 +10,7 @@ const connection = Mysql.createConnection({
     user: process.env.RDS_USER,
     password: process.env.RDS_PASSWORD,
     database: process.env.RDS_DATABASE,
-    debug: true
+    debug: false
 });
 connection.connect();
 
