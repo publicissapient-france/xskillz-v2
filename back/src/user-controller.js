@@ -111,7 +111,7 @@ module.exports = {
                 const token = uuid.v4();
                 Repository.TOKENS[token] = user;
                 user.token = token;
-                res.json(user);
+                res.status(200).jsonp(user);
             })
             .catch((err) => {
                 log.error(err.message);

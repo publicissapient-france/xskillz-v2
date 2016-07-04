@@ -150,6 +150,7 @@ const Repository = {
         query(`
             SELECT * 
             FROM User
+            ORDER BY name
     `),
 
     addNewUser: (user) =>

@@ -19,6 +19,11 @@ Express()
     .use(require('body-parser').json())
     .use(require('cors')())
 
+    .use(function (req, res, next) {
+        console.log('req', req.headers);
+        next();
+    })
+
     .get('/', (req, res) => res.send('You know, for skills :)'))
     .post('/domains/:id/skills', SkillController.addSkillToDomain)
     .post('/domains', DomainController.addDomain)
