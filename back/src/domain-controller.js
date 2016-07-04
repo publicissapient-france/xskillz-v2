@@ -7,7 +7,7 @@ module.exports = {
         Repository
             .getDomains()
             .then((domains) => {
-                res.send(domains[0]);
+                res.send(domains);
             });
     },
     addDomain: (req, res) =>

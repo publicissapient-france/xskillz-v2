@@ -60,7 +60,7 @@ module.exports = {
 
     getCurrentUser: (req, res) => {
         Repository
-            .findUserByEmailAndToken(req.body.email, req.body.token)
+            .findUserByEmailAndToken(req.body.email, req.headers.token)
             .then((user) => createUserById(user.id))
             .then((user) => res.json(user))
             .catch((err) => {

@@ -194,12 +194,12 @@ const Repository = {
             AND id = ${userSkillId}
     `),
 
-    updateUserSkillById: (userSkillId, skill) =>
+    updateUserSkillById: (skillId, skill) =>
         query(`
             UPDATE UserSkill
             SET interested = ${skill.interested ? 1 : 0}, level = ${skill.level}
             WHERE user_id = ${skill.user_id}
-            AND skill_id = ${userSkillId}
+            AND skill_id = ${skillId}
         `),
 
     addNewSkill: (name) =>
