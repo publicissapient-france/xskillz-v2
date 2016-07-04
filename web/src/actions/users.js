@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import store from 'store';
 import Config from '../Config';
 
@@ -37,7 +37,7 @@ export function fetchUsersBySkill(skillId) {
         return fetch(`${Config.apiURL}/skills/${skillId}/users`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     return response.json();
                 }
@@ -71,48 +71,6 @@ export function receiveUsersBySkill(users, skillId) {
     }
 }
 
-export function requestUserById(userId) {
-    return {
-        type: REQUEST_USER_BY_ID,
-        payload: {
-            userId: userId
-        }
-    }
-}
-
-export function receiveUserById(user) {
-    return {
-        type: RECEIVE_USER_BY_ID,
-        payload: {
-            user: user
-        }
-    }
-}
-
-export function getUserById(userId) {
-    return (dispatch) => {
-        dispatch(requestUserById(userId));
-
-        const config = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'token': store.get('token')
-            }
-        };
-
-        return fetch(`${Config.apiURL}/users/${userId}`, config)
-            .then((response) => {
-                if (response.status >= 400 && response.status <= 403) {
-                    dispatch(routeActions.push('/signin'));
-                } else {
-                    return response.json();
-                }
-            })
-            .then(json => dispatch(receiveUserById(json)));
-    };
-}
-
 export function fetchUsers() {
     return (dispatch) => {
         dispatch(requestUsers());
@@ -128,7 +86,7 @@ export function fetchUsers() {
         return fetch(`${Config.apiURL}/users`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     return response.json();
                 }

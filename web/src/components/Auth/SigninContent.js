@@ -17,12 +17,12 @@ class SigninContent extends Component {
         this.state = {email: '', password: ''};
     }
 
-    onEmailChanged = (event) => {
+    onEmailChanged = event => {
         this.setState({email: event.target.value});
     };
 
     onPasswordChanged = (event) => {
-        this.setState({email: event.target.value});
+        this.setState({password: event.target.value});
     };
 
     signin = (event) => {
@@ -40,7 +40,6 @@ class SigninContent extends Component {
         };
 
         const { email, password } = this.state;
-        const { success, tryCount } = this.props.auth;
 
         return (
             <form className="signin" onSubmit={::this.signin}>
@@ -59,8 +58,6 @@ class SigninContent extends Component {
                         <input type="submit" style={style.input}/>
                     </div>
                 </Card>
-                <Snackbar open={!success&&tryCount>0} message="Sorry, signin fails, please try again."
-                          autoHideDuration="2000"/>
             </form>
         )
     }

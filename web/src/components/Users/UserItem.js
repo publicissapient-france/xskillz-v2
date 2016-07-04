@@ -13,7 +13,7 @@ class UserItem extends Component {
 
     render() {
         const user = this.props.user;
-        const { onUserClick, onSkillClick, updateSkill, removeSkill } = this.props;
+        const { onUserClick, onSkillClick, updateSkill, removeSkill, details } = this.props;
 
         // noinspection JSUnresolvedVariable
         if (user) {
@@ -27,13 +27,12 @@ class UserItem extends Component {
                             </div>
                             <div className="user-right">
                                 <p>
-                                    {user.name &&
-                                    <LabelButton label={user.name} onClick={()=>{onUserClick(user.name)}}/>}
+                                    <LabelButton label={user.name} onClick={()=>{onUserClick(user.id)}}/>
                                 </p>
                                 <p style={{marginLeft: '2px'}}>{user.experienceCounter} XP</p>
                             </div>
                         </div>
-                        {user.domains &&
+                        {details && user.domains &&
                         <div style={{paddingBottom: '.1rem'}}>
                             {user.domains.map((domain, index) => {
                                 return (

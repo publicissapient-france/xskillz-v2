@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import HeaderContent from '../../components/Header/HeaderContent';
 
@@ -12,12 +12,12 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = () => {
     return {
-        goToSkills: () => dispatch(routeActions.push('/skills')),
-        goToUsers: () => dispatch(routeActions.push('/users')),
-        goToUpdates: () => dispatch(routeActions.push('/updates')),
-        goToMe: () => dispatch(routeActions.push('/me'))
+        goToSkills: () => browserHistory.push('/skills'),
+        goToUsers: () => browserHistory.push('/users'),
+        goToUpdates: () => browserHistory.push('/updates'),
+        goToMe: () => browserHistory.push('/me')
     };
 };
 

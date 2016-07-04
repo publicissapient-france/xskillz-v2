@@ -5,6 +5,7 @@ import { users } from './users';
 import { updates } from './updates';
 import { auth } from './auth';
 import { me } from './reducer.me';
+import { user } from './reducer.user';
 
 const reducer = combineReducers({
     routing: routeReducer,
@@ -13,7 +14,8 @@ const reducer = combineReducers({
     users,
     updates,
     auth,
-    me
+    me,
+    user
 });
 
 export default reducer;

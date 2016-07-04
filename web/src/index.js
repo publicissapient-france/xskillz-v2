@@ -9,6 +9,7 @@ import { App } from 'containers/App';
 import { NotFound } from 'containers/NotFound';
 import SkillsPage from 'containers/Skills/SkillsPage';
 import UsersPage from 'containers/Users/UsersPage';
+import UserPage from 'containers/Users/UserPage';
 import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
@@ -47,6 +48,10 @@ ReactDOM.render(
                 <Route path="users"
                        components={{main: UsersPage, header: Header}}
                        dataTypePage="users"/>
+
+                <Route path="user/:id"
+                       components={{main: UserPage, header: Header}}
+                       dataTypePage="user"/>
 
                 <Route path="users?name=:name"
                        components={{main: UsersPage, header: Header}}

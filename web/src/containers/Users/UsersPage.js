@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import UsersContent from '../../components/Users/UsersContent'
 
@@ -18,12 +18,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchUsers: () => dispatch(fetchUsers()),
-        getUserById: (id, name) => {
-            dispatch(getUserById(id));
-            dispatch(routeActions.push(`/users?name=${name}`));
-        },
-        onUserClick: (name) => dispatch(routeActions.push(`/users?name=${name}`)),
-        onSkillClick: (name) => dispatch(routeActions.push(`/skills?name=${name}`))
+        onUserClick: id => browserHistory.push(`/user/${id}`),
+        onSkillClick: name => browserHistory.push(`/skills?name=${name}`)
     };
 };
 

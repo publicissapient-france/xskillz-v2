@@ -1,53 +1,49 @@
 import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import store from 'store';
-import { routeActions } from 'react-router-redux';
 import Config from '../Config';
+import { browserHistory } from 'react-router';
 
 export const API_SIGNIN_SUCCESS = 'API_SIGNIN_SUCCESS';
 export const API_SIGNIN_ERROR = 'API_SIGNIN_ERROR';
 
 export function signinSuccess(user) {
-
-    store.set('token', user.token);
+    store.set('me', user);
 
     return {
-        type: API_SIGNIN_SUCCESS
+        type: API_SIGNIN_SUCCESS,
+        payload: {user}
     }
 }
 
 export function signinError() {
-
-    store.remove('token');
-
     return {
         type: API_SIGNIN_ERROR
     }
 }
 
 export function signin(email, password) {
-    return (dispatch) => {
+    return dispatch => {
 
         const config = {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({email, password})
         };
 
         return fetch(`${Config.apiURL}/signin`, config)
-            .then((response) => {
+            .then(response => {
                 if (response.status >= 400) {
                     throw new Error("Signin error");
                 } else {
                     return response.json();
                 }
             })
-            .then((json) => {
+            .then(json => {
                 dispatch(signinSuccess(json));
-                dispatch(routeActions.push('/updates'));
+                browserHistory.push('/updates');
             })
             .catch(() => dispatch(signinError()));
     }

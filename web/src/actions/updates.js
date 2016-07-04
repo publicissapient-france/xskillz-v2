@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import store from 'store';
 import Config from '../Config';
 
@@ -23,15 +23,14 @@ export function fetchUpdates() {
         const config = {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'token': store.get('token')
+                token: store.get('me').token
             }
         };
 
         return fetch(`${Config.apiURL}/updates`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     return response.json();
                 }

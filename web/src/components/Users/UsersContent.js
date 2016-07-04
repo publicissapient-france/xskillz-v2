@@ -56,23 +56,10 @@ class UsersContent extends Component {
 
         const users = this.props.users.list;
 
-        const user = this.props.users.user;
-
-        var nameArray = [];
-        _.each(users, (u) => nameArray.push(u.name));
-
-        const { name } = this.props.location.query;
-
         return (
             <div className="content">
-                <div className="auto-complete">
-                    <AutoComplete hintText={'Enter user name...'}
-                                  dataSource={nameArray}
-                                  filter={AutoComplete.fuzzyFilter}
-                                  onNewRequest={this.onNewRequest}
-                                  searchText={name}/>
-                </div>
-                <UserItem user={user} onUserClick={onUserClick} onSkillClick={onSkillClick}/>
+                {users.map((user, index) => <UserItem user={user} onUserClick={onUserClick}
+                                                      onSkillClick={onSkillClick} key={index}/>)}
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import store from 'store';
 import Config from '../Config';
 
@@ -30,7 +30,7 @@ export function fetchSkills() {
         return fetch(`${Config.apiURL}/skills`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     return response.json();
                 }
@@ -58,6 +58,7 @@ export function skillRemoved(skill) {
 }
 
 export function updateSkill(skill) {
+    console.log(skill);
     return dispatch => {
         const config = {
             method: 'PUT',
@@ -73,7 +74,7 @@ export function updateSkill(skill) {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     throw new Error('Cannot add skill');
                 }
@@ -88,7 +89,7 @@ export function addSkill(skill) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('token')
+                token: store.get('me').token
             },
             body: JSON.stringify(skill)
         };
@@ -98,7 +99,7 @@ export function addSkill(skill) {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     throw new Error('Cannot add skill');
                 }
@@ -112,8 +113,7 @@ export function removeSkill(id) {
         const config = {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
-                token: store.get('token')
+                token: store.get('me').token
             }
         };
 
@@ -122,7 +122,7 @@ export function removeSkill(id) {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 } else {
                     throw new Error('Cannot remove skill');
                 }

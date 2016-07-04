@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import SkillsContent from '../../components/Skills/SkillsContent'
 
@@ -21,9 +21,9 @@ const mapDispatchToProps = (dispatch) => {
         fetchSkills: () => dispatch(fetchSkills()),
         fetchUsersBySkillId: (id, name) => {
             dispatch(fetchUsersBySkill(id));
-            dispatch(routeActions.push(`/skills?name=${name}`));
+            dispatch(browserHistory.push(`/skills?name=${name}`));
         },
-        onUserClick: (name) => dispatch(routeActions.push(`/users?name=${name}`))
+        onUserClick: (name) => dispatch(browserHistory.push(`/users?name=${name}`))
     };
 };
 

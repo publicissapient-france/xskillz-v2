@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import store from 'store';
-import { routeActions } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import Config from '../Config';
 
 // region fetchMe
@@ -21,8 +21,7 @@ export function fetchMe() {
         const config = {
             method: 'GET',
             headers: {
-                Accept: 'application/json',
-                token: store.get('token')
+                token: store.get('me').token
             }
         };
 
@@ -31,7 +30,7 @@ export function fetchMe() {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status >= 400 && response.status <= 403) {
-                    dispatch(routeActions.push('/signin'));
+                    dispatch(browserHistory.push('/signin'));
                 }
                 throw new Error('Cannot get me');
             })

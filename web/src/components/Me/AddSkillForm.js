@@ -39,9 +39,11 @@ class AddSkillForm extends Component {
     }
 
     onSubmitClicked() {
-        if (this.skill.name) {
-            this.props.addSkill(this.skill);
-        }
+        this.props.addSkill(this.skill);
+    }
+
+    onBlurAutocomplete(event) {
+        this.skill.name = event.currentTarget.value;
     }
 
     render() {
@@ -58,7 +60,8 @@ class AddSkillForm extends Component {
                                           dataSource={nameArray}
                                           filter={AutoComplete.fuzzyFilter}
                                           onNewRequest={this.onSkillSelected}
-                                          fullWidth/>
+                                          fullWidth
+                                          onBlur={::this.onBlurAutocomplete}/>
                         </div>
                         <div className="stars">
                             <EditableStars mark={0} handleClick={this.onStarSelected}/>

@@ -26,7 +26,8 @@ class MeContent extends Component {
                           onUserClick={()=>{}}
                           onSkillClick={()=>{}}
                           updateSkill={updateSkill}
-                          removeSkill={removeSkill}/>
+                          removeSkill={removeSkill}
+                          details/>
             </div>
         );
     }
