@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 import AppBar from 'material-ui/AppBar';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
@@ -6,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 class HeaderContent extends Component {
 
     render() {
-        const { goToSkills, goToUsers, goToUpdates, goToMe, route } = this.props;
+        const { goToSkills, goToUsers, goToUpdates, goToMe, route, goToSettings } = this.props;
 
         const style = {height: 'auto'};
 
@@ -23,6 +24,9 @@ class HeaderContent extends Component {
                 </IconButton>
                 <IconButton onClick={goToUsers} style={style}>
                     <FontIcon className={'material-icons'} color="white">person_pin</FontIcon>
+                </IconButton>
+                <IconButton onClick={goToSettings} style={style}>
+                    <FontIcon className={'material-icons'} color="white">settings</FontIcon>
                 </IconButton>
             </AppBar>
         );
