@@ -187,6 +187,21 @@ const Repository = {
             VALUES (${skill.interested ? 1 : 0}, ${skill.level}, ${skill.id}, ${skill.user_id})
     `),
 
+    deleteUserSkillById: (userSkillId, userId) =>
+        query(`
+            DELETE FROM UserSkill
+            WHERE user_id = ${userId}
+            AND id = ${userSkillId}
+    `),
+
+    updateUserSkillById: (userSkillId, skill) =>
+        query(`
+            UPDATE UserSkill
+            SET interested = ${skill.interested ? 1 : 0}, level = ${skill.level}
+            WHERE user_id = ${skill.user_id}
+            AND skill_id = ${userSkillId}
+        `),
+
     addNewSkill: (name) =>
         query(`
             INSERT INTO Skill (name) 

@@ -20,7 +20,9 @@ Express()
     .use(require('cors')())
 
     .use(function (req, res, next) {
-        console.log('req', req.headers);
+        const token = req.headers.token;
+        console.log('token', token);
+        req.body.user_id = 1;
         next();
     })
 
@@ -30,12 +32,14 @@ Express()
     .delete('/domains/:id', DomainController.deleteDomain)
     .get('/domains', DomainController.getDomains)
     .get('/skills', SkillController.getSkills)
-    .post('/skills', SkillController.addSkill)
+    .post('/me/skills', SkillController.addSkill)
     .get('/skills/:id/users', UserController.getUsersBySkill)
     .put('/skills', SkillController.merge)
     .get('/updates', UpdateController.getUpdates)
     .post('/users', UserController.addUser)
     .post('/me', UserController.getCurrentUser)
+    .delete('/me/skills/:id', SkillController.deleteUserSkillById)
+    .put('/me/skills/:id', SkillController.updateUserSkillById)
     .get('/users', UserController.getUsers)
     .get('/users/:id', UserController.getUserById)
     .put('/users/:id', UserController.updateUser)

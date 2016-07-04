@@ -32,11 +32,35 @@ module.exports = {
                         return Repository.addSkill(skillRequest);
                     })
                     .then(() => Repository.findUserSkillByUserIdAndSkillId(skillRequest.user_id, skillRequest.id))
-                    .then((userSkills) => res.json(userSkills[0]))
+                    .then((userSkills) => res.jsonp(userSkills[0]))
                     .catch((err) => {
                         log.error(err.message);
                         res.status(500).send(err.message)
                     });
+            });
+    },
+
+    deleteUserSkillById: (req, res) => {
+        Repository
+            .deleteUserSkillById(req.params.id, req.body.user_id)
+            .then(() => {
+                res.jsonp({deleted: true});
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).send({deleted: false, error: err.message});
+            });
+    },
+
+    updateUserSkillById: (req, res) => {
+        Repository
+            .updateUserSkillById(req.params.id, req.body)
+            .then(() => {
+                res.jsonp({updated: true});
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).send({updated: false, error: err.message});
             });
     },
 
