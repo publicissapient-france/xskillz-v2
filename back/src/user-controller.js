@@ -69,6 +69,10 @@ module.exports = {
             });
     },
 
+    getUserByToken: (token) => {
+        return Repository.TOKENS[token];
+    },
+
     getUserById: (req, res) => {
         createUserById(req.params.id)
             .then((user)=> {

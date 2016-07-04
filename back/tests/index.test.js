@@ -30,11 +30,12 @@ describe('API', function () {
             .then(() => getDomains())
             // Then
             .then((res) => {
-                const domain = res.body;
+                const domain = res.body[0];
                 delete domain.id;
-                assert.deepEqual(res.body, {name: 'MyDomain'});
-                done();
-            });
+                assert.deepEqual(res.body, [{name: 'MyDomain', color: '#CCCCCC'}]);
+            })
+            .then(done)
+            .catch(done);
     });
 
     it('DELETE /domains/:id', (done) => {
@@ -42,7 +43,7 @@ describe('API', function () {
         addDomain('MyDomain')
             .then(() => getDomains())
             // When
-            .then((res) => deleteDomain(res.body.id))
+            .then((res) => deleteDomain(res.body[0].id))
             // Then
             .then((res) => {
                 assert.deepEqual(res.body,
@@ -58,7 +59,7 @@ describe('API', function () {
         // Given
         createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => signin('jsmadja@xebia.fr'))
-            .then((res) => addSkill('Skill', 2, true, res.body.id))
+            .then((res) => addSkill('Skill', 2, true, res.body.token))
             // When
             .then(() => getSkills())
             // Then
@@ -85,10 +86,10 @@ describe('API', function () {
         // Given
         createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => signin('jsmadja@xebia.fr'))
-            .then((res) => addSkill('Skill', 2, true, res.body.id))
+            .then((res) => addSkill('Skill', 2, true, res.body.token))
             .then(() => createUser('Benjamin', 'blacroix@xebia.fr'))
             .then(() => signin('jsmadja@xebia.fr'))
-            .then((res) => addSkill('Skill', 1, false, res.body.id))
+            .then((res) => addSkill('Skill', 1, false, res.body.token))
             .then(() => getSkills())
             .then((res) => {
                 delete res.body[0].id;
@@ -114,9 +115,9 @@ describe('API', function () {
             .then(() => signin('jsmadja@xebia.fr'))
             .then((res) => {
                 user = res.body;
-                return addSkill('Skill1', 2, true, user.id)
+                return addSkill('Skill1', 2, true, user.token)
             })
-            .then((res) => addSkill('Skill2', 1, false, user.id))
+            .then((res) => addSkill('Skill2', 1, false, user.token))
             .then(() => getSkills())
             // When
             .then((res) => {
@@ -141,7 +142,7 @@ describe('API', function () {
                 domain = res.body;
             })
             .then(() => signin('jsmadja@xebia.fr'))
-            .then((res) => addSkill('Skill', 2, true, res.body.id))
+            .then((res) => addSkill('Skill', 2, true, res.body.token))
             .then((res) => addSkillToDomain(res.body.skill_id, domain.id))
             // When
             .then(() => getUsers())
@@ -189,9 +190,9 @@ describe('API', function () {
             .then(() => signin('jsmadja2@xebia.fr'))
             .then((res) => {
                 user = res.body;
-                return addSkill('Skill3', 2, true, user.id)
+                return addSkill('Skill3', 2, true, user.token)
             })
-            .then((res) => addSkill('Skill4', 1, false, user.id))
+            .then((res) => addSkill('Skill4', 1, false, user.token))
             .then(() => getUpdates())
             .then((res) => {
                 assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name), ["Skill3", "Skill4"]);
@@ -222,10 +223,11 @@ describe('API', function () {
                 if (err) Promise.reject(err);
             });
 
-    const addSkill = (name, level, interested, user_id) =>
+    const addSkill = (name, level, interested, token) =>
         request
-            .post(`${host}/skills`)
-            .send({name, level, interested, user_id})
+            .post(`${host}/me/skills`)
+            .set('token', token)
+            .send({name, level, interested})
             .end((err) => {
                 if (err) Promise.reject(err);
             });
@@ -259,10 +261,10 @@ describe('API', function () {
                 if (err) Promise.reject(err);
             });
 
-    const addSkillToDomain = (skill_id, domain_id) =>
+    const addSkillToDomain = (id, domain_id) =>
         request
             .post(`${host}/domains/${domain_id}/skills`)
-            .send({skill_id})
+            .send({id})
             .end((err) => {
                 if (err) return Promise.reject(err);
             });

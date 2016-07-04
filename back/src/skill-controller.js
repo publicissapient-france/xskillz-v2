@@ -79,7 +79,7 @@ module.exports = {
 
     addSkillToDomain: (req, res) => {
         Repository
-            .addSkillToDomain(req.params.id, req.body.skill_id)
+            .addSkillToDomain(req.params.id, req.body.id)
             .then((skills) => {
                 res.jsonp(skills);
             })

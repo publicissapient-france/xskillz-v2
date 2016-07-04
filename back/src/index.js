@@ -21,8 +21,13 @@ Express()
 
     .use(function (req, res, next) {
         const token = req.headers.token;
-        console.log('token', token);
-        req.body.user_id = 1;
+        if(token) {
+            const user = UserController.getUserByToken(token);
+            if(user) {
+                req.body.user_id = user.id;
+            }
+            console.log(`token ${token} -> ${req.body.user_id}`);
+        }
         next();
     })
 

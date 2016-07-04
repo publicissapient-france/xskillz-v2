@@ -10,7 +10,7 @@ const connection = Mysql.createConnection({
     user: process.env.RDS_USER,
     password: process.env.RDS_PASSWORD,
     database: process.env.RDS_DATABASE,
-    debug: false
+    debug: true
 });
 connection.connect();
 
@@ -187,11 +187,11 @@ const Repository = {
             VALUES (${skill.interested ? 1 : 0}, ${skill.level}, ${skill.id}, ${skill.user_id})
     `),
 
-    deleteUserSkillById: (userSkillId, userId) =>
+    deleteUserSkillById: (skillId, userId) =>
         query(`
             DELETE FROM UserSkill
             WHERE user_id = ${userId}
-            AND id = ${userSkillId}
+            AND skill_id = ${skillId}
     `),
 
     updateUserSkillById: (skillId, skill) =>
