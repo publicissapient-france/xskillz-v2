@@ -1,6 +1,31 @@
+# xskillz-v2 - Back
 
-npm i
+## Install modules
 
-npm test
+```shell
+$ make install
+```
 
-node_modules/pm2/bin/pm2 startOrRestart configuration.json
+## Test the application
+
+```shell
+$ make test
+```
+
+## Build the Docker image
+
+```shell
+$ make build-image
+```
+
+## Push the Docker image
+
+```shell
+$ make push-image
+```
+
+## Run the application
+
+```shell
+$ docker run -d -p 8080:8080 xebiafrance/xskillz-back 
+```

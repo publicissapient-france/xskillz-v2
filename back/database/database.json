@@ -1,4 +1,12 @@
 {
+  "prod": {
+    "driver": "mysql",
+    "user": "xskillz",
+    "password": "xskillz",
+    "host": "db",
+    "database": "xskillz",
+    "multipleStatements": true
+  },
   "dev": {
     "driver": "mysql",
     "user": "xskillz",
