@@ -11,13 +11,13 @@ export function receiveSkills(skills) {
     return {
         type: RECEIVE_SKILLS,
         payload: {
-            skills: skills
+            skills
         }
     }
 }
 
 export function fetchSkills() {
-    return (dispatch) => {
+    return dispatch => {
 
         const config = {
             method: 'GET',
@@ -28,14 +28,14 @@ export function fetchSkills() {
         };
 
         return fetch(`${Config.apiURL}/skills`, config)
-            .then((response) => {
+            .then(response => {
                 if (response.status >= 400 && response.status <= 403) {
                     dispatch(browserHistory.push('/signin'));
                 } else {
                     return response.json();
                 }
             })
-            .then(json => dispatch(receiveSkills(json)));
+            .then(skills => dispatch(receiveSkills(skills)));
     }
 }
 
@@ -69,7 +69,7 @@ export function updateSkill(skill) {
             body: JSON.stringify(skill)
         };
 
-        return fetch(`${Config.apiURL}/skills`, config)
+        return fetch(`${Config.apiURL}/me/skills/${skill.id}`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -94,7 +94,7 @@ export function addSkill(skill) {
             body: JSON.stringify(skill)
         };
 
-        return fetch(`${Config.apiURL}/skills`, config)
+        return fetch(`${Config.apiURL}/me/skills`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -117,7 +117,7 @@ export function removeSkill(id) {
             }
         };
 
-        return fetch(`${Config.apiURL}/skills/${id}`, config)
+        return fetch(`${Config.apiURL}/me/skills/${id}`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
