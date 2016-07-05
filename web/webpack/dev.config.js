@@ -24,7 +24,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"development"',
-                API_URL: '"http://10.3.13.152:8080"'
+                API_URL: "http://192.168.99.100:8080"
             },
             __DEVELOPMENT__: true
         }),

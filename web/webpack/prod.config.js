@@ -18,7 +18,8 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: '"production"'
+                NODE_ENV: '"production"',
+                API_URL: '"http://192.168.99.100:8080"'
             },
             __DEVELOPMENT__: false
         }),
