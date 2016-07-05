@@ -13,6 +13,7 @@ import UserPage from 'containers/Users/UserPage';
 import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
+import SignupPage from 'containers/Auth/SignupPage';
 import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
 
@@ -65,6 +66,10 @@ ReactDOM.render(
                 <Route path="settings"
                        components={{main: SettingsPage, header: Header}}
                        dataTypePage="settings"/>
+
+                <Route path="signup"
+                       components={{main: SignupPage}}
+                       dataTypePage="signup"/>
 
                 <Route status={404}
                        path="*"

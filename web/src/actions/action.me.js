@@ -30,7 +30,7 @@ export function fetchMe() {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status >= 400 && response.status <= 403) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 }
                 throw new Error('Cannot get me');
             })

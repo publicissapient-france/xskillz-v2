@@ -39,7 +39,7 @@ export function getUserById(userId) {
         return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     return response.json();
                 }

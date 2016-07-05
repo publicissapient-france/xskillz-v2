@@ -30,7 +30,7 @@ export function fetchUpdates() {
         return fetch(`${Config.apiURL}/updates`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     return response.json();
                 }

@@ -37,7 +37,7 @@ export function fetchUsersBySkill(skillId) {
         return fetch(`${Config.apiURL}/skills/${skillId}/users`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     return response.json();
                 }
@@ -86,7 +86,7 @@ export function fetchUsers() {
         return fetch(`${Config.apiURL}/users`, config)
             .then((response) => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     return response.json();
                 }

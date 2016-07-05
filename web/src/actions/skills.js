@@ -30,7 +30,7 @@ export function fetchSkills() {
         return fetch(`${Config.apiURL}/skills`, config)
             .then(response => {
                 if (response.status >= 400 && response.status <= 403) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     return response.json();
                 }
@@ -74,7 +74,7 @@ export function updateSkill(skill) {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     throw new Error('Cannot add skill');
                 }
@@ -99,7 +99,7 @@ export function addSkill(skill) {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     throw new Error('Cannot add skill');
                 }
@@ -122,7 +122,7 @@ export function removeSkill(id) {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
-                    dispatch(browserHistory.push('/signin'));
+                    browserHistory.push('/signin');
                 } else {
                     throw new Error('Cannot remove skill');
                 }
