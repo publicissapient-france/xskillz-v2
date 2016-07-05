@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import SigninContent from '../../components/Auth/SigninContent';
-import { signin } from '../../actions/auth';
+import SignupContent from '../../components/Auth/SignupContent';
+import { signup } from '../../actions/auth';
 
 const mapStateToProps = (state) => {
     return {
@@ -14,13 +14,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signin: (email, password) => dispatch(signin(email, password))
+        signup: (name, email, password) => dispatch(signup(name, email, password))
     };
 };
 
-const SigninPage = connect(
+const SignupPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(SigninContent);
+)(SignupContent);
 
-export default SigninPage;
+export default SignupPage;
