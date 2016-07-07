@@ -39,6 +39,7 @@ module.exports = {
         Repository.addNewUser(req.body)
             .then(() => Repository.findUserByEmail(req.body.email))
             .then((user) => Repository.addManagerRole(user, 'Manager'))
+            .then(() => Repository.findUserByEmail(req.body.email))
             .then((user) => {
                 res.json(user);
             })
