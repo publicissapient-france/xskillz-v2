@@ -1,7 +1,7 @@
-import fetch from 'isomorphic-fetch';
-import store from 'store';
-import { browserHistory } from 'react-router';
-import Config from '../Config';
+import fetch from "isomorphic-fetch";
+import store from "store";
+import {browserHistory} from "react-router";
+import Config from "../Config";
 
 // region fetchMe
 
@@ -19,13 +19,13 @@ export function receiveMe(body) {
 export function fetchMe() {
     return dispatch => {
         const config = {
-            method: 'GET',
+            method: 'POST',
             headers: {
-                token: store.get('me').token
+                token: store.get('me').token,
+                'Content-Type': 'application/json'
             }
         };
-
-        return fetch(`${Config.apiURL}/users/1`, config)
+        return fetch(`${Config.apiURL}/me`, config)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();

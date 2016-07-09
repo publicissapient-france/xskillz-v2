@@ -24,7 +24,6 @@ export function signinError() {
 
 export function signin(email, password) {
     return dispatch => {
-
         const config = {
             method: 'POST',
             headers: {
@@ -32,7 +31,6 @@ export function signin(email, password) {
             },
             body: JSON.stringify({email, password})
         };
-
         return fetch(`${Config.apiURL}/signin`, config)
             .then(response => {
                 if (response.status >= 400) {

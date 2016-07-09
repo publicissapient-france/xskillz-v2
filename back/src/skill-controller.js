@@ -41,6 +41,10 @@ module.exports = {
     },
 
     deleteUserSkillById: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({deleted: false, error: `You're not logged in`});
+            return;
+        }
         Repository
             .deleteUserSkillById(req.params.id, req.body.user_id)
             .then(() => {
@@ -53,6 +57,10 @@ module.exports = {
     },
 
     updateUserSkillById: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({deleted: false, error: `You're not logged in`});
+            return;
+        }
         Repository
             .updateUserSkillById(req.params.id, req.body)
             .then(() => {

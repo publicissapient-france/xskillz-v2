@@ -193,7 +193,7 @@ describe('API', function () {
             .then((res) => API.addSkill('Skill4', 1, false, user.token))
             .then(() => API.getUpdates())
             .then((res) => {
-                assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name), ["Skill3", "Skill4"]);
+                assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name).sort(), ["Skill3", "Skill4"]);
             })
             .then(done)
             .catch((err) => done(err));

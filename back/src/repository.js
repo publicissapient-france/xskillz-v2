@@ -49,6 +49,7 @@ const Repository = {
         query(`
             SELECT * 
             FROM Domain
+            ORDER BY name ASC
     `),
 
     removeDomainFromSkills: (id) =>
@@ -90,8 +91,14 @@ const Repository = {
             WHERE email = '${email}'
     `).then((users) => users[0]),
 
-    findUserByEmailAndToken: (email, token) =>
-        Repository.findUserById(Repository.TOKENS[token].id),
+    findUserByEmailAndToken: (email, token) => {
+        const user = Repository.TOKENS[token];
+        if(user) {
+            return Repository.findUserById(user.id);
+        } else {
+            return Promise.reject('No user found');
+        }
+    },
 
     findUserById: (id) =>
         query(`

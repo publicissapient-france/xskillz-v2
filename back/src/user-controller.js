@@ -60,13 +60,17 @@ module.exports = {
     },
 
     getCurrentUser: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
         Repository
-            .findUserByEmailAndToken(req.body.email, req.headers.token)
+            .findUserById(req.body.user_id)
             .then((user) => createUserById(user.id))
             .then((user) => res.json(user))
             .catch((err) => {
                 log.error(err.message);
-                res.status(404).jsonp({error: `User ${req.body.email} not found`});
+                res.status(404).jsonp({error: `Users not found`});
             });
     },
 
@@ -110,7 +114,7 @@ module.exports = {
         Repository
             .findUserByEmailAndPassword(email, password)
             .then((user) => {
-                if(!user) {
+                if (!user) {
                     throw new Error(`User ${email} not found`);
                 }
                 const token = uuid.v4();

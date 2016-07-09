@@ -64,7 +64,7 @@ export function updateSkill(skill) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('token')
+                token: store.get('me').token
             },
             body: JSON.stringify(skill)
         };
