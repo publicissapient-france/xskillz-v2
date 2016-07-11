@@ -94,3 +94,33 @@ export function fetchUsers() {
             .then(json => dispatch(receiveUsers(json)))
     };
 }
+
+export const DIPLOMA_SAVED = 'DIPLOMA_SAVED';
+
+export function diplomaSaved() {
+    return {
+        type: DIPLOMA_SAVED
+    }
+}
+
+export function saveDiploma(diploma) {
+    return dispatch => {
+        const config = {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                token: store.get('token')
+            },
+            body: JSON.stringify({diploma})
+        };
+        return fetch(`${Config.apiURL}/users/${store.get('me').id}`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(responseBody => dispatch(diplomaSaved));
+    };
+}

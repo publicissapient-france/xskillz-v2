@@ -6,6 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 
+import DiplomaDatePicker from '../Manager/DiplomaDatePicker';
+
 class SettingsContent extends Component {
 
     static propTypes = {
@@ -15,7 +17,8 @@ class SettingsContent extends Component {
         linkSkillToDomain: PropTypes.func.isRequired,
         deleteDomain: PropTypes.func.isRequired,
         addDomain: PropTypes.func.isRequired,
-        mergeSkills: PropTypes.func.isRequired
+        mergeSkills: PropTypes.func.isRequired,
+        saveDiploma: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -68,7 +71,8 @@ class SettingsContent extends Component {
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const { domain, skill, domainToRemove, mergeFromSkillId, mergeToSkillId } = this.state;
+        const {domain, skill, domainToRemove, mergeFromSkillId, mergeToSkillId} = this.state;
+        const {saveDiploma} = this.props;
 
         return (
             <div className="signin">
@@ -127,6 +131,7 @@ class SettingsContent extends Component {
                 <div>
                     <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
                 </div>
+                <DiplomaDatePicker saveDiploma={saveDiploma}/>
             </div>
         );
     }
