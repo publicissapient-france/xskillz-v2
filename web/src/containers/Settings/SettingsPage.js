@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 
 import SettingsContent from '../../components/Settings/SettingsContent'
 import { fetchDomains, linkSkillToDomain, deleteDomain, addDomain } from '../../actions/action.domains';
-import { fetchSkills } from '../../actions/skills';
+import { fetchSkills, mergeSkills } from '../../actions/skills';
 
 const mapStateToProps = state => {
     return {
@@ -21,7 +21,8 @@ const mapDispatchToProps = dispatch => {
         fetchSkills: () => dispatch(fetchSkills()),
         linkSkillToDomain: payload => dispatch(linkSkillToDomain(payload)),
         deleteDomain: id => dispatch(deleteDomain(id)),
-        addDomain: payload => dispatch(addDomain(payload))
+        addDomain: payload => dispatch(addDomain(payload)),
+        mergeSkills: payload => dispatch(mergeSkills(payload))
     };
 };
 

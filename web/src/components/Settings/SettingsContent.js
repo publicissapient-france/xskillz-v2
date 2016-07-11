@@ -14,12 +14,19 @@ class SettingsContent extends Component {
         fetchDomains: PropTypes.func.isRequired,
         linkSkillToDomain: PropTypes.func.isRequired,
         deleteDomain: PropTypes.func.isRequired,
-        addDomain: PropTypes.func.isRequired
+        addDomain: PropTypes.func.isRequired,
+        mergeSkills: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
-        this.state = {skill: {id: null}, domain: {id: null}, domainToRemove: {id: null}};
+        this.state = {
+            skill: {id: null},
+            domain: {id: null},
+            domainToRemove: {id: null},
+            mergeFromSkillId: null,
+            mergeToSkillId: null
+        };
     };
 
     componentDidMount() {
@@ -42,6 +49,10 @@ class SettingsContent extends Component {
 
     changeSkill = (event, index, value) => this.setState({skill: {id: value}});
 
+    changeMergeFromSkillId = (event, index, value) => this.setState({mergeFromSkillId: value});
+
+    changeMergeToSkillId = (event, index, value) => this.setState({mergeToSkillId: value});
+
     changeDomainToRemove = (event, index, value) => this.setState({domainToRemove: {id: value}});
 
     deleteDomain = () => this.props.deleteDomain(this.state.domainToRemove.id);
@@ -52,10 +63,12 @@ class SettingsContent extends Component {
 
     addDomain = () => this.props.addDomain({name: this.state.addDomainName, color: this.state.addDomainColor});
 
+    mergeSkills = () => this.props.mergeSkills({from: this.state.mergeFromSkillId, to: this.state.mergeToSkillId});
+
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const { domain, skill, domainToRemove } = this.state;
+        const { domain, skill, domainToRemove, mergeFromSkillId, mergeToSkillId } = this.state;
 
         return (
             <div className="signin">
@@ -99,6 +112,20 @@ class SettingsContent extends Component {
                     <div>
                         <RaisedButton label="Add" primary={true} onClick={::this.addDomain}/>
                     </div>
+                </div>
+                <h2>Merge skills</h2>
+                <SelectField floatingLabelText="Replace" value={mergeFromSkillId} hintText="Choose a skill"
+                             onChange={::this.changeMergeFromSkillId}>
+                    {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
+                                                            primaryText={skill.name}/>)}
+                </SelectField>
+                <SelectField floatingLabelText="by" value={mergeToSkillId} hintText="Choose a skill"
+                             onChange={::this.changeMergeToSkillId}>
+                    {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
+                                                            primaryText={skill.name}/>)}
+                </SelectField>
+                <div>
+                    <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
                 </div>
             </div>
         );

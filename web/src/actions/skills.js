@@ -130,3 +130,35 @@ export function removeSkill(id) {
             .then(json => dispatch(skillRemoved(json)));
     };
 }
+
+export const SKILLS_MERGED = 'SKILLS_MERGED';
+
+export function skillMerged() {
+    return {
+        type: SKILLS_MERGED
+    };
+}
+
+export function mergeSkills(payload) {
+    return dispatch => {
+        const config = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                token: store.get('me').token
+            },
+            body: JSON.stringify(payload)
+        };
+        return fetch(`${Config.apiURL}/skills`, config)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else if (response.status === 401) {
+                    browserHistory.push('/signin');
+                } else {
+                    throw new Error('Cannot merge skills');
+                }
+            })
+            .then(json => dispatch(skillMerged(json)));
+    }
+}
