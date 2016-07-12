@@ -124,3 +124,34 @@ export function saveDiploma(diploma) {
             .then(responseBody => dispatch(diplomaSaved));
     };
 }
+
+export const USER_REMOVED = 'USER_REMOVED';
+
+export function userRemoved(userId) {
+    return {
+        type: USER_REMOVED,
+        payload: {
+            userId
+        }
+    }
+}
+
+export function removeUser(userId) {
+    return dispatch => {
+        const config = {
+            method: 'DELETE',
+            headers: {
+                token: store.get('token')
+            }
+        };
+        return fetch(`${Config.apiURL}/users/${userId}`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(responseBody => dispatch(userRemoved(userId)))
+    }
+}

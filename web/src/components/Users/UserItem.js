@@ -13,13 +13,14 @@ class UserItem extends Component {
 
     render() {
         const user = this.props.user;
-        const { onUserClick, onSkillClick, updateSkill, removeSkill, details } = this.props;
+        const { onUserClick, onSkillClick, updateSkill, removeSkill, details, removeUser } = this.props;
 
         // noinspection JSUnresolvedVariable
         if (user) {
             return (
                 <div className="user-row">
                     <Paper>
+                        <div className="remove-icon" onClick={()=>removeUser(user.id)}>x</div>
                         <div className="company-name">{user.companyName}</div>
                         <div className="user-content">
                             <div className="user-left">
@@ -27,7 +28,7 @@ class UserItem extends Component {
                             </div>
                             <div className="user-right">
                                 <p>
-                                    <LabelButton label={user.name} onClick={()=>{onUserClick(user.id)}}/>
+                                    <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
                                 </p>
                                 <p style={{marginLeft: '2px'}}>{user.experienceCounter} XP</p>
                             </div>

@@ -6,8 +6,7 @@ import { browserHistory } from 'react-router';
 
 import UsersContent from '../../components/Users/UsersContent'
 
-import { fetchUsers, getUserById } from '../../actions/users';
-import {  } from '../../actions/skills';
+import { fetchUsers, removeUser } from '../../actions/users';
 
 const mapStateToProps = (state) => {
     return {
@@ -15,11 +14,12 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
         fetchUsers: () => dispatch(fetchUsers()),
         onUserClick: id => browserHistory.push(`/user/${id}`),
-        onSkillClick: name => browserHistory.push(`/skills?name=${name}`)
+        onSkillClick: name => browserHistory.push(`/skills?name=${name}`),
+        removeUser: id => dispatch(removeUser(id))
     };
 };
 

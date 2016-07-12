@@ -46,7 +46,7 @@ class UsersContent extends Component {
     render() {
 
         const { loaded } = this.props.users;
-        const { onUserClick, onSkillClick } = this.props;
+        const { onUserClick, onSkillClick, removeUser } = this.props;
 
         if (!loaded) {
             return (
@@ -58,8 +58,11 @@ class UsersContent extends Component {
 
         return (
             <div className="content">
-                {users.map((user, index) => <UserItem user={user} onUserClick={onUserClick}
-                                                      onSkillClick={onSkillClick} key={index}/>)}
+                {users.map((user, index) => <UserItem user={user}
+                                                      onUserClick={onUserClick}
+                                                      onSkillClick={onSkillClick}
+                                                      key={index}
+                                                      removeUser={removeUser}/>)}
             </div>
         )
     }
