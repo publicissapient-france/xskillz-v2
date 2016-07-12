@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 
 import DiplomaDatePicker from '../Manager/DiplomaDatePicker';
+import AssignUserToManager from '../Manager/AssignUserToManager';
 
 class SettingsContent extends Component {
 
@@ -72,7 +73,7 @@ class SettingsContent extends Component {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
         const {domain, skill, domainToRemove, mergeFromSkillId, mergeToSkillId} = this.state;
-        const {saveDiploma} = this.props;
+        const {saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
 
         return (
             <div className="signin">
@@ -132,6 +133,7 @@ class SettingsContent extends Component {
                     <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
                 </div>
                 <DiplomaDatePicker saveDiploma={saveDiploma}/>
+                <AssignUserToManager assignUserToManager={assignUserToManager} users={users} fetchUsers={fetchUsers}/>
             </div>
         );
     }

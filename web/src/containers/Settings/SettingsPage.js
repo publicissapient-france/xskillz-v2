@@ -8,11 +8,13 @@ import SettingsContent from '../../components/Settings/SettingsContent'
 import { fetchDomains, linkSkillToDomain, deleteDomain, addDomain } from '../../actions/action.domains';
 import { fetchSkills, mergeSkills } from '../../actions/skills';
 import { saveDiploma } from '../../actions/users'
+import { fetchUsers, assignUserToManager } from '../../actions/users';
 
 const mapStateToProps = state => {
     return {
         domains: state.domains,
-        skills: state.skills
+        skills: state.skills,
+        users: state.users
     };
 };
 
@@ -24,7 +26,9 @@ const mapDispatchToProps = dispatch => {
         deleteDomain: id => dispatch(deleteDomain(id)),
         addDomain: payload => dispatch(addDomain(payload)),
         mergeSkills: payload => dispatch(mergeSkills(payload)),
-        saveDiploma: date => dispatch(saveDiploma(date))
+        saveDiploma: date => dispatch(saveDiploma(date)),
+        fetchUsers: () => dispatch(fetchUsers()),
+        assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId))
     };
 };
 

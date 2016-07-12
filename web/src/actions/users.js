@@ -155,3 +155,32 @@ export function removeUser(userId) {
             .then(responseBody => dispatch(userRemoved(userId)))
     }
 }
+
+export const USER_ASSIGNED_TO_MANAGER = 'USER_ASSIGNED_TO_MANAGER';
+
+export function userAssignedToManager(userId, managerId) {
+    return {
+        type: USER_ASSIGNED_TO_MANAGER,
+        payload: {userId, managerId}
+    }
+}
+
+export function assignUserToManager(userId, managerId) {
+    return dispatch => {
+        const config = {
+            method: 'POST',
+            headers: {
+                token: store.get('token')
+            }
+        };
+        return fetch(`${Config.apiURL}/users/${userId}/manager/${managerId}`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(responseBody => dispatch(userAssignedToManager(userId, managerId)))
+    }
+}
