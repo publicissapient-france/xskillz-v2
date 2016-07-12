@@ -25,7 +25,7 @@ const Factory = {
                 name: user.user_name,
                 id: user.user_id,
                 gravatarUrl: gravatar.url(user.user_email),
-                experienceCounter: new Date().getFullYear() - new Date(user.user_diploma).getFullYear()
+                experienceCounter: user.user_diploma ? new Date().getFullYear() - new Date(user.user_diploma).getFullYear() : 0
             },
             updates: userUpdates.map((userUpdate)=> {
                 return {
@@ -60,7 +60,7 @@ const Factory = {
             name: raw.name,
             id: raw.id,
             gravatarUrl: gravatar.url(raw.email),
-            experienceCounter: new Date().getFullYear() - new Date(raw.diploma).getFullYear()
+            experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0
         };
     },
 
