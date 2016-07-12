@@ -188,6 +188,11 @@ const Repository = {
             SET diploma = '${user.diploma}'
             WHERE id = ${id}`),
 
+    assignManager: (userId, managerId) =>
+        query(`
+            UPDATE User SET manager_id = ${managerId} WHERE id = ${userId}
+        `),
+
     //-- Skills
     getSkills: () =>
         query(`
