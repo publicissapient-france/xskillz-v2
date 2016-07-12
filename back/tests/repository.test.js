@@ -312,7 +312,6 @@ describe('Repository', () => {
     });
     
     it('should get user by token and email', (done) => {
-        
         const email = 'email';
         const name = 'name';
         Repository
@@ -327,5 +326,20 @@ describe('Repository', () => {
             })
             .then(done)
             .catch(done);
-    })
+    });
+    
+    it('should return managers', (done) => {
+        const email = 'email';
+        const name = 'name';
+        Repository
+            .addNewUser({email, name})
+            .then(() => Repository.findUserByEmail(email))
+            .then((user) => Repository.addRole(user, 'Manager'))
+            .then(() => Repository.getUsersWithRoles('Manager'))
+            .then((users) => {
+                assert.equal(users[0].email, email);
+            })
+            .then(done)
+            .catch(done);
+    });
 });

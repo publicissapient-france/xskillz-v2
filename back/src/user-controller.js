@@ -38,7 +38,14 @@ module.exports = {
     addUser: (req, res) => {
         Repository.addNewUser(req.body)
             .then(() => Repository.findUserByEmail(req.body.email))
-            .then((user) => Repository.addManagerRole(user, 'Manager'))
+            .then((user) =>
+                Repository.getUsersWithRoles('Manager')
+                    .then((users) => {
+                        if (users.length === 0) {
+                            return Repository.addRole(user, 'Manager').then(() => user);
+                        }
+                        return user;
+                    }))
             .then(() => Repository.findUserByEmail(req.body.email))
             .then((user) => {
                 res.json(user);
@@ -89,15 +96,21 @@ module.exports = {
             });
     },
 
-    getUsers: (req, res) =>
-        Repository
-            .getUsers()
+    getUsers: (req, res) => {
+        let usersPromise;
+        if (req.query.with_roles) {
+            usersPromise = Repository.getUsersWithRoles(req.query.with_roles);
+        } else {
+            usersPromise = Repository.getUsers();
+        }
+        usersPromise
             .map((user)=> createUserById(user.id))
             .then((users) => res.json(users))
             .catch((err) => {
                 log.error(err.message);
                 res.status(404).jsonp({error: `Users not found`, cause: err.message});
-            }),
+            });
+    },
 
     deleteUserById: (req, res) =>
         Repository

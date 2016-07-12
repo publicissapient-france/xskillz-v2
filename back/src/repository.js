@@ -93,7 +93,7 @@ const Repository = {
 
     findUserByEmailAndToken: (email, token) => {
         const user = Repository.TOKENS[token];
-        if(user) {
+        if (user) {
             return Repository.findUserById(user.id);
         } else {
             return Promise.reject('No user found');
@@ -160,6 +160,17 @@ const Repository = {
             ORDER BY name
     `),
 
+    getUsersWithRoles: (roles) =>
+        query(`
+            SELECT *
+            FROM User
+            WHERE id IN (SELECT DISTINCT(user_id)
+                                FROM UserRole ur
+                                JOIN Role r ON r.id = ur.roles_id
+                                WHERE r.name IN ('${roles}')
+                        )
+        `),
+
     addNewUser: (user) =>
         query(`
             INSERT INTO User (name, email, password)
@@ -222,11 +233,9 @@ const Repository = {
             WHERE id = ${skill_id}
         `),
 
-    addManagerRole: (user, roleName) =>
-        query(`
-            INSERT INTO UserRole(User_id,roles_id)
-            VALUES (${user.id},1)
-        `, [roleName]),
+    addRole: (user, roleName) =>
+        query(`SELECT DISTINCT id FROM Role WHERE name = '${roleName}'`)
+            .then((roles) => query(`INSERT INTO UserRole(User_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
 
     clear: () =>
         query('DELETE FROM UserSkill')
