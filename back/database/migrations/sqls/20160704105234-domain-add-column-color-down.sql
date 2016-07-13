@@ -1,0 +1,1 @@
+ALTER TABLE Domain DROP COLUMN color;
