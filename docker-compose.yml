@@ -1,0 +1,35 @@
+version: "2"
+
+services:
+  db:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=xskillz
+      - MYSQL_USER=xskillz
+      - MYSQL_PASSWORD=xskillz
+    ports:
+      - 3306
+    networks:
+      - backend
+
+  back:
+    build: ./back
+    image: xebiafrance/xskillz-back
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+
+  web:
+    build: ./web
+    image: xebiafrance/xskillz-web
+    depends_on:
+      - back
+    ports:
+      - 80:80
+
+networks:
+  backend:
