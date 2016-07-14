@@ -3,7 +3,7 @@ NODE_VERSION=6.2
 NAME=xskillz-web
 IMAGE_NAME=xebiafrance/$(NAME)
 
-all: test build-image
+all: package build-image
 
 install:
 	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm install
@@ -11,7 +11,10 @@ install:
 test: install
 	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm test
 
-package: test
+nodesass: test
+	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm rebuild node-sass
+
+package: nodesass
 	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm run build:production
 
 build-image:
