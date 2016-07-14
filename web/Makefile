@@ -1,6 +1,6 @@
 NODE_VERSION=6.2
 
-NAME=xskillz-web
+NAME=skillz-web
 IMAGE_NAME=xebiafrance/$(NAME)
 
 all: package build-image

@@ -2,9 +2,9 @@ FROM node:6.2
 
 MAINTAINER Jean-Louis Rigau <jlrigau@xebia.fr>
 
-RUN mkdir /xskills
+RUN mkdir /skills
 
-WORKDIR /xskills
+WORKDIR /skills
 
 EXPOSE 8080
 
@@ -17,4 +17,4 @@ COPY node_modules node_modules
 COPY configuration.json configuration.json
 COPY src src
 
-ENTRYPOINT ["/xskills/bootstrap.sh"]
+ENTRYPOINT ["/skills/bootstrap.sh"]

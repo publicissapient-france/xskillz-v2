@@ -1,6 +1,6 @@
 NODE_VERSION=6.2
 
-NAME=xskillz-back
+NAME=skillz-back
 IMAGE_NAME=xebiafrance/$(NAME)
 
 all: test build-image

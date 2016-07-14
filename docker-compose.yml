@@ -5,9 +5,9 @@ services:
     image: mysql:5.6
     environment:
       - MYSQL_ROOT_PASSWORD=admin
-      - MYSQL_DATABASE=xskillz
-      - MYSQL_USER=xskillz
-      - MYSQL_PASSWORD=xskillz
+      - MYSQL_DATABASE=skillz
+      - MYSQL_USER=skillz
+      - MYSQL_PASSWORD=skillz
     ports:
       - 3306
     networks:
