@@ -32,10 +32,10 @@ const Repository = {
     TOKENS: {},
 
     //-- Domains
-    addDomain: (name) =>
+    addDomain: (name, color = '#CCCCCC') =>
         query(`
-            INSERT INTO Domain(name) 
-            VALUES ('${name}')
+            INSERT INTO Domain(name, color) 
+            VALUES ('${name}', '${color}')
     `),
 
     findDomainByName: (name) =>
@@ -125,7 +125,7 @@ const Repository = {
 
     findUserSkillsById: (id) =>
         query(`
-            SELECT user_id, interested, level, user_skill.id id, skill.id skill_id, domain.name domain_name, domain.id domain_id, skill.name skill_name 
+            SELECT user_id, interested, level, user_skill.id id, skill.id skill_id, domain.name domain_name, domain.id domain_id, domain.color domain_color, skill.name skill_name 
             FROM UserSkill user_skill 
             JOIN Skill skill ON skill.id = user_skill.skill_id 
             LEFT JOIN Domain domain ON domain.id = skill.domain_id 
@@ -150,7 +150,14 @@ const Repository = {
         query(`
             SELECT * 
             FROM Skill 
-            WHERE name LIKE '%${name}%'
+            WHERE LOWER(name) LIKE '%${name.toLowerCase()}%'
+        `).then((skills) => skills[0]),
+
+    findSkillByExactName: (name) =>
+        query(`
+            SELECT * 
+            FROM Skill 
+            WHERE LOWER(name) = '%${name.toLowerCase()}%'
         `).then((skills) => skills[0]),
 
     getUsers: () =>

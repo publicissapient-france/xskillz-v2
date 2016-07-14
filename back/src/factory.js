@@ -76,6 +76,7 @@ const Factory = {
             id: domain.domain_id,
             name: domain.domain_name,
             score: Factory.computeScore(domainSkills),
+            color: domain.domain_color,
             skills: _(domainSkills)
                 .map((skill)=> {
                     return {

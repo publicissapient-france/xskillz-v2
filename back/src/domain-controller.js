@@ -12,7 +12,7 @@ module.exports = {
     },
     addDomain: (req, res) =>
         Repository
-            .addDomain(req.body.name)
+            .addDomain(req.body.name, req.body.color)
             .then(() => Repository.findDomainByName(req.body.name))
             .then((domain) => res.send(domain)),
 

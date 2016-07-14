@@ -7,37 +7,37 @@ const log = require('winston');
 module.exports = {
     addSkill: (req, res) => {
         var skillRequest = req.body;
+        skillRequest.level = skillRequest.level || 0;
         Repository
-            .findSkillByName(skillRequest.name)
+            .findSkillByExactName(skillRequest.name)
             .then((skill) => {
                 if (!skill) {
                     throw new Error('Not Found');
                 }
                 skillRequest.id = skill.id;
-                return Repository
-                    .addSkill(skillRequest)
-                    .then(() => Repository.findUserSkillByUserIdAndSkillId(skillRequest.user_id, skillRequest.id))
-                    .then((userSkills) => res.json(userSkills[0]))
-                    .catch((err) => {
-                        log.error(err.message);
-                        res.status(500).send(err.message)
-                    })
+                return Repository.findUserSkillByUserIdAndSkillId(req.body.user_id, skill.id)
+                    .then((skills) => {
+                        if (skills.length > 0) {
+                            return Repository.updateUserSkillById(skill.id, skillRequest);
+                        } else {
+                            return Repository.addSkill(skillRequest);
+                        }
+                    });
             })
-            .catch((err) => {
-                return Repository
+            .catch(() =>
+                Repository
                     .addNewSkill(skillRequest.name)
                     .then(() => Repository.findSkillByName(skillRequest.name))
                     .then((skill) => {
                         skillRequest.id = skill.id;
                         return Repository.addSkill(skillRequest);
-                    })
-                    .then(() => Repository.findUserSkillByUserIdAndSkillId(skillRequest.user_id, skillRequest.id))
-                    .then((userSkills) => res.jsonp(userSkills[0]))
-                    .catch((err) => {
-                        log.error(err.message);
-                        res.status(500).send(err.message)
-                    });
-            });
+                    }))
+            .then(() => Repository.findUserSkillByUserIdAndSkillId(skillRequest.user_id, skillRequest.id))
+            .then((userSkills) => res.json(userSkills[0]))
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).send(err.message)
+            })
     },
 
     deleteUserSkillById: (req, res) => {
