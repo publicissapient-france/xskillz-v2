@@ -74,6 +74,7 @@ const Repository = {
                 JOIN Skill skill ON skill.id = user_skill.skill_id
                 LEFT JOIN Domain domain ON domain.id = skill.domain_id
             ORDER BY user_skill.updatedAt DESC
+            LIMIT 100
     `),
 
     //-- Users
