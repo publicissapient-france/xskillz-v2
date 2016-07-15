@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.7",
+    "bcrypt-then": "^1.1.0",
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
