@@ -19,8 +19,9 @@ describe('User Repository', () => {
     it('should add new user and get it', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.getUsers())
             .then((users) => {
                 const expected = _.filter(users, (user) => user.name === name && user.email === email);
@@ -33,8 +34,9 @@ describe('User Repository', () => {
     it('should add new user and find it by email and by id', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
             .then((user) => UserRepository.findUserById(user.id))
             .then((user) => {
@@ -48,6 +50,7 @@ describe('User Repository', () => {
     it('should create a new user, a new skill and assign it and get updates', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         const skillName = 'skill';
 
         let user, skill;
@@ -58,7 +61,7 @@ describe('User Repository', () => {
             .then((_skill) => {
                 skill = _skill;
             })
-            .then(() => UserRepository.addNewUser({email, name}))
+            .then(() => UserRepository.addNewUser({email, name, password}))
             .then(() => UserRepository.findUserByEmail(email))
             .then((_user) => {
                 user = _user;
@@ -82,6 +85,7 @@ describe('User Repository', () => {
     it('should create a new user, a new skill and assign it and get user by skill', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         const skillName = 'skill';
 
         let user, skill;
@@ -92,7 +96,7 @@ describe('User Repository', () => {
             .then((_skill) => {
                 skill = _skill;
             })
-            .then(() => UserRepository.addNewUser({email, name}))
+            .then(() => UserRepository.addNewUser({email, name, password}))
             .then(() => UserRepository.findUserByEmail(email))
             .then((_user) => {
                 user = _user;
@@ -115,12 +119,13 @@ describe('User Repository', () => {
     it('should delete user', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         const skillName1 = 'skill1';
 
         let user, skill1;
 
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
             .then((_user) => user = _user)
             .then(() => SkillRepository.addNewSkill(skillName1))
@@ -145,8 +150,9 @@ describe('User Repository', () => {
     it('should update user', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password'
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
             .then((user) => UserRepository.updateUser(user.id, {diploma: '2015-01-01'}))
             .then(() => UserRepository.findUserByEmail(email))
@@ -160,8 +166,9 @@ describe('User Repository', () => {
     it('should get user by token and email', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
             .then((user) => {
                 UserRepository.TOKENS['abcdef'] = user;
@@ -177,8 +184,9 @@ describe('User Repository', () => {
     it('should return managers', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
             .then((user) => UserRepository.addRole(user, 'Manager'))
             .then(() => UserRepository.getUsersWithRoles('Manager'))

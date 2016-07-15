@@ -1,21 +1,22 @@
 'use strict';
 
 const Promise = require('bluebird');
-const _ = require('lodash');
+var Bcrypt = require('bcrypt-then');
+const saltRounds = 10;
 
 const UserRepository = {
     TOKENS: {},
 
     init: (args) => {
-      this.db = args.db;
+        this.db = args.db;
     },
 
     findUserByEmailAndPassword: (email, password) =>
-        this.db.query(`
-            SELECT *
-            FROM User 
-            WHERE email = '${email}' AND password = '${password}'
-    `).then((users) => users[0]),
+        UserRepository
+            .findUserByEmail(email)
+            .then((user) =>
+                Bcrypt.compare(password, user.password)
+                    .then(() => Promise.resolve(user))),
 
     findUserByEmail: (email) =>
         this.db.query(`
@@ -75,10 +76,15 @@ const UserRepository = {
         `),
 
     addNewUser: (user) =>
-        this.db.query(`
-            INSERT INTO User (name, email, password)
-            VALUES ('${user.name}','${user.email}', '${user.password}')
-    `),
+        Bcrypt.hash(user.password, saltRounds)
+            .then((hash) => {
+                user.password = hash;
+            })
+            .then(() =>
+                this.db.query(`
+                    INSERT INTO User (name, email, password)
+                    VALUES ('${user.name}','${user.email}', '${user.password}')
+            `)),
 
     deleteUserById: (id) =>
         this.db.query(`DELETE FROM UserRole WHERE User_id = ${id}`).then(() =>

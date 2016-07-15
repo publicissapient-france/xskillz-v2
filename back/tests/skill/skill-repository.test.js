@@ -46,6 +46,7 @@ describe('Skill Repository', () => {
     it('should create a new user, a new skill and assign it', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         const skillName = 'skill';
 
         let user, skill;
@@ -56,7 +57,7 @@ describe('Skill Repository', () => {
             .then((_skill) => {
                 skill = _skill;
             })
-            .then(() => UserRepository.addNewUser({email, name}))
+            .then(() => UserRepository.addNewUser({email, name, password}))
             .then(() => UserRepository.findUserByEmail(email))
             .then((_user) => {
                 user = _user;
@@ -78,13 +79,14 @@ describe('Skill Repository', () => {
     it('should merge two skills', (done) => {
         const email = 'email';
         const name = 'name';
+        const password = 'password';
         const skillName1 = 'skill1';
         const skillName2 = 'skill2';
 
         let user, skill1, skill2;
 
         UserRepository
-            .addNewUser({email, name})
+            .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
             .then((_user) => user = _user)
             .then(() => SkillRepository.addNewSkill(skillName1))
