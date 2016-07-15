@@ -1,8 +1,11 @@
 'use strict';
 
 const assert = require('assert');
-const Repository = require('../src/repository');
+const Database = require('../src/database');
+const Repository = require('./repository');
 const API = require('./api');
+
+Repository.init({db:Database});
 
 describe('API', function () {
     before(() => {
@@ -86,7 +89,7 @@ describe('API', function () {
             .then(() => API.signin('jsmadja@xebia.fr'))
             .then((res) => API.addSkill('Skill', 2, true, res.body.token))
             .then(() => API.createUser('Benjamin', 'blacroix@xebia.fr'))
-            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then(() => API.signin('blacroix@xebia.fr'))
             .then((res) => API.addSkill('Skill', 1, false, res.body.token))
             .then(() => API.getSkills())
             .then((res) => {
@@ -157,6 +160,7 @@ describe('API', function () {
                             "domains": [
                                 {
                                     "name": "MyDomain",
+                                    "color": "#CCCCCC",
                                     "score": 2,
                                     "skills": [
                                         {

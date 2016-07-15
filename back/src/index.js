@@ -1,11 +1,15 @@
 'use strict';
 
 const Express = require('express');
+const Database = require('./database');
 
-const UserController = require('./user-controller');
-const SkillController = require('./skill-controller');
-const UpdateController = require('./update-controller');
-const DomainController = require('./domain-controller');
+const UserController = require('./user/user-controller');
+const SkillController = require('./skill/skill-controller');
+const DomainController = require('./domain/domain-controller');
+
+UserController.init({db: Database});
+SkillController.init({db: Database});
+DomainController.init({db: Database});
 
 const allowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -31,28 +35,31 @@ Express()
     })
 
     .get('/', (req, res) => res.send('You know, for skills :)'))
-    .post('/domains/:id/skills', SkillController.addSkillToDomain)
+
     .post('/domains', DomainController.addDomain)
     .delete('/domains/:id', DomainController.deleteDomain)
     .get('/domains', DomainController.getDomains)
-    .get('/skills', SkillController.getSkills)
-    .post('/me/skills', SkillController.addSkill)
-    .get('/skills/:id/users', UserController.getUsersBySkill)
-    .put('/skills', SkillController.merge)
-    .get('/updates', UpdateController.getUpdates)
-    .post('/users', UserController.addUser)
+    
+    .get('/updates', UserController.getUpdates)
     .post('/me', UserController.getCurrentUser)
-    .delete('/me/skills/:id', SkillController.deleteUserSkillById)
-    .put('/me/skills/:id', SkillController.updateUserSkillById)
     .get('/users', UserController.getUsers)
+    .post('/users', UserController.addUser)
     .get('/users/:id', UserController.getUserById)
     .put('/users/:id', UserController.updateUser)
     .post('/users/:id/manager/:managerId', UserController.assignManager)
     .delete('/users/:id', UserController.deleteUserById)
     .post('/signin', UserController.signin)
 
-    .listen(8080, () => {
-        console.log('XSkillz is listening on port 8080');
+    .get('/skills/:id/users', UserController.getUsersBySkill)
+    .get('/skills', SkillController.getSkills)
+    .put('/skills', SkillController.merge)
+    .post('/me/skills', SkillController.addSkill)
+    .delete('/me/skills/:id', SkillController.deleteUserSkillById)
+    .put('/me/skills/:id', SkillController.updateUserSkillById)
+    .post('/domains/:id/skills', SkillController.addSkillToDomain)
+
+    .listen(process.env.PORT || 8080, () => {
+        console.log('XSkillz is listening on port '+(process.env.PORT || 8080));
     });
 
 module.exports = Express;

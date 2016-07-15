@@ -1,10 +1,27 @@
 'use strict';
 
-const Repository = require('./repository');
-const Factory = require('./factory');
+const Repository = require('./skill-repository');
 const log = require('winston');
 
+const createSkill = (skill) => {
+    return {
+        domain: {
+            id: skill.domain_id,
+            name: skill.domain_name
+        },
+        id: skill.id,
+        name: skill.name,
+        numAllies: skill.num_allies
+    };
+};
+
+
 module.exports = {
+    init: (args) => {
+        this.Repository = Repository;
+        this.Repository.init(args);
+    },
+    
     addSkill: (req, res) => {
         var skillRequest = req.body;
         skillRequest.level = skillRequest.level || 0;
@@ -75,7 +92,7 @@ module.exports = {
     getSkills: (req, res) => {
         Repository
             .getSkills()
-            .map((skill)=> Factory.createSkill(skill))
+            .map((skill)=> createSkill(skill))
             .then((skills) => {
                 res.jsonp(skills);
             })
