@@ -7,7 +7,7 @@
     "start": "pm2 start configuration.json",
     "db-clean": "cd database && db-migrate --env tests reset && db-migrate --env tests up",
     "pretest": "cd database && db-migrate --env tests reset && db-migrate --env tests up && cd ..",
-    "test": "RDS_HOST='xskillz-tests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=xskillztests RDS_USER=xskillz RDS_PASSWORD='xskillz-tests' ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha -- -R spec tests",
+    "test": "PORT=8081 RDS_HOST='xskillz-tests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=xskillztests RDS_USER=xskillz RDS_PASSWORD='xskillz-tests' ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha -- --recursive -R spec tests",
     "posttest": "./node_modules/istanbul/lib/cli.js report clover"
   },
   "author": "",
