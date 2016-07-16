@@ -5,9 +5,9 @@ import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import { redA400, grey500 } from 'material-ui/styles/colors';
 
-import LabelButton from '../LabelButton';
+import LabelButton from '../../LabelButton';
 
-class SkillUserItem extends Component {
+class UserSimple extends Component {
 
     render() {
 
@@ -38,4 +38,4 @@ class SkillUserItem extends Component {
 
 }
 
-export default SkillUserItem;
+export default UserSimple;

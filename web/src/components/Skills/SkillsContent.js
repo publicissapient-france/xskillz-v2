@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import SkillUserItem from './SkillUserItem';
+import UsersLevel from './UsersLevel/UsersLevel';
 
 class SkillsContent extends Component {
 
@@ -43,6 +43,20 @@ class SkillsContent extends Component {
         }
     }
 
+    static composeUsers = (skillId, users) => {
+        const ret = {0: [], 1: [], 2: [], 3: []};
+        _.each(users, user => {
+            _.each(user.domains, domain => {
+                _.each(domain.skills, skill => {
+                    if (skill.id === skillId) {
+                        ret[skill.level].push({...user, skill});
+                    }
+                })
+            });
+        });
+        return ret;
+    };
+
     render() {
 
         const { loaded } = this.props.skills;
@@ -62,6 +76,8 @@ class SkillsContent extends Component {
 
         const { name } = this.props.location.query;
 
+        const composedUsers = SkillsContent.composeUsers(19, users);
+
         return (
             <div className="content">
                 <div className="auto-complete">
@@ -71,12 +87,10 @@ class SkillsContent extends Component {
                                   onNewRequest={this.onNewRequest}
                                   searchText={name}/>
                 </div>
-
-                {users.map((user, index) => {
-                    return (
-                        <SkillUserItem key={index} user={user} onUserClick={onUserClick}/>
-                    )
-                })}
+                {composedUsers[3].length > 0 && <UsersLevel title="Expert" users={composedUsers[3]}/>}
+                {composedUsers[2].length > 0 && <UsersLevel title="Confirmed" users={composedUsers[2]}/>}
+                {composedUsers[1].length > 0 && <UsersLevel title="Beginner" users={composedUsers[1]}/>}
+                {composedUsers[0].length > 0 && <UsersLevel title="Newbie" users={composedUsers[0]}/>}
             </div>
         )
     }
