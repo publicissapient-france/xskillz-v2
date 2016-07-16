@@ -5,7 +5,6 @@ var Bcrypt = require('bcrypt-then');
 const saltRounds = 10;
 
 const UserRepository = {
-    TOKENS: {},
 
     init: (args) => {
         this.db = args.db;
@@ -25,14 +24,18 @@ const UserRepository = {
             WHERE email = '${email}'
     `).then((users) => users[0]),
 
-    findUserByEmailAndToken: (email, token) => {
-        const user = UserRepository.TOKENS[token];
-        if (user) {
-            return UserRepository.findUserById(user.id);
-        } else {
-            return Promise.reject('No user found');
-        }
-    },
+    findUserByEmailAndToken: (email, token) =>
+        this.db.query(`
+            SELECT user.*
+            FROM Token
+            JOIN User user ON user.id = user_id
+            WHERE user.email = '${email}'
+            AND token_value = '${token}'
+    `),
+
+    getUserByToken: (token) =>
+        this.db.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
+            .then((users) => users[0]),
 
     findUserById: (id) =>
         this.db.query(`
@@ -114,6 +117,12 @@ const UserRepository = {
                 JOIN Skill skill ON skill.id = user_skill.skill_id
                 LEFT JOIN Domain domain ON domain.id = skill.domain_id
             ORDER BY user_skill.updatedAt DESC
+    `),
+
+    addToken: (user, token) =>
+        this.db.query(`
+            INSERT INTO Token (token_value, user_id)
+            VALUES ('${token}', ${user.id})
     `)
 };
 

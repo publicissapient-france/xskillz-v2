@@ -25,13 +25,21 @@ Express()
 
     .use(function (req, res, next) {
         const token = req.headers.token;
-        if(token) {
-            const user = UserController.getUserByToken(token);
-            if(user) {
-                req.body.user_id = user.id;
-            }
+        if (token) {
+            UserController
+                .getUserByToken(token)
+                .then((user) => {
+                    if (user) {
+                        req.body.user_id = user.id;
+                    }
+                    next();
+                })
+                .catch((err) => {
+                    next();
+                })
+        } else {
+            next();
         }
-        next();
     })
 
     .get('/', (req, res) => res.send('You know, for skills :)'))
@@ -39,7 +47,7 @@ Express()
     .post('/domains', DomainController.addDomain)
     .delete('/domains/:id', DomainController.deleteDomain)
     .get('/domains', DomainController.getDomains)
-    
+
     .get('/updates', UserController.getUpdates)
     .post('/me', UserController.getCurrentUser)
     .get('/users', UserController.getUsers)
@@ -59,7 +67,7 @@ Express()
     .post('/domains/:id/skills', SkillController.addSkillToDomain)
 
     .listen(process.env.PORT || 8080, () => {
-        console.log('XSkillz is listening on port '+(process.env.PORT || 8080));
+        console.log('XSkillz is listening on port ' + (process.env.PORT || 8080));
     });
 
 module.exports = Express;

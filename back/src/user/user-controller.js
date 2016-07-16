@@ -110,7 +110,7 @@ module.exports = {
     init: (args) => {
         this.Repository = Repository;
         this.Repository.init(args);
-        
+
         this.SkillRepository = SkillRepository;
         this.SkillRepository.init(args);
     },
@@ -161,9 +161,8 @@ module.exports = {
             });
     },
 
-    getUserByToken: (token) => {
-        return this.Repository.TOKENS[token];
-    },
+    getUserByToken: (token) =>
+        this.Repository.getUserByToken(token),
 
     getUserById: (req, res) => {
         createUserById(this.Repository, this.SkillRepository, req.params.id)
@@ -210,9 +209,17 @@ module.exports = {
                 if (!user) {
                     throw new Error(`User ${email} not found`);
                 }
+                return user;
+            })
+            .then((user) => {
                 const token = uuid.v4();
-                this.Repository.TOKENS[token] = user;
-                user.token = token;
+                return this.Repository.addToken(user, token)
+                    .then(() => {
+                        user.token = token;
+                        return user;
+                    });
+            })
+            .then((user) => {
                 res.status(200).jsonp(user);
             })
             .catch((err) => {
