@@ -150,27 +150,11 @@ describe('API', function () {
             // Then
             .then((res) => {
                 const users = res.body;
-                delete users[0].domains[0].id;
-                delete users[0].domains[0].skills[0].id;
                 delete users[0].id;
 
                 assert.deepEqual(users,
                     [
                         {
-                            "domains": [
-                                {
-                                    "name": "MyDomain",
-                                    "color": "#CCCCCC",
-                                    "score": 2,
-                                    "skills": [
-                                        {
-                                            "interested": true,
-                                            "level": 2,
-                                            "name": "Skill"
-                                        }
-                                    ]
-                                }
-                            ],
                             "experienceCounter": 0,
                             "gravatarUrl": "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
                             "name": "Julien",
@@ -180,9 +164,9 @@ describe('API', function () {
                             ]
                         }
                     ]);
-                done();
             })
-            .catch((err) => done(err));
+            .then(done)
+            .catch(done);
     });
 
     it('GET /updates', (done) => {

@@ -24,15 +24,6 @@ const UserRepository = {
             WHERE email = '${email}'
     `).then((users) => users[0]),
 
-    findUserByEmailAndToken: (email, token) =>
-        this.db.query(`
-            SELECT user.*
-            FROM Token
-            JOIN User user ON user.id = user_id
-            WHERE user.email = '${email}'
-            AND token_value = '${token}'
-    `),
-
     getUserByToken: (token) =>
         this.db.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
             .then((users) => users[0]),
@@ -117,6 +108,7 @@ const UserRepository = {
                 JOIN Skill skill ON skill.id = user_skill.skill_id
                 LEFT JOIN Domain domain ON domain.id = skill.domain_id
             ORDER BY user_skill.updatedAt DESC
+            LIMIT 20
     `),
 
     addToken: (user, token) =>
