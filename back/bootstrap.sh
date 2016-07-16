@@ -1,6 +1,8 @@
 #! /bin/bash
 set -e
 
-node_modules/db-migrate/bin/db-migrate up --env prod
+npm i
 
-exec node_modules/pm2/bin/pm2 start configuration.json --no-daemon
+node_modules/db-migrate/bin/db-migrate up --env container
+
+exec node_modules/pm2/bin/pm2 start configuration.json --env container --no-daemon

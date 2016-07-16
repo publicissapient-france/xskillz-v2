@@ -13,8 +13,14 @@ COPY bootstrap.sh bootstrap.sh
 COPY database/migrations migrations
 COPY database/database.json database.json
 
-COPY node_modules node_modules
+# COPY node_modules node_modules
 COPY configuration.json configuration.json
 COPY src src
+COPY package.json package.json
+
+# RUN npm remove bcrypt
+
+# Install dependencies from package.json
+# RUN npm install
 
 ENTRYPOINT ["/skills/bootstrap.sh"]

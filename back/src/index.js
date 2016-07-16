@@ -67,7 +67,7 @@ Express()
     .post('/domains/:id/skills', SkillController.addSkillToDomain)
 
     .listen(process.env.PORT || 8080, () => {
-        console.log('XSkillz is listening on port ' + (process.env.PORT || 8080));
+        console.log('Skillz is listening on port ' + (process.env.PORT || 8080));
     });
 
 module.exports = Express;
