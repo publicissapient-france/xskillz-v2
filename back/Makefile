@@ -3,7 +3,7 @@ NODE_VERSION=6.2
 NAME=skillz-back
 IMAGE_NAME=xebiafrance/$(NAME)
 
-all: test build-image
+all: build-image
 
 install:
 	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm install

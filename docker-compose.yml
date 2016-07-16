@@ -15,7 +15,7 @@ services:
 
   back:
     build: ./back
-    image: xebiafrance/xskillz-back
+    image: xebiafrance/skillz-back
     depends_on:
       - db
     ports:
@@ -25,7 +25,7 @@ services:
 
   web:
     build: ./web
-    image: xebiafrance/xskillz-web
+    image: xebiafrance/skillz-web
     depends_on:
       - back
     ports:

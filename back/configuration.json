@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "XSkillz",
+      "name": "Skillz",
       "script": "src/index.js",
       "env": {
         "NODE_ENV": "development",
@@ -11,6 +11,15 @@
         "RDS_DATABASE": "xskillzdev",
         "RDS_USER": "xskillz",
         "RDS_PASSWORD": "xskillz-dev"
+      },
+      "env": {
+        "NODE_ENV": "container",
+        "BLUEBIRD_WARNINGS": 0,
+        "RDS_HOST": "db",
+        "RDS_PORT": "3306",
+        "RDS_DATABASE": "skillz",
+        "RDS_USER": "skillz",
+        "RDS_PASSWORD": "skillz"
       }
     }
   ]
