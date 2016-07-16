@@ -6,6 +6,7 @@ const Repository = {
     },
     clear: () =>
         this.db.query('DELETE FROM UserSkill')
+            .then(() => this.db.query('DELETE FROM Token'))
             .then(() => this.db.query('DELETE FROM UserSkill'))
             .then(() => this.db.query('DELETE FROM UserRole'))
             .then(() => this.db.query('DELETE FROM User'))

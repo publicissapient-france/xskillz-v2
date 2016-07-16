@@ -163,24 +163,6 @@ describe('User Repository', () => {
             .catch(done);
     });
 
-    it('should get user by token and email', (done) => {
-        const email = 'email';
-        const name = 'name';
-        const password = 'password';
-        UserRepository
-            .addNewUser({email, name, password})
-            .then(() => UserRepository.findUserByEmail(email))
-            .then((user) => {
-                UserRepository.TOKENS['abcdef'] = user;
-            })
-            .then(() => UserRepository.findUserByEmailAndToken(email, 'abcdef'))
-            .then((user) => {
-                assert.equal(user.email, email);
-            })
-            .then(done)
-            .catch(done);
-    });
-
     it('should return managers', (done) => {
         const email = 'email';
         const name = 'name';
