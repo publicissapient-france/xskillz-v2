@@ -1,16 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
-import { redA400, grey500, grey200 } from 'material-ui/styles/colors';
-
-import LabelButton from '../LabelButton';
-import SkillCard from '../Skills/SkillCard';
-import Chip from 'material-ui/Chip';
+import React, {Component, PropTypes} from "react";
+import Paper from "material-ui/Paper";
+import Avatar from "material-ui/Avatar";
+import {redA400, grey500, grey200} from "material-ui/styles/colors";
+import LabelButton from "../LabelButton";
+import SkillCard from "../Skills/SkillCard";
+import Chip from "material-ui/Chip";
+import _ from "lodash";
 
 const styles = {
-    chip: {
-        paddingLeft:0,
-        color:'white'
+    domainName: {
+        marginRight: '5px',
+        color: 'white',
+        display: 'inline-block'
     }
 };
 
@@ -18,7 +19,7 @@ class UserItem extends Component {
 
     render() {
         const user = this.props.user;
-        const { onUserClick, onSkillClick, updateSkill, removeSkill, details, removeUser } = this.props;
+        const {onUserClick, onSkillClick, updateSkill, removeSkill, details, removeUser} = this.props;
 
         // noinspection JSUnresolvedVariable
         if (user) {
@@ -28,18 +29,25 @@ class UserItem extends Component {
                         <div className="remove-icon" onClick={()=>removeUser(user.id)}>x</div>
                         <div className="user-content">
                             <div className="user-left">
-                                <Avatar src={user.gravatarUrl} size={75}/>
+                                <Avatar src={user.gravatarUrl} size={75} style={{paddingTop:0}}/>
                             </div>
                             <div className="user-right">
                                 <p>
                                     <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
                                 </p>
-                                <Chip backgroundColor="#9b59b6" labelStyle={styles.chip}>
-                                    <Avatar size={32} backgroundColor="#9b59b6">{user.experienceCounter || '-'}</Avatar>
-                                    XP
-                                </Chip>
+                                { <div className="user-chips">
+                                    {_(user.domains)
+                                        .sortBy('score').takeRight(2).reverse().map((domain) => {
+                                        return (
+                                            <Chip style={styles.domainName} backgroundColor={domain.color} labelStyle={styles.domainName}>
+                                                {domain.name}
+                                            </Chip>
+                                        );
+                                    }).value()}
+                                </div>}
                             </div>
                         </div>
+
                         {details && user.domains &&
                         <div style={{paddingBottom: '.1rem'}}>
                             {user.domains.map((domain, index) => {

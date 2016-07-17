@@ -207,6 +207,40 @@ module.exports = {
             });
     },
 
+    getUsersWebVersion: (req, res) => {
+        let usersPromise = this.Repository.getWebUsers();
+        usersPromise
+            .then((rows) => {
+                return _(rows)
+                    .groupBy('user_id')
+                    .map((domainRows) => {
+                        var user = domainRows[0];
+                        return {
+                            id: user.user_id,
+                            name: user.user_name,
+                            gravatarUrl: gravatar.url(user.email),
+                            experienceCounter: user.diploma ? new Date().getFullYear() - new Date(user.diploma).getFullYear() : 0,
+                            domains: domainRows.map((domainRow) => {
+                                    return {
+                                        id: domainRow.domain_id,
+                                        name: domainRow.domain_name,
+                                        score: domainRow.domain_score,
+                                        color: domainRow.domain_color
+                                    }
+                                }
+                            ),
+                            score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0)
+                        }
+                    })
+                    .sortBy('name');
+            })
+            .then((users) => res.json(users))
+            .catch((err) => {
+                log.error(err.message);
+                res.status(404).jsonp({error: `Users not found`, cause: err.message});
+            });
+    },
+
     getUsers: (req, res) => {
         let usersPromise;
         if (req.query.with_roles) {

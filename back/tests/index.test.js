@@ -151,13 +151,18 @@ describe('API', function () {
             .then((res) => {
                 const users = res.body;
                 delete users[0].id;
+                delete users[0].domains[0].id;
 
                 assert.deepEqual(users,
                     [
                         {
+                            "domains": [
+                                {color:"#CCCCCC", score:2, name:"MyDomain"}
+                            ],
                             "experienceCounter": 0,
                             "gravatarUrl": "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
-                            "name": "Julien"
+                            "name": "Julien",
+                            score: 2
                         }
                     ]);
             })
