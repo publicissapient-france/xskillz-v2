@@ -57,8 +57,8 @@ class SkillCard extends Component {
                 <p>
                     {name && <LabelButton label={name} onClick={()=>{onSkillClick(name)}}/>}
                 </p>
-                {interested && <span className="interested-icon" onClick={::this.onLikeClicked} style={{color: redA400}}>&#9829;</span>}
-                {!interested && <span className="interested-icon" onClick={::this.onLikeClicked} style={{color: grey500}}>&#9825;</span>}
+                {interested && <span className="interested-icon" onClick={::this.onLikeClicked} style={{color: redA400, cursor:'pointer'}}>&#9829;</span>}
+                {!interested && <span className="interested-icon" onClick={::this.onLikeClicked} style={{color: grey500, cursor:'pointer'}}>&#9825;</span>}
                 <Stars level={level} onStarClicked={::this.onStarClicked}/>
             </div>
         );

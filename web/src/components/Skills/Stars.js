@@ -39,21 +39,16 @@ class Stars extends Component {
     render() {
         const level = this.props.level;
         const gold = {
-            color: 'gold'
+            color: 'gold',
+            cursor: 'pointer'
         };
         const grey = {
-            color: grey300
+            color: grey300,
+            cursor: 'pointer'
         };
         const display = {
             display: 'inline-block'
         };
-        const styles = {
-            smallIcon: {
-                width: 36,
-                height: 36
-            }
-        };
-
         return (
             <div style={display}>
                 {level > 0 ?
