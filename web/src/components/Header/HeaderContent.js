@@ -20,7 +20,7 @@ class HeaderContent extends Component {
                     <FontIcon className={'material-icons'} color="white">search</FontIcon>
                 </IconButton>
                 <IconButton onClick={goToUsers} style={style} tooltip="Search Users">
-                    <FontIcon className={'material-icons'} color="white">person_pin</FontIcon>
+                    <FontIcon className={'material-icons'} color="white">supervisor_account</FontIcon>
                 </IconButton>
                 <IconButton onClick={goToSettings} style={style} tooltip="Preferences">
                     <FontIcon className={'material-icons'} color="white">settings</FontIcon>
