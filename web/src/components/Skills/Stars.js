@@ -45,9 +45,11 @@ class Stars extends Component {
         const grey = {
             color: grey300
         };
-
+        const display = {
+            display: 'inline-block'
+        };
         return (
-            <div>
+            <div style={display}>
                 {level > 0 ?
                     <span style={gold} onClick={::this.onStarClicked} data="0">&#x2605;</span> :
                     <span style={grey} onClick={::this.onStarClicked} data="1">&#x2605;</span>}

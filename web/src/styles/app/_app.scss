@@ -33,14 +33,20 @@ body {
         .user-right {
             margin: .8rem;
         }
+
+        .user-update-label {
+            padding-left: 3px;
+        }
     }
 
     .domain-info {
-        float: left;
         padding: .5rem;
         margin: .5em 0 0 .5em;
         border: solid 1px #EEEEEE;
         border-radius: 2px;
+
+        flex-grow: 1;
+        flex-basis: 32%;
     }
 
     .remove-icon {

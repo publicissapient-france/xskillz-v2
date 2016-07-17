@@ -38,7 +38,7 @@ class UserItem extends Component {
                                 return (
                                     <div key={index} className={`domains-content domain-${domain.name}`}>
                                         <div className={`domain-name domain-${domain.name}`}>{domain.name}</div>
-                                        <div>
+                                        <div className="skills-content">
                                             {domain.skills.map((skill, index) => {
                                                 // noinspection JSUnresolvedVariable
                                                 return (

@@ -87,6 +87,7 @@ const Repository = {
             JOIN Skill skill ON skill.id = user_skill.skill_id 
             LEFT JOIN Domain domain ON domain.id = skill.domain_id 
             WHERE user_id = ${id}
+            ORDER BY level DESC, interested DESC, skill.name
     `)
             .then((userSkills) => {
                 _.map(userSkills, (userSkill) => {

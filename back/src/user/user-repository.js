@@ -41,7 +41,7 @@ const UserRepository = {
             FROM UserSkill user_skill 
             JOIN User user ON user.id = user_skill.user_id 
             WHERE skill_id = ${id}
-            ORDER BY user.name
+            ORDER BY interested DESC, user.name
     `),
 
     findUserRolesById: (id) =>

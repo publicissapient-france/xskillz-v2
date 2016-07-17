@@ -8,6 +8,12 @@ import { redA400, grey500 } from 'material-ui/styles/colors';
 
 import LabelButton from '../../LabelButton';
 
+const styles = {
+    chip: {
+        paddingLeft:0
+    }
+};
+
 class UserSimple extends Component {
 
     render() {
@@ -26,8 +32,8 @@ class UserSimple extends Component {
                             {user.name && <p>
                                 <LabelButton label={user.name} onClick={()=>{onUserClick(user.name)}}/>
                             </p>}
-                            <Chip>
-                                <Avatar size={32}>{user.experienceCounter}</Avatar>
+                            <Chip backgroundColor="#9b59b6" labelColor="white" labelStyle={styles.chip}>
+                                <Avatar size={32} backgroundColor="#9b59b6">{user.experienceCounter}</Avatar>
                                 XP
                             </Chip>
                         </div>

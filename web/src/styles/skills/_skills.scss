@@ -38,6 +38,10 @@
 
     @include clearfix;
 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
     .domain-name {
         position: absolute;
         left: 0;

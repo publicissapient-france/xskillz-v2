@@ -13,18 +13,18 @@ class UpdateItem extends Component {
     render() {
 
         const { onUserClick, update, onSkillClick } = this.props;
-        const { name, companyName, gravatarUrl } = update.user;
+        const { name, gravatarUrl } = update.user;
 
         return (
             <div className="user-row">
                 <Paper>
                     <div className="user-content">
                         <div className="user-left">
-                            <Avatar src={gravatarUrl}/>
+                            <Avatar src={gravatarUrl} size={75}/>
                         </div>
                         <div className="user-right">
                             <LabelButton label={name} onClick={()=>{onUserClick(name)}}/>
-                            &nbsp;a mis à jour {update.updates.length} skill{update.updates.length>1?'s':''}.
+                            <p className="user-update-label">{update.updates.length} nouvelle{update.updates.length>1?'s':''} compétence{update.updates.length>1?'s':''}</p>
                         </div>
                     </div>
                     <div className="domains-content">
