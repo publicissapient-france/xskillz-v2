@@ -2,8 +2,23 @@
   h2 {
     margin: .6rem 0;
   }
+
+  .users-container {
+    display: flex;
+    flex-direction: row;
+     flex-wrap: wrap;
+  }
+
   padding: .8rem;
   .user-row {
-    margin: 0 0 .6rem 0;
+      flex-grow: 1;
+      flex-basis: 23%;
+  }
+
+  .user-interested-true {
+  }
+
+  .user-interested-false {
+    opacity: 0.25;
   }
 }

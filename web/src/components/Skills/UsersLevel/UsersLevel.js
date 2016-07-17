@@ -12,9 +12,11 @@ class UsersLevel extends Component {
         return (
             <div className="users-level">
                 <h2>{title}</h2>
-                {users.map((user, index) =>
-                    <UserSimple key={index} user={user}/>
-                )}
+                <div className="users-container">
+                    {users.map((user, index) =>
+                        <UserSimple key={index} user={user}/>
+                    )}
+                </div>
             </div>
         );
     }

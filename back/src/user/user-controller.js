@@ -152,6 +152,7 @@ module.exports = {
             .map((user)=> {
                 const _user = createUser(user);
                 _user.level = user.level;
+                _user.interested = (user.interested[0] === 1);
                 return _user;
             })
             .then((users) => res.json(users))

@@ -23,7 +23,7 @@ class UserItem extends Component {
                         <div className="remove-icon" onClick={()=>removeUser(user.id)}>x</div>
                         <div className="user-content">
                             <div className="user-left">
-                                <Avatar src={user.gravatarUrl}/>
+                                <Avatar src={user.gravatarUrl} size={75}/>
                             </div>
                             <div className="user-right">
                                 <p>

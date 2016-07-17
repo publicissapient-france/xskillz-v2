@@ -37,7 +37,7 @@ const UserRepository = {
 
     findUsersBySkill: (id) =>
         this.db.query(`
-            SELECT user.*, level
+            SELECT user.*, level, interested
             FROM UserSkill user_skill 
             JOIN User user ON user.id = user_skill.user_id 
             WHERE skill_id = ${id}
