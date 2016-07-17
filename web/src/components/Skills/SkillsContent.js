@@ -75,7 +75,10 @@ class SkillsContent extends Component {
         return (
             <div className="content">
                 <div className="auto-complete">
-                    <AutoComplete hintText={'Enter skill name...'}
+                    <AutoComplete
+                                  autoFocus={true}
+                                  hintText={'Enter skill name...'}
+                                  maxSearchResults={20}
                                   dataSource={nameArray}
                                   filter={AutoComplete.fuzzyFilter}
                                   onNewRequest={this.onNewRequest}
