@@ -8,6 +8,9 @@ import Divider from 'material-ui/Divider';
 
 import DiplomaDatePicker from '../Manager/DiplomaDatePicker';
 import AssignUserToManager from '../Manager/AssignUserToManager';
+import QRCodeURL from '../Api/QRCodeURL/QRCodeURL';
+
+import Config from '../../Config';
 
 class SettingsContent extends Component {
 
@@ -134,6 +137,7 @@ class SettingsContent extends Component {
                 </div>
                 <DiplomaDatePicker saveDiploma={saveDiploma}/>
                 <AssignUserToManager assignUserToManager={assignUserToManager} users={users} fetchUsers={fetchUsers}/>
+                <QRCodeURL url={Config.apiURL}/>
             </div>
         );
     }

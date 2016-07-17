@@ -16,6 +16,7 @@ import SigninPage from 'containers/Auth/SigninPage';
 import SignupPage from 'containers/Auth/SignupPage';
 import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
+import ApiPage from 'containers/Api/ApiPage';
 
 import configureStore from './store/configureStore';
 
@@ -70,6 +71,10 @@ ReactDOM.render(
                 <Route path="signup"
                        components={{main: SignupPage}}
                        dataTypePage="signup"/>
+
+                <Route path="api"
+                       components={{main: ApiPage, header: Header}}
+                       dataType="api"/>
 
                 <Route status={404}
                        path="*"
