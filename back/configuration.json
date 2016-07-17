@@ -12,7 +12,7 @@
         "RDS_USER": "xskillz",
         "RDS_PASSWORD": "xskillz-dev"
       },
-      "env": {
+      "container": {
         "NODE_ENV": "container",
         "BLUEBIRD_WARNINGS": 0,
         "RDS_HOST": "db",
