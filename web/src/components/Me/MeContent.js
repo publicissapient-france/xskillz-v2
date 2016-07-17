@@ -13,7 +13,7 @@ class MeContent extends Component {
     }
 
     render() {
-        const user = this.props.me.body;
+        const user = this.props.me;
         const { updateSkill, removeSkill } = this.props;
 
         return (

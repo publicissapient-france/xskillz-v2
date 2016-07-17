@@ -7,7 +7,9 @@ const initialState = {
 export function me(state = initialState, action) {
     switch (action.type) {
         case RECEIVE_ME:
-            return Object.assign({}, state, action.payload);
+            const next = {...state, ...action.payload};
+            next.loaded = true;
+            return next;
         default:
             return state;
     }

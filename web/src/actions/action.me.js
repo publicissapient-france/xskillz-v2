@@ -11,7 +11,7 @@ export function receiveMe(body) {
     return {
         type: RECEIVE_ME,
         payload: {
-            body
+            ...body
         }
     };
 }
