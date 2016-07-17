@@ -46,13 +46,7 @@ class SkillsContent extends Component {
     static composeUsers = (skillId, users) => {
         const ret = {0: [], 1: [], 2: [], 3: []};
         _.each(users, user => {
-            _.each(user.domains, domain => {
-                _.each(domain.skills, skill => {
-                    if (skill.id === skillId) {
-                        ret[skill.level].push({...user, skill});
-                    }
-                })
-            });
+            ret[user.level].push({...user});
         });
         return ret;
     };

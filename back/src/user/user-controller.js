@@ -135,10 +135,25 @@ module.exports = {
                 res.status(500).send(err.message);
             });
     },
-    getUsersBySkill: (req, res) => {
+    getUsersBySkillMobileVersion: (req, res) => {
         this.Repository
             .findUsersBySkill(req.params.id)
             .map((user)=> createUserById(this.Repository, this.SkillRepository, user.id))
+            .then((users) => res.json(users))
+            .catch((err) => {
+                log.error(err.message);
+                res.status(404).jsonp({error: `Users not found`});
+            });
+    },
+
+    getUsersBySkill: (req, res) => {
+        this.Repository
+            .findUsersBySkill(req.params.id)
+            .map((user)=> {
+                const _user = createUser(user);
+                _user.level = user.level;
+                return _user;
+            })
             .then((users) => res.json(users))
             .catch((err) => {
                 log.error(err.message);
@@ -175,7 +190,7 @@ module.exports = {
             });
     },
 
-    getUsers: (req, res) => {
+    getUsersMobileVersion: (req, res) => {
         let usersPromise;
         if (req.query.with_roles) {
             usersPromise = this.Repository.getUsersWithRoles(req.query.with_roles);
@@ -184,6 +199,22 @@ module.exports = {
         }
         usersPromise
             .map((user)=> createUserById(this.Repository, this.SkillRepository, user.id))
+            .then((users) => res.json(users))
+            .catch((err) => {
+                log.error(err.message);
+                res.status(404).jsonp({error: `Users not found`, cause: err.message});
+            });
+    },
+
+    getUsers: (req, res) => {
+        let usersPromise;
+        if (req.query.with_roles) {
+            usersPromise = this.Repository.getUsersWithRoles(req.query.with_roles);
+        } else {
+            usersPromise = this.Repository.getUsers();
+        }
+        usersPromise
+            .map((user)=> createUser(user))
             .then((users) => res.json(users))
             .catch((err) => {
                 log.error(err.message);
