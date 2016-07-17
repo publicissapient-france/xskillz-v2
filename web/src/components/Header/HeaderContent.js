@@ -13,19 +13,16 @@ class HeaderContent extends Component {
 
         return (
             <AppBar showMenuIconButton={false} title={route.path} titleStyle={{textTransform: 'capitalize'}}>
-                <IconButton onClick={goToMe} style={style}>
-                    <FontIcon className={'material-icons'} color="white">account_box</FontIcon>
-                </IconButton>
-                <IconButton onClick={goToUpdates} style={style}>
+                <IconButton onClick={goToMe} style={style} tooltip="My Profile">
                     <FontIcon className={'material-icons'} color="white">home</FontIcon>
                 </IconButton>
-                <IconButton onClick={goToSkills} style={style}>
-                    <FontIcon className={'material-icons'} color="white">assignment_turned_in</FontIcon>
+                <IconButton onClick={goToSkills} style={style} tooltip="Search Skills">
+                    <FontIcon className={'material-icons'} color="white">search</FontIcon>
                 </IconButton>
-                <IconButton onClick={goToUsers} style={style}>
+                <IconButton onClick={goToUsers} style={style} tooltip="Search Users">
                     <FontIcon className={'material-icons'} color="white">person_pin</FontIcon>
                 </IconButton>
-                <IconButton onClick={goToSettings} style={style}>
+                <IconButton onClick={goToSettings} style={style} tooltip="Preferences">
                     <FontIcon className={'material-icons'} color="white">settings</FontIcon>
                 </IconButton>
             </AppBar>

@@ -9,7 +9,8 @@ import Chip from 'material-ui/Chip';
 
 const styles = {
     chip: {
-        paddingLeft:0
+        paddingLeft:0,
+        color:'white'
     }
 };
 
@@ -33,7 +34,7 @@ class UserItem extends Component {
                                 <p>
                                     <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
                                 </p>
-                                <Chip backgroundColor="#9b59b6" labelColor="white" labelStyle={styles.chip}>
+                                <Chip backgroundColor="#9b59b6" labelStyle={styles.chip}>
                                     <Avatar size={32} backgroundColor="#9b59b6">{user.experienceCounter || '-'}</Avatar>
                                     XP
                                 </Chip>

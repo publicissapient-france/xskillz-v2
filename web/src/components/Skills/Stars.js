@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
 import { grey300 } from 'material-ui/styles/colors';
 
 class Stars extends Component {
@@ -48,6 +47,13 @@ class Stars extends Component {
         const display = {
             display: 'inline-block'
         };
+        const styles = {
+            smallIcon: {
+                width: 36,
+                height: 36
+            }
+        };
+
         return (
             <div style={display}>
                 {level > 0 ?
