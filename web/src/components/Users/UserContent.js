@@ -1,8 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
-import AutoComplete from 'material-ui/AutoComplete';
-import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
 import UserItem from './UserItem';
 
 import CircularProgress from 'material-ui/CircularProgress';

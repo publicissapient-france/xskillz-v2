@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 class HeaderContent extends Component {
 
     render() {
-        const { goToSkills, goToUsers, goToUpdates, goToMe, route, goToSettings } = this.props;
+        const { goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings } = this.props;
 
         const style = {height: 'auto'};
 
@@ -24,6 +24,9 @@ class HeaderContent extends Component {
                 </IconButton>
                 <IconButton onClick={goToSettings} style={style} tooltip="Preferences">
                     <FontIcon className={'material-icons'} color="white">settings</FontIcon>
+                </IconButton>
+                <IconButton onClick={goToHelp} style={style} tooltip="Help">
+                    <FontIcon className={'material-icons'} color="white">help</FontIcon>
                 </IconButton>
             </AppBar>
         );

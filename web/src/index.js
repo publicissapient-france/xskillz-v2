@@ -10,6 +10,7 @@ import { NotFound } from 'containers/NotFound';
 import SkillsPage from 'containers/Skills/SkillsPage';
 import UsersPage from 'containers/Users/UsersPage';
 import UserPage from 'containers/Users/UserPage';
+import HelpPage from 'containers/Help/HelpPage';
 import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
@@ -63,6 +64,10 @@ ReactDOM.render(
                 <Route path="me"
                        components={{main: MePage, header: Header}}
                        dataTypePage="me"/>
+
+                <Route path="help"
+                       components={{main: HelpPage, header: Header}}
+                       dataTypePage="help"/>
 
                 <Route path="settings"
                        components={{main: SettingsPage, header: Header}}
