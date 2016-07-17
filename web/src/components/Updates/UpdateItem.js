@@ -18,7 +18,6 @@ class UpdateItem extends Component {
         return (
             <div className="user-row">
                 <Paper>
-                    <div className="company-name">{companyName}</div>
                     <div className="user-content">
                         <div className="user-left">
                             <Avatar src={gravatarUrl}/>

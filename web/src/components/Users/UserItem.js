@@ -21,7 +21,6 @@ class UserItem extends Component {
                 <div className="user-row">
                     <Paper>
                         <div className="remove-icon" onClick={()=>removeUser(user.id)}>x</div>
-                        <div className="company-name">{user.companyName}</div>
                         <div className="user-content">
                             <div className="user-left">
                                 <Avatar src={user.gravatarUrl}/>
