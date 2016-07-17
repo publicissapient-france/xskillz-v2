@@ -24,6 +24,10 @@ module.exports = {
     
     addSkill: (req, res) => {
         var skillRequest = req.body;
+        if(!skillRequest.name) {
+            res.status(403).send('You have to name your skill');
+            return;
+        }
         skillRequest.level = skillRequest.level || 0;
         Repository
             .findSkillByExactName(skillRequest.name)
