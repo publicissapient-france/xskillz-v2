@@ -1,13 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
-import Badge from 'material-ui/Badge';
 import { redA400, grey500, grey200 } from 'material-ui/styles/colors';
-import Stars from '../Skills/Stars';
 
 import LabelButton from '../LabelButton';
 import SkillCard from '../Skills/SkillCard';
+import Chip from 'material-ui/Chip';
+
+const styles = {
+    chip: {
+        paddingLeft:0
+    }
+};
 
 class UserItem extends Component {
 
@@ -29,7 +33,10 @@ class UserItem extends Component {
                                 <p>
                                     <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
                                 </p>
-                                <p style={{marginLeft: '2px'}}>{user.experienceCounter} XP</p>
+                                <Chip backgroundColor="#9b59b6" labelColor="white" labelStyle={styles.chip}>
+                                    <Avatar size={32} backgroundColor="#9b59b6">{user.experienceCounter || '-'}</Avatar>
+                                    XP
+                                </Chip>
                             </div>
                         </div>
                         {details && user.domains &&
