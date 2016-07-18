@@ -48,11 +48,11 @@ export function skillGot(skill) {
     };
 }
 
-export function skillRemoved(skill) {
+export function skillRemoved(id) {
     return {
         type: SKILL_REMOVED,
         payload: {
-            skill
+            id
         }
     };
 }
@@ -127,7 +127,7 @@ export function removeSkill(id) {
                     throw new Error('Cannot remove skill');
                 }
             })
-            .then(json => dispatch(skillRemoved(json)));
+            .then(() => dispatch(skillRemoved(id)));
     };
 }
 
