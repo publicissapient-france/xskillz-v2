@@ -58,7 +58,6 @@ export function skillRemoved(id) {
 export const SKILL_UPDATED = 'SKILL_UPDATED';
 
 export function skillUpdated(skill) {
-    console.log(skill);
     return {
         type: SKILL_UPDATED,
         payload: {skill}
