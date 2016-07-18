@@ -11,16 +11,26 @@ class EditableLike extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            like: props.like ? props.like : false
+        };
+    }
+
+    setLike(like) {
+        this.setState({
+            like
+        });
     }
 
     handleClick() {
+        this.setLike(!this.state.like);
         if (this.props.handleClick) {
-            this.props.handleClick(!this.props.like);
+            this.props.handleClick(!this.state.like);
         }
     }
 
     render() {
-        const { like } = this.props;
+        const { like } = this.state;
 
         return (
             <div className="stars-content">
