@@ -1,5 +1,5 @@
 import {RECEIVE_ME} from '../actions/action.me';
-import {SKILL_REMOVED, SKILL_ADDED} from '../actions/skills';
+import {SKILL_REMOVED, SKILL_ADDED,SKILL_UPDATED} from '../actions/skills';
 import _ from 'lodash';
 
 const initialState = {
@@ -32,6 +32,18 @@ export function me(state = initialState, action) {
                     } else {
                         domain.skills.push(skill);
                     }
+                }
+            });
+            return next;
+        }
+        case SKILL_UPDATED:
+        {
+            const next = {...state};
+            const skill = action.payload.skill;
+            _.each(next.domains, domain => {
+                const index = _.findIndex(domain.skills, s => s.id === skill.id);
+                if (index >= 0) {
+                    domain.skills[index] = {...skill};
                 }
             });
             return next;

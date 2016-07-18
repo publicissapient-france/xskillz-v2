@@ -14,28 +14,19 @@ class SkillCard extends Component {
         removeSkill: PropTypes.func
     };
 
-    constructor(props) {
-        super(props);
-
-        const skill = this.props.skill;
-        this.state = Object.assign({}, skill);
-    }
-
     onLikeClicked() {
         const updateSkill = this.props.updateSkill;
-        const skill = this.state;
+        const skill = this.props.skill;
         if (typeof updateSkill === 'function') {
-            updateSkill(Object.assign({}, skill, {interested: !skill.interested}));
-            this.setState({interested: !skill.interested});
+            updateSkill({...skill, interested: !skill.interested});
         }
     }
 
     onStarClicked(level) {
         const updateSkill = this.props.updateSkill;
-        const skill = this.state;
+        const skill = this.props.skill;
         if (typeof updateSkill === 'function') {
-            updateSkill(Object.assign({}, skill, {level}));
-            this.setState({level});
+            updateSkill({...skill, level});
         }
     }
 
@@ -56,8 +47,10 @@ class SkillCard extends Component {
                 <p>
                     {name && <LabelButton label={name} onClick={()=>{onSkillClick(name)}}/>}
                 </p>
-                {interested && <span className="interested-icon" onClick={::this.onLikeClicked} style={{color: redA400, cursor:'pointer'}}>&#9829;</span>}
-                {!interested && <span className="interested-icon" onClick={::this.onLikeClicked} style={{color: grey500, cursor:'pointer'}}>&#9825;</span>}
+                {interested && <span className="interested-icon" onClick={::this.onLikeClicked}
+                                     style={{color: redA400, cursor:'pointer'}}>&#9829;</span>}
+                {!interested && <span className="interested-icon" onClick={::this.onLikeClicked}
+                                      style={{color: grey500, cursor:'pointer'}}>&#9825;</span>}
                 <Stars level={level} onStarClicked={::this.onStarClicked}/>
             </div>
         );

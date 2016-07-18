@@ -51,14 +51,21 @@ export function skillGot(skill) {
 export function skillRemoved(id) {
     return {
         type: SKILL_REMOVED,
-        payload: {
-            id
-        }
+        payload: {id}
     };
 }
 
-export function updateSkill(skill) {
+export const SKILL_UPDATED = 'SKILL_UPDATED';
+
+export function skillUpdated(skill) {
     console.log(skill);
+    return {
+        type: SKILL_UPDATED,
+        payload: {skill}
+    }
+}
+
+export function updateSkill(skill) {
     return dispatch => {
         const config = {
             method: 'PUT',
@@ -79,7 +86,7 @@ export function updateSkill(skill) {
                     throw new Error('Cannot add skill');
                 }
             })
-            .then(json => dispatch(skillGot(skill)));
+            .then(json => dispatch(skillUpdated(skill)));
     };
 }
 

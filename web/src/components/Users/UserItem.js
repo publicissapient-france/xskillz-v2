@@ -21,8 +21,6 @@ class UserItem extends Component {
         const user = this.props.user;
         const {onUserClick, onSkillClick, updateSkill, removeSkill, details, removeUser} = this.props;
 
-        console.log(user.domains && user.domains[1]);
-
         // noinspection JSUnresolvedVariable
         if (user) {
             return (
