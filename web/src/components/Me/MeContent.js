@@ -16,6 +16,8 @@ class MeContent extends Component {
         const user = this.props.me;
         const { updateSkill, removeSkill } = this.props;
 
+        console.log(user.domains && user.domains[1]);
+
         return (
             <div className="content">
                 <AddSkillForm

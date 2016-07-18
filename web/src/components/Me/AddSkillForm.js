@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import Snackbar from 'material-ui/Snackbar';
 import EditableStars from './EditableStars';
 import EditableLike from './EditableLike';
 import _ from 'lodash';
@@ -12,11 +11,12 @@ class AddSkillForm extends Component {
     constructor(props) {
         super(props);
 
-        this.onSkillSelected = this.onSkillSelected.bind(this);
-        this.onStarSelected = this.onStarSelected.bind(this);
-        this.onLikeSelected = this.onLikeSelected.bind(this);
-        this.onSubmitClicked = this.onSubmitClicked.bind(this);
-        this.skill = {};
+        this.skill = {
+            id: null,
+            interested: false,
+            level: 0,
+            name: null
+        };
     }
 
     componentDidMount() {
@@ -24,10 +24,6 @@ class AddSkillForm extends Component {
         if (!skills.loaded) {
             this.props.fetchSkills();
         }
-    }
-
-    onSkillSelected(name) {
-        this.skill.name = name;
     }
 
     onStarSelected(count) {
@@ -42,14 +38,17 @@ class AddSkillForm extends Component {
         this.props.addSkill(this.skill);
     }
 
-    onBlurAutocomplete(event) {
-        this.skill.name = event.currentTarget.value;
-    }
+    onUpdateSkill = (name, index) => {
+        const skill = this.props.skills.list[index];
+
+        this.skill.name = skill.name;
+        this.skill.id = skill.id;
+        this.skill.domain = skill.domain;
+    };
 
     render() {
         const nameArray = [];
         _.each(this.props.skills.list, skill => nameArray.push(skill.name));
-        const { newSkill } = this.props.skills;
 
         return (
             <div className="add-skill-form">
@@ -59,22 +58,20 @@ class AddSkillForm extends Component {
                             <AutoComplete hintText={'Enter skill name...'}
                                           dataSource={nameArray}
                                           filter={AutoComplete.fuzzyFilter}
-                                          onNewRequest={this.onSkillSelected}
                                           fullWidth
-                                          onBlur={::this.onBlurAutocomplete}/>
+                                          onNewRequest={::this.onUpdateSkill}/>
                         </div>
                         <div className="stars">
-                            <EditableStars mark={0} handleClick={this.onStarSelected}/>
+                            <EditableStars mark={0} handleClick={::this.onStarSelected}/>
                         </div>
                         <div className="heart">
-                            <EditableLike like={false} handleClick={this.onLikeSelected}/>
+                            <EditableLike like={false} handleClick={::this.onLikeSelected}/>
                         </div>
                         <div className="button">
-                            <RaisedButton primary label="Add skill" onClick={this.onSubmitClicked}/>
+                            <RaisedButton primary label="Add skill" onClick={::this.onSubmitClicked}/>
                         </div>
                     </div>
                 </Paper>
-                <Snackbar open={newSkill.id !== undefined} message={`${newSkill.name} added`} autoHideDuration={2000}/>
             </div>
         );
     }

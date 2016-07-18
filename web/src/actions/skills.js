@@ -83,6 +83,15 @@ export function updateSkill(skill) {
     };
 }
 
+export const SKILL_ADDED = 'SKILL_ADDED';
+
+export function skillAdded(skill) {
+    return {
+        type: SKILL_ADDED,
+        payload: {skill}
+    }
+}
+
 export function addSkill(skill) {
     return dispatch => {
         const config = {
@@ -104,7 +113,7 @@ export function addSkill(skill) {
                     throw new Error('Cannot add skill');
                 }
             })
-            .then(json => dispatch(skillGot(json)));
+            .then(() => dispatch(skillAdded(skill)));
     };
 }
 

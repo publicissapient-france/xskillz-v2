@@ -1,5 +1,5 @@
 import {RECEIVE_ME} from '../actions/action.me';
-import {SKILL_REMOVED} from '../actions/skills';
+import {SKILL_REMOVED, SKILL_ADDED} from '../actions/skills';
 import _ from 'lodash';
 
 const initialState = {
@@ -18,6 +18,22 @@ export function me(state = initialState, action) {
         {
             const next = {...state};
             _.each(next.domains, domain => _.remove(domain.skills, skill => skill.id === action.payload.id));
+            return next;
+        }
+        case SKILL_ADDED:
+        {
+            const next = {...state};
+            const skill = action.payload.skill;
+            _.each(next.domains, domain => {
+                if (domain.id === skill.domain.id) {
+                    const sIndex = _.findIndex(domain.skills, s => s.id === skill.id);
+                    if (sIndex >= 0) {
+                        domain.skills[sIndex] = skill;
+                    } else {
+                        domain.skills.push(skill);
+                    }
+                }
+            });
             return next;
         }
         default:
