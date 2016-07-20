@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => {
         deleteDomain: id => dispatch(deleteDomain(id)),
         addDomain: payload => dispatch(addDomain(payload)),
         mergeSkills: payload => dispatch(mergeSkills(payload)),
-        saveDiploma: date => dispatch(saveDiploma(date)),
+        saveDiploma: (userId, date) => dispatch(saveDiploma(userId, date)),
         fetchUsers: () => dispatch(fetchUsers()),
         assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId))
     };

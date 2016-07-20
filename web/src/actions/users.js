@@ -103,7 +103,7 @@ export function diplomaSaved() {
     }
 }
 
-export function saveDiploma(diploma) {
+export function saveDiploma(userId, diploma) {
     return dispatch => {
         const config = {
             method: 'PUT',
@@ -113,7 +113,7 @@ export function saveDiploma(diploma) {
             },
             body: JSON.stringify({diploma})
         };
-        return fetch(`${Config.apiURL}/users/${store.get('me').id}`, config)
+        return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then(response => {
                 if (response.status >= 400 && response.status <= 403) {
                     browserHistory.push('/signin');

@@ -135,7 +135,7 @@ class SettingsContent extends Component {
                 <div>
                     <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
                 </div>
-                <DiplomaDatePicker saveDiploma={saveDiploma}/>
+                <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
                 <AssignUserToManager assignUserToManager={assignUserToManager} users={users} fetchUsers={fetchUsers}/>
                 <QRCodeURL url={Config.apiURL}/>
             </div>
