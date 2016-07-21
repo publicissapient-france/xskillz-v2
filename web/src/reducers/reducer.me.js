@@ -24,6 +24,7 @@ export function me(state = initialState, action) {
         {
             const next = {...state};
             const skill = action.payload.skill;
+            let added = false;
             _.each(next.domains, domain => {
                 if (domain.id === skill.domain.id) {
                     const sIndex = _.findIndex(domain.skills, s => s.id === skill.id);
@@ -32,8 +33,15 @@ export function me(state = initialState, action) {
                     } else {
                         domain.skills.push(skill);
                     }
+                    added = true;
                 }
             });
+            if (!added) {
+                //noinspection JSUnresolvedFunction
+                next.domains.push(_.cloneDeep(skill.domain));
+                skill.domain.skills = null;
+                next.domains[0].skills = [skill];
+            }
             return next;
         }
         case SKILL_UPDATED:
