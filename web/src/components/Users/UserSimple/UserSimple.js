@@ -1,15 +1,26 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
-import { redA400, grey500 } from 'material-ui/styles/colors';
+import {redA400, grey500} from 'material-ui/styles/colors';
 
 import LabelButton from '../../LabelButton';
 
 class UserSimple extends Component {
 
+    static propTypes = {
+        onUserClick: PropTypes.func
+    };
+
+    onUserClick = id => {
+        const userClick = this.props.onUserClick;
+        if (typeof userClick === 'function') {
+            userClick(id);
+        }
+    };
+
     render() {
 
-        const { onUserClick, user } = this.props;
+        const {user} = this.props;
 
         //noinspection JSUnresolvedVariable
         return (
@@ -21,7 +32,7 @@ class UserSimple extends Component {
                         </div>
                         <div className="user-right">
                             {user.name && <p>
-                                <LabelButton label={user.name} onClick={()=>{onUserClick(user.name)}}/>
+                                <LabelButton label={user.name} onClick={()=>{::this.onUserClick(user.id)}}/>
                             </p>}
                         </div>
                     </div>

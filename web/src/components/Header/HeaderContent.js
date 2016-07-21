@@ -12,7 +12,7 @@ class HeaderContent extends Component {
         const style = {height: 'auto'};
 
         return (
-            <AppBar showMenuIconButton={false} title={route.path} titleStyle={{textTransform: 'capitalize'}}>
+            <AppBar showMenuIconButton={false} title={route.name} titleStyle={{textTransform: 'capitalize'}}>
                 <IconButton onClick={goToMe} style={style} tooltip="My Profile">
                     <FontIcon className={'material-icons'} color="white">home</FontIcon>
                 </IconButton>

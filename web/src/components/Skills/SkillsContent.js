@@ -11,9 +11,6 @@ class SkillsContent extends Component {
 
     constructor(props) {
         super(props);
-
-        this.onNewRequest = this.onNewRequest.bind(this);
-
         this.search = true;
     }
 
@@ -54,7 +51,7 @@ class SkillsContent extends Component {
     render() {
 
         const { loaded } = this.props.skills;
-        const { onUserClick } = this.props;
+        const {onUserClick} = this.props;
 
         if (!loaded) {
             return (
@@ -76,18 +73,22 @@ class SkillsContent extends Component {
             <div className="content">
                 <div className="auto-complete">
                     <AutoComplete
-                                  autoFocus={true}
-                                  hintText={'Enter skill name...'}
-                                  maxSearchResults={20}
-                                  dataSource={nameArray}
-                                  filter={AutoComplete.fuzzyFilter}
-                                  onNewRequest={this.onNewRequest}
-                                  searchText={name}/>
+                        autoFocus={true}
+                        hintText={'Enter skill name...'}
+                        maxSearchResults={20}
+                        dataSource={nameArray}
+                        filter={AutoComplete.fuzzyFilter}
+                        onNewRequest={::this.onNewRequest}
+                        searchText={name}/>
                 </div>
-                {composedUsers[3].length > 0 && <UsersLevel title="Expert" users={composedUsers[3]}/>}
-                {composedUsers[2].length > 0 && <UsersLevel title="Confirmed" users={composedUsers[2]}/>}
-                {composedUsers[1].length > 0 && <UsersLevel title="Beginner" users={composedUsers[1]}/>}
-                {composedUsers[0].length > 0 && <UsersLevel title="Newbie" users={composedUsers[0]}/>}
+                {composedUsers[3].length > 0 &&
+                <UsersLevel title="Expert" users={composedUsers[3]} onUserClick={onUserClick}/>}
+                {composedUsers[2].length > 0 &&
+                <UsersLevel title="Confirmed" users={composedUsers[2]} onUserClick={onUserClick}/>}
+                {composedUsers[1].length > 0 &&
+                <UsersLevel title="Beginner" users={composedUsers[1]} onUserClick={onUserClick}/>}
+                {composedUsers[0].length > 0 &&
+                <UsersLevel title="Newbie" users={composedUsers[0]} onUserClick={onUserClick}/>}
             </div>
         )
     }

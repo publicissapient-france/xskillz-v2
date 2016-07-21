@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(fetchUsersBySkill(id));
             browserHistory.push(`/skills?name=${name}`);
         },
-        onUserClick: name => browserHistory.push(`/users?name=${name}`)
+        onUserClick: id => browserHistory.push(`/user/${id}`)
     };
 };
 

@@ -55,7 +55,7 @@ ReactDOM.render(
 
                 <Route path="user/:id"
                        components={{main: UserPage, header: Header}}
-                       dataTypePage="user"/>
+                       name="user" dataTypePage="user"/>
 
                 <Route path="users?name=:name"
                        components={{main: UsersPage, header: Header}}
