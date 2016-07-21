@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
-import store from 'store';
+import {browserHistory} from 'react-router';
 import Config from '../Config';
+import {getToken} from './auth';
 
 export const DOMAINS_GOT = 'DOMAINS_GOT';
 
@@ -19,7 +19,7 @@ export function fetchDomains() {
 
         const config = {
             method: 'GET',
-            headers: {'token': store.get('me').token}
+            headers: {token: getToken()}
         };
 
         return fetch(`${Config.apiURL}/domains`, config)
@@ -49,7 +49,7 @@ export function linkSkillToDomain(payload) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('me').token
+                token: getToken()
             },
             body: JSON.stringify({id})
         };
@@ -81,7 +81,7 @@ export function deleteDomain(id) {
         const config = {
             method: 'DELETE',
             headers: {
-                token: store.get('me').token
+                token: getToken()
             }
         };
         return fetch(`${Config.apiURL}/domains/${id}`, config)
@@ -112,7 +112,7 @@ export function addDomain(payload) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('me').token
+                token: getToken()
             },
             body: JSON.stringify(payload)
         };

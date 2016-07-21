@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
-import store from 'store';
 import Config from '../Config';
+import {getToken} from './auth';
 
 export const RECEIVE_SKILLS = 'RECEIVE_SKILLS';
 export const SKILL_GOT = 'SKILL_GOT';
@@ -23,7 +23,7 @@ export function fetchSkills() {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'token': store.get('token')
+                token: getToken()
             }
         };
 
@@ -70,7 +70,7 @@ export function updateSkill(skill) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('me').token
+                token: getToken()
             },
             body: JSON.stringify(skill)
         };
@@ -104,7 +104,7 @@ export function addSkill(skill) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('me').token
+                token: getToken()
             },
             body: JSON.stringify(skill)
         };
@@ -128,7 +128,7 @@ export function removeSkill(id) {
         const config = {
             method: 'DELETE',
             headers: {
-                token: store.get('me').token
+                token: getToken()
             }
         };
 
@@ -160,7 +160,7 @@ export function mergeSkills(payload) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                token: store.get('me').token
+                token: getToken()
             },
             body: JSON.stringify(payload)
         };

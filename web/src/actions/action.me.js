@@ -1,7 +1,7 @@
 import fetch from "isomorphic-fetch";
-import store from "store";
 import {browserHistory} from "react-router";
 import Config from "../Config";
+import {getToken} from './auth';
 
 // region fetchMe
 
@@ -21,7 +21,7 @@ export function fetchMe() {
         const config = {
             method: 'POST',
             headers: {
-                token: store.get('me').token,
+                token: getToken(),
                 'Content-Type': 'application/json'
             }
         };

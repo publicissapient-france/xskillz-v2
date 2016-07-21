@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
-import store from 'store';
+import {getToken} from './auth';
 import Config from '../Config';
 
 export const REQUEST_UPDATES_BY_COMPANY = 'REQUEST_UPDATES_BY_COMPANY';
@@ -23,7 +23,7 @@ export function fetchUpdates() {
         const config = {
             method: 'GET',
             headers: {
-                token: store.get('me').token
+                token: getToken()
             }
         };
 

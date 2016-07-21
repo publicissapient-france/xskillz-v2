@@ -7,6 +7,11 @@ import { browserHistory } from 'react-router';
 export const API_SIGNIN_SUCCESS = 'API_SIGNIN_SUCCESS';
 export const API_SIGNIN_ERROR = 'API_SIGNIN_ERROR';
 
+export function getToken() {
+    const me = store.get('me') || {};
+    return me.token;
+}
+
 export function signinSuccess(user) {
     store.set('me', user);
 
