@@ -9,6 +9,7 @@ class SigninContent extends Component {
 
     static propTypes = {
         signin: PropTypes.func.isRequired,
+        goToSignup: PropTypes.func.isRequired,
         auth: PropTypes.object.isRequired
     };
 
@@ -39,7 +40,8 @@ class SigninContent extends Component {
             input: {display: 'none'}
         };
 
-        const { email, password } = this.state;
+        const {email, password} = this.state;
+        const {goToSignup} = this.props;
 
         return (
             <form className="signin" onSubmit={::this.signin}>
@@ -54,8 +56,11 @@ class SigninContent extends Component {
                                    value={password}/>
                     </div>
                     <div className="cta" onClick={::this.signin}>
-                        <RaisedButton primary style={style.button} label="Login"/>
+                        <RaisedButton primary style={style.button} label="Signin"/>
                         <input type="submit" style={style.input}/>
+                    </div>
+                    <div className="cta" onClick={goToSignup}>
+                        <RaisedButton secondary style={style.button} label="New user?"/>
                     </div>
                 </Card>
             </form>

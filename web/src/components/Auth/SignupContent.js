@@ -55,7 +55,7 @@ class SignupContent extends Component {
                                    value={password}/>
                     </div>
                     <div className="cta" onClick={::this.signup}>
-                        <RaisedButton primary style={style.button} label="Login"/>
+                        <RaisedButton primary style={style.button} label="Signup"/>
                         <input type="submit" style={style.input}/>
                     </div>
                 </Card>

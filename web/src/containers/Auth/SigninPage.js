@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {browserHistory} from 'react-router';
 
 import SigninContent from '../../components/Auth/SigninContent';
-import { signin } from '../../actions/auth';
+import {signin} from '../../actions/auth';
 
 const mapStateToProps = (state) => {
     return {
@@ -14,7 +15,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signin: (email, password) => dispatch(signin(email, password))
+        signin: (email, password) => dispatch(signin(email, password)),
+        goToSignup: () => browserHistory.push('/signup')
     };
 };
 
