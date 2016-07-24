@@ -39,7 +39,7 @@ class UserItem extends Component {
                                     {_(user.domains)
                                         .sortBy('score').takeRight(2).reverse().map((domain) => {
                                         return (
-                                            <Chip style={styles.domainName} backgroundColor={domain.color} labelStyle={styles.domainName}>
+                                            <Chip key={domain.id} style={styles.domainName} backgroundColor={domain.color} labelStyle={styles.domainName}>
                                                 {domain.name}
                                             </Chip>
                                         );

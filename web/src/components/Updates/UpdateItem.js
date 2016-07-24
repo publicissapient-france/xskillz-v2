@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
-import FlatButton from 'material-ui/FlatButton';
 
-import LevelToHRValue from '../Skills/LevelToHRValue';
 import LabelButton from '../LabelButton';
 import SkillCard from '../Skills/SkillCard';
 
