@@ -22,3 +22,6 @@ build-image:
 
 push-image:
 	docker push $(IMAGE_NAME)
+
+clean:
+	docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")

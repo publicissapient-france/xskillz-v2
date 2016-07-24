@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card'
 import './SigninContent.less';
-import Snackbar from 'material-ui/Snackbar';
+import { browserHistory } from 'react-router';
 
 class SigninContent extends Component {
 
@@ -32,6 +32,10 @@ class SigninContent extends Component {
         this.props.signin(email, password);
     };
 
+    goToSignUp = (event) => {
+        browserHistory.push('/signup')
+    };
+
     render() {
 
         const style = {
@@ -44,6 +48,7 @@ class SigninContent extends Component {
         const {goToSignup} = this.props;
 
         return (
+            <div>
             <form className="signin" onSubmit={::this.signin}>
                 <Card style={style.card}>
                     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200"
@@ -64,6 +69,8 @@ class SigninContent extends Component {
                     </div>
                 </Card>
             </form>
+            <span onClick={::this.goToSignUp}>or Sign Up</span>
+            </div>
         )
     }
 
