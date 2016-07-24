@@ -1,16 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
-
-import DiplomaDatePicker from '../Manager/DiplomaDatePicker';
-import AssignUserToManager from '../Manager/AssignUserToManager';
-import QRCodeURL from '../Api/QRCodeURL/QRCodeURL';
-
-import Config from '../../Config';
+import React, {Component, PropTypes} from "react";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
+import RaisedButton from "material-ui/RaisedButton";
+import TextField from "material-ui/TextField";
+import Divider from "material-ui/Divider";
+import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
+import AssignUserToManager from "../Manager/AssignUserToManager";
+import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
+import {Tabs, Tab} from "material-ui/Tabs";
+import Config from "../../Config";
 
 class SettingsContent extends Component {
 
@@ -48,7 +46,7 @@ class SettingsContent extends Component {
     };
 
     linkSkillToDomain = () => {
-        const { skill, domain } = this.state;
+        const {skill, domain} = this.state;
         this.props.linkSkillToDomain({skill: {id: skill.id}, domain: {id: domain.id}});
     };
 
@@ -78,70 +76,93 @@ class SettingsContent extends Component {
         const {domain, skill, domainToRemove, mergeFromSkillId, mergeToSkillId} = this.state;
         const {saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
 
+        const styles = {
+            headline: {
+                fontSize: 24,
+                paddingTop: 16,
+                marginBottom: 12,
+                fontWeight: 400,
+            }
+        };
+
         return (
-            <div className="signin">
-                <h2>Link skill with domain</h2>
-                <div>
-                    <SelectField floatingLabelText="Skill's name" value={skill.id} hintText="Choose a skill"
-                                 onChange={::this.changeSkill}>
-                        {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
-                                                                primaryText={skill.name}/>)}
-                    </SelectField>
-                    <SelectField floatingLabelText="Domain's name" value={domain.id} hintText="Choose a domain"
-                                 onChange={::this.changeDomain}>
-                        {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
-                                                                  primaryText={domain.name}/>)}
-                    </SelectField>
-                    <div>
-                        <RaisedButton label="Associate" primary={true} onClick={::this.linkSkillToDomain}/>
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <Divider/>
-                <h2>Delete domain</h2>
-                <div>
-                    <SelectField floatingLabelText="Domain's name" value={domainToRemove.id} hintText="Choose a domain"
-                                 onChange={::this.changeDomainToRemove}>
-                        {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
-                                                                  primaryText={domain.name}/>)}
-                    </SelectField>
-                    <div>
-                        <RaisedButton label="Remove" primary={true} onClick={::this.deleteDomain}/>
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <Divider/>
-                <h2>Add domain</h2>
-                <div>
-                    <TextField floatingLabelText="Domain's name" onBlur={::this.addDomainName}/>
-                    <TextField floatingLabelText="Color prefixed by #" onBlur={::this.addDomainColor}/>
-                    <div>
-                        <RaisedButton label="Add" primary={true} onClick={::this.addDomain}/>
-                    </div>
-                </div>
-                <h2>Merge skills</h2>
-                <SelectField floatingLabelText="Replace" value={mergeFromSkillId} hintText="Choose a skill"
-                             onChange={::this.changeMergeFromSkillId}>
-                    {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
-                                                            primaryText={skill.name}/>)}
-                </SelectField>
-                <SelectField floatingLabelText="by" value={mergeToSkillId} hintText="Choose a skill"
-                             onChange={::this.changeMergeToSkillId}>
-                    {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
-                                                            primaryText={skill.name}/>)}
-                </SelectField>
-                <div>
-                    <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
-                </div>
-                <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
-                <AssignUserToManager assignUserToManager={assignUserToManager} users={users} fetchUsers={fetchUsers}/>
-                <QRCodeURL url={Config.apiURL}/>
-            </div>
-        );
+            <div className="content">
+                <Tabs>
+                    <Tab label="Skills">
+                        <h2>Link skill with domain</h2>
+                        <div>
+                            <SelectField floatingLabelText="Skill's name" value={skill.id} hintText="Choose a skill"
+                                         onChange={::this.changeSkill}>
+                                {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
+                                                                        primaryText={skill.name}/>)}
+                            </SelectField>
+                            <SelectField floatingLabelText="Domain's name" value={domain.id} hintText="Choose a domain"
+                                         onChange={::this.changeDomain}>
+                                {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
+                                                                          primaryText={domain.name}/>)}
+                            </SelectField>
+                            <div>
+                                <RaisedButton label="Associate" primary={true} onClick={::this.linkSkillToDomain}/>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <Divider/>
+                        <h2>Merge skills</h2>
+                        <SelectField floatingLabelText="Replace"
+                                     value={mergeFromSkillId}
+                                     hintText="Choose a skill"
+                                     onChange={::this.changeMergeFromSkillId}>
+                            {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
+                                                                    primaryText={skill.name}/>)}
+                        </SelectField>
+                        <SelectField floatingLabelText="by"
+                                     value={mergeToSkillId}
+                                     hintText="Choose a skill"
+                                     onChange={::this.changeMergeToSkillId}>
+                            {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
+                                                                    primaryText={skill.name}/>)}
+                        </SelectField>
+                        <div>
+                            <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
+                        </div>
+                    </Tab>
+                    <Tab label="Domains">
+                        <h2>Add domain</h2>
+                        <div>
+                            <TextField floatingLabelText="Domain's name" onBlur={::this.addDomainName}/>
+                            <TextField floatingLabelText="Color prefixed by #" onBlur={::this.addDomainColor}/>
+                            <div>
+                                <RaisedButton label="Add" primary={true} onClick={::this.addDomain}/>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <Divider/>
+                        <h2>Delete domain</h2>
+                        <div>
+                            <SelectField floatingLabelText="Domain's name" value={domainToRemove.id}
+                                         hintText="Choose a domain"
+                                         onChange={::this.changeDomainToRemove}>
+                                {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
+                                                                          primaryText={domain.name}/>)}
+                            </SelectField>
+                            <div>
+                                <RaisedButton label="Remove" primary={true} onClick={::this.deleteDomain}/>
+                            </div>
+                        </div>
+                    </Tab>
+                    <Tab label="Users">
+
+                        <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
+                        <br/><br/>
+                        <Divider/>
+                        <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
+                                             fetchUsers={fetchUsers}/>
+                    </Tab>
+                    <Tab label="QR Code">
+                        <QRCodeURL url={Config.apiURL}/>
+                    </Tab>
+                </Tabs>
+            </div>);
     }
-
 }
-
 export default SettingsContent;
