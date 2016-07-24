@@ -14,7 +14,7 @@ body {
     }
 
     .user-row {
-        margin: .6rem .5em;
+        margin: .2rem;
         position: relative;
     }
 
@@ -24,6 +24,7 @@ body {
 
     .user-content {
 
+        cursor: pointer;
         display: flex;
 
         .user-left {

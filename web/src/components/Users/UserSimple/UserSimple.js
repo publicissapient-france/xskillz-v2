@@ -24,11 +24,11 @@ class UserSimple extends Component {
 
         //noinspection JSUnresolvedVariable
         return (
-            <div className={"user-row user-interested-"+user.interested}>
+            <div className={"user-row user-interested-"+user.interested} onClick={()=>{::this.onUserClick(user.id)}}>
                 <Paper>
                     <div className={"user-content"}>
                         <div className="user-left">
-                            <Avatar src={user.gravatarUrl} size={75}/>
+                            <Avatar src={user.gravatarUrl} size={32}/>
                         </div>
                         <div className="user-right">
                             {user.name && <p>

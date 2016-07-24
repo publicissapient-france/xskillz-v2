@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
-
-import UserContent from '../../components/Users/UserContent'
-
-import { getUserById } from '../../actions/user';
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {browserHistory} from "react-router";
+import UserContent from "../../components/Users/UserContent";
+import {getUserById} from "../../actions/user";
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        onSkillClick: name => browserHistory.push(`/skills?name=${name}`)
     }
 };
 

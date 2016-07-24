@@ -24,7 +24,7 @@ class MeContent extends Component {
                     addSkill={this.props.addSkill}/>
                 <UserItem user={user}
                           onUserClick={()=>{}}
-                          onSkillClick={()=>{}}
+                          onSkillClick={this.props.onSkillClick}
                           updateSkill={updateSkill}
                           removeSkill={removeSkill}
                           details/>

@@ -6,7 +6,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 class UserContent extends Component {
 
     componentDidMount() {
-        const { loaded, user } = this.props.user;
+        const { loaded, user} = this.props.user;
         const userId = this.props.params.id;
         if (!loaded || user.id !== userId) {
             this.props.getUserById(userId);
@@ -27,7 +27,10 @@ class UserContent extends Component {
 
         return (
             <div className="content">
-                <UserItem user={user} details/>
+                <UserItem user={user}
+                          onSkillClick={this.props.onSkillClick}
+                          onUserClick={this.props.onUserClick}
+                          details/>
             </div>
         )
     }
