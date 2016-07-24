@@ -51,25 +51,23 @@ class SigninContent extends Component {
             <div>
             <form className="signin" onSubmit={::this.signin}>
                 <Card style={style.card}>
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200"
-                         alt="logo skillz"/>
+                    <img src="/images/logo.png" width={200} alt="logo skillz"/>
                     <div>
                         <TextField fullWidth floatingLabelText="Email" onChange={::this.onEmailChanged} value={email}/>
                     </div>
                     <div>
                         <TextField fullWidth floatingLabelText="Password" onChange={::this.onPasswordChanged}
-                                   value={password}/>
+                                   value={password} type="password" />
                     </div>
                     <div className="cta" onClick={::this.signin}>
-                        <RaisedButton primary style={style.button} label="Signin"/>
+                        <RaisedButton primary style={style.button} label="Login"/>
                         <input type="submit" style={style.input}/>
                     </div>
                     <div className="cta" onClick={goToSignup}>
-                        <RaisedButton secondary style={style.button} label="New user?"/>
+                        <RaisedButton secondary style={style.button} label="Create Account"/>
                     </div>
                 </Card>
             </form>
-            <span onClick={::this.goToSignUp}>or Sign Up</span>
             </div>
         )
     }

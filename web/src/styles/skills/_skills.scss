@@ -34,6 +34,10 @@
     background-color: $color-front-light;
 }
 
+.domain-null {
+    background-color: $color-no-domain-light;
+}
+
 .domains-content {
 
     @include clearfix;
@@ -46,7 +50,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        background-color: #9C27B0;
+        background-color: #CCCCCC;
         color: #F1F1F1;
         padding: 3px 5px;
         width: 4rem;

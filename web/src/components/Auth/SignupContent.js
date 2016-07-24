@@ -42,8 +42,7 @@ class SignupContent extends Component {
         return (
             <form className="signup" onSubmit={::this.signup}>
                 <Card style={style.card}>
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200"
-                         alt="logo skillz"/>
+                    <img src="/images/logo.png" width={200} alt="logo skillz"/>
                     <div>
                         <TextField fullWidth floatingLabelText="Name" onChange={::this.onNameChanged} value={name}/>
                     </div>
@@ -52,7 +51,7 @@ class SignupContent extends Component {
                     </div>
                     <div>
                         <TextField fullWidth floatingLabelText="Password" onChange={::this.onPasswordChanged}
-                                   value={password}/>
+                                   value={password} type="password"/>
                     </div>
                     <div className="cta" onClick={::this.signup}>
                         <RaisedButton primary style={style.button} label="Signup"/>
