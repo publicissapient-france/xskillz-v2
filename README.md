@@ -11,30 +11,17 @@ Skillz allows you to get a full overview of all your team mate's skills.
 ### Step 1 : Clone this repository
 
 ```bash
-git clone git@github.com:xebia-france/skillz.git
-cd skillz
+git clone git@github.com:xebia-france/xskillz-v2.git
+cd xskillz-v2
 ```
 
 ### Step 2 : Retrieve and build
 
 ```bash
-...
+docker-compose up --build
 ```
 
-Go to our [Quickstart page](doc/QUICKSTART.md) for more details.
-
-## Supported software factory tools
-
-## Contribute
-
-Want to contribute? That's great! Feel free to read our [Contribution page](CONTRIBUTE.md) to know our guidelines.
-
-## Stay tuned
-
-Stay tuned by following us on:
-
-* Our Website http://skillz.io
-* Twitter : [@skillz](http://twitter.com/skillz)
+Have a coffee, it takes some time.
 
 ## Technology inside
 

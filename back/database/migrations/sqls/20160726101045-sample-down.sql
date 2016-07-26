@@ -1,0 +1,10 @@
+DELETE FROM UserSkill;
+DELETE FROM Skill;
+
+DELETE FROM UserRole;
+DELETE FROM Role;
+DELETE FROM Token;
+
+DELETE FROM User;
+
+DELETE FROM Domain;
