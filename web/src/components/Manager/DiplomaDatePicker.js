@@ -36,7 +36,7 @@ class DiplomaDatePicker extends Component {
         const {userId, date} = this.state;
         const users = this.props.users.list;
         return (
-            <div className="graduation">
+            <div className="graduation" style={{display:'none'}}>
                 <h2>Graduation date</h2>
                 <div>
                     <SelectField floatingLabelText="Name" value={userId} hintText="Choose a teammate"

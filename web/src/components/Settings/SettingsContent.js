@@ -88,69 +88,69 @@ class SettingsContent extends Component {
         return (
             <div className="content">
                 <Tabs>
-                    <Tab label="Skills">
-                        <h2>Link skill with domain</h2>
+                    <Tab label="Compétences">
+                        <h2>Ranger les compétences par domaine</h2>
                         <div>
-                            <SelectField floatingLabelText="Skill's name" value={skill.id} hintText="Choose a skill"
+                            <SelectField floatingLabelText="Compétence" value={skill.id} hintText="Choisir la compétence à ranger"
                                          onChange={::this.changeSkill}>
                                 {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
                                                                         primaryText={skill.name}/>)}
                             </SelectField>
-                            <SelectField floatingLabelText="Domain's name" value={domain.id} hintText="Choose a domain"
+                            <SelectField floatingLabelText="Domaine" value={domain.id} hintText="Choisir le domaine cible"
                                          onChange={::this.changeDomain}>
                                 {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
                                                                           primaryText={domain.name}/>)}
                             </SelectField>
                             <div>
-                                <RaisedButton label="Associate" primary={true} onClick={::this.linkSkillToDomain}/>
+                                <RaisedButton label="Valider" primary={true} onClick={::this.linkSkillToDomain}/>
                             </div>
                         </div>
                         <br/><br/>
                         <Divider/>
-                        <h2>Merge skills</h2>
-                        <SelectField floatingLabelText="Replace"
+                        <h2>Fusionner deux compétences</h2>
+                        <SelectField floatingLabelText="Remplacer la compétence"
                                      value={mergeFromSkillId}
-                                     hintText="Choose a skill"
+                                     hintText="Choisir à la compétence à remplacer"
                                      onChange={::this.changeMergeFromSkillId}>
                             {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
                                                                     primaryText={skill.name}/>)}
                         </SelectField>
-                        <SelectField floatingLabelText="by"
+                        <SelectField floatingLabelText="par"
                                      value={mergeToSkillId}
-                                     hintText="Choose a skill"
+                                     hintText="cette compétence"
                                      onChange={::this.changeMergeToSkillId}>
                             {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
                                                                     primaryText={skill.name}/>)}
                         </SelectField>
                         <div>
-                            <RaisedButton label="Merge" primary={true} onClick={::this.mergeSkills}/>
+                            <RaisedButton label="Valider" primary={true} onClick={::this.mergeSkills}/>
                         </div>
                     </Tab>
-                    <Tab label="Domains">
-                        <h2>Add domain</h2>
+                    <Tab label="Domaines">
+                        <h2>Ajouter un domaine</h2>
                         <div>
-                            <TextField floatingLabelText="Domain's name" onBlur={::this.addDomainName}/>
-                            <TextField floatingLabelText="Color prefixed by #" onBlur={::this.addDomainColor}/>
+                            <TextField floatingLabelText="Domaine" onBlur={::this.addDomainName}/>
+                            <TextField floatingLabelText="Couleur préfixée par #" onBlur={::this.addDomainColor}/>
                             <div>
-                                <RaisedButton label="Add" primary={true} onClick={::this.addDomain}/>
+                                <RaisedButton label="Ajouter" primary={true} onClick={::this.addDomain}/>
                             </div>
                         </div>
                         <br/><br/>
                         <Divider/>
-                        <h2>Delete domain</h2>
+                        <h2>Supprimer un domaine</h2>
                         <div>
-                            <SelectField floatingLabelText="Domain's name" value={domainToRemove.id}
-                                         hintText="Choose a domain"
+                            <SelectField floatingLabelText="Domaine" value={domainToRemove.id}
+                                         hintText="Choisir un domaine"
                                          onChange={::this.changeDomainToRemove}>
                                 {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
                                                                           primaryText={domain.name}/>)}
                             </SelectField>
                             <div>
-                                <RaisedButton label="Remove" primary={true} onClick={::this.deleteDomain}/>
+                                <RaisedButton label="Supprimer" primary={true} onClick={::this.deleteDomain}/>
                             </div>
                         </div>
                     </Tab>
-                    <Tab label="Users">
+                    <Tab label="Utilisateurs">
 
                         <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
                         <br/><br/>

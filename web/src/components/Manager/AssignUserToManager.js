@@ -36,21 +36,21 @@ class AssignUserToManager extends Component {
         const managers = _.filter(users, user => _.indexOf(user.roles, 'Manager') > -1);
         return (
             <div className="assign-user-manager">
-                <h2>Assign a user to a manager</h2>
+                <h2>Assigner un manageur</h2>
                 <div>
-                    <SelectField floatingLabelText="User's name" value={userId} hintText="Choose a user"
+                    <SelectField floatingLabelText="Utilisateur" value={userId} hintText="Choisir un utilisateur"
                                  onChange={::this.onUserChange}>
                         {users.map((user, index) => <MenuItem value={user.id} key={index}
                                                               primaryText={user.name}/>)}
                     </SelectField>
-                    <SelectField floatingLabelText="Manager's name" value={managerId} hintText="Choose a manager"
+                    <SelectField floatingLabelText="Manageur" value={managerId} hintText="Choisir un manageur"
                                  onChange={::this.onManagerChange}>
                         {managers.map((manager, index) => <MenuItem value={manager.id} key={index}
                                                                     primaryText={manager.name}/>)}
                     </SelectField>
                 </div>
                 <div>
-                    <RaisedButton label="Assign" primary={true} onClick={::this.assignUserToManager}/>
+                    <RaisedButton label="Valider" primary={true} onClick={::this.assignUserToManager}/>
                 </div>
             </div>
         )

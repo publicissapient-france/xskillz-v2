@@ -55,7 +55,7 @@ class AddSkillForm extends Component {
                 <Paper>
                     <div className="content">
                         <div className="autocomplete">
-                            <AutoComplete hintText={'Enter skill name...'}
+                            <AutoComplete hintText={'Ajouter une compétence ...'}
                                           dataSource={nameArray}
                                           filter={AutoComplete.fuzzyFilter}
                                           menuStyle={{cursor:'pointer'}}
@@ -69,7 +69,7 @@ class AddSkillForm extends Component {
                             <EditableLike like={false} handleClick={::this.onLikeSelected}/>
                         </div>
                         <div className="button">
-                            <RaisedButton primary label="Add skill" onClick={::this.onSubmitClicked}/>
+                            <RaisedButton primary label="Ajouter" onClick={::this.onSubmitClicked}/>
                         </div>
                     </div>
                 </Paper>

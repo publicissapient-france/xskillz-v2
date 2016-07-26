@@ -74,7 +74,7 @@ class SkillsContent extends Component {
                 <div className="auto-complete">
                     <AutoComplete
                         autoFocus={true}
-                        hintText={'Enter skill name...'}
+                        hintText={'Chercher une compétence ...'}
                         maxSearchResults={20}
                         dataSource={nameArray}
                         menuStyle={{cursor:'pointer'}}
@@ -83,13 +83,13 @@ class SkillsContent extends Component {
                         searchText={name}/>
                 </div>
                 {composedUsers[3].length > 0 &&
-                <UsersLevel title="Expert" users={composedUsers[3]} onUserClick={onUserClick}/>}
+                <UsersLevel title="Experts" users={composedUsers[3]} onUserClick={onUserClick}/>}
                 {composedUsers[2].length > 0 &&
-                <UsersLevel title="Confirmed" users={composedUsers[2]} onUserClick={onUserClick}/>}
+                <UsersLevel title="Confirmés" users={composedUsers[2]} onUserClick={onUserClick}/>}
                 {composedUsers[1].length > 0 &&
-                <UsersLevel title="Beginner" users={composedUsers[1]} onUserClick={onUserClick}/>}
+                <UsersLevel title="Débutants" users={composedUsers[1]} onUserClick={onUserClick}/>}
                 {composedUsers[0].length > 0 &&
-                <UsersLevel title="Newbie" users={composedUsers[0]} onUserClick={onUserClick}/>}
+                <UsersLevel title="Interessés" users={composedUsers[0]} onUserClick={onUserClick}/>}
             </div>
         )
     }
