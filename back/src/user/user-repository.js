@@ -113,12 +113,12 @@ const UserRepository = {
 
     getUpdates: () =>
         this.db.query(`
-            SELECT domain.id domain_id, domain.name domain_name, user.diploma user_diploma, user.email user_email, user.id user_id, user.name user_name, skill.id skill_id, user_skill.interested skill_interested, user_skill.level skill_level, skill.name skill_name, user_skill.updatedAt skill_date, user_skill.id user_skill_id
+            SELECT domain.color, domain.id domain_id, domain.name domain_name, user.diploma user_diploma, user.email user_email, user.id user_id, user.name user_name, skill.id skill_id, user_skill.interested skill_interested, user_skill.level skill_level, skill.name skill_name, user_skill.updatedAt skill_date, user_skill.id user_skill_id
             FROM UserSkill user_skill
                 JOIN User user ON user_skill.user_id = user.id
                 JOIN Skill skill ON skill.id = user_skill.skill_id
                 LEFT JOIN Domain domain ON domain.id = skill.domain_id
-            ORDER BY user_skill.updatedAt DESC
+            ORDER BY user_skill.updatedAt DESC, domain_name
             LIMIT 20
     `),
 

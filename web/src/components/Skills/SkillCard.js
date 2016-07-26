@@ -38,12 +38,13 @@ class SkillCard extends Component {
     }
 
     render() {
-        const {name, level, interested} = this.props.skill;
+        const {name, level, interested, color, domain} = this.props.skill;
         const {onSkillClick, removeSkill} = this.props;
 
         return (
-            <div className={"domain-info skill-level-"+level+" skill-interested-"+interested}>
+            <div key="name" className={"domain-info skill-level-"+level+" skill-interested-"+interested} style={{borderColor:color}}>
                 {removeSkill && <div className="remove-icon" onClick={::this.onRemoveClicked}>x</div>}
+                {color && <span className="domain-label" style={{backgroundColor:color}}>{domain}</span>}
                 <p>
                     {name && <LabelButton label={name} onClick={()=>{onSkillClick(name)}}/>}
                 </p>

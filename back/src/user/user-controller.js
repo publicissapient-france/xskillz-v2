@@ -58,7 +58,9 @@ const createUserUpdates = (userUpdates) => {
                     id: userUpdate.skill_id,
                     interested: userUpdate.skill_interested[0] === 1,
                     level: userUpdate.skill_level,
-                    name: userUpdate.skill_name
+                    name: userUpdate.skill_name,
+                    color: userUpdate.color,
+                    domain: userUpdate.domain_name
                 },
                 date: userUpdate.skill_date
             }
