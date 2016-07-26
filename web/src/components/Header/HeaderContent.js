@@ -1,18 +1,26 @@
-import React, { Component, PropTypes } from 'react';
-
-import AppBar from 'material-ui/AppBar';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
+import React, {Component, PropTypes} from "react";
+import AppBar from "material-ui/AppBar";
+import FontIcon from "material-ui/FontIcon";
+import IconButton from "material-ui/IconButton";
 
 class HeaderContent extends Component {
 
     render() {
-        const { goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings } = this.props;
+        const titles = [];
+        titles["me"] = "Mon profil";
+        titles["skills"] = "Chercher par compétence";
+        titles["user/:id"] = "Profil";
+        titles["users"] = "Tous les profils";
+        titles["settings"] = "Préférences";
+        titles["help"] = "Aide";
+        titles["updates"] = "Skillz";
+
+        const {goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings} = this.props;
 
         const style = {height: 'auto'};
 
         return (
-            <AppBar showMenuIconButton={false} title={route.name} titleStyle={{textTransform: 'capitalize'}}>
+            <AppBar showMenuIconButton={false} title={titles[route.path]}>
                 <IconButton onClick={goToMe} style={style} tooltip="Mon profil">
                     <FontIcon className={'material-icons'} color="white">home</FontIcon>
                 </IconButton>
