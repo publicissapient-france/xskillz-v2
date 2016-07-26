@@ -23,6 +23,10 @@ docker-compose up --build
 
 Have a coffee, it takes some time.
 
+### Step 3 : Enter your skills
+
+Open your browser and go to http://localhost
+
 ## Technology inside
 
 * NodeJS
