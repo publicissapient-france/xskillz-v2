@@ -18,6 +18,10 @@ cd xskillz-v2
 ### Step 2 : Retrieve and build
 
 ```bash
+cd web
+npm install
+npm run build
+cd ..
 docker-compose up --build
 ```
 
