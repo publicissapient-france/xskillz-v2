@@ -9,10 +9,11 @@
   },
   "dev": {
     "driver": "mysql",
-    "user": "xskillz",
-    "password": "xskillz-dev",
-    "host": "xskillz-dev.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
-    "database": "xskillzdev",
+    "user": "skillz",
+    "password": "skillz",
+    "host": "localhost",
+    "database": "skillz",
+    "port": "32774",
     "multipleStatements": true
   },
   "tests": {

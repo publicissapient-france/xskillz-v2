@@ -7,6 +7,7 @@ const log = require('winston');
 const connection = Mysql.createConnection({
     host: process.env.RDS_HOST,
     user: process.env.RDS_USER,
+    port: process.env.RDS_PORT,
     password: process.env.RDS_PASSWORD,
     database: process.env.RDS_DATABASE,
     debug: false
