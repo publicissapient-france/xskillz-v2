@@ -1,43 +1,3 @@
-.domain-Agile {
-    background-color: $color-agile-light;
-}
-
-.domain-Back {
-    background-color: $color-back-light;
-}
-
-.domain-Cloud {
-    background-color: $color-cloud-light;
-}
-
-.domain-Craft {
-    background-color: $color-craft-light;
-}
-
-.domain-Data {
-    background-color: $color-data-light;
-}
-
-.domain-Devops {
-    background-color: $color-devops-light;
-}
-
-.domain-Loisirs {
-    background-color: $color-loisirs-light;
-}
-
-.domain-Mobile {
-    background-color: $color-mobile-light;
-}
-
-.domain-Front {
-    background-color: $color-front-light;
-}
-
-.domain-null {
-    background-color: $color-no-domain-light;
-}
-
 .domains-content {
 
     @include clearfix;
@@ -50,49 +10,11 @@
         position: absolute;
         left: 0;
         top: 0;
-        background-color: #CCCCCC;
-        color: #F1F1F1;
+        background-color: white;
         padding: 3px 5px;
-        width: 4rem;
-        font-size: 8px;
+        font-size: 10px;
         text-transform: uppercase;
         border-radius: 2px 0 2px 0;
-        text-align: right;
-    }
-
-    .domain-Agile {
-        background-color: $color-agile;
-    }
-
-    .domain-Back {
-        background-color: $color-back;
-    }
-
-    .domain-Cloud {
-        background-color: $color-cloud;
-    }
-
-    .domain-Craft {
-        background-color: $color-craft;
-    }
-
-    .domain-Data {
-        background-color: $color-data;
-    }
-
-    .domain-Devops {
-        background-color: $color-devops;
-    }
-
-    .domain-Loisirs {
-        background-color: $color-loisirs;
-    }
-
-    .domain-Mobile {
-        background-color: $color-mobile;
-    }
-
-    .domain-Front {
-        background-color: $color-front;
+        text-align: left;
     }
 }

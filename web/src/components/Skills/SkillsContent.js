@@ -77,6 +77,7 @@ class SkillsContent extends Component {
                         hintText={'Enter skill name...'}
                         maxSearchResults={20}
                         dataSource={nameArray}
+                        menuStyle={{cursor:'pointer'}}
                         filter={AutoComplete.fuzzyFilter}
                         onNewRequest={::this.onNewRequest}
                         searchText={name}/>

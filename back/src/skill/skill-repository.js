@@ -9,7 +9,7 @@ const Repository = {
 
     getSkills: () =>
         this.db.query(`
-            SELECT domain.name domain_name, domain.id domain_id, skill.id id, skill.name name, count(user_id) AS num_allies 
+            SELECT domain.name domain_name, domain.id domain_id, skill.id id, skill.name name, count(user_id) AS num_allies , domain.color
             FROM Skill skill 
             LEFT JOIN Domain domain ON domain.id = skill.domain_id 
             LEFT JOIN UserSkill user_skill ON user_skill.skill_id = skill.id 

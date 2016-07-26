@@ -128,6 +128,14 @@ module.exports = {
                     }))
             .then(() => this.Repository.findUserByEmail(req.body.email))
             .then((user) => {
+                const token = uuid.v4();
+                return this.Repository.addToken(user, token)
+                    .then(() => {
+                        user.token = token;
+                        return user;
+                    });
+            })
+            .then((user) => {
                 res.json(user);
             })
             .catch((err) => {

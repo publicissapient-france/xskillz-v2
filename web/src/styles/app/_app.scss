@@ -52,14 +52,12 @@ body {
 
     .remove-icon {
         z-index: 1;
-        color: #a0a0a0;
+        color: red;
         position: absolute;
-        right: -5px;
-        top: -10px;
+        right: 0;
         background: #f1f1f1;
         padding: 0 8px 4px 8px;
-        border-radius: 1rem;
-        box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
         opacity: .5;
         cursor: pointer;
 

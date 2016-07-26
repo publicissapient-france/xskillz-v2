@@ -42,7 +42,7 @@ class SkillCard extends Component {
         const {onSkillClick, removeSkill} = this.props;
 
         return (
-            <div className={"domain-info skill-level-"+level+" skill-interested-"+interested} onClick={()=>{onSkillClick(name)}}>
+            <div className={"domain-info skill-level-"+level+" skill-interested-"+interested}>
                 {removeSkill && <div className="remove-icon" onClick={::this.onRemoveClicked}>x</div>}
                 <p>
                     {name && <LabelButton label={name} onClick={()=>{onSkillClick(name)}}/>}

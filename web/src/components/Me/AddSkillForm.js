@@ -58,6 +58,7 @@ class AddSkillForm extends Component {
                             <AutoComplete hintText={'Enter skill name...'}
                                           dataSource={nameArray}
                                           filter={AutoComplete.fuzzyFilter}
+                                          menuStyle={{cursor:'pointer'}}
                                           fullWidth
                                           onNewRequest={::this.onUpdateSkill}/>
                         </div>

@@ -52,8 +52,8 @@ class UserItem extends Component {
                         <div style={{paddingBottom: '.1rem'}}>
                             {user.domains.map((domain, index) => {
                                 return (
-                                    <div key={index} className={`domains-content domain-${domain.name}`}>
-                                        <div className={`domain-name domain-${domain.name}`}>{domain.name || 'No Domain'}</div>
+                                    <div key={index} className={'domains-content'} style={{backgroundColor:domain.color}}>
+                                        <div className={`domain-name domain-${domain.name}`} style={{color:domain.color}}>{domain.name || 'No Domain'}</div>
                                         <div className="skills-content">
                                             {domain.skills.map((skill, index) => {
                                                 // noinspection JSUnresolvedVariable

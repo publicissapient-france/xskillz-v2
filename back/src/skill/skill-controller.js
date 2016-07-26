@@ -7,7 +7,8 @@ const createSkill = (skill) => {
     return {
         domain: {
             id: skill.domain_id,
-            name: skill.domain_name
+            name: skill.domain_name,
+            color: skill.color
         },
         id: skill.id,
         name: skill.name,
