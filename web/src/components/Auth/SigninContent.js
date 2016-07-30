@@ -56,15 +56,15 @@ class SigninContent extends Component {
                         <TextField fullWidth floatingLabelText="Email" onChange={::this.onEmailChanged} value={email}/>
                     </div>
                     <div>
-                        <TextField fullWidth floatingLabelText="Password" onChange={::this.onPasswordChanged}
+                        <TextField fullWidth floatingLabelText="Mot de passe" onChange={::this.onPasswordChanged}
                                    value={password} type="password" />
                     </div>
                     <div className="cta" onClick={::this.signin}>
-                        <RaisedButton primary style={style.button} label="Login"/>
+                        <RaisedButton primary style={style.button} label="Se connecter"/>
                         <input type="submit" style={style.input}/>
                     </div>
                     <div className="cta" onClick={goToSignup}>
-                        <RaisedButton secondary style={style.button} label="Create Account"/>
+                        <RaisedButton secondary style={style.button} label="Créer un compte"/>
                     </div>
                 </Card>
             </form>

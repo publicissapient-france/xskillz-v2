@@ -44,17 +44,17 @@ class SignupContent extends Component {
                 <Card style={style.card}>
                     <img src="/images/logo.png" width={200} alt="logo skillz"/>
                     <div>
-                        <TextField fullWidth floatingLabelText="Name" onChange={::this.onNameChanged} value={name}/>
+                        <TextField fullWidth floatingLabelText="Nom" onChange={::this.onNameChanged} value={name}/>
                     </div>
                     <div>
                         <TextField fullWidth floatingLabelText="Email" onChange={::this.onEmailChanged} value={email}/>
                     </div>
                     <div>
-                        <TextField fullWidth floatingLabelText="Password" onChange={::this.onPasswordChanged}
+                        <TextField fullWidth floatingLabelText="Mot de passe" onChange={::this.onPasswordChanged}
                                    value={password} type="password"/>
                     </div>
                     <div className="cta" onClick={::this.signup}>
-                        <RaisedButton primary style={style.button} label="Signup"/>
+                        <RaisedButton primary style={style.button} label="Se connecter"/>
                         <input type="submit" style={style.input}/>
                     </div>
                 </Card>
