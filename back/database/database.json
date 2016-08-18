@@ -13,7 +13,7 @@
     "password": "skillz",
     "host": "localhost",
     "database": "skillz",
-    "port": "32774",
+    "port": "3306",
     "multipleStatements": true
   },
   "tests": {
