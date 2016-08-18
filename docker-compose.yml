@@ -9,7 +9,7 @@ services:
       - MYSQL_USER=skillz
       - MYSQL_PASSWORD=skillz
     ports:
-      - 3306
+      - 3306:3306
     networks:
       - backend
 
