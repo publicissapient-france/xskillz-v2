@@ -15,14 +15,19 @@ const UserRepository = {
             .findUserByEmail(email)
             .then((user) =>
                 Bcrypt.compare(password, user.password)
-                    .then(() => Promise.resolve(user))),
+                    .then(() => {
+                        delete user.password;
+                        return Promise.resolve(user);
+                    })),
 
     findUserByEmail: (email) =>
         this.db.query(`
             SELECT *
             FROM User 
             WHERE email = '${email}'
-    `).then((users) => users[0]),
+    `).then((users) => {
+            return users[0];
+        }),
 
     getUserByToken: (token) =>
         this.db.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
