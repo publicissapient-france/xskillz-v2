@@ -19,14 +19,13 @@ class UserItem extends Component {
 
     render() {
         const user = this.props.user;
-        const {onUserClick, onSkillClick, updateSkill, removeSkill, details, removeUser} = this.props;
+        const {onUserClick, onSkillClick, updateSkill, removeSkill, details} = this.props;
 
         if (user) {
             // noinspection JSUnresolvedFunction
             return (
                 <div className="user-row">
                     <Paper>
-                        <div className="remove-icon" onClick={()=>removeUser(user.id)}>x</div>
                         <div className="user-content">
                             <div className="user-left">
                                 <Avatar src={user.gravatarUrl} size={75} style={{paddingTop:0}}/>
