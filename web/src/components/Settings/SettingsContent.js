@@ -9,6 +9,8 @@ import AssignUserToManager from "../Manager/AssignUserToManager";
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
 import {Tabs, Tab} from "material-ui/Tabs";
 import Config from "../../Config";
+import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
+import MergeSkills from "../Skills/MergeSkills/MergeSkills";
 
 class SettingsContent extends Component {
 
@@ -45,19 +47,6 @@ class SettingsContent extends Component {
         }
     };
 
-    linkSkillToDomain = () => {
-        const {skill, domain} = this.state;
-        this.props.linkSkillToDomain({skill: {id: skill.id}, domain: {id: domain.id}});
-    };
-
-    changeDomain = (event, index, value) => this.setState({domain: {id: value}});
-
-    changeSkill = (event, index, value) => this.setState({skill: {id: value}});
-
-    changeMergeFromSkillId = (event, index, value) => this.setState({mergeFromSkillId: value});
-
-    changeMergeToSkillId = (event, index, value) => this.setState({mergeToSkillId: value});
-
     changeDomainToRemove = (event, index, value) => this.setState({domainToRemove: {id: value}});
 
     deleteDomain = () => this.props.deleteDomain(this.state.domainToRemove.id);
@@ -68,63 +57,18 @@ class SettingsContent extends Component {
 
     addDomain = () => this.props.addDomain({name: this.state.addDomainName, color: this.state.addDomainColor});
 
-    mergeSkills = () => this.props.mergeSkills({from: this.state.mergeFromSkillId, to: this.state.mergeToSkillId});
-
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const {domain, skill, domainToRemove, mergeFromSkillId, mergeToSkillId} = this.state;
-        const {saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
-
-        const styles = {
-            headline: {
-                fontSize: 24,
-                paddingTop: 16,
-                marginBottom: 12,
-                fontWeight: 400,
-            }
-        };
+        const {domainToRemove} = this.state;
+        const {linkSkillToDomain, mergeSkills, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
 
         return (
             <div className="content">
                 <Tabs>
                     <Tab label="Compétences">
-                        <h2>Ranger les compétences par domaine</h2>
-                        <div>
-                            <SelectField floatingLabelText="Compétence" value={skill.id} hintText="Choisir la compétence à ranger"
-                                         onChange={::this.changeSkill}>
-                                {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
-                                                                        primaryText={skill.name}/>)}
-                            </SelectField>
-                            <SelectField floatingLabelText="Domaine" value={domain.id} hintText="Choisir le domaine cible"
-                                         onChange={::this.changeDomain}>
-                                {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
-                                                                          primaryText={domain.name}/>)}
-                            </SelectField>
-                            <div>
-                                <RaisedButton label="Valider" primary={true} onClick={::this.linkSkillToDomain}/>
-                            </div>
-                        </div>
-                        <br/><br/>
-                        <Divider/>
-                        <h2>Fusionner deux compétences</h2>
-                        <SelectField floatingLabelText="Remplacer la compétence"
-                                     value={mergeFromSkillId}
-                                     hintText="Choisir à la compétence à remplacer"
-                                     onChange={::this.changeMergeFromSkillId}>
-                            {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
-                                                                    primaryText={skill.name}/>)}
-                        </SelectField>
-                        <SelectField floatingLabelText="par"
-                                     value={mergeToSkillId}
-                                     hintText="cette compétence"
-                                     onChange={::this.changeMergeToSkillId}>
-                            {skills.map((skill, index) => <MenuItem value={skill.id} key={index}
-                                                                    primaryText={skill.name}/>)}
-                        </SelectField>
-                        <div>
-                            <RaisedButton label="Valider" primary={true} onClick={::this.mergeSkills}/>
-                        </div>
+                        <LinkSkillToDomain domains={domains} skills={skills} linkSkillToDomain={linkSkillToDomain}/>
+                        <MergeSkills skills={skills} mergeSkills={mergeSkills}/>
                     </Tab>
                     <Tab label="Domaines">
                         <h2>Ajouter un domaine</h2>
