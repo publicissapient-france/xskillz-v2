@@ -38,9 +38,9 @@ export function me(state = initialState, action) {
             });
             if (!added) {
                 //noinspection JSUnresolvedFunction
-                next.domains.push(_.cloneDeep(skill.domain));
-                skill.domain.skills = null;
-                next.domains[0].skills = [skill];
+                const cloneDomain = _.cloneDeep(skill.domain);
+                cloneDomain.skills = [skill];
+                next.domains.push(cloneDomain);
             }
             return next;
         }

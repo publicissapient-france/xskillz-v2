@@ -21,8 +21,8 @@ class UserItem extends Component {
         const user = this.props.user;
         const {onUserClick, onSkillClick, updateSkill, removeSkill, details, removeUser} = this.props;
 
-        // noinspection JSUnresolvedVariable
         if (user) {
+            // noinspection JSUnresolvedFunction
             return (
                 <div className="user-row">
                     <Paper>
@@ -35,16 +35,15 @@ class UserItem extends Component {
                                 <p>
                                     <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
                                 </p>
-                                { <div className="user-chips">
+                                <div className="user-chips">
                                     {_(user.domains)
-                                        .sortBy('score').takeRight(2).reverse().map((domain) => {
-                                        return (
-                                            <Chip key={domain.id} style={styles.domainName} backgroundColor={domain.color} labelStyle={styles.domainName}>
+                                        .sortBy('score').takeRight(2).reverse().map((domain) =>
+                                            <Chip key={domain.id} style={styles.domainName}
+                                                  backgroundColor={domain.color} labelStyle={styles.domainName}>
                                                 {domain.name || 'No Domain'}
                                             </Chip>
-                                        );
-                                    }).value()}
-                                </div>}
+                                        ).value()}
+                                </div>
                             </div>
                         </div>
 
@@ -52,8 +51,10 @@ class UserItem extends Component {
                         <div style={{paddingBottom: '.1rem'}}>
                             {user.domains.map((domain, index) => {
                                 return (
-                                    <div key={index} className={'domains-content'} style={{backgroundColor:domain.color}}>
-                                        <div className={`domain-name domain-${domain.name}`} style={{color:domain.color}}>{domain.name || 'No Domain'}</div>
+                                    <div key={index} className={'domains-content'}
+                                         style={{backgroundColor:domain.color}}>
+                                        <div className={`domain-name domain-${domain.name}`}
+                                             style={{color:domain.color}}>{domain.name || 'No Domain'}</div>
                                         <div className="skills-content">
                                             {domain.skills.map((skill, index) => {
                                                 // noinspection JSUnresolvedVariable

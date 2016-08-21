@@ -11,12 +11,7 @@ class AddSkillForm extends Component {
     constructor(props) {
         super(props);
 
-        this.skill = {
-            id: null,
-            interested: false,
-            level: 0,
-            name: null
-        };
+        this.state = {id: null, domain: {id: null}, name: null, level: 0, interested: false};
     }
 
     componentDidMount() {
@@ -26,25 +21,20 @@ class AddSkillForm extends Component {
         }
     }
 
-    onStarSelected(count) {
-        this.skill.level = count;
-    }
+    onStarSelected = count => this.setState({level: count});
 
-    onLikeSelected(like) {
-        this.skill.interested = like;
-    }
+    onLikeSelected = like => this.setState({interested: like});
 
     onSubmitClicked() {
-        this.props.addSkill(this.skill);
+        this.props.addSkill(this.state);
     }
 
-    onUpdateSkill = (name, index) => {
+    onNewRequest = (name, index) => {
         const skill = this.props.skills.list[index];
-
-        this.skill.name = skill.name;
-        this.skill.id = skill.id;
-        this.skill.domain = skill.domain;
+        this.setState({name: skill.name, id: skill.id, domain: skill.domain});
     };
+
+    onUpdateInput = (searchText, nameArray) => this.setState({name: searchText, id: null, domain: {id: null}});
 
     render() {
         const nameArray = [];
@@ -60,7 +50,8 @@ class AddSkillForm extends Component {
                                           filter={AutoComplete.fuzzyFilter}
                                           menuStyle={{cursor:'pointer'}}
                                           fullWidth
-                                          onNewRequest={::this.onUpdateSkill}/>
+                                          onNewRequest={::this.onNewRequest}
+                                          onUpdateInput={::this.onUpdateInput}/>
                         </div>
                         <div className="stars">
                             <EditableStars mark={0} handleClick={::this.onStarSelected}/>
