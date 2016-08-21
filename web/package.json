@@ -9,7 +9,7 @@
     "test:watch": "./node_modules/mocha/bin/mocha src/test --recursive -watch --compilers js:babel-core/register,scss:./src/test/null-compiler --require src/test/setup.js",
     "clean": "rimraf dist",
     "build": "webpack --progress --verbose --colors --display-error-details --config webpack/common.config.js",
-    "build:production": "npm run clean && npm run build",
+    "build:production": "npm run clean && NODE_ENV=production npm run build",
     "ci-test": "./node_modules/mocha/bin/mocha src/test --recursive --reporter mochawesome --compilers js:babel-core/register,scss:./src/test/null-compiler --require src/test/setup.js && ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha -x \"mochawesome-reports/**\" -x \"scripts/**\" -x \"bin/**\" -x \"**.conf**.js\" -x \"dist/**\" -- -R spec src/test --recursive --compilers js:babel-core/register,scss:./src/test/null-compiler --require src/test/setup.js && ./node_modules/istanbul/lib/cli.js report clover",
     "ci-lint": "./node_modules/eslint/bin/eslint.js -f checkstyle src/** > reports/checkstyle-report.xml ; exit 0",
     "deploy": "node ./scripts/deploy-surge.js",
