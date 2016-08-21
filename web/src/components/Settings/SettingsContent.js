@@ -75,14 +75,12 @@ class SettingsContent extends Component {
                         <AddDomain addDomain={addDomain}/>
                         <DeleteDomain deleteDomain={deleteDomain} domains={domains}/>
                     </Tab>}
-                    <Tab label="Utilisateurs">
 
+                    {this.isManager() && <Tab label="Utilisateurs">
                         <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
-                        <br/><br/>
-                        <Divider/>
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
                                              fetchUsers={fetchUsers}/>
-                    </Tab>
+                    </Tab>}
                     <Tab label="QR Code">
                         <QRCodeURL url={Config.apiURL}/>
                     </Tab>

@@ -3,6 +3,7 @@ import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 
 class DiplomaDatePicker extends Component {
 
@@ -36,8 +37,8 @@ class DiplomaDatePicker extends Component {
         const {userId, date} = this.state;
         const users = this.props.users.list;
         return (
-            <div className="graduation" style={{display:'none'}}>
-                <h2>Graduation date</h2>
+            <Paper style={{margin: '.2rem', padding: '1rem'}}>
+                <h3>Graduation date</h3>
                 <div>
                     <SelectField floatingLabelText="Name" value={userId} hintText="Choose a teammate"
                                  onChange={::this.onUserChange}>
@@ -51,10 +52,10 @@ class DiplomaDatePicker extends Component {
                         onChange={::this.onChangeDate}
                         shouldDisableDate={this.disableWeekends}/>
                 </div>
-                <div>
+                <div style={{marginTop: '1rem'}}>
                     <RaisedButton label="Save" primary={true} onClick={::this.saveDiploma}/>
                 </div>
-            </div>
+            </Paper>
         )
     }
 }

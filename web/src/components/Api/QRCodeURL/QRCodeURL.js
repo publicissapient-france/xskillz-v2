@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import Paper from 'material-ui/Paper';
 
 import QRCode from 'qrcode.react';
-
-import './QRCodeURL.less';
 
 class QRCodeAPI extends Component {
 
@@ -12,12 +11,12 @@ class QRCodeAPI extends Component {
 
     render() {
         return (
-            <div className="qr-code-url">
-                <h2>QR Code API URL</h2>
-                <div>
+            <Paper style={{margin: '.2rem', padding: '1rem'}}>
+                <h3>QR Code API URL</h3>
+                <div style={{marginTop: '1rem'}}>
                     <QRCode value={this.props.url}/>
                 </div>
-            </div>
+            </Paper>
         );
     }
 }

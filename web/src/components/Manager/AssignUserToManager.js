@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import _ from 'lodash';
+import Paper from 'material-ui/Paper';
 
 class AssignUserToManager extends Component {
 
@@ -35,8 +36,8 @@ class AssignUserToManager extends Component {
         const users = this.props.users.list;
         const managers = _.filter(users, user => _.indexOf(user.roles, 'Manager') > -1);
         return (
-            <div className="assign-user-manager">
-                <h2>Assigner un manageur</h2>
+            <Paper style={{margin: '.2rem', padding: '1rem'}}>
+                <h3>Assigner un manageur</h3>
                 <div>
                     <SelectField floatingLabelText="Utilisateur" value={userId} hintText="Choisir un utilisateur"
                                  onChange={::this.onUserChange}>
@@ -49,10 +50,10 @@ class AssignUserToManager extends Component {
                                                                     primaryText={manager.name}/>)}
                     </SelectField>
                 </div>
-                <div>
+                <div style={{marginTop: '1rem'}}>
                     <RaisedButton label="Valider" primary={true} onClick={::this.assignUserToManager}/>
                 </div>
-            </div>
+            </Paper>
         )
     }
 }
