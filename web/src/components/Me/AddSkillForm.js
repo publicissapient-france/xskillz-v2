@@ -31,7 +31,9 @@ class AddSkillForm extends Component {
 
     onNewRequest = (name, index) => {
         const skill = this.props.skills.list[index];
-        this.setState({name: skill.name, id: skill.id, domain: skill.domain});
+        if (skill) {
+            this.setState({name: skill.name, id: skill.id, domain: skill.domain});
+        }
     };
 
     onUpdateInput = (searchText, nameArray) => this.setState({name: searchText, id: null, domain: {id: null}});

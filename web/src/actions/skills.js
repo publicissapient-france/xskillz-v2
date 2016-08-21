@@ -119,7 +119,11 @@ export function addSkill(skill) {
                     throw new Error('Cannot add skill');
                 }
             })
-            .then(() => dispatch(skillAdded(skill)));
+            .then(addedSkill => {
+                skill.id = addedSkill.id;
+                return skill
+            })
+            .then(skill => dispatch(skillAdded(skill)));
     };
 }
 
