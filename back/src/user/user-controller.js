@@ -295,6 +295,13 @@ module.exports = {
                         return user;
                     });
             })
+            .then((user) =>
+                this.Repository.findUserRolesById(user.id)
+                    .then((roles) => {
+                        user.roles = roles;
+                        return user;
+                    })
+            )
             .then((user) => {
                 res.status(200).jsonp(user);
             })
