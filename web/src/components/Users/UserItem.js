@@ -24,7 +24,7 @@ class UserItem extends Component {
         // noinspection JSUnresolvedVariable
         if (user) {
             return (
-                <div className="user-row"  onClick={()=>{onUserClick(user.id)}}>
+                <div className="user-row">
                     <Paper>
                         <div className="remove-icon" onClick={()=>removeUser(user.id)}>x</div>
                         <div className="user-content">
