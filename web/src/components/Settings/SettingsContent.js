@@ -8,9 +8,11 @@ import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
 import AssignUserToManager from "../Manager/AssignUserToManager";
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
 import {Tabs, Tab} from "material-ui/Tabs";
-import Config from "../../Config";
+import Config from '../../Config';
 import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
-import MergeSkills from "../Skills/MergeSkills/MergeSkills";
+import MergeSkills from '../Skills/MergeSkills/MergeSkills';
+import AddDomain from '../Domain/Add/AddDomain';
+import DeleteDomain from '../Domain/Del/DeleteDomain';
 
 class SettingsContent extends Component {
 
@@ -47,21 +49,10 @@ class SettingsContent extends Component {
         }
     };
 
-    changeDomainToRemove = (event, index, value) => this.setState({domainToRemove: {id: value}});
-
-    deleteDomain = () => this.props.deleteDomain(this.state.domainToRemove.id);
-
-    addDomainName = event => this.setState({addDomainName: event.currentTarget.value});
-
-    addDomainColor = event => this.setState({addDomainColor: event.currentTarget.value});
-
-    addDomain = () => this.props.addDomain({name: this.state.addDomainName, color: this.state.addDomainColor});
-
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const {domainToRemove} = this.state;
-        const {linkSkillToDomain, mergeSkills, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
+        const {linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
 
         return (
             <div className="content">
@@ -71,28 +62,8 @@ class SettingsContent extends Component {
                         <MergeSkills skills={skills} mergeSkills={mergeSkills}/>
                     </Tab>
                     <Tab label="Domaines">
-                        <h2>Ajouter un domaine</h2>
-                        <div>
-                            <TextField floatingLabelText="Domaine" onBlur={::this.addDomainName}/>
-                            <TextField floatingLabelText="Couleur préfixée par #" onBlur={::this.addDomainColor}/>
-                            <div>
-                                <RaisedButton label="Ajouter" primary={true} onClick={::this.addDomain}/>
-                            </div>
-                        </div>
-                        <br/><br/>
-                        <Divider/>
-                        <h2>Supprimer un domaine</h2>
-                        <div>
-                            <SelectField floatingLabelText="Domaine" value={domainToRemove.id}
-                                         hintText="Choisir un domaine"
-                                         onChange={::this.changeDomainToRemove}>
-                                {domains.map((domain, index) => <MenuItem value={domain.id} key={index}
-                                                                          primaryText={domain.name}/>)}
-                            </SelectField>
-                            <div>
-                                <RaisedButton label="Supprimer" primary={true} onClick={::this.deleteDomain}/>
-                            </div>
-                        </div>
+                        <AddDomain addDomain={addDomain}/>
+                        <DeleteDomain deleteDomain={deleteDomain} domains={domains}/>
                     </Tab>
                     <Tab label="Utilisateurs">
 
