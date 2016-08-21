@@ -14,7 +14,8 @@ const mapStateToProps = state => {
     return {
         domains: state.domains,
         skills: state.skills,
-        users: state.users
+        users: state.users,
+        auth: state.auth
     };
 };
 

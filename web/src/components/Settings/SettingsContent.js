@@ -13,6 +13,7 @@ import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
 import MergeSkills from '../Skills/MergeSkills/MergeSkills';
 import AddDomain from '../Domain/Add/AddDomain';
 import DeleteDomain from '../Domain/Del/DeleteDomain';
+import _ from 'lodash';
 
 class SettingsContent extends Component {
 
@@ -24,7 +25,8 @@ class SettingsContent extends Component {
         deleteDomain: PropTypes.func.isRequired,
         addDomain: PropTypes.func.isRequired,
         mergeSkills: PropTypes.func.isRequired,
-        saveDiploma: PropTypes.func.isRequired
+        saveDiploma: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -49,11 +51,19 @@ class SettingsContent extends Component {
         }
     };
 
+    isManager = () => {
+        let manager = false;
+        _.each(_.keys(this.props.auth.me.roles), key => {
+            if (manager) return;
+            manager = this.props.auth.me.roles[key].name === 'Manager';
+        });
+        return manager;
+    };
+
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
         const {linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
-
         return (
             <div className="content">
                 <Tabs>
@@ -61,10 +71,10 @@ class SettingsContent extends Component {
                         <LinkSkillToDomain domains={domains} skills={skills} linkSkillToDomain={linkSkillToDomain}/>
                         <MergeSkills skills={skills} mergeSkills={mergeSkills}/>
                     </Tab>
-                    <Tab label="Domaines">
+                    {this.isManager() && <Tab label="Domaines">
                         <AddDomain addDomain={addDomain}/>
                         <DeleteDomain deleteDomain={deleteDomain} domains={domains}/>
-                    </Tab>
+                    </Tab>}
                     <Tab label="Utilisateurs">
 
                         <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
