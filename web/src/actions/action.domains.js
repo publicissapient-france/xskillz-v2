@@ -94,6 +94,7 @@ export function deleteDomain(id) {
                     throw new Error();
                 }
             })
+            .then(() => dispatch(fetchDomains()))
             .then(() => dispatch(domainRemoved()));
     }
 }
@@ -127,6 +128,7 @@ export function addDomain(payload) {
                     throw new Error();
                 }
             })
+            .then(() => dispatch(fetchDomains()))
             .then(json => dispatch(domainAdded()));
     };
 }

@@ -19,7 +19,7 @@ class DeleteDomain extends Component {
 
     changeDomain = (event, index, value) => this.setState({domainId: value});
 
-    deleteDomain = () => this.props.deleteDomain(this.state.domainToRemove.id);
+    deleteDomain = () => this.props.deleteDomain(this.state.domainId);
 
     render() {
         const {domains} = this.props;
