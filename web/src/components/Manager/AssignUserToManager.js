@@ -10,7 +10,8 @@ class AssignUserToManager extends Component {
     static propTypes = {
         assignUserToManager: PropTypes.func.isRequired,
         users: PropTypes.object.isRequired,
-        fetchUsers: PropTypes.func.isRequired
+        fetchUsers: PropTypes.func.isRequired,
+        fetchManagers: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -19,9 +20,8 @@ class AssignUserToManager extends Component {
     }
 
     componentDidMount() {
-        const { loaded } = this.props.users || {};
-        if (!loaded) {
-            this.props.fetchUsers && this.props.fetchUsers();
+        if (_.isEmpty(this.props.users.managers)) {
+            this.props.fetchManagers();
         }
     }
 
@@ -34,7 +34,7 @@ class AssignUserToManager extends Component {
     render() {
         const { userId, managerId } = this.state;
         const users = this.props.users.list;
-        const managers = _.filter(users, user => _.indexOf(user.roles, 'Manager') > -1);
+        const managers = this.props.users.managers;
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
                 <h3>Assigner un manageur</h3>

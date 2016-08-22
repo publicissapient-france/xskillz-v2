@@ -8,7 +8,7 @@ import SettingsContent from '../../components/Settings/SettingsContent'
 import { fetchDomains, linkSkillToDomain, deleteDomain, addDomain } from '../../actions/action.domains';
 import { fetchSkills, mergeSkills } from '../../actions/skills';
 import { saveDiploma } from '../../actions/users'
-import { fetchUsers, assignUserToManager } from '../../actions/users';
+import {fetchUsers, assignUserToManager, fetchManagers} from '../../actions/users';
 
 const mapStateToProps = state => {
     return {
@@ -19,19 +19,18 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchDomains: () => dispatch(fetchDomains()),
-        fetchSkills: () => dispatch(fetchSkills()),
-        linkSkillToDomain: payload => dispatch(linkSkillToDomain(payload)),
-        deleteDomain: id => dispatch(deleteDomain(id)),
-        addDomain: payload => dispatch(addDomain(payload)),
-        mergeSkills: payload => dispatch(mergeSkills(payload)),
-        saveDiploma: (userId, date) => dispatch(saveDiploma(userId, date)),
-        fetchUsers: () => dispatch(fetchUsers()),
-        assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId))
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    fetchDomains: () => dispatch(fetchDomains()),
+    fetchSkills: () => dispatch(fetchSkills()),
+    linkSkillToDomain: payload => dispatch(linkSkillToDomain(payload)),
+    deleteDomain: id => dispatch(deleteDomain(id)),
+    addDomain: payload => dispatch(addDomain(payload)),
+    mergeSkills: payload => dispatch(mergeSkills(payload)),
+    saveDiploma: (userId, date) => dispatch(saveDiploma(userId, date)),
+    fetchUsers: () => dispatch(fetchUsers()),
+    assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId)),
+    fetchManagers: () => dispatch(fetchManagers())
+});
 
 const SettingsPage = connect(
     mapStateToProps,

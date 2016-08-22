@@ -121,7 +121,7 @@ export function saveDiploma(userId, diploma) {
                     return response.json();
                 }
             })
-            .then(responseBody => dispatch(diplomaSaved));
+            .then(responseBody => dispatch(diplomaSaved()));
     };
 }
 
@@ -183,4 +183,31 @@ export function assignUserToManager(userId, managerId) {
             })
             .then(responseBody => dispatch(userAssignedToManager(userId, managerId)))
     }
+}
+
+export const RECEIVE_MANAGERS = 'RECEIVE_MANAGERS';
+
+export function receiveManagers(managers) {
+    return {
+        type: RECEIVE_MANAGERS,
+        payload: {managers}
+    }
+}
+
+export function fetchManagers() {
+    return dispatch => {
+        const config = {
+            method: 'GET',
+            headers: {token: store.get('token')}
+        };
+        return fetch(`${Config.apiURL}/users?with_roles=Manager`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(managers => dispatch(receiveManagers(managers)));
+    };
 }

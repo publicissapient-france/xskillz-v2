@@ -26,18 +26,8 @@ class SettingsContent extends Component {
         addDomain: PropTypes.func.isRequired,
         mergeSkills: PropTypes.func.isRequired,
         saveDiploma: PropTypes.func.isRequired,
-        auth: PropTypes.object.isRequired
-    };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            skill: {id: null},
-            domain: {id: null},
-            domainToRemove: {id: null},
-            mergeFromSkillId: null,
-            mergeToSkillId: null
-        };
+        auth: PropTypes.object.isRequired,
+        fetchManagers: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -63,7 +53,7 @@ class SettingsContent extends Component {
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const {linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
+        const {fetchManagers, linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
         return (
             <div className="content">
                 <Tabs>
@@ -79,7 +69,7 @@ class SettingsContent extends Component {
                     {this.isManager() && <Tab label="Utilisateurs">
                         <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
-                                             fetchUsers={fetchUsers}/>
+                                             fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>
                     </Tab>}
                     <Tab label="QR Code">
                         <QRCodeURL url={Config.apiURL}/>
