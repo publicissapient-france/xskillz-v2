@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes } from 'react';
 import _ from 'lodash';
 import UserItem from './UserItem';
+import TextField from 'material-ui/TextField';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
@@ -8,42 +9,27 @@ class UsersContent extends Component {
 
     constructor(props) {
         super(props);
-
-        this.onNewRequest = this.onNewRequest.bind(this);
-
-        this.search = true;
+        this.state = {users: null};
     }
 
     componentDidMount() {
-        const { loaded } = this.props.users;
+        const {loaded} = this.props.users;
         if (!loaded) {
             this.props.fetchUsers();
+        }
+    }
+
+    queryChange = (event, value) => {
+        if (value.length > 2) {
+            this.setState({users: _.filter(this.props.users.list, user => user.name.toLowerCase().indexOf(value.toLowerCase()) >= 0)});
         } else {
-            this.componentDidUpdate();
+            this.setState({users: this.props.users.list});
         }
-    }
-
-    componentDidUpdate() {
-        const { name } = this.props.location.query;
-        const { loaded } = this.props.users;
-
-        if (loaded && name && this.search) {
-            this.onNewRequest(name);
-            this.search = false;
-        }
-    }
-
-    onNewRequest(name) {
-        var user = _.find(this.props.users.list, (s) => s.name === name);
-        if (user) {
-            this.props.getUserById(user.id, name);
-        }
-    }
+    };
 
     render() {
-
-        const { loaded } = this.props.users;
-        const { onUserClick, onSkillClick, removeUser } = this.props;
+        const {loaded} = this.props.users;
+        const {onUserClick, onSkillClick, removeUser} = this.props;
 
         if (!loaded) {
             return (
@@ -51,10 +37,12 @@ class UsersContent extends Component {
             );
         }
 
-        const users = this.props.users.list;
+        const users = this.state.users || this.props.users.list;
 
         return (
             <div className="content">
+                <TextField hintText="Nom ou prénom (min: 3 caractères)" style={{margin: '.8rem'}}
+                           onChange={::this.queryChange}/>
                 {users.map((user, index) => <UserItem user={user}
                                                       onUserClick={onUserClick}
                                                       onSkillClick={onSkillClick}
