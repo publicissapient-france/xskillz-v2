@@ -14,6 +14,7 @@ import MergeSkills from '../Skills/MergeSkills/MergeSkills';
 import AddDomain from '../Domain/Add/AddDomain';
 import DeleteDomain from '../Domain/Del/DeleteDomain';
 import _ from 'lodash';
+import PromoteManager from '../Manager/PromoteManager';
 
 class SettingsContent extends Component {
 
@@ -27,7 +28,9 @@ class SettingsContent extends Component {
         mergeSkills: PropTypes.func.isRequired,
         saveDiploma: PropTypes.func.isRequired,
         auth: PropTypes.object.isRequired,
-        fetchManagers: PropTypes.func.isRequired
+        fetchManagers: PropTypes.func.isRequired,
+        promoteManager: PropTypes.func.isRequired,
+        fetchUsers: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -38,6 +41,10 @@ class SettingsContent extends Component {
         const skills = this.props.skills;
         if (!skills.loaded) {
             this.props.fetchSkills();
+        }
+        const users = this.props.users;
+        if (!users.loaded) {
+            this.props.fetchUsers();
         }
     };
 
@@ -53,7 +60,7 @@ class SettingsContent extends Component {
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const {fetchManagers, linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
+        const {promoteManager, fetchManagers, linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
         return (
             <div className="content">
                 <Tabs>
@@ -67,9 +74,10 @@ class SettingsContent extends Component {
                     </Tab>}
 
                     {this.isManager() && <Tab label="Utilisateurs">
-                        <DiplomaDatePicker saveDiploma={saveDiploma} users={users} fetchUsers={fetchUsers}/>
+                        <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>
+                        <PromoteManager users={users} promoteManager={promoteManager}/>
                     </Tab>}
                     <Tab label="QR Code">
                         <QRCodeURL url={Config.apiURL}/>

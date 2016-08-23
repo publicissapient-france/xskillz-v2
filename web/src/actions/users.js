@@ -211,3 +211,29 @@ export function fetchManagers() {
             .then(managers => dispatch(receiveManagers(managers)));
     };
 }
+
+export const MANAGER_PROMOTED = 'MANAGER_PROMOTED';
+
+export function managerPromoted() {
+    return {
+        type: MANAGER_PROMOTED
+    }
+}
+
+export function promoteManager(id) {
+    return dispatch => {
+        const config = {
+            method: 'POST',
+            headers: {token: store.get('token')}
+        };
+        return fetch(`${Config.apiURL}/users/${id}/manager`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(() => dispatch(managerPromoted()));
+    }
+}

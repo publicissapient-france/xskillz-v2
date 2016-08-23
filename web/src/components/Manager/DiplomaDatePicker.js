@@ -9,20 +9,12 @@ class DiplomaDatePicker extends Component {
 
     static propTypes = {
         saveDiploma: PropTypes.func.isRequired,
-        users: PropTypes.object.isRequired,
-        fetchUsers: PropTypes.func.isRequired
+        users: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
         this.state = {date: null, userId: null};
-    }
-
-    componentDidMount() {
-        const { loaded } = this.props.users || {};
-        if (!loaded) {
-            this.props.fetchUsers && this.props.fetchUsers();
-        }
     }
 
     onChangeDate = (event, date) => this.setState({date});
