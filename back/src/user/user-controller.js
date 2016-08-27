@@ -306,7 +306,7 @@ module.exports = {
                 res.status(200).jsonp(user);
             })
             .catch((err) => {
-                log.error(err.message);
+                log.error(err);
                 res.status(404).jsonp({error: `User ${email} not found`});
             });
     },
@@ -345,5 +345,18 @@ module.exports = {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
             });
+    },
+
+    promoteToManager: (req, res) => {
+        this.Repository
+            .findUserById(id)
+            .then((user) => Repository.addRole(user, 'Manager'))
+            .then(()=> {
+                res.jsonp({updated: true})
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).jsonp({error: err.message});
+            })
     }
 };

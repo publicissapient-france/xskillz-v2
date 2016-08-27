@@ -13,12 +13,16 @@ const UserRepository = {
     findUserByEmailAndPassword: (email, password) =>
         UserRepository
             .findUserByEmail(email)
-            .then((user) =>
-                Bcrypt.compare(password, user.password)
+            .then((user) => {
+                if (!user) {
+                    return Promise.reject(`Unable to find user with email ${email}`);
+                }
+                return Bcrypt.compare(password, user.password)
                     .then(() => {
                         delete user.password;
                         return Promise.resolve(user);
-                    })),
+                    })
+            }),
 
     findUserByEmail: (email) =>
         this.db.query(`
