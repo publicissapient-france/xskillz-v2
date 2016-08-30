@@ -53,7 +53,8 @@ class AddSkillForm extends Component {
                                           menuStyle={{cursor:'pointer'}}
                                           fullWidth
                                           onNewRequest={::this.onNewRequest}
-                                          onUpdateInput={::this.onUpdateInput}/>
+                                          onUpdateInput={::this.onUpdateInput}
+                                          maxSearchResults={10}/>
                         </div>
                         <div className="stars">
                             <EditableStars mark={0} handleClick={::this.onStarSelected}/>

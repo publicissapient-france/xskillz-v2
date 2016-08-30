@@ -80,7 +80,8 @@ class SkillsContent extends Component {
                         menuStyle={{cursor:'pointer'}}
                         filter={AutoComplete.fuzzyFilter}
                         onNewRequest={::this.onNewRequest}
-                        searchText={name}/>
+                        searchText={name}
+                        maxSearchResults={10}/>
                 </div>
                 {composedUsers[3].length > 0 &&
                 <UsersLevel title="Experts" users={composedUsers[3]} onUserClick={onUserClick}/>}
@@ -89,7 +90,7 @@ class SkillsContent extends Component {
                 {composedUsers[1].length > 0 &&
                 <UsersLevel title="Débutants" users={composedUsers[1]} onUserClick={onUserClick}/>}
                 {composedUsers[0].length > 0 &&
-                <UsersLevel title="Interessés" users={composedUsers[0]} onUserClick={onUserClick}/>}
+                <UsersLevel title="Intéressés" users={composedUsers[0]} onUserClick={onUserClick}/>}
             </div>
         )
     }
