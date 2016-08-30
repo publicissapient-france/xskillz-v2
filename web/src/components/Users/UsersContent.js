@@ -2,6 +2,7 @@ import React, {Component, PropTypes } from 'react';
 import _ from 'lodash';
 import UserItem from './UserItem';
 import TextField from 'material-ui/TextField';
+import Infinite from 'react-infinite';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
@@ -43,11 +44,13 @@ class UsersContent extends Component {
             <div className="content">
                 <TextField hintText="Nom ou prénom (min: 3 caractères)" style={{margin: '.8rem'}}
                            onChange={::this.queryChange}/>
-                {users.map((user, index) => <UserItem user={user}
-                                                      onUserClick={onUserClick}
-                                                      onSkillClick={onSkillClick}
-                                                      key={index}
-                                                      removeUser={removeUser}/>)}
+                <Infinite useWindowAsScrollContainer elementHeight={110}>
+                    {users.map((user, index) => <UserItem user={user}
+                                                          onUserClick={onUserClick}
+                                                          onSkillClick={onSkillClick}
+                                                          key={index}
+                                                          removeUser={removeUser}/>)}
+                </Infinite>
             </div>
         )
     }
