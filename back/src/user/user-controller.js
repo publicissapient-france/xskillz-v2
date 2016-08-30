@@ -97,14 +97,12 @@ const createUserById = (UserRepository, SkillRepository, id) => {
                 .value()
                 .forEach((domainSkills) => user.domains.push(createDomain(domainSkills)));
         })
-        .then(()=> user)
-        .then((user) => {
-            return UserRepository.findUserRolesById(user.id)
-                .then((roles) => {
-                    user.roles = roles.map((r)=>r.name);
-                })
-                .then(() => user)
-        });
+        .then(() => user.domains.sort((d1, d2) => d2.score - d1.score))
+        .then(() => UserRepository.findUserRolesById(user.id))
+        .then((roles) => {
+            user.roles = roles.map((r)=>r.name);
+        })
+        .then(() => user);
 };
 
 
@@ -218,7 +216,14 @@ module.exports = {
     },
 
     getUsersWebVersion: (req, res) => {
-        let usersPromise = this.Repository.getWebUsers();
+        let usersPromise;
+
+        if (req.query.with_roles) {
+            usersPromise = this.Repository.getWebUsersWithRoles(req.query.with_roles);
+        } else {
+            usersPromise = this.Repository.getWebUsers();
+        }
+
         usersPromise
             .then((rows) => {
                 return _(rows)
@@ -349,7 +354,7 @@ module.exports = {
 
     promoteToManager: (req, res) => {
         this.Repository
-            .findUserById(id)
+            .findUserById(req.params.id)
             .then((user) => Repository.addRole(user, 'Manager'))
             .then(()=> {
                 res.jsonp({updated: true})

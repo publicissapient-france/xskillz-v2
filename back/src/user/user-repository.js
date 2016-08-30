@@ -78,6 +78,21 @@ const UserRepository = {
         GROUP BY us.user_id, s.domain_id
     `),
 
+    getWebUsersWithRoles: (roles) =>
+        this.db.query(`
+            SELECT u.id AS user_id, u.name AS user_name, u.email AS email,d.name AS domain_name, d.id AS domain_id, d.color AS domain_color, u.diploma AS diploma, SUM(level) AS domain_score
+            FROM UserSkill us
+            JOIN Skill s ON s.id = us.skill_id
+            JOIN Domain d ON d.id = s.domain_id
+            JOIN User u ON u.id = us.user_id
+                WHERE user_id IN (SELECT DISTINCT(user_id)
+                                    FROM UserRole ur
+                                    JOIN Role r ON r.id = ur.roles_id
+                                    WHERE r.name IN ('${roles}')
+                            )
+            GROUP BY us.user_id, s.domain_id            
+        `),
+
     getUsersWithRoles: (roles) =>
         this.db.query(`
             SELECT *

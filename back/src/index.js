@@ -7,7 +7,7 @@ var winston = require('winston'),
     expressWinston = require('express-winston');
 
 //expressWinston.requestWhitelist.push('body');
-expressWinston.responseWhitelist.push('body');
+//expressWinston.responseWhitelist.push('body');
 
 const UserController = require('./user/user-controller');
 const SkillController = require('./skill/skill-controller');
