@@ -4,6 +4,7 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import _ from 'lodash';
 import Paper from 'material-ui/Paper';
+import AutoComplete from 'material-ui/AutoComplete';
 
 class AssignUserToManager extends Component {
 
@@ -25,25 +26,33 @@ class AssignUserToManager extends Component {
         }
     }
 
-    onUserChange = (event, index, value) => this.setState({userId: value});
+    onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
     onManagerChange = (event, index, value) => this.setState({managerId: value});
 
     assignUserToManager = () => this.props.assignUserToManager(this.state.userId, this.state.managerId);
 
     render() {
-        const { userId, managerId } = this.state;
+        const {managerId} = this.state;
         const users = this.props.users.list;
+        let userNames = [];
+        if (users) {
+            userNames = _.flatMap(users, user => user.name);
+        }
         const managers = this.props.users.managers;
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
                 <h3>Assigner un manageur</h3>
+                <div style={{float: 'left'}}>
+                    <AutoComplete
+                        floatingLabelText="Équipier"
+                        hintText="Chercher un équipier"
+                        filter={AutoComplete.fuzzyFilter}
+                        dataSource={userNames}
+                        maxSearchResults={10}
+                        onNewRequest={::this.onUserChange}/>
+                </div>
                 <div>
-                    <SelectField floatingLabelText="Utilisateur" value={userId} hintText="Choisir un utilisateur"
-                                 onChange={::this.onUserChange}>
-                        {users.map((user, index) => <MenuItem value={user.id} key={index}
-                                                              primaryText={user.name}/>)}
-                    </SelectField>
                     <SelectField floatingLabelText="Manageur" value={managerId} hintText="Choisir un manageur"
                                  onChange={::this.onManagerChange}>
                         {managers.map((manager, index) => <MenuItem value={manager.id} key={index}

@@ -4,6 +4,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
+import AutoComplete from 'material-ui/AutoComplete';
+import _ from 'lodash';
 
 class DiplomaDatePicker extends Component {
 
@@ -21,31 +23,38 @@ class DiplomaDatePicker extends Component {
 
     disableWeekends = date => date.getDay() === 0 || date.getDay() === 6;
 
-    onUserChange = (event, index, value) => this.setState({userId: value});
+    onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
     saveDiploma = () => this.props.saveDiploma(this.state.userId, this.state.date);
 
     render() {
-        const {userId, date} = this.state;
+        const {date} = this.state;
         const users = this.props.users.list;
+        let userNames = [];
+        if (users) {
+            userNames = _.flatMap(users, user => user.name);
+        }
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
                 <h3>Graduation date</h3>
                 <div>
-                    <SelectField floatingLabelText="Name" value={userId} hintText="Choose a teammate"
-                                 onChange={::this.onUserChange}>
-                        {users.map((user, index) => <MenuItem value={user.id} key={index} primaryText={user.name}/>)}
-                    </SelectField>
+                    <AutoComplete
+                        floatingLabelText="Équipier"
+                        hintText="Chercher un équipier"
+                        filter={AutoComplete.fuzzyFilter}
+                        dataSource={userNames}
+                        maxSearchResults={10}
+                        onNewRequest={::this.onUserChange}/>
                 </div>
                 <div>
                     <DatePicker
-                        hintText="Graduated on"
+                        hintText="Diplômé le"
                         value={date}
                         onChange={::this.onChangeDate}
                         shouldDisableDate={this.disableWeekends}/>
                 </div>
-                <div style={{marginTop: '1rem'}}>
-                    <RaisedButton label="Save" primary={true} onClick={::this.saveDiploma}/>
+                <div style={{marginTop: '1rem', clear: 'both'}}>
+                    <RaisedButton label="Valider" primary={true} onClick={::this.saveDiploma}/>
                 </div>
             </Paper>
         )
