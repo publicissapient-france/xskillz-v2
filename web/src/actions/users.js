@@ -234,6 +234,9 @@ export function promoteManager(id) {
                     return response.json();
                 }
             })
-            .then(() => dispatch(managerPromoted()));
+            .then(() => {
+                dispatch(managerPromoted());
+                dispatch(fetchManagers());
+            });
     }
 }
