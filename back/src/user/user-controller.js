@@ -28,7 +28,7 @@ const createDomain = (domainSkills) => {
         id: domain.domain_id,
         name: domain.domain_name,
         score: computeScore(domainSkills),
-        color: domain.domain_color,
+        color: domain.domain_color || 'pink',
         skills: _(domainSkills)
             .map((skill)=> {
                 return {

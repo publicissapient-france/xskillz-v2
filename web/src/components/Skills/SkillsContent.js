@@ -75,7 +75,6 @@ class SkillsContent extends Component {
                     <AutoComplete
                         autoFocus={true}
                         hintText={'Chercher une compétence ...'}
-                        maxSearchResults={20}
                         dataSource={nameArray}
                         menuStyle={{cursor:'pointer'}}
                         filter={AutoComplete.fuzzyFilter}

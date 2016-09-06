@@ -39,7 +39,7 @@ class UserItem extends Component {
                                         .sortBy('score').takeRight(2).reverse().map((domain) =>
                                             <Chip key={domain.id} style={styles.domainName}
                                                   backgroundColor={domain.color} labelStyle={styles.domainName}>
-                                                {domain.name || 'No Domain'}
+                                                {domain.name || 'Sans domaine'}
                                             </Chip>
                                         ).value()}
                                 </div>
@@ -53,7 +53,7 @@ class UserItem extends Component {
                                     <div key={index} className={'domains-content'}
                                          style={{backgroundColor:domain.color}}>
                                         <div className={`domain-name domain-${domain.name}`}
-                                             style={{color:domain.color}}>{domain.name || 'No Domain'}</div>
+                                             style={{color:domain.color}}>{domain.name || 'Sans domaine'}</div>
                                         <div className="skills-content">
                                             {domain.skills.map((skill, index) => {
                                                 // noinspection JSUnresolvedVariable
