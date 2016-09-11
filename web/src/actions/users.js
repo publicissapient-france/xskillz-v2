@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
 import store from 'store';
 import Config from '../Config';
+import {getToken} from './auth';
 
 export const REQUEST_USERS_BY_SKILL = 'REQUEST_USERS_BY_SKILL';
 export const RECEIVE_USERS_BY_SKILL = 'RECEIVE_USERS_BY_SKILL';
@@ -11,6 +12,7 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 export const REQUEST_USER_BY_ID = 'REQUEST_USER_BY_ID';
 export const RECEIVE_USER_BY_ID = 'RECEIVE_USER_BY_ID';
+
 
 export function requestUsersBySkill(skillId) {
     return {
@@ -30,7 +32,7 @@ export function fetchUsersBySkill(skillId) {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'token': store.get('token')
+                token: getToken()
             }
         };
 
@@ -79,7 +81,7 @@ export function fetchUsers() {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'token': store.get('token')
+                token: getToken()
             }
         };
 
@@ -109,7 +111,7 @@ export function saveDiploma(userId, diploma) {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
-                token: store.get('token')
+                token: getToken()
             },
             body: JSON.stringify({diploma})
         };
@@ -141,7 +143,7 @@ export function removeUser(userId) {
         const config = {
             method: 'DELETE',
             headers: {
-                token: store.get('token')
+                token: getToken()
             }
         };
         return fetch(`${Config.apiURL}/users/${userId}`, config)
@@ -170,7 +172,7 @@ export function assignUserToManager(userId, managerId) {
         const config = {
             method: 'POST',
             headers: {
-                token: store.get('token')
+                token: getToken()
             }
         };
         return fetch(`${Config.apiURL}/users/${userId}/manager/${managerId}`, config)
@@ -198,7 +200,7 @@ export function fetchManagers() {
     return dispatch => {
         const config = {
             method: 'GET',
-            headers: {token: store.get('token')}
+            token: getToken()
         };
         return fetch(`${Config.apiURL}/users?with_roles=Manager`, config)
             .then(response => {
@@ -224,7 +226,7 @@ export function promoteManager(id) {
     return dispatch => {
         const config = {
             method: 'POST',
-            headers: {token: store.get('token')}
+            token: getToken()
         };
         return fetch(`${Config.apiURL}/users/${id}/manager`, config)
             .then(response => {

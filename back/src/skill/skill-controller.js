@@ -95,7 +95,11 @@ module.exports = {
     },
 
     getSkills: (req, res) => {
-        Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return Repository
             .getSkills()
             .map((skill)=> createSkill(skill))
             .then((skills) => {
@@ -108,7 +112,11 @@ module.exports = {
     },
 
     addSkillToDomain: (req, res) => {
-        Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return Repository
             .addSkillToDomain(req.params.id, req.body.id)
             .then((skills) => {
                 res.jsonp(skills);
@@ -120,7 +128,11 @@ module.exports = {
     },
 
     merge: (req, res) => {
-        Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return Repository
             .mergeSkills(req.body.from, req.body.to)
             .then(() => {
                 res.jsonp({merged: true});

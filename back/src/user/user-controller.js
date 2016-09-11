@@ -28,7 +28,7 @@ const createDomain = (domainSkills) => {
         id: domain.domain_id,
         name: domain.domain_name,
         score: computeScore(domainSkills),
-        color: domain.domain_color || 'pink',
+        color: domain.domain_color || 'pink',
         skills: _(domainSkills)
             .map((skill)=> {
                 return {
@@ -155,6 +155,10 @@ module.exports = {
     },
 
     getUsersBySkill: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
         this.Repository
             .findUsersBySkill(req.params.id)
             .map((user)=> {
@@ -216,6 +220,10 @@ module.exports = {
     },
 
     getUsersWebVersion: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
         let usersPromise;
 
         if (req.query.with_roles) {
@@ -257,6 +265,10 @@ module.exports = {
     },
 
     getUsers: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
         let usersPromise;
         if (req.query.with_roles) {
             usersPromise = this.Repository.getUsersWithRoles(req.query.with_roles);
@@ -272,14 +284,19 @@ module.exports = {
             });
     },
 
-    deleteUserById: (req, res) =>
-        this.Repository
+    deleteUserById: (req, res) => {
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return this.Repository
             .deleteUserById(req.params.id)
             .then(() => res.jsonp({deleted: true}))
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).jsonp({cause: err.message})
-            }),
+            })
+    },
 
     signin: (req, res) => {
         const email = req.body.email;
@@ -317,7 +334,11 @@ module.exports = {
     },
 
     assignManager: (req, res) => {
-        this.Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return this.Repository
             .assignManager(req.params.id, req.params.managerId)
             .then(()=> {
                 res.jsonp({assigned: true})
@@ -329,7 +350,11 @@ module.exports = {
     },
 
     updateUser: (req, res) => {
-        this.Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return this.Repository
             .updateUser(req.params.id, req.body)
             .then(()=> {
                 res.jsonp({updated: true})
@@ -341,7 +366,11 @@ module.exports = {
     },
 
     getUpdates: (req, res) => {
-        this.Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return this.Repository
             .getUpdates()
             .then((updates) => {
                 res.jsonp(createUpdates(updates));
@@ -353,7 +382,11 @@ module.exports = {
     },
 
     promoteToManager: (req, res) => {
-        this.Repository
+        if (!req.body.user_id) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        return this.Repository
             .findUserById(req.params.id)
             .then((user) => Repository.addRole(user, 'Manager'))
             .then(()=> {
@@ -362,7 +395,7 @@ module.exports = {
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
-            })
+            });
     },
 
     changePassword: (req, res) => {

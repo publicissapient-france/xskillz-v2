@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
-import store from 'store';
 import Config from '../Config';
+import {getToken} from './auth';
 
 export const REQUEST_USER_BY_ID = 'REQUEST_USER_BY_ID';
 export const RECEIVE_USER_BY_ID = 'RECEIVE_USER_BY_ID';
@@ -32,7 +32,7 @@ export function getUserById(userId) {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'token': store.get('token')
+                token: getToken()
             }
         };
 
