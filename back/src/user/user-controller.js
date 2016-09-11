@@ -363,5 +363,17 @@ module.exports = {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
             })
+    },
+
+    changePassword: (req, res) => {
+        this.Repository
+            .updatePassword(req.body.user_id, req.body.old_password, req.body.password)
+            .then(()=> {
+                res.jsonp({updated: true})
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).jsonp({error: err.message});
+            })
     }
 };

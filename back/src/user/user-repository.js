@@ -24,6 +24,20 @@ const UserRepository = {
                     })
             }),
 
+    findUserByIdAndPassword: (id, password) =>
+        UserRepository
+            .findUserById(id)
+            .then((user) => {
+                if (!user) {
+                    return Promise.reject(`Unable to find user with id ${id}`);
+                }
+                return Bcrypt.compare(password, user.password)
+                    .then(() => {
+                        delete user.password;
+                        return Promise.resolve(user);
+                    })
+            }),
+
     findUserByEmail: (email) =>
         this.db.query(`
             SELECT *
@@ -150,7 +164,20 @@ const UserRepository = {
         this.db.query(`
             INSERT INTO Token (token_value, user_id)
             VALUES ('${token}', ${user.id})
-    `)
+    `),
+
+    updatePassword: (userId, oldPassword, newPassword) =>
+        UserRepository.findUserByIdAndPassword(userId, oldPassword)
+            .then(() => Bcrypt.hash(newPassword, saltRounds))
+            .then((hash) => newPassword = hash)
+            .then(() =>
+                this.db.query(
+                    `
+                        UPDATE User
+                        SET password = '${newPassword}'
+                        WHERE id = ${userId}
+                    `)
+            )
 };
 
 module.exports = UserRepository;

@@ -26,6 +26,10 @@ services:
   web:
     build: ./web
     image: xebiafrance/skillz-web
+    links:
+       - back
+    depends_on:
+      - back
     ports:
       - 80:80
     networks:
