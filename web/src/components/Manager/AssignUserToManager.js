@@ -42,7 +42,7 @@ class AssignUserToManager extends Component {
         const managers = this.props.users.managers;
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
-                <h3>Assigner un manageur</h3>
+                <h3>Assigner un équipier à un manageur</h3>
                 <div style={{float: 'left'}}>
                     <AutoComplete
                         floatingLabelText="Équipier"

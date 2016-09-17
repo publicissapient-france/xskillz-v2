@@ -36,7 +36,7 @@ class DiplomaDatePicker extends Component {
         }
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
-                <h3>Graduation date</h3>
+                <h3>Définir la date de diplôme</h3>
                 <div>
                     <AutoComplete
                         floatingLabelText="Équipier"
