@@ -1,20 +1,28 @@
 import React, {Component, PropTypes} from "react";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
-import RaisedButton from "material-ui/RaisedButton";
-import TextField from "material-ui/TextField";
-import Divider from "material-ui/Divider";
+
 import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
+
 import AssignUserToManager from "../Manager/AssignUserToManager";
+
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
+
 import {Tabs, Tab} from "material-ui/Tabs";
+
 import Config from '../../Config';
+
 import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
+
 import MergeSkills from '../Skills/MergeSkills/MergeSkills';
+
 import AddDomain from '../Domain/Add/AddDomain';
+
 import DeleteDomain from '../Domain/Del/DeleteDomain';
+
 import _ from 'lodash';
+
 import PromoteManager from '../Manager/PromoteManager';
+
+import ChangePassword from '../Me/ChangePassword/ChangePassword'
 
 class SettingsContent extends Component {
 
@@ -30,7 +38,9 @@ class SettingsContent extends Component {
         auth: PropTypes.object.isRequired,
         fetchManagers: PropTypes.func.isRequired,
         promoteManager: PropTypes.func.isRequired,
-        fetchUsers: PropTypes.func.isRequired
+        fetchUsers: PropTypes.func.isRequired,
+        changePassword: PropTypes.func.isRequired,
+        me: PropTypes.object.isRequired
     };
 
     componentDidMount() {
@@ -60,7 +70,8 @@ class SettingsContent extends Component {
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const {promoteManager, fetchManagers, linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
+        const me = this.props.me;
+        const {changePassword, promoteManager, fetchManagers, linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
         return (
             <div className="content">
                 <Tabs>
@@ -73,12 +84,14 @@ class SettingsContent extends Component {
                         <DeleteDomain deleteDomain={deleteDomain} domains={domains}/>
                     </Tab>}
 
-                    {this.isManager() && <Tab label="Utilisateurs">
-                        <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>
+                    <Tab label="Utilisateurs">
+                        {this.isManager() && <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>}
+                        {this.isManager() &&
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
-                                             fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>
-                        <PromoteManager users={users} promoteManager={promoteManager}/>
-                    </Tab>}
+                                             fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}
+                        {this.isManager() && <PromoteManager users={users} promoteManager={promoteManager}/>}
+                        <ChangePassword me={me} changePassword={changePassword}/>
+                    </Tab>
                     <Tab label="QR Code">
                         <QRCodeURL url={Config.apiURL}/>
                     </Tab>

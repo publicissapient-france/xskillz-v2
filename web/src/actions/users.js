@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 import store from 'store';
 import Config from '../Config';
 import {getToken} from './auth';
@@ -200,7 +200,9 @@ export function fetchManagers() {
     return dispatch => {
         const config = {
             method: 'GET',
-            token: getToken()
+            headers: {
+                token: getToken()
+            }
         };
         return fetch(`${Config.apiURL}/users?with_roles=Manager`, config)
             .then(response => {

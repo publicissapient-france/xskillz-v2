@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import {connect} from 'react-redux';
 
 import SettingsContent from '../../components/Settings/SettingsContent'
-import { fetchDomains, linkSkillToDomain, deleteDomain, addDomain } from '../../actions/action.domains';
-import { fetchSkills, mergeSkills } from '../../actions/skills';
-import { saveDiploma } from '../../actions/users'
+
+import {fetchDomains, linkSkillToDomain, deleteDomain, addDomain} from '../../actions/action.domains';
+
+import {fetchSkills, mergeSkills} from '../../actions/skills';
+
+import {saveDiploma} from '../../actions/users'
+
 import {fetchUsers, assignUserToManager, fetchManagers, promoteManager} from '../../actions/users';
+
+import {changePassword} from '../../actions/action.me';
 
 const mapStateToProps = state => {
     return {
         domains: state.domains,
         skills: state.skills,
         users: state.users,
-        auth: state.auth
+        auth: state.auth,
+        me: state.me
     };
 };
 
@@ -30,7 +35,8 @@ const mapDispatchToProps = dispatch => ({
     fetchUsers: () => dispatch(fetchUsers()),
     assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId)),
     fetchManagers: () => dispatch(fetchManagers()),
-    promoteManager: id => dispatch(promoteManager(id))
+    promoteManager: id => dispatch(promoteManager(id)),
+    changePassword: (oldPassword, password) => dispatch(changePassword(oldPassword, password))
 });
 
 const SettingsPage = connect(

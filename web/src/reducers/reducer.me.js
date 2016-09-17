@@ -1,4 +1,4 @@
-import {RECEIVE_ME} from '../actions/action.me';
+import {RECEIVE_ME, CHANGE_PASSWORD_ERROR} from '../actions/action.me';
 import {SKILL_REMOVED, SKILL_ADDED,SKILL_UPDATED} from '../actions/skills';
 import _ from 'lodash';
 
@@ -56,6 +56,8 @@ export function me(state = initialState, action) {
             });
             return next;
         }
+        case CHANGE_PASSWORD_ERROR:
+            return {...state, changePasswordError: true};
         default:
             return state;
     }
