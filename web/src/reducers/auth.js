@@ -1,4 +1,10 @@
-import {API_SIGNIN_SUCCESS, API_SIGNIN_ERROR, USER_CREATE_ERROR, USER_CREATED} from '../actions/auth';
+import {
+    API_SIGNIN_SUCCESS,
+    API_SIGNIN_ERROR,
+    USER_CREATE_ERROR,
+    USER_CREATED,
+    CREATE_USER_LOADING
+} from '../actions/auth';
 
 import store from 'store';
 
@@ -19,6 +25,8 @@ export function auth(state = initialState, action) {
             return {...state, createUser: {error: true, success: false}};
         case USER_CREATED:
             return {...state, createUser: {error: false, success: true}};
+        case CREATE_USER_LOADING:
+            return {...state, createUser: {error: false, success: false}};
         default:
             return state;
     }

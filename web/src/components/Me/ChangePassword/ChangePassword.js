@@ -24,7 +24,10 @@ class ChangePassword extends Component {
 
     setPassword = event => this.setState({password: event.currentTarget.value});
 
-    changePassword = () => this.props.changePassword(this.state.oldPassword, this.state.password);
+    changePassword = () => {
+        this.setState({submit: true});
+        return this.props.changePassword(this.state.oldPassword, this.state.password);
+    };
 
     render() {
         return (
@@ -37,16 +40,16 @@ class ChangePassword extends Component {
                         <RaisedButton label="Changer" primary={true} onClick={::this.changePassword}/>
                     </div>
                 </div>
-                {this.props.me.changePassword.error && <Snackbar
+                <Snackbar
                     bodyStyle={{backgroundColor: '#CC0000'}}
-                    open={true}
+                    open={this.state.submit && this.props.me.changePassword.error}
                     message="Changement de mot de passe échoué."
-                    autoHideDuration={3000}/>}
-                {this.props.me.changePassword.success && <Snackbar
+                    autoHideDuration={3000}/>
+                <Snackbar
                     bodyStyle={{backgroundColor: '#008500'}}
-                    open={true}
+                    open={this.state.submit && this.props.me.changePassword.success}
                     message="Mot de passe changé."
-                    autoHideDuration={3000}/>}
+                    autoHideDuration={3000}/>
             </Paper>
         )
     }

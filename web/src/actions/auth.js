@@ -56,7 +56,6 @@ export function signin(email, password) {
 
 export const USER_CREATED = 'USER_CREATED';
 
-export const USER_CREATE_ERROR = 'USER_CREATE_ERROR';
 
 export function userCreated() {
     return {
@@ -64,16 +63,26 @@ export function userCreated() {
     }
 }
 
+export const USER_CREATE_ERROR = 'USER_CREATE_ERROR';
+
 export function userCreateError() {
     return {
         type: USER_CREATE_ERROR
     }
 }
 
+export const CREATE_USER_LOADING = 'CREATE_USER_LOADING';
+
+export function createUserLoading() {
+    return {
+        type: CREATE_USER_LOADING
+    }
+}
+
 export function createUser(name, email, password) {
     return dispatch => {
 
-        debugger;
+        dispatch(createUserLoading());
 
         const config = {
             method: 'POST',

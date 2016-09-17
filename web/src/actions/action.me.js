@@ -58,8 +58,17 @@ export function changePasswordError() {
     }
 }
 
+export const CHANGE_PASSWORD_LOADING = 'CHANGE_PASSWORD_LOADING';
+
+export function changePasswordLoading() {
+    return {
+        type: CHANGE_PASSWORD_LOADING
+    }
+}
+
 export function changePassword(old_password, password) {
     return dispatch => {
+        dispatch(changePasswordLoading());
         const config = {
             method: 'PATCH',
             headers: {

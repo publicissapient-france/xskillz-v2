@@ -26,7 +26,10 @@ class CreateUser extends Component {
 
     setPassword = event => this.setState({password: event.currentTarget.value});
 
-    createUser = () => this.props.createUser(this.state.name, this.state.email, this.state.password);
+    createUser = () => {
+        this.setState({submit: true});
+        return this.props.createUser(this.state.name, this.state.email, this.state.password);
+    };
 
     render() {
         return (
@@ -46,16 +49,16 @@ class CreateUser extends Component {
                         <RaisedButton label="Créer" primary={true} onClick={::this.createUser}/>
                     </div>
                 </div>
-                {this.props.auth.createUser.error && <Snackbar
+                <Snackbar
                     bodyStyle={{backgroundColor: '#CC0000'}}
-                    open={true}
+                    open={this.state.submit && this.props.auth.createUser.error}
                     message={`Création de l'utilisateur ${this.state.name || ''} échoué.`}
-                    autoHideDuration={3000}/>}
-                {this.props.auth.createUser.success && <Snackbar
+                    autoHideDuration={3000}/>
+                <Snackbar
                     bodyStyle={{backgroundColor: '#008500'}}
-                    open={true}
+                    open={this.state.submit && this.props.auth.createUser.success}
                     message={`Utilisateur ${this.state.name} créé.`}
-                    autoHideDuration={3000}/>}
+                    autoHideDuration={3000}/>
             </Paper>
         )
     }
