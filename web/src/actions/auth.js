@@ -1,8 +1,10 @@
 import fetch from 'isomorphic-fetch';
-import _ from 'lodash';
+
 import store from 'store';
+
 import Config from '../Config';
-import { browserHistory } from 'react-router';
+
+import {browserHistory} from 'react-router';
 
 export const API_SIGNIN_SUCCESS = 'API_SIGNIN_SUCCESS';
 export const API_SIGNIN_ERROR = 'API_SIGNIN_ERROR';
@@ -52,26 +54,26 @@ export function signin(email, password) {
     }
 }
 
-export const API_SIGNUP_SUCCESS = 'API_SIGNUP_SUCCESS';
-export const API_SIGNUP_ERROR = 'API_SIGNUP_ERROR';
+export const USER_CREATED = 'USER_CREATED';
 
-export function signupSuccess(user) {
-    store.set('me', user);
+export const USER_CREATE_ERROR = 'USER_CREATE_ERROR';
 
+export function userCreated() {
     return {
-        type: API_SIGNUP_SUCCESS,
-        payload: {user}
+        type: USER_CREATED
     }
 }
 
-export function signupError() {
+export function userCreateError() {
     return {
-        type: API_SIGNUP_ERROR
+        type: USER_CREATE_ERROR
     }
 }
 
-export function signup(name, email, password) {
+export function createUser(name, email, password) {
     return dispatch => {
+
+        debugger;
 
         const config = {
             method: 'POST',
@@ -89,10 +91,7 @@ export function signup(name, email, password) {
                     return response.json();
                 }
             })
-            .then(json => {
-                dispatch(signupSuccess(json));
-                browserHistory.push('/updates');
-            })
-            .catch(() => dispatch(signupError()));
+            .then(() => dispatch(userCreated()))
+            .catch(() => dispatch(userCreateError()));
     }
 }

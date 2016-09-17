@@ -14,6 +14,8 @@ import {fetchUsers, assignUserToManager, fetchManagers, promoteManager} from '..
 
 import {changePassword} from '../../actions/action.me';
 
+import {createUser} from '../../actions/auth';
+
 const mapStateToProps = state => {
     return {
         domains: state.domains,
@@ -36,7 +38,8 @@ const mapDispatchToProps = dispatch => ({
     assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId)),
     fetchManagers: () => dispatch(fetchManagers()),
     promoteManager: id => dispatch(promoteManager(id)),
-    changePassword: (oldPassword, password) => dispatch(changePassword(oldPassword, password))
+    changePassword: (oldPassword, password) => dispatch(changePassword(oldPassword, password)),
+    createUser: (name, email, password) => dispatch(createUser(name, email, password))
 });
 
 const SettingsPage = connect(

@@ -12,7 +12,7 @@ class ChangePassword extends Component {
 
     static propTypes = {
         changePassword: PropTypes.func.isRequired,
-        me: PropTypes.func.isRequired
+        me: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -24,10 +24,7 @@ class ChangePassword extends Component {
 
     setPassword = event => this.setState({password: event.currentTarget.value});
 
-    changePassword = () => this.props.changePassword({
-        oldPassword: this.state.oldPassword,
-        password: this.state.password
-    });
+    changePassword = () => this.props.changePassword(this.state.oldPassword, this.state.password);
 
     render() {
         return (

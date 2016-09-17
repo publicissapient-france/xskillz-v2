@@ -22,7 +22,9 @@ import _ from 'lodash';
 
 import PromoteManager from '../Manager/PromoteManager';
 
-import ChangePassword from '../Me/ChangePassword/ChangePassword'
+import ChangePassword from '../Me/ChangePassword/ChangePassword';
+
+import CreateUser from '../Users/CreateUser/CreateUser';
 
 class SettingsContent extends Component {
 
@@ -70,8 +72,11 @@ class SettingsContent extends Component {
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const me = this.props.me;
-        const {changePassword, promoteManager, fetchManagers, linkSkillToDomain, mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers} = this.props;
+        const {me, auth} = this.props;
+        const {
+            createUser, changePassword, promoteManager, fetchManagers, linkSkillToDomain,
+            mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers
+        } = this.props;
         return (
             <div className="content">
                 <Tabs>
@@ -91,6 +96,7 @@ class SettingsContent extends Component {
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}
                         {this.isManager() && <PromoteManager users={users} promoteManager={promoteManager}/>}
                         <ChangePassword me={me} changePassword={changePassword}/>
+                        {this.isManager() && <CreateUser auth={auth} createUser={createUser}/>}
                     </Tab>
                     <Tab label="QR Code">
                         <QRCodeURL url={Config.apiURL}/>

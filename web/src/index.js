@@ -1,12 +1,12 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, Route, Redirect, browserHistory } from 'react-router';
+import {Provider} from 'react-redux';
+import {Router, Route, Redirect, browserHistory} from 'react-router';
 
 
-import { App } from 'containers/App';
-import { NotFound } from 'containers/NotFound';
+import {App} from 'containers/App';
+import {NotFound} from 'containers/NotFound';
 import SkillsPage from 'containers/Skills/SkillsPage';
 import UsersPage from 'containers/Users/UsersPage';
 import UserPage from 'containers/Users/UserPage';
@@ -14,7 +14,6 @@ import HelpPage from 'containers/Help/HelpPage';
 import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
-import SignupPage from 'containers/Auth/SignupPage';
 import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
 import ApiPage from 'containers/Api/ApiPage';
@@ -72,10 +71,6 @@ ReactDOM.render(
                 <Route path="settings"
                        components={{main: SettingsPage, header: Header}}
                        dataTypePage="settings"/>
-
-                <Route path="signup"
-                       components={{main: SignupPage}}
-                       dataTypePage="signup"/>
 
                 <Route path="api"
                        components={{main: ApiPage, header: Header}}

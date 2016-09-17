@@ -1,5 +1,5 @@
-import {RECEIVE_ME, CHANGE_PASSWORD_ERROR} from '../actions/action.me';
-import {SKILL_REMOVED, SKILL_ADDED,SKILL_UPDATED} from '../actions/skills';
+import {RECEIVE_ME, CHANGE_PASSWORD_ERROR, PASSWORD_CHANGED} from '../actions/action.me';
+import {SKILL_REMOVED, SKILL_ADDED, SKILL_UPDATED} from '../actions/skills';
 import _ from 'lodash';
 
 const initialState = {
@@ -8,20 +8,17 @@ const initialState = {
 
 export function me(state = initialState, action) {
     switch (action.type) {
-        case RECEIVE_ME:
-        {
+        case RECEIVE_ME: {
             const next = {...state, ...action.payload};
             next.loaded = true;
             return next;
         }
-        case SKILL_REMOVED:
-        {
+        case SKILL_REMOVED: {
             const next = {...state};
             _.each(next.domains, domain => _.remove(domain.skills, skill => skill.id === action.payload.id));
             return next;
         }
-        case SKILL_ADDED:
-        {
+        case SKILL_ADDED: {
             const next = {...state};
             const skill = action.payload.skill;
             let added = false;
@@ -44,8 +41,7 @@ export function me(state = initialState, action) {
             }
             return next;
         }
-        case SKILL_UPDATED:
-        {
+        case SKILL_UPDATED: {
             const next = {...state};
             const skill = action.payload.skill;
             _.each(next.domains, domain => {
@@ -58,6 +54,8 @@ export function me(state = initialState, action) {
         }
         case CHANGE_PASSWORD_ERROR:
             return {...state, changePasswordError: true};
+        case PASSWORD_CHANGED:
+            return {...state, changePasswordError: false};
         default:
             return state;
     }

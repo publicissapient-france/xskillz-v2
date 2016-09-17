@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+
 import {browserHistory} from 'react-router';
 
 import SigninContent from '../../components/Auth/SigninContent';
+
 import {signin} from '../../actions/auth';
 
 const mapStateToProps = (state) => {

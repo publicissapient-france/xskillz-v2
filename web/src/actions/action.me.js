@@ -63,9 +63,10 @@ export function changePassword(old_password, password) {
         const config = {
             method: 'PATCH',
             headers: {
+                'Content-Type': 'application/json',
                 token: getToken()
             },
-            body: {old_password, password}
+            body: JSON.stringify({old_password, password})
         };
         return fetch(`${Config.apiURL}/me`, config)
             .then(response => {
