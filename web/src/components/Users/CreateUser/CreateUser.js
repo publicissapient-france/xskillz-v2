@@ -40,7 +40,7 @@ class CreateUser extends Component {
                         <TextField floatingLabelText="Email" onBlur={::this.setEmail}/>
                     </div>
                     <div>
-                        <TextField floatingLabelText="Mot de passe" onBlur={::this.setPassword}/>
+                        <TextField floatingLabelText="Mot de passe" onBlur={::this.setPassword} type="password"/>
                     </div>
                     <div style={{marginTop: '1rem'}}>
                         <RaisedButton label="Créer" primary={true} onClick={::this.createUser}/>

@@ -31,8 +31,8 @@ class ChangePassword extends Component {
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
                 <h3>Changer de mot de passe</h3>
                 <div>
-                    <TextField floatingLabelText="Ancien mot de passe" onBlur={::this.setOldPassword}/>
-                    <TextField floatingLabelText="Nouveau mot de passe" onBlur={::this.setPassword}/>
+                    <TextField floatingLabelText="Ancien mot de passe" onBlur={::this.setOldPassword} type="password"/>
+                    <TextField floatingLabelText="Nouveau mot de passe" onBlur={::this.setPassword} type="password"/>
                     <div style={{marginTop: '1rem'}}>
                         <RaisedButton label="Changer" primary={true} onClick={::this.changePassword}/>
                     </div>
