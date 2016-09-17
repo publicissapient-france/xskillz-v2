@@ -3,7 +3,8 @@ import {SKILL_REMOVED, SKILL_ADDED, SKILL_UPDATED} from '../actions/skills';
 import _ from 'lodash';
 
 const initialState = {
-    loaded: false
+    loaded: false,
+    changePassword: {}
 };
 
 export function me(state = initialState, action) {
@@ -53,9 +54,9 @@ export function me(state = initialState, action) {
             return next;
         }
         case CHANGE_PASSWORD_ERROR:
-            return {...state, changePasswordError: true};
+            return {...state, changePassword: {error: true, success: false}};
         case PASSWORD_CHANGED:
-            return {...state, changePasswordError: false};
+            return {...state, changePassword: {error: false, success: true}};
         default:
             return state;
     }

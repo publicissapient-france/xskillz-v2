@@ -37,10 +37,16 @@ class ChangePassword extends Component {
                         <RaisedButton label="Changer" primary={true} onClick={::this.changePassword}/>
                     </div>
                 </div>
-                {this.props.me.changePasswordError && <Snackbar
+                {this.props.me.changePassword.error && <Snackbar
+                    bodyStyle={{backgroundColor: '#CC0000'}}
                     open={true}
-                    message="Changement du mot de passe échoué."
-                    autoHideDuration={4000}/>}
+                    message="Changement de mot de passe échoué."
+                    autoHideDuration={3000}/>}
+                {this.props.me.changePassword.success && <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={true}
+                    message="Mot de passe changé."
+                    autoHideDuration={3000}/>}
             </Paper>
         )
     }

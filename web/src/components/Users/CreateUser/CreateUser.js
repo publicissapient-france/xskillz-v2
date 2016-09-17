@@ -46,10 +46,16 @@ class CreateUser extends Component {
                         <RaisedButton label="Créer" primary={true} onClick={::this.createUser}/>
                     </div>
                 </div>
-                {this.props.auth.createUserError && <Snackbar
+                {this.props.auth.createUser.error && <Snackbar
+                    bodyStyle={{backgroundColor: '#CC0000'}}
                     open={true}
-                    message="Création de l'utilisateur échouée."
-                    autoHideDuration={4000}/>}
+                    message={`Création de l'utilisateur ${this.state.name || ''} échoué.`}
+                    autoHideDuration={3000}/>}
+                {this.props.auth.createUser.success && <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={true}
+                    message={`Utilisateur ${this.state.name} créé.`}
+                    autoHideDuration={3000}/>}
             </Paper>
         )
     }

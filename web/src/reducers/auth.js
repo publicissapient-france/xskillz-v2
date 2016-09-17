@@ -5,7 +5,8 @@ import store from 'store';
 const initialState = {
     tryCount: 0,
     success: false,
-    me: store.get('me') || {}
+    me: store.get('me') || {},
+    createUser: {}
 };
 
 export function auth(state = initialState, action) {
@@ -15,9 +16,9 @@ export function auth(state = initialState, action) {
         case API_SIGNIN_ERROR:
             return Object.assign({}, state, {success: false, tryCount: state.tryCount + 1, user: {}});
         case USER_CREATE_ERROR:
-            return {...state, createUserError: true};
+            return {...state, createUser: {error: true, success: false}};
         case USER_CREATED:
-            return {...state, createUserError: false};
+            return {...state, createUser: {error: false, success: true}};
         default:
             return state;
     }
