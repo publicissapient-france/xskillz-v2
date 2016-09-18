@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import UpdateItem from './UpdateItem';
@@ -11,8 +11,8 @@ class UpdatesContent extends Component {
 
     render() {
 
-        const { loaded, list } = this.props.updates;
-        const { onUserClick, onSkillClick } = this.props;
+        const {loaded, list} = this.props.updates;
+        const {onUserClick, onSkillClick} = this.props;
 
         if (!loaded) {
             return (
@@ -21,15 +21,14 @@ class UpdatesContent extends Component {
         }
 
         const max = 20;
-        const maxUpdates = list.length > max ? max : list.length;
+        const maxUpdates = list ? list.length > max ? max : list.length : [];
         return (
             <div className="content">
-                {list.slice(0, maxUpdates).map((update, index)=> {
-                    return (
+                {
+                    list && list.slice(0, maxUpdates).map((update, index) => (
                         <UpdateItem update={update} key={index} onUserClick={onUserClick}
-                                    onSkillClick={onSkillClick}/>
-                    );
-                })}
+                                    onSkillClick={onSkillClick}/>))
+                }
             </div>
         )
     }
