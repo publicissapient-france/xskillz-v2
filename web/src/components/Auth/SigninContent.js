@@ -63,9 +63,6 @@ class SigninContent extends Component {
                         <RaisedButton primary style={style.button} label="Se connecter"/>
                         <input type="submit" style={style.input}/>
                     </div>
-                    <div className="cta" onClick={goToSignup}>
-                        <RaisedButton secondary style={style.button} label="Créer un compte"/>
-                    </div>
                 </Card>
             </form>
             </div>

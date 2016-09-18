@@ -22,14 +22,14 @@ module.exports = {
         this.Repository = Repository;
         this.Repository.init(args);
     },
-    
+
     addSkill: (req, res) => {
         var skillRequest = req.body;
-        if(!skillRequest.name) {
+        if (!skillRequest.name) {
             res.status(403).send('You have to name your skill');
             return;
         }
-        skillRequest.level = skillRequest.level || 0;
+        skillRequest.level = skillRequest.level || 0;
         Repository
             .findSkillByExactName(skillRequest.name)
             .then((skill) => {
@@ -94,12 +94,8 @@ module.exports = {
             });
     },
 
-    getSkills: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
-        return Repository
+    getSkills: (req, res) =>
+        Repository
             .getSkills()
             .map((skill)=> createSkill(skill))
             .then((skills) => {
@@ -108,8 +104,7 @@ module.exports = {
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).send(err.message)
-            });
-    },
+            }),
 
     addSkillToDomain: (req, res) => {
         if (!req.body.user_id) {
