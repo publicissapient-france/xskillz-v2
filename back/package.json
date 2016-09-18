@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "bcrypt": "^0.8.7",
     "bcrypt-then": "^1.1.0",
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.2",

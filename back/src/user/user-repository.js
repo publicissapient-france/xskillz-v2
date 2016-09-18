@@ -18,9 +18,12 @@ const UserRepository = {
                     return Promise.reject(`Unable to find user with email ${email}`);
                 }
                 return Bcrypt.compare(password, user.password)
-                    .then(() => {
-                        delete user.password;
-                        return Promise.resolve(user);
+                    .then((found) => {
+                        if (found) {
+                            delete user.password;
+                            return Promise.resolve(user);
+                        }
+                        return Promise.reject(new Error('Wrong password'));
                     })
             }),
 
@@ -32,9 +35,13 @@ const UserRepository = {
                     return Promise.reject(`Unable to find user with id ${id}`);
                 }
                 return Bcrypt.compare(password, user.password)
-                    .then(() => {
-                        delete user.password;
-                        return Promise.resolve(user);
+                    .then((found) => {
+                        if (found) {
+                            delete user.password;
+                            return Promise.resolve(user);
+
+                        }
+                        return Promise.reject(new Error('Wrong password'));
                     })
             }),
 
@@ -168,7 +175,7 @@ const UserRepository = {
 
     updatePassword: (userId, oldPassword, newPassword) =>
         UserRepository.findUserByIdAndPassword(userId, oldPassword)
-            .then(() => Bcrypt.hash(newPassword, saltRounds))
+            .then((user) => Bcrypt.hash(newPassword, saltRounds))
             .then((hash) => newPassword = hash)
             .then(() =>
                 this.db.query(
