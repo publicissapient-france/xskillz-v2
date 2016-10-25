@@ -1,4 +1,4 @@
-![Skillz Logo](doc/images/logo-skillz.png)
+![Skillz Logo](https://raw.githubusercontent.com/xebia-france/xskillz-v2/master/web/images/logo.png)
 
 Skillz allows you to get a full overview of all your team mate's skills.
 
