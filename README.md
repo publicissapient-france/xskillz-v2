@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/xebia-france/xskillz-v2.png?label=ready&title=Ready)](https://waffle.io/xebia-france/xskillz-v2)
+
 <img src="web/images/logo.png" height="200px"/>
 
 Skillz allows you to get a full overview of all your team mate's skills.
