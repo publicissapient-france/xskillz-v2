@@ -11,6 +11,7 @@ import SkillsPage from 'containers/Skills/SkillsPage';
 import UsersPage from 'containers/Users/UsersPage';
 import UserPage from 'containers/Users/UserPage';
 import HelpPage from 'containers/Help/HelpPage';
+import ManagementPage from 'containers/Management/ManagementPage';
 import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
@@ -67,6 +68,10 @@ ReactDOM.render(
                 <Route path="help"
                        components={{main: HelpPage, header: Header}}
                        dataTypePage="help"/>
+
+                <Route path="management"
+                       components={{main: ManagementPage, header: Header}}
+                       dataTypePage="management"/>
 
                 <Route path="settings"
                        components={{main: SettingsPage, header: Header}}

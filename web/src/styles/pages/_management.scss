@@ -1,0 +1,26 @@
+[data-page-type="management"] {
+
+  .manager-container {
+    display: inline-block;
+    vertical-align: top;
+    background: white;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 1px 1px 5px 0 #656565;
+
+    .manager {
+      font-weight: bold;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .user {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+  }
+
+}

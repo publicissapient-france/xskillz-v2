@@ -60,6 +60,8 @@ Express()
     .delete('/users/:id', UserController.deleteUserById)
     .post('/signin', UserController.signin)
 
+    .get('/management', UserController.getManagement)
+
     .get('/mobile/skills/:id/users', UserController.getUsersBySkillMobileVersion)
     .get('/skills/:id/users', UserController.getUsersBySkill)
     .get('/skills', SkillController.getSkills)

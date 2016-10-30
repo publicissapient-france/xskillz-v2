@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^1.8.1",
     "istanbul": "^1.0.0-alpha",
     "mocha": "^2.5.3",
+    "sinon": "^1.17.6",
     "superagent-promise": "^1.1.0",
     "supertest": "^1.2.0"
   }

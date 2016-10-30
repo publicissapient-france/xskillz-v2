@@ -7,6 +7,7 @@ import { auth } from './auth';
 import { me } from './reducer.me';
 import { user } from './reducer.user';
 import { domains } from './reducer.domains';
+import { management } from './reducer.management';
 
 const reducer = combineReducers({
     routing: routeReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
     skills,
     users,
     updates,
+    management,
     auth,
     me,
     user,

@@ -184,7 +184,18 @@ const UserRepository = {
                         SET password = '${newPassword}'
                         WHERE id = ${userId}
                     `)
-            )
+            ),
+
+    getManagement: () =>
+        this.db.query(`
+            SELECT
+              user.id      user_id,
+              user.name    user_name,
+              manager.id   manager_id,
+              manager.name manager_name
+            FROM User user
+              JOIN User manager ON user.manager_id = manager.id
+    `)
 };
 
 module.exports = UserRepository;

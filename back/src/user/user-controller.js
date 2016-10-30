@@ -6,6 +6,7 @@ const uuid = require('uuid');
 const _ = require('lodash');
 const log = require('winston');
 const gravatar = require('gravatar');
+const UserService = require('./user-service');
 
 const computeScore = (skills) => {
     return _(skills)
@@ -108,9 +109,9 @@ const createUserById = (UserRepository, SkillRepository, id) => {
 
 module.exports = {
     init: (args) => {
+        UserService.init(args);
         this.Repository = Repository;
         this.Repository.init(args);
-
         this.SkillRepository = SkillRepository;
         this.SkillRepository.init(args);
     },
@@ -404,6 +405,16 @@ module.exports = {
             .then(()=> {
                 res.jsonp({updated: true})
             })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(500).jsonp({error: err.message});
+            })
+    },
+
+    getManagement: (req, res) => {
+        UserService
+            .getManagement()
+            .then((users) => res.jsonp({management: users}))
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
