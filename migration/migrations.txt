@@ -25,3 +25,9 @@ Manager/Managé
 MATCH (a)-[:`IS_MANAGER_OF`]->(b) RETURN a.email as manager,b.email as managed
 
 --> management.json
+
+
+node migrate-users.js > users.sql
+node migrate-skills.js > skills.sql
+node migrate-managers.js > managers.sql
+node migrate-user_skills.js > user_skills.sql
