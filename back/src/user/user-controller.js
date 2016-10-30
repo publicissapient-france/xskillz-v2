@@ -400,18 +400,6 @@ module.exports = {
             });
     },
 
-    changePassword: (req, res) => {
-        this.Repository
-            .updatePassword(req.body.user_id, req.body.old_password, req.body.password)
-            .then(()=> {
-                res.jsonp({updated: true})
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({error: err.message});
-            })
-    },
-
     getManagement: (req, res) => {
         UserService
             .getManagement()
@@ -444,4 +432,5 @@ module.exports = {
                 .then(() => res.status(200).jsonp({updated: true}))
                 .catch(err => res.status(500).jsonp({error: err.message}));
         }
-    };
+    }
+};
