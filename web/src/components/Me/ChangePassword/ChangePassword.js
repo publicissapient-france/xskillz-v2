@@ -42,12 +42,12 @@ class ChangePassword extends Component {
                 </div>
                 <Snackbar
                     bodyStyle={{backgroundColor: '#CC0000'}}
-                    open={this.state.submit && this.props.me.changePassword.error}
+                    open={this.state.submit && this.props.me.patchMe.error}
                     message="Changement de mot de passe échoué."
                     autoHideDuration={3000}/>
                 <Snackbar
                     bodyStyle={{backgroundColor: '#008500'}}
-                    open={this.state.submit && this.props.me.changePassword.success}
+                    open={this.state.submit && this.props.me.patchMe.success}
                     message="Mot de passe changé."
                     autoHideDuration={3000}/>
             </Paper>

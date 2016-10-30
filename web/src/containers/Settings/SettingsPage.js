@@ -38,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
     assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId)),
     fetchManagers: () => dispatch(fetchManagers()),
     promoteManager: id => dispatch(promoteManager(id)),
-    changePassword: (oldPassword, password) => dispatch(changePassword(oldPassword, password)),
+    patchMe: (oldPassword, password) => dispatch(changePassword(oldPassword, password)),
     createUser: (name, email, password) => dispatch(createUser(name, email, password))
 });
 

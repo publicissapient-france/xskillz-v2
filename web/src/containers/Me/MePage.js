@@ -1,10 +1,10 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import MeContent from '../../components/Me/MeContent';
 import {browserHistory} from "react-router";
 
-import { fetchMe } from '../../actions/action.me';
-import { fetchSkills, addSkill, updateSkill, removeSkill } from '../../actions/skills';
+import {fetchMe, updateProfile} from '../../actions/action.me';
+import {fetchSkills, addSkill, updateSkill, removeSkill} from '../../actions/skills';
 
 const mapStateToProps = state => {
     return {
@@ -20,7 +20,8 @@ const mapDispatchToProps = dispatch => {
         fetchSkills: () => dispatch(fetchSkills()),
         addSkill: skill => dispatch(addSkill(skill)),
         updateSkill: skill => dispatch(updateSkill(skill)),
-        removeSkill: id => dispatch(removeSkill(id))
+        removeSkill: id => dispatch(removeSkill(id)),
+        updateProfile: profile => dispatch(updateProfile(profile))
     };
 };
 

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
@@ -50,7 +50,7 @@ class AddSkillForm extends Component {
                             <AutoComplete hintText={'Ajouter une compétence ...'}
                                           dataSource={nameArray}
                                           filter={AutoComplete.fuzzyFilter}
-                                          menuStyle={{cursor:'pointer'}}
+                                          menuStyle={{cursor: 'pointer'}}
                                           fullWidth
                                           onNewRequest={::this.onNewRequest}
                                           onUpdateInput={::this.onUpdateInput}

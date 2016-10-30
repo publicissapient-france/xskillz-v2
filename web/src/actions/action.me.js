@@ -90,3 +90,52 @@ export function changePassword(old_password, password) {
             .catch(() => dispatch(changePasswordError()))
     };
 }
+
+export const UPDATE_PROFILE_LOADING = 'UPDATE_PROFILE_LOADING';
+
+function updateProfileLoading() {
+    return {
+        type: UPDATE_PROFILE_LOADING
+    }
+}
+
+export const PROFILE_UPDATED = 'PROFILE_UPDATED';
+
+function profileUpdated() {
+    return {
+        type: PROFILE_UPDATED
+    }
+}
+
+export const UPDATE_PROFILE_ERROR = 'UPDATE_PROFILE_ERROR';
+
+function updateProfileError() {
+    return {
+        type: UPDATE_PROFILE_ERROR
+    }
+}
+
+export function updateProfile(profile) {
+    return dispatch => {
+        dispatch(updateProfileLoading());
+        const config = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                token: getToken()
+            },
+            body: JSON.stringify(profile)
+        };
+        return fetch(`${Config.apiURL}/me`, config)
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json();
+                } else if (res.status >= 400 && res.status <= 403) {
+                    browserHistory.push('/signin');
+                }
+                throw new Error('Cannot patch me');
+            })
+            .then(() => dispatch(profileUpdated()))
+            .catch(() => dispatch(updateProfileError()))
+    }
+}

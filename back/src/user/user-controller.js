@@ -19,7 +19,8 @@ const createUser = (raw)=> {
         name: raw.name,
         id: raw.id,
         gravatarUrl: gravatar.url(raw.email),
-        experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0
+        experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0,
+        phone: raw.phone
     };
 };
 
@@ -419,5 +420,28 @@ module.exports = {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
             })
-    }
-};
+    },
+
+    patchMe: (req, res) => {
+        const userId = req.body.user_id;
+        if (!userId) {
+            res.status(401).send({error: `You're not logged in`});
+            return;
+        }
+        if (userId && req.body.old_password && req.body.password) {
+            return this.Repository
+                .updatePassword(userId, req.body.old_password, req.body.password)
+                .then(()=> {
+                    res.jsonp({updated: true})
+                })
+                .catch((err) => {
+                    log.error(err.message);
+                    res.status(500).jsonp({error: err.message});
+                })
+        } else if (userId && req.body.phone) {
+            return this.Repository
+                .updatePhone(userId, req.body.phone)
+                .then(() => res.status(200).jsonp({updated: true}))
+                .catch(err => res.status(500).jsonp({error: err.message}));
+        }
+    };

@@ -71,7 +71,7 @@ Express()
     .put('/me/skills/:id', SkillController.updateUserSkillById)
     .post('/domains/:id/skills', SkillController.addSkillToDomain)
 
-    .patch('/me', UserController.changePassword)
+    .patch('/me', UserController.patchMe)
 
     .listen(process.env.PORT || 8080, () => {
         console.log('Skillz is listening on port ' + (process.env.PORT || 8080));

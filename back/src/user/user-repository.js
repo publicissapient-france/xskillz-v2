@@ -186,6 +186,9 @@ const UserRepository = {
                     `)
             ),
 
+    updatePhone: (userId, phone) => this.db.query(`UPDATE User SET phone = '${phone}' WHERE id = ${userId}`)
+            ),
+
     getManagement: () =>
         this.db.query(`
             SELECT
