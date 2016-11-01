@@ -32,6 +32,7 @@ class UserSimple extends Component {
                         </div>
                         <div className="user-right">
                             {user.name && <p>
+                                {user.interested && <span className="interested-icon" style={{color: redA400}}>&#9829;</span>}
                                 <LabelButton label={user.name} onClick={()=>{::this.onUserClick(user.id)}}/>
                             </p>}
                         </div>
