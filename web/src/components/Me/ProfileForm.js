@@ -66,6 +66,8 @@ class ProfileForm extends Component {
     render() {
         const {phone, isPhoneValid} = this.state;
         const errorPhone = isPhoneValid ? '' : 'Numéro invalide';
+        const address = this.props.user.address;
+        const fixtures = [{label: 'Xebia', location: {lat: 48.8755622, lng: 2.3088289}}];
         return (
             <div className="profile-form">
                 <Paper>
@@ -78,11 +80,13 @@ class ProfileForm extends Component {
                                        onBlur={::this.checkPhone}/>
                         </div>
                         <div className="geosuggest-content">
-                            <span className="label">Adresse d'activité (mission)</span>
+                            <span className="label">Adresse d'activité</span>
                             <Geosuggest
-                                placeholder="Adresse d'activité (mission)"
+                                placeholder="Adresse d'activité"
                                 country="fr"
-                                onSuggestSelect={::this.selectAddress}/>
+                                onSuggestSelect={::this.selectAddress}
+                                initialValue={address ? address.label : null}
+                                fixtures={fixtures}/>
                         </div>
                         <div className="button">
                             <RaisedButton primary label="Sauvegarder" onClick={::this.submitProfile}/>

@@ -1,10 +1,14 @@
 import React, {Component, PropTypes} from "react";
+
 import Paper from "material-ui/Paper";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
+import FlatButton from "material-ui/FlatButton";
+import FontIcon from 'material-ui/FontIcon';
+
 import LabelButton from "../LabelButton";
 import SkillCard from "../Skills/SkillCard";
-import Phone from "../../assets/phone.svg";
+
 import "./UserItem.less";
 
 const styles = {
@@ -50,12 +54,26 @@ class UserItem extends Component {
                                             </Chip>
                                         ).value()}
                                     {user.experienceCounter > 0 &&
-                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor} labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
+                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor}
+                                          labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
                                 </div>
-                                {user.phone && <div className="profile">
-                                    <img src={Phone} alt="téléphone"/><a href={`tel:${user.phone}`}>{user.phone}</a>
-                                </div>}
                             </div>
+                        </div>
+
+                        <div className="profile">
+                            {user.phone && <div>
+                                <FlatButton
+                                    href={`tel:${user.phone}`}
+                                    label={user.phone}
+                                    icon={<FontIcon className="material-icons" color="black">phone</FontIcon>}/>
+                            </div>}
+                            {user.address && <div>
+                                <FlatButton
+                                    href={`https://www.google.fr/maps/place/${user.address.label}`}
+                                    label={user.address.label}
+                                    icon={<FontIcon className="material-icons" color="black">place</FontIcon>}
+                                    target="_blank"/>
+                            </div>}
                         </div>
 
                         {details && user.domains &&
