@@ -1,10 +1,6 @@
 # Back
 
-[![npm version][npm-badge]][npm-url]
-[![Build Status][travis-badge]][travis-url]
-[![Coverage Status][coveralls-badge]][coveralls-url]
-[![Dependency Status][david-badge]][david-url]
-[![Gitter chat][gitter-badge]][gitter-url]
+[![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm)
 
 # How To
 
