@@ -5,6 +5,9 @@ import validator from 'validator';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Geosuggest from 'react-geosuggest';
+
+import _ from 'lodash';
 
 import './ProfileForm.less';
 
@@ -37,9 +40,27 @@ class ProfileForm extends Component {
     };
 
     submitProfile = () => {
+        const profile = {};
         if (this.state.isPhoneValid && this.state.phone.length > 0) {
-            this.props.updateProfile({phone: this.state.phone});
+            profile.phone = this.state.phone;
         }
+        if (this.state.isAddressValid) {
+            profile.address = this.state.address;
+        }
+        if (!_.isEmpty(profile)) {
+            this.props.updateProfile(profile);
+        }
+    };
+
+    selectAddress = suggest => {
+        this.setState({
+            address: {
+                label: suggest.label,
+                lat: suggest.location.lat,
+                lng: suggest.location.lng
+            },
+            isAddressValid: true
+        });
     };
 
     render() {
@@ -55,6 +76,13 @@ class ProfileForm extends Component {
                                        floatingLabelText="Téléphone"
                                        onChange={::this.setPhone}
                                        onBlur={::this.checkPhone}/>
+                        </div>
+                        <div className="geosuggest-content">
+                            <span className="label">Adresse d'activité (mission)</span>
+                            <Geosuggest
+                                placeholder="Adresse d'activité (mission)"
+                                country="fr"
+                                onSuggestSelect={::this.selectAddress}/>
                         </div>
                         <div className="button">
                             <RaisedButton primary label="Sauvegarder" onClick={::this.submitProfile}/>

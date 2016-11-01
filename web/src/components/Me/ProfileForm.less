@@ -6,9 +6,48 @@
     padding: 1rem;
 
     .button {
-      margin: 1rem 0 0 0;
+      margin: 2rem 0 0 0;
     }
 
-  }
+    .geosuggest-content {
+      margin-top: 20px;
 
+      .label {
+        color: #808080;
+        font-size: 12px;
+        font-weight: 100;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .geosuggest__input-wrapper {
+        width: 100%;
+
+        .geosuggest__input {
+          border: none;
+          border-bottom: 1px solid #e0e0e0;
+          width: 100%;
+          font-size: 1em;
+          outline: none;
+          line-height: 30px;
+        }
+      }
+
+      .geosuggest__suggests-wrapper {
+
+        .geosuggest__suggests {
+
+          list-style: none;
+          padding: 10px;
+          border: 1px solid #e0e0e0;
+          margin-top: 0;
+          border-top: none;
+          line-height: 30px;
+
+          &.geosuggest__suggests--hidden {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

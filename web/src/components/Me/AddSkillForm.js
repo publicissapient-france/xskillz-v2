@@ -1,18 +1,21 @@
 import React, {Component, PropTypes} from "react";
+
 import AutoComplete from "material-ui/AutoComplete";
 import RaisedButton from "material-ui/RaisedButton";
 import Paper from "material-ui/Paper";
+import Snackbar from "material-ui/Snackbar";
+
+import _ from 'lodash';
+
 import EditableStars from "./EditableStars";
 import EditableLike from "./EditableLike";
-import _ from "lodash";
 import "./AddSkillForm.less";
-import Snackbar from "material-ui/Snackbar";
 
 class AddSkillForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {id: null, domain: {id: null}, name: null, level: 0, interested: false};
+        this.state = {id: null, domain: {id: null}, name: null, level: 0, interested: false, submit: false};
     }
 
     componentDidMount() {
@@ -39,7 +42,7 @@ class AddSkillForm extends Component {
         }
     };
 
-    onUpdateInput = (searchText, nameArray) => {
+    onUpdateInput = searchText => {
         this.setState({submit: false});
         this.setState({name: searchText, id: null, domain: {id: null}})
     };
@@ -72,12 +75,12 @@ class AddSkillForm extends Component {
                             <RaisedButton primary label="Ajouter" onClick={::this.onSubmitClicked}/>
                         </div>
                     </div>
-                    <Snackbar
-                        bodyStyle={{backgroundColor: '#008500'}}
-                        open={this.state.submit}
-                        message={`Compétence ${this.state.name} ajoutée.`}
-                        autoHideDuration={3000}/>
                 </Paper>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={this.state.submit}
+                    message={`Compétence ${this.state.name} ajoutée.`}
+                    autoHideDuration={3000}/>
             </div>
         );
     }
