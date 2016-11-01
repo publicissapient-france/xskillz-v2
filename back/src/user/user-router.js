@@ -1,29 +1,38 @@
 'use strict';
 
 const UserController = require('./user-controller');
+const Security = require('../security');
 
 const UserRouter = {
 
     register: (express) => {
+
         express
-            .get('/updates', UserController.getUpdates)
-            .post('/me', UserController.getCurrentUser)
+            .route('/users')
+            .get(UserController.getUsersWebVersion)
+            .post(UserController.addUser);
+
+        express
+            .route('/users/:id')
+            .get(UserController.getUserById)
+            .put(Security.requireLogin, UserController.updateUser)
+            .delete(Security.requireLogin, UserController.deleteUserById);
+
+        express
+            .get('/updates', Security.requireLogin, UserController.getUpdates)
+            .patch('/me', Security.requireLogin, UserController.patchMe)
+            .post('/me', Security.requireLogin, UserController.getCurrentUser)
             .get('/web/users', UserController.getUsersWebVersion)
             .get('/mobile/users', UserController.getUsersMobileVersion)
-            .get('/users', UserController.getUsersWebVersion)
-            .post('/users', UserController.addUser)
-            .get('/users/:id', UserController.getUserById)
-            .put('/users/:id', UserController.updateUser)
-            .post('/users/:id/manager/:managerId', UserController.assignManager)
-            .post('/users/:id/manager', UserController.promoteToManager)
-            .delete('/users/:id', UserController.deleteUserById)
+            .get('/mobile/skills/:id/users', UserController.getUsersBySkillMobileVersion)
+
+            .post('/users/:id/manager/:managerId', Security.requireLogin, UserController.assignManager)
+            .post('/users/:id/manager', Security.requireLogin, UserController.promoteToManager)
             .post('/signin', UserController.signin)
 
             .get('/management', UserController.getManagement)
 
-            .get('/mobile/skills/:id/users', UserController.getUsersBySkillMobileVersion)
-            .get('/skills/:id/users', UserController.getUsersBySkill)
-            .patch('/me', UserController.patchMe);
+            .get('/skills/:id/users', UserController.getUsersBySkill);
     },
 
     middleware: (req, res, next) => {

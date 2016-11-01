@@ -1,10 +1,10 @@
 'use strict';
 
 const assert = require('assert');
-const Database = require('../../src/database');
-const DomainRepository = require('../../src/domain/domain-repository');
-const SkillRepository = require('../../src/skill/skill-repository');
-const UserRepository = require('../../src/user/user-repository');
+const Database = require('../../../src/database');
+const DomainRepository = require('../../../src/domain/domain-repository');
+const SkillRepository = require('../../../src/skill/skill-repository');
+const UserRepository = require('../../../src/user/user-repository');
 const _ = require('lodash');
 
 describe('Skill Repository', () => {

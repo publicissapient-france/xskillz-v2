@@ -1,8 +1,8 @@
 'use strict';
 
 const assert = require('assert');
-const DomainRepository = require('../../src/domain/domain-repository');
-const Database = require('../../src/database');
+const DomainRepository = require('../../../src/domain/domain-repository');
+const Database = require('../../../src/database');
 
 describe('Domain Repository', () => {
     beforeEach(() => {

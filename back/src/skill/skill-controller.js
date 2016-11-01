@@ -21,10 +21,6 @@ module.exports = {
     },
 
     deleteUserSkillById: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({deleted: false, error: `You're not logged in`});
-            return;
-        }
         SkillService
             .deleteUserSkillById(req.params.id, req.body.user_id)
             .then(() => {
@@ -37,10 +33,6 @@ module.exports = {
     },
 
     updateUserSkillById: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({deleted: false, error: `You're not logged in`});
-            return;
-        }
         SkillService
             .updateUserSkillById(req.params.id, req.body)
             .then(() => {
@@ -64,10 +56,6 @@ module.exports = {
             }),
 
     addSkillToDomain: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         SkillService
             .addSkillToDomain(req.params.id, req.body.id)
             .then((skills) => {
@@ -80,10 +68,6 @@ module.exports = {
     },
 
     merge: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         SkillService
             .mergeSkills(req.body.from, req.body.to)
             .then(() => {

@@ -29,7 +29,8 @@ module.exports = {
             }),
 
     signin: (email) =>
-        request.post(`${host}/signin`)
+        request
+            .post(`${host}/signin`)
             .send({email, password: 'azerty'})
             .end((err) => {
                 if (err) Promise.reject(err);
@@ -51,17 +52,19 @@ module.exports = {
                 if (err) Promise.reject(err);
             }),
 
-    addDomain: (name) =>
+    addDomain: (name, token) =>
         request
             .post(`${host}/domains`)
+            .set('token', token)
             .send({name})
             .end((err) => {
                 if (err) Promise.reject(err);
             }),
 
-    deleteDomain: (id) =>
+    deleteDomain: (id, token) =>
         request
             .del(`${host}/domains/${id}`)
+            .set('token', token)
             .end((err) => {
                 if (err) Promise.reject(err);
             }),

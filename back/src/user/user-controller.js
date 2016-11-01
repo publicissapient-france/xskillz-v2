@@ -26,10 +26,6 @@ module.exports = {
     },
 
     getUsersBySkill: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .getUsersBySkill(req.params.id)
             .then((users) => res.json(users))
@@ -40,10 +36,6 @@ module.exports = {
     },
 
     getCurrentUser: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .getUserById(req.body.user_id)
             .then((user) => res.json(user))
@@ -79,10 +71,6 @@ module.exports = {
     },
 
     getUsersWebVersion: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .getUsersWebVersion(req.query)
             .then((users) => res.json(users))
@@ -93,10 +81,6 @@ module.exports = {
     },
 
     getUsers: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .getUsers(req.query)
             .then((users) => res.json(users))
@@ -107,10 +91,6 @@ module.exports = {
     },
 
     deleteUserById: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .deleteUserById(req.params.id)
             .then(() => res.jsonp({deleted: true}))
@@ -165,10 +145,6 @@ module.exports = {
     },
 
     getUpdates: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .getUpdates()
             .then((updates) => {

@@ -1,8 +1,8 @@
 const sinon = require('sinon');
 const assert = require('assert');
 
-const UserService = require('../../src/user/user-service');
-const UserRepository = require('../../src/user/user-repository');
+const UserService = require('../../../src/user/user-service');
+const UserRepository = require('../../../src/user/user-repository');
 
 describe('UserService', () => {
 

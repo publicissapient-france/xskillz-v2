@@ -1,16 +1,14 @@
 'use strict';
 
 const assert = require('assert');
-const Database = require('../src/database');
+const Database = require('../../src/database');
 const API = require('./api');
 
 describe('API', function () {
     before(() => {
-        require('../src/index');
+        require('../../src/index');
     });
-    beforeEach(() => {
-        return Database.clear();
-    });
+    beforeEach(() => Database.clear());
     it('GET /', (done) => {
         API
             .getRoot()
@@ -23,8 +21,10 @@ describe('API', function () {
 
     it('GET /domains', (done) => {
         // Given
-        API.addDomain('MyDomain')
-        // When
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => API.addDomain('MyDomain', res.body.token))
+            // When
             .then(() => API.getDomains())
             // Then
             .then((res) => {
@@ -38,10 +38,14 @@ describe('API', function () {
 
     it('DELETE /domains/:id', (done) => {
         // Given
-        API.addDomain('MyDomain')
+        let user;
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => user = res.body)
+            .then(() => API.addDomain('MyDomain', user.token))
             .then(() => API.getDomains())
             // When
-            .then((res) => API.deleteDomain(res.body[0].id))
+            .then((res) => API.deleteDomain(res.body[0].id, user.token))
             // Then
             .then((res) => {
                 assert.deepEqual(res.body,
@@ -138,7 +142,8 @@ describe('API', function () {
         let user;
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
-            .then(() => API.addDomain('MyDomain'))
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => API.addDomain('MyDomain', res.body.token))
             .then((res) => {
                 domain = res.body;
             })
