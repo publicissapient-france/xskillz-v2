@@ -5,7 +5,7 @@ const log = require('winston');
 
 module.exports = {
     addSkill: (req, res) => {
-        var skillRequest = req.body;
+        const skillRequest = req.body;
         if (!skillRequest.name) {
             res.status(403).send('You have to name your skill');
             return;
@@ -16,8 +16,8 @@ module.exports = {
             .then((userSkill) => res.json(userSkill))
             .catch((err) => {
                 log.error(err.message);
-                res.status(500).send(err.message)
-            })
+                res.status(500).send(err.message);
+            });
     },
 
     deleteUserSkillById: (req, res) => {
@@ -60,7 +60,7 @@ module.exports = {
             })
             .catch((err) => {
                 log.error(err.message);
-                res.status(500).send(err.message)
+                res.status(500).send(err.message);
             }),
 
     addSkillToDomain: (req, res) => {
@@ -75,7 +75,7 @@ module.exports = {
             })
             .catch((err) => {
                 log.error(err.message);
-                res.status(500).send(err.message)
+                res.status(500).send(err.message);
             });
     },
 
@@ -91,7 +91,7 @@ module.exports = {
             })
             .catch((err) => {
                 log.error(err.message);
-                res.status(500).send(err.message)
+                res.status(500).send(err.message);
             });
     }
 };

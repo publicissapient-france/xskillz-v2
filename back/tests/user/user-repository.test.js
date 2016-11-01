@@ -5,12 +5,9 @@ const Database = require('../../src/database');
 const SkillRepository = require('../../src/skill/skill-repository');
 const UserRepository = require('../../src/user/user-repository');
 const _ = require('lodash');
-const moment = require('moment');
 
 describe('User Repository', () => {
-    beforeEach(() => {
-        return Database.clear()
-    });
+    beforeEach(() => Database.clear());
 
     it('should add new user and get it', (done) => {
         const email = 'email';
@@ -42,7 +39,7 @@ describe('User Repository', () => {
             .then(done)
             .catch(done);
     });
-    
+
     it('should create a new user, a new skill and assign it and get updates', (done) => {
         const email = 'email';
         const name = 'name';
@@ -118,7 +115,7 @@ describe('User Repository', () => {
         const password = 'password';
         const skillName1 = 'skill1';
 
-        let user, skill1;
+        let user;
 
         UserRepository
             .addNewUser({email, name, password})
@@ -126,10 +123,7 @@ describe('User Repository', () => {
             .then((_user) => user = _user)
             .then(() => SkillRepository.addNewSkill(skillName1))
             .then(() => SkillRepository.findSkillByName(skillName1))
-            .then((skill) => {
-                skill1 = skill;
-                return SkillRepository.addSkill({id: skill.id, interested: true, level: 2, user_id: user.id})
-            })
+            .then((skill) => SkillRepository.addSkill({id: skill.id, interested: true, level: 2, user_id: user.id}))
             .then(() => SkillRepository.findUserSkillsById(user.id))
             .then((userSkills) => {
                 assert.deepEqual(userSkills.map((userSkill) => userSkill.skill_name), ["skill1"]);

@@ -59,7 +59,7 @@ module.exports = {
     getUserById: (req, res) => {
         UserService
             .createUserById(req.params.id)
-            .then((user)=> {
+            .then((user) => {
                 res.json(user);
             })
             .catch((err) => {
@@ -116,8 +116,8 @@ module.exports = {
             .then(() => res.jsonp({deleted: true}))
             .catch((err) => {
                 log.error(err.message);
-                res.status(500).jsonp({cause: err.message})
-            })
+                res.status(500).jsonp({cause: err.message});
+            });
     },
 
     signin: (req, res) => {
@@ -128,7 +128,7 @@ module.exports = {
             })
             .catch((err) => {
                 log.error(err);
-                res.status(404).jsonp({error: `User ${email} not found`});
+                res.status(404).jsonp({error: `User ${req.body.email} not found`});
             });
     },
 
@@ -139,8 +139,8 @@ module.exports = {
         }
         UserService
             .assignManager(req.params.id, req.params.managerId)
-            .then(()=> {
-                res.jsonp({assigned: true})
+            .then(() => {
+                res.jsonp({assigned: true});
             })
             .catch((err) => {
                 log.error(err.message);
@@ -156,12 +156,12 @@ module.exports = {
         UserService
             .updateUser(req.params.id, req.body)
             .then(()=> {
-                res.jsonp({updated: true})
+                res.jsonp({updated: true});
             })
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
-            })
+            });
     },
 
     getUpdates: (req, res) => {
@@ -174,7 +174,7 @@ module.exports = {
             .then((updates) => {
                 res.jsonp(updates);
             })
-            .catch((err)=> {
+            .catch((err) => {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
             });
@@ -187,8 +187,8 @@ module.exports = {
         }
         UserService
             .promoteToManager(req.params.id)
-            .then(()=> {
-                res.jsonp({updated: true})
+            .then(() => {
+                res.jsonp({updated: true});
             })
             .catch((err) => {
                 log.error(err.message);
@@ -203,7 +203,7 @@ module.exports = {
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).jsonp({error: err.message});
-            })
+            });
     },
 
     patchMe: (req, res) => {
@@ -216,12 +216,12 @@ module.exports = {
             UserService
                 .updatePassword(userId, req.body.old_password, req.body.password)
                 .then(()=> {
-                    res.jsonp({updated: true})
+                    res.jsonp({updated: true});
                 })
                 .catch((err) => {
                     log.error(err.message);
                     res.status(500).jsonp({error: err.message});
-                })
+                });
         } else if (userId && req.body.phone) {
             UserService
                 .updatePhone(userId, req.body.phone)

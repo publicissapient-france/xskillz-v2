@@ -22,7 +22,7 @@ const UserRepository = {
                             return Promise.resolve(user);
                         }
                         return Promise.reject(new Error('Wrong password'));
-                    })
+                    });
             }),
 
     findUserByIdAndPassword: (id, password) =>
@@ -32,25 +32,27 @@ const UserRepository = {
                 if (!user) {
                     return Promise.reject(`Unable to find user with id ${id}`);
                 }
-                return Bcrypt.compare(password, user.password)
+                return Bcrypt
+                    .compare(password, user.password)
                     .then((found) => {
                         if (found) {
                             delete user.password;
                             return Promise.resolve(user);
-
                         }
                         return Promise.reject(new Error('Wrong password'));
-                    })
+                    });
             }),
 
     findUserByEmail: (email) =>
-        Database.query(`
-            SELECT *
-            FROM User 
-            WHERE email = '${email}'
-    `).then((users) => {
-            return users[0];
-        }),
+        Database
+            .query(`
+                    SELECT *
+                    FROM User 
+                    WHERE email = '${email}'
+            `)
+            .then((users) => {
+                return users[0];
+            }),
 
     getUserByToken: (token) =>
         Database.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
@@ -173,7 +175,7 @@ const UserRepository = {
 
     updatePassword: (userId, oldPassword, newPassword) =>
         UserRepository.findUserByIdAndPassword(userId, oldPassword)
-            .then((user) => Bcrypt.hash(newPassword, saltRounds))
+            .then(() => Bcrypt.hash(newPassword, saltRounds))
             .then((hash) => newPassword = hash)
             .then(() =>
                 Database.query(

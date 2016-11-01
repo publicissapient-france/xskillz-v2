@@ -36,7 +36,7 @@ const createDomain = domainSkills => {
                     interested: skill.interested,
                     level: skill.level,
                     name: skill.skill_name
-                }
+                };
             })
             .value()
     };
@@ -63,7 +63,7 @@ const createUserUpdates = (userUpdates) => {
                     domain: userUpdate.domain_name
                 },
                 date: userUpdate.skill_date
-            }
+            };
         })
     };
 };
@@ -87,7 +87,7 @@ const createUserById = (id) => {
         .then((user) => createUser(user))
         .then((dbUser) => {
             user = _.assignWith(user, dbUser);
-            return SkillService.findUserSkillsById(user.id)
+            return SkillService.findUserSkillsById(user.id);
         })
         .then((skills) => {
             user.score = computeScore(skills);
@@ -125,7 +125,7 @@ const groupUsersByManager = (users) => {
             if (manager_id === 'undefined') {
                 manager.users = _(users).filter((user) => !user.manager_id)
                     .map(toSimpleUserObject)
-                    .value()
+                    .value();
             }
             return manager;
         })
@@ -203,20 +203,19 @@ module.exports = {
                             name: user.user_name,
                             gravatarUrl: gravatar.url(user.email),
                             experienceCounter: user.diploma ? new Date().getFullYear() - new Date(user.diploma).getFullYear() : 0,
-                            domains: domainRows.map((domainRow) => {
-                                    return {
-                                        id: domainRow.domain_id,
-                                        name: domainRow.domain_name,
-                                        score: domainRow.domain_score,
-                                        color: domainRow.domain_color
-                                    }
-                                }
+                            domains: domainRows.map((domainRow) =>
+                                ({
+                                    id: domainRow.domain_id,
+                                    name: domainRow.domain_name,
+                                    score: domainRow.domain_score,
+                                    color: domainRow.domain_color
+                                })
                             ),
                             score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0)
-                        }
+                        };
                     })
                     .sortBy('name');
-            })
+            });
     },
 
     getUsersMobileVersion: (query) => {
@@ -227,7 +226,7 @@ module.exports = {
             usersPromise = Repository.getUsers();
         }
         return usersPromise
-            .map((user)=> createUserById(user.id))
+            .map((user)=> createUserById(user.id));
     },
 
     getUsers: (query) => {
@@ -237,7 +236,7 @@ module.exports = {
         } else {
             usersPromise = Repository.getUsers();
         }
-        return usersPromise.map((user)=> createUser(user))
+        return usersPromise.map((user)=> createUser(user));
     },
 
     deleteUserById: (userId) =>
@@ -269,7 +268,7 @@ module.exports = {
                         user.roles = roles;
                         return user;
                     })
-            )
+            );
     },
 
     assignManager: (userId, managerId) =>

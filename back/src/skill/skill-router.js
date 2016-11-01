@@ -10,7 +10,7 @@ const SkillRouter = {
             .post('/me/skills', SkillController.addSkill)
             .delete('/me/skills/:id', SkillController.deleteUserSkillById)
             .put('/me/skills/:id', SkillController.updateUserSkillById)
-            .post('/domains/:id/skills', SkillController.addSkillToDomain)
+            .post('/domains/:id/skills', SkillController.addSkillToDomain);
     }
 };
 

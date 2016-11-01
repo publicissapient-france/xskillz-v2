@@ -1,0 +1,1 @@
+/Applications/MAMP/Library/bin/mysqldump --host="skillz.xebia.fr" skillz -u skillz -p  > dump.sql

@@ -2,18 +2,16 @@
 
 const Repository = require('./skill-repository');
 
-const createSkill = (skill) => {
-    return {
-        domain: {
-            id: skill.domain_id,
-            name: skill.domain_name,
-            color: skill.color
-        },
-        id: skill.id,
-        name: skill.name,
-        numAllies: skill.num_allies
-    };
-};
+const createSkill = (skill) => ({
+    domain: {
+        id: skill.domain_id,
+        name: skill.domain_name,
+        color: skill.color
+    },
+    id: skill.id,
+    name: skill.name,
+    numAllies: skill.num_allies
+});
 
 module.exports = {
     removeDomainFromSkills: (id) =>
@@ -31,9 +29,8 @@ module.exports = {
                     .then((skills) => {
                         if (skills.length > 0) {
                             return Repository.updateUserSkillById(skill.id, skillRequest);
-                        } else {
-                            return Repository.addSkill(skillRequest);
                         }
+                        return Repository.addSkill(skillRequest);
                     });
             })
             .catch(() =>
@@ -58,7 +55,7 @@ module.exports = {
     getSkills: () =>
         Repository
             .getSkills()
-            .map((skill)=> createSkill(skill)),
+            .map((skill) => createSkill(skill)),
 
     addSkillToDomain: (domainId, skillId) =>
         Repository

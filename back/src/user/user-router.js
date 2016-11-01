@@ -37,9 +37,9 @@ const UserRouter = {
                     }
                     next();
                 })
-                .catch((err) => {
+                .catch(() => {
                     next();
-                })
+                });
         } else {
             next();
         }

@@ -1,6 +1,6 @@
 'use strict';
 
-var Mysql = require('mysql');
+const Mysql = require('mysql');
 const Promise = require('bluebird');
 const log = require('winston');
 
@@ -27,7 +27,7 @@ const query = (sql, values) => {
             } else {
                 resolve(rows);
             }
-        }, values)
+        }, values);
     });
 };
 

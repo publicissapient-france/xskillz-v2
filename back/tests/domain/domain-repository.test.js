@@ -6,7 +6,7 @@ const Database = require('../../src/database');
 
 describe('Domain Repository', () => {
     beforeEach(() => {
-        return Database.clear()
+        return Database.clear();
     });
 
     it('should add new domains and get it', (done) => {

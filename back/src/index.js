@@ -20,7 +20,7 @@ express
     .use(require('body-parser').json())
     .use(require('cors')())
     .use(UserRouter.middleware)
-    .get('/', (req, res) => res.send('You know, for skills :)'));
+    .get('/', (req, res) => res.send(`You know, for skills :)`));
 
 UserRouter.register(express);
 DomainRouter.register(express);

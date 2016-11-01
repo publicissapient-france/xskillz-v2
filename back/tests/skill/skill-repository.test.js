@@ -8,9 +8,7 @@ const UserRepository = require('../../src/user/user-repository');
 const _ = require('lodash');
 
 describe('Skill Repository', () => {
-    beforeEach(() => {
-        return Database.clear()
-    });
+    beforeEach(() => Database.clear());
     
     it('should add new skill and get it', (done) => {
         const skillName = 'skill';
@@ -88,12 +86,12 @@ describe('Skill Repository', () => {
             .then(() => SkillRepository.findSkillByName(skillName1))
             .then((skill) => {
                 skill1 = skill;
-                return SkillRepository.addSkill({id: skill.id, interested: true, level: 2, user_id: user.id})
+                return SkillRepository.addSkill({id: skill.id, interested: true, level: 2, user_id: user.id});
             })
             .then(() => SkillRepository.findSkillByName(skillName2))
             .then((skill) => {
                 skill2 = skill;
-                return SkillRepository.addSkill({id: skill.id, interested: false, level: 1, user_id: user.id})
+                return SkillRepository.addSkill({id: skill.id, interested: false, level: 1, user_id: user.id});
             })
             .then(() => SkillRepository.findUserSkillsById(user.id))
             .then((userSkills) => {
@@ -103,7 +101,7 @@ describe('Skill Repository', () => {
             .then(() => SkillRepository.findUserSkillsById(user.id))
             .then((userSkills) => {
                 assert.deepEqual(userSkills.map((userSkill) => {
-                    return {name: userSkill.skill_name, level: userSkill.level}
+                    return {name: userSkill.skill_name, level: userSkill.level};
                 }), [
                     {
                         "level": 2,
@@ -131,7 +129,7 @@ describe('Skill Repository', () => {
             .then(() => SkillRepository.getSkills())
             .then((skills) => {
                 skill = skills[0];
-                return SkillRepository.addSkillToDomain(domain.id, skill.id)
+                return SkillRepository.addSkillToDomain(domain.id, skill.id);
             })
             .then(() => SkillRepository.findSkillByName(skill.name))
             .then((skill) => {

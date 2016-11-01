@@ -89,7 +89,7 @@ const Repository = {
     `)
             .then((userSkills) => {
                 _.map(userSkills, (userSkill) => {
-                    userSkill.interested = userSkill.interested[0] == 1
+                    userSkill.interested = userSkill.interested[0] == 1;
                 });
                 return userSkills;
             }),

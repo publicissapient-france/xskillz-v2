@@ -2,7 +2,7 @@
 
 var Promise = this.Promise || require('promise');
 var request = require('superagent-promise')(require('superagent'), Promise);
-const host = 'localhost:'+(process.env.PORT || 8080);
+const host = 'localhost:' + (process.env.PORT || 8080);
 
 module.exports = {
     createUser: (name, email) =>

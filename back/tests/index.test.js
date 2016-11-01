@@ -115,9 +115,9 @@ describe('API', function () {
             .then(() => API.signin('jsmadja@xebia.fr'))
             .then((res) => {
                 user = res.body;
-                return API.addSkill('Skill1', 2, true, user.token)
+                return API.addSkill('Skill1', 2, true, user.token);
             })
-            .then((res) => API.addSkill('Skill2', 1, false, user.token))
+            .then(() => API.addSkill('Skill2', 1, false, user.token))
             .then(() => API.getSkills())
             // When
             .then((res) => {
@@ -180,9 +180,9 @@ describe('API', function () {
             .then(() => API.signin('jsmadja2@xebia.fr'))
             .then((res) => {
                 user = res.body;
-                return API.addSkill('Skill3', 2, true, user.token)
+                return API.addSkill('Skill3', 2, true, user.token);
             })
-            .then((res) => API.addSkill('Skill4', 1, false, user.token))
+            .then(() => API.addSkill('Skill4', 1, false, user.token))
             .then(() => API.getUpdates(user.token))
             .then((res) => {
                 assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name).sort(), ["Skill3", "Skill4"]);
