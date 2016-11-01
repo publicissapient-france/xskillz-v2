@@ -19,7 +19,7 @@ const UserRouter = {
             .delete(Security.requireLogin, UserController.deleteUserById);
 
         express
-            .route('/users/:id([\\w\\-]+)')
+            .route('/users/:id([\\w%\\-]+)')
             .get(UserController.getUserByReadableId);
 
         express
