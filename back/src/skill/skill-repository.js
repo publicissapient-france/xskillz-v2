@@ -11,7 +11,7 @@ const Repository = {
             FROM Skill skill 
             LEFT JOIN Domain domain ON domain.id = skill.domain_id 
             LEFT JOIN UserSkill user_skill ON user_skill.skill_id = skill.id 
-            GROUP BY skill_id 
+            GROUP BY skill_id, domain_name, domain_id, id
             ORDER BY skill.name ASC
     `),
 
