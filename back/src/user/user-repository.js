@@ -144,9 +144,11 @@ const UserRepository = {
             `)),
 
     deleteUserById: (id) =>
-        Database.query(`DELETE FROM UserRole WHERE User_id = ${id}`).then(() =>
-            Database.query(`DELETE FROM UserSkill WHERE user_id = ${id}`)).then(() =>
-            Database.query(`DELETE FROM User WHERE id = ${id}`)),
+        Database
+            .query(`DELETE FROM UserRole WHERE user_id = ${id}`)
+            .then(() => Database.query(`DELETE FROM Token WHERE user_id = ${id}`))
+            .then(() => Database.query(`DELETE FROM UserSkill WHERE user_id = ${id}`))
+            .then(() => Database.query(`DELETE FROM User WHERE id = ${id}`)),
 
     updateUser: (id, user) =>
         Database.query(`

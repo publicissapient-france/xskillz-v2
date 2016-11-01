@@ -46,6 +46,7 @@ describe('API', function () {
             .then((res) => {
                 delete res.body.id;
                 assert.deepEqual(res.body, {
+                    address: null,
                     domains: [],
                     experienceCounter: 0,
                     gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
@@ -128,6 +129,7 @@ describe('API', function () {
                 assert.deepEqual(skills,
                     [
                         {
+                            address: null,
                             experienceCounter: 0,
                             gravatarUrl: "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
                             interested: true,
@@ -161,6 +163,7 @@ describe('API', function () {
                 assert.deepEqual(skills,
                     [
                         {
+                            address: null,
                             domains: [
                                 {
                                     color: 'pink',
@@ -313,6 +316,7 @@ describe('API', function () {
                 assert.deepEqual(users,
                     [
                         {
+                            address: null,
                             domains: [{
                                 color: '#CCCCCC',
                                 score: 2,
@@ -353,6 +357,7 @@ describe('API', function () {
                 delete user.id;
                 assert.deepEqual(user,
                     {
+                        address: null,
                         domains: [],
                         experienceCounter: 0,
                         gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
@@ -382,6 +387,7 @@ describe('API', function () {
                 delete user.id;
                 assert.deepEqual(user,
                     {
+                        address: null,
                         domains: [],
                         experienceCounter: 0,
                         gravatarUrl: '//www.gravatar.com/avatar/9de77282d1820886bc4bfb97570aac63',
@@ -413,6 +419,36 @@ describe('API', function () {
             .then(() => API.getUpdates(user.token))
             .then((res) => {
                 assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name).sort(), ["Skill3", "Skill4"]);
+            })
+            .then(done)
+            .catch((err) => done(err));
+    });
+
+    it('should delete an user', (done) => {
+        // Given
+        let user;
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(res => user = res.body)
+            .then(() => API.createUser('Benjamin', 'blacroix@xebia.fr'))
+            .then(() => API.signin('blacroix@xebia.fr'))
+            .then((res) => API.deleteUser(user.id, res.body.token))
+            .then((res) => {
+                assert.deepEqual(res.body, {deleted: true});
+            })
+            .then(done)
+            .catch((err) => done(err));
+    });
+
+    it('should assign a user', (done) => {
+        // Given
+        let user;
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(res => user = res.body)
+            .then(() => API.createUser('Benjamin', 'blacroix@xebia.fr'))
+            .then(() => API.signin('blacroix@xebia.fr'))
+            .then((res) => API.assignManager(user.id, res.body.id, res.body.token))
+            .then((res) => {
+                assert.deepEqual(res.body, {assigned: true});
             })
             .then(done)
             .catch((err) => done(err));

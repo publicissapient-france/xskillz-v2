@@ -4,140 +4,124 @@ var Promise = this.Promise || require('promise');
 var request = require('superagent-promise')(require('superagent'), Promise);
 const host = 'localhost:' + (process.env.PORT || 8080);
 
+const execute = (fn) =>
+    fn
+        .end((err) => {
+            if (err) Promise.reject(err);
+        });
+
 module.exports = {
     createUser: (name, email) =>
-        request
-            .post(`${host}/users`)
-            .send({name, email, password: 'azerty'})
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .post(`${host}/users`)
+                .send({name, email, password: 'azerty'})),
 
     getUsers: (token) =>
-        request
-            .get(`${host}/users`)
-            .set('token', token)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/users`)
+                .set('token', token)),
 
     getUsersMobileVersion: () =>
-        request
-            .get(`${host}/mobile/users`)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/mobile/users`)),
 
     getUserById: (id, token) =>
-        request
-            .get(`${host}/users/${id}`)
-            .set('token', token)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/users/${id}`)
+                .set('token', token)),
 
     getUsersBySkill: (id, token) =>
-        request
-            .get(`${host}/skills/${id}/users`)
-            .set('token', token)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/skills/${id}/users`)
+                .set('token', token)),
 
     getUsersBySkillMobileVersion: (id, token) =>
-        request
-            .get(`${host}/mobile/skills/${id}/users`)
-            .set('token', token)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/mobile/skills/${id}/users`)
+                .set('token', token)),
 
     getRoot: () =>
-        request
-            .get(`${host}/`)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/`)),
 
     signin: (email) =>
-        request
-            .post(`${host}/signin`)
-            .send({email, password: 'azerty'})
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .post(`${host}/signin`)
+                .send({email, password: 'azerty'})),
 
     addSkill: (name, level, interested, token) =>
-        request
-            .post(`${host}/me/skills`)
-            .set('token', token)
-            .send({name, level, interested})
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .post(`${host}/me/skills`)
+                .set('token', token)
+                .send({name, level, interested})),
 
     getMe: (token) =>
-        request
-            .post(`${host}/me`)
-            .set('token', token)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .post(`${host}/me`)
+                .set('token', token)),
 
     getSkills: () =>
-        request
-            .get(`${host}/skills`)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/skills`)),
 
     addDomain: (name, token) =>
-        request
-            .post(`${host}/domains`)
-            .set('token', token)
-            .send({name})
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .post(`${host}/domains`)
+                .set('token', token)
+                .send({name})),
 
     deleteDomain: (id, token) =>
-        request
-            .del(`${host}/domains/${id}`)
-            .set('token', token)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .del(`${host}/domains/${id}`)
+                .set('token', token)),
+
+    deleteUser: (id, token) =>
+        execute(
+            request
+                .del(`${host}/users/${id}`)
+                .set('token', token)),
+
+    assignManager: (id, managerId, token) =>
+        execute(
+            request
+                .post(`${host}/users/${id}/manager/${managerId}`)
+                .set('token', token)),
 
     getDomains: () =>
-        request
-            .get(`${host}/domains`)
-            .end((err) => {
-                if (err) Promise.reject(err);
-            }),
+        execute(
+            request
+                .get(`${host}/domains`)),
 
     addSkillToDomain: (id, domain_id, token) =>
-        request
-            .post(`${host}/domains/${domain_id}/skills`)
-            .set('token', token)
-            .send({id})
-            .end((err) => {
-                if (err) return Promise.reject(err);
-            }),
+        execute(
+            request
+                .post(`${host}/domains/${domain_id}/skills`)
+                .set('token', token)
+                .send({id})),
 
     mergeSkills: (from, to, token) =>
-        request
-            .put(`${host}/skills`)
-            .set('token', token)
-            .send({from, to})
-            .end((err) => {
-                if (err) return Promise.reject(err);
-            }),
+        execute(
+            request
+                .put(`${host}/skills`)
+                .set('token', token)
+                .send({from, to})),
 
     getUpdates: (token) =>
-        request
-            .get(`${host}/updates`)
-            .set('token', token)
-            .end((err) => {
-                if (err) return Promise.reject(err);
-            })
+        execute(
+            request
+                .get(`${host}/updates`)
+                .set('token', token))
 };

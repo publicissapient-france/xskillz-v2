@@ -93,16 +93,6 @@ module.exports = {
             });
     },
 
-    getUsers: (req, res) => {
-        UserService
-            .getUsers(req.query)
-            .then((users) => res.json(users))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `Users not found`, cause: err.message});
-            });
-    },
-
     deleteUserById: (req, res) => {
         UserService
             .deleteUserById(req.params.id)
