@@ -163,7 +163,7 @@ const UserRepository = {
 
     addRole: (user, roleName) =>
         Database.query(`SELECT DISTINCT id FROM Role WHERE name = '${roleName}'`)
-            .then((roles) => Database.query(`INSERT INTO UserRole(User_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
+            .then((roles) => Database.query(`INSERT INTO UserRole(user_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
 
     getUpdates: () =>
         Database.query(`
