@@ -7,6 +7,14 @@
     "database": "skillz",
     "multipleStatements": true
   },
+  "production": {
+    "driver": "mysql",
+    "user": "skillz",
+    "password": "skillz",
+    "host": "skillz.xebia.fr",
+    "database": "skillz",
+    "multipleStatements": true
+  },
   "dev": {
     "driver": "mysql",
     "user": "skillz",

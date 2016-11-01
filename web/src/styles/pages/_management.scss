@@ -1,24 +1,21 @@
 [data-page-type="management"] {
 
-  .manager-container {
-    display: inline-block;
-    vertical-align: top;
-    background: white;
-    margin-top: 5px;
-    margin-right: 5px;
-    padding: 10px;
-    width: 200px;
-    box-shadow: 1px 1px 5px 0 #656565;
+  .management-content {
+    padding: 3px;
 
-    .manager {
-      font-weight: bold;
-      margin-bottom: 20px;
-      display: block;
-    }
+    .manager-container {
+      padding: 20px;
+      margin-bottom: 5px;
 
-    .user {
-      font-size: 14px;
-      line-height: 20px;
+      .manager {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .user {
+        font-size: 14px;
+      }
+
     }
 
   }

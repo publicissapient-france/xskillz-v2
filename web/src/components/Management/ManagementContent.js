@@ -14,7 +14,7 @@ class ManagementContent extends Component {
             );
         }
         return (
-            <div className="content">
+            <div className="management-content">
                 {
                     management && management.map((manager, index) => (
                         <ManagerItem manager={manager} key={index} />))
