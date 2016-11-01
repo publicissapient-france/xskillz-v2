@@ -4,15 +4,28 @@
 
 # How To
 
-npm i
+## Install all dependencies
 
-npm test
+>npm i
 
-node_modules/pm2/bin/pm2 startOrRestart configuration.json
+## Launch all tests (unit, integration, end-to-end)
 
-# On Server
-sudo apt-get install node-gyp
+>npm test
 
-sudo usermod -aG docker ubuntu
+## Run server (dev mode)
 
-Voir Docker Link pour charger back avant web
+>npm run dev
+
+## Run server (production mode)
+
+>npm start
+
+## Create SQL migration file
+
+Go to database and type
+
+>db-migrate create *feature_name*
+
+## Run SQL migration
+
+>db-migrate up --env dev
