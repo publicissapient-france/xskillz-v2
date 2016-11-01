@@ -1,11 +1,15 @@
 import React, {Component, PropTypes} from "react";
+
 import Paper from "material-ui/Paper";
 import Avatar from "material-ui/Avatar";
-import {redA400, grey500, grey200} from "material-ui/styles/colors";
+import Chip from "material-ui/Chip";
+
 import LabelButton from "../LabelButton";
 import SkillCard from "../Skills/SkillCard";
-import Chip from "material-ui/Chip";
-import _ from "lodash";
+
+import Phone from '../../assets/phone.svg';
+
+import './UserItem.less';
 
 const styles = {
     domainName: {
@@ -28,7 +32,7 @@ class UserItem extends Component {
                     <Paper>
                         <div className="user-content">
                             <div className="user-left">
-                                <Avatar src={user.gravatarUrl} size={75} style={{paddingTop:0}}/>
+                                <Avatar src={user.gravatarUrl} size={75} style={{paddingTop: 0}}/>
                             </div>
                             <div className="user-right">
                                 <p>
@@ -43,6 +47,9 @@ class UserItem extends Component {
                                             </Chip>
                                         ).value()}
                                 </div>
+                                {user.phone && <div className="profile">
+                                    <img src={Phone} alt="téléphone"/><a href={`tel:${user.phone}`}>{user.phone}</a>
+                                </div>}
                             </div>
                         </div>
 
@@ -51,9 +58,9 @@ class UserItem extends Component {
                             {user.domains.map((domain, index) => {
                                 return (
                                     <div key={index} className={'domains-content'}
-                                         style={{backgroundColor:domain.color}}>
+                                         style={{backgroundColor: domain.color}}>
                                         <div className={`domain-name domain-${domain.name}`}
-                                             style={{color:domain.color}}>{domain.name || 'Sans domaine'}</div>
+                                             style={{color: domain.color}}>{domain.name || 'Sans domaine'}</div>
                                         <div className="skills-content">
                                             {domain.skills.map((skill, index) => {
                                                 // noinspection JSUnresolvedVariable
