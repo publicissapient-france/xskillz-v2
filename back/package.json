@@ -10,7 +10,7 @@
     "db-reset": "db-migrate --env tests reset --config database/database.json --migrations-dir database/migrations ",
     "migrate": "npm run db-reset && db-migrate --env tests up --config database/database.json --migrations-dir database/migrations",
     "pretest": "npm run lint && npm run migrate",
-    "test": "PORT=8081 RDS_HOST='skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=skillztests RDS_USER=skillztests RDS_PASSWORD=skillztests ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha -- --recursive -R spec tests",
+    "test": "PORT=8081 RDS_HOST='skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=skillztests RDS_USER=skillztests RDS_PASSWORD=skillztests ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha --timeout 10000 --report lcovonly -- --recursive -R spec tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "posttest": "./node_modules/istanbul/lib/cli.js report clover"
   },
   "pre-commit": [
@@ -37,11 +37,13 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.14",
     "db-migrate": "^0.10.0-beta.13",
     "db-migrate-mysql": "1.1.10",
     "eslint": "3.9.1",
     "istanbul": "^0.4.5",
     "mocha": "3.1.2",
+    "mocha-lcov-reporter": "^1.2.0",
     "nodemon": "^1.11.0",
     "npm-check": "^5.4.0",
     "pre-commit": "^1.1.3",
