@@ -12,7 +12,7 @@ class HeaderContent extends Component {
         titles["management"] = "Management";
         titles["user/:id"] = "Profil";
         titles["users"] = "Tous les profils";
-        titles["domains"] = "Domaines";
+        titles["domains"] = "Tous les compétences";
         titles["settings"] = "Préférences";
         titles["help"] = "Aide";
         titles["logout"] = "Déconnexion";
@@ -24,6 +24,9 @@ class HeaderContent extends Component {
 
         return (
             <AppBar showMenuIconButton={false} title={titles[route.path]}>
+                <IconButton onClick={goToUpdates} style={style} tooltip="Dernières mises à jour">
+                    <FontIcon className={'material-icons'} color="white">home</FontIcon>
+                </IconButton>
                 <IconButton onClick={goToMe} style={style} tooltip="Mon profil">
                     <FontIcon className={'material-icons'} color="white">face</FontIcon>
                 </IconButton>
@@ -33,11 +36,8 @@ class HeaderContent extends Component {
                 <IconButton onClick={goToUsers} style={style} tooltip="Utilisateurs">
                     <FontIcon className={'material-icons'} color="white">supervisor_account</FontIcon>
                 </IconButton>
-                <IconButton onClick={goToDomains} style={style} tooltip="Domaines">
+                <IconButton onClick={goToDomains} style={style} tooltip="Compétences">
                     <FontIcon className={'material-icons'} color="white">view_module</FontIcon>
-                </IconButton>
-                <IconButton onClick={goToUpdates} style={style} tooltip="Dernières mises à jour">
-                    <FontIcon className={'material-icons'} color="white">update</FontIcon>
                 </IconButton>
                 <IconButton onClick={goToManagement} style={style} tooltip="Management">
                     <FontIcon className={'material-icons'} color="white">hearing</FontIcon>

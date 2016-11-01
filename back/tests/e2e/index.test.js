@@ -36,6 +36,33 @@ describe('API', function () {
             .catch(done);
     });
 
+    it('get me', (done) => {
+        // Given
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            // When
+            .then((res) => API.getMe(res.body.token))
+            // Then
+            .then((res) => {
+                delete res.body.id;
+                assert.deepEqual(res.body, {
+                    domains: [],
+                    experienceCounter: 0,
+                    gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                    manager_id: null,
+                    name: 'Julien',
+                    phone: null,
+                    readable_id: 'julien',
+                    roles: [
+                        'Manager'
+                    ],
+                    score: 0
+                });
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should delete a domain', (done) => {
         // Given
         let user;
@@ -84,6 +111,87 @@ describe('API', function () {
             })
             .catch((err) => done(err));
     });
+
+    it('should get users by skill', (done) => {
+        // Given
+        let user;
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => user = res.body)
+            .then(() => API.addSkill('Skill', 2, true, user.token))
+            // When
+            .then((res) => API.getUsersBySkill(res.body.skill_id, user.token))
+            // Then
+            .then((res) => {
+                const skills = res.body;
+                delete skills[0].id;
+                assert.deepEqual(skills,
+                    [
+                        {
+                            experienceCounter: 0,
+                            gravatarUrl: "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
+                            interested: true,
+                            level: 2,
+                            manager_id: null,
+                            name: 'Julien',
+                            phone: null,
+                            readable_id: 'julien'
+                        }
+                    ]);
+                done();
+            })
+            .catch((err) => done(err));
+    });
+
+    it('should get users by skill (mobile version)', (done) => {
+        // Given
+        let user;
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => user = res.body)
+            .then(() => API.addSkill('Skill', 2, true, user.token))
+            // When
+            .then((res) => API.getUsersBySkillMobileVersion(res.body.skill_id, user.token))
+            // Then
+            .then((res) => {
+                const skills = res.body;
+                delete skills[0].id;
+                delete skills[0].domains[0].id;
+                delete skills[0].domains[0].skills[0].id;
+                assert.deepEqual(skills,
+                    [
+                        {
+                            domains: [
+                                {
+                                    color: 'pink',
+                                    name: null,
+                                    score: 2,
+                                    skills: [
+                                        {
+                                            interested: true,
+                                            level: 2,
+                                            name: 'Skill'
+                                        }
+                                    ]
+                                }
+                            ],
+                            experienceCounter: 0,
+                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                            manager_id: null,
+                            name: 'Julien',
+                            phone: null,
+                            readable_id: 'julien',
+                            roles: [
+                                'Manager'
+                            ],
+                            score: 2
+                        }
+                    ]);
+                done();
+            })
+            .catch((err) => done(err));
+    });
+
 
     it('should add a skill on two different users', (done) => {
         // Given
@@ -164,12 +272,69 @@ describe('API', function () {
                 assert.deepEqual(users,
                     [
                         {
-                            domains: [ {color: '#CCCCCC', score: 2, name: 'MyDomain'}],
+                            domains: [{color: '#CCCCCC', score: 2, name: 'MyDomain'}],
                             experienceCounter: 0,
                             gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
                             name: 'Julien',
                             readable_id: 'julien',
                             score: 2
+                        }
+                    ]);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should get all users (mobile version)', (done) => {
+        let domain;
+        let user;
+        // Given
+        API.createUser('Julien', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => API.addDomain('MyDomain', res.body.token))
+            .then((res) => {
+                domain = res.body;
+            })
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => {
+                user = res.body;
+                return API.addSkill('Skill', 2, true, user.token);
+            })
+            .then((res) => API.addSkillToDomain(res.body.skill_id, domain.id, user.token))
+            // When
+            .then(() => API.getUsersMobileVersion())
+            // Then
+            .then((res) => {
+                const users = res.body;
+                delete users[0].id;
+                delete users[0].domains[0].id;
+                delete users[0].domains[0].skills[0].id;
+
+                assert.deepEqual(users,
+                    [
+                        {
+                            domains: [{
+                                color: '#CCCCCC',
+                                score: 2,
+                                name: 'MyDomain',
+                                skills: [
+                                    {
+                                        interested: true,
+                                        level: 2,
+                                        name: 'Skill'
+                                    }
+                                ]
+                            }],
+                            experienceCounter: 0,
+                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                            name: 'Julien',
+                            readable_id: 'julien',
+                            score: 2,
+                            manager_id: null,
+                            phone: null,
+                            roles: [
+                                'Manager'
+                            ]
                         }
                     ]);
             })

@@ -8,7 +8,7 @@ const DomainRouter = {
             .post('/domains', Security.requireLogin, DomainController.addDomain)
             .delete('/domains/:id', Security.requireLogin, DomainController.deleteDomain)
             .get('/domains/full', DomainController.getDomainsWithSkills)
-            .get('/domains', DomainController.getDomains)
+            .get('/domains', DomainController.getDomains);
 
     }
 };

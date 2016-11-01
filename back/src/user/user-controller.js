@@ -125,10 +125,6 @@ module.exports = {
     },
 
     assignManager: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .assignManager(req.params.id, req.params.managerId)
             .then(() => {
@@ -141,10 +137,6 @@ module.exports = {
     },
 
     updateUser: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .updateUser(req.params.id, req.body)
             .then(()=> {
@@ -169,10 +161,6 @@ module.exports = {
     },
 
     promoteToManager: (req, res) => {
-        if (!req.body.user_id) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         UserService
             .promoteToManager(req.params.id)
             .then(() => {
@@ -196,10 +184,6 @@ module.exports = {
 
     patchMe: (req, res) => {
         const userId = req.body.user_id;
-        if (!userId) {
-            res.status(401).send({error: `You're not logged in`});
-            return;
-        }
         if (userId && req.body.old_password && req.body.password) {
             UserService
                 .updatePassword(userId, req.body.old_password, req.body.password)

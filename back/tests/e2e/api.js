@@ -21,9 +21,32 @@ module.exports = {
                 if (err) Promise.reject(err);
             }),
 
+    getUsersMobileVersion: () =>
+        request
+            .get(`${host}/mobile/users`)
+            .end((err) => {
+                if (err) Promise.reject(err);
+            }),
+
     getUserById: (id, token) =>
         request
             .get(`${host}/users/${id}`)
+            .set('token', token)
+            .end((err) => {
+                if (err) Promise.reject(err);
+            }),
+
+    getUsersBySkill: (id, token) =>
+        request
+            .get(`${host}/skills/${id}/users`)
+            .set('token', token)
+            .end((err) => {
+                if (err) Promise.reject(err);
+            }),
+
+    getUsersBySkillMobileVersion: (id, token) =>
+        request
+            .get(`${host}/mobile/skills/${id}/users`)
             .set('token', token)
             .end((err) => {
                 if (err) Promise.reject(err);
@@ -49,6 +72,14 @@ module.exports = {
             .post(`${host}/me/skills`)
             .set('token', token)
             .send({name, level, interested})
+            .end((err) => {
+                if (err) Promise.reject(err);
+            }),
+
+    getMe: (token) =>
+        request
+            .post(`${host}/me`)
+            .set('token', token)
             .end((err) => {
                 if (err) Promise.reject(err);
             }),
