@@ -1,10 +1,10 @@
-import React, {Component, PropTypes } from 'react';
-import _ from 'lodash';
-import UserItem from './UserItem';
-import TextField from 'material-ui/TextField';
-import Infinite from 'react-infinite';
-
-import CircularProgress from 'material-ui/CircularProgress';
+import React, {Component, PropTypes} from "react";
+import _ from "lodash";
+import UserItem from "./UserItem";
+import TextField from "material-ui/TextField";
+import Infinite from "react-infinite";
+import CircularProgress from "material-ui/CircularProgress";
+import diacritics from "diacritics";
 
 class UsersContent extends Component {
 
@@ -20,9 +20,21 @@ class UsersContent extends Component {
         }
     }
 
+    static cleanText(text) {
+        return diacritics.remove(text.toLowerCase());
+    }
+
+    filter(list, value) {
+        value = UsersContent.cleanText(value);
+        return _(list)
+            .filter(user => UsersContent.cleanText(user.name).indexOf(value) >= 0)
+            .value();
+    }
+
     queryChange = (event, value) => {
         if (value.length > 2) {
-            this.setState({users: _.filter(this.props.users.list, user => user.name.toLowerCase().indexOf(value.toLowerCase()) >= 0)});
+            var filteredUsers = this.filter(this.props.users.list, value);
+            this.setState({users: filteredUsers});
         } else {
             this.setState({users: this.props.users.list});
         }
