@@ -57,7 +57,7 @@ module.exports = {
             .post(`${host}/domains`)
             .set('token', token)
             .send({name})
-            .end((err, response) => {
+            .end((err) => {
                 if (err) Promise.reject(err);
             }),
 
