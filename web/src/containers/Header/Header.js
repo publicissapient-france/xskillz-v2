@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import HeaderContent from "../../components/Header/HeaderContent";
+import {logout} from "../../actions/auth";
 
 const mapStateToProps = state => {
     return {
@@ -17,7 +18,11 @@ const mapDispatchToProps = () => {
         goToUpdates: () => browserHistory.push('/updates'),
         goToHelp: () => browserHistory.push('/help'),
         goToMe: () => browserHistory.push('/me'),
-        goToSettings: () => browserHistory.push('/settings')
+        goToSettings: () => browserHistory.push('/settings'),
+        goToLogout: () => {
+            logout();
+            browserHistory.push(`/signin`);
+        }
     };
 };
 

@@ -14,9 +14,10 @@ class HeaderContent extends Component {
         titles["users"] = "Tous les profils";
         titles["settings"] = "Préférences";
         titles["help"] = "Aide";
+        titles["logout"] = "Déconnexion";
         titles["updates"] = "Skillz";
 
-        const {goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings, goToUpdates, goToManagement} = this.props;
+        const {goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings, goToUpdates, goToManagement, goToLogout} = this.props;
 
         const style = {height: 'auto'};
 
@@ -42,6 +43,9 @@ class HeaderContent extends Component {
                 </IconButton>
                 <IconButton onClick={goToHelp} style={style} tooltip="Aide">
                     <FontIcon className={'material-icons'} color="white">help</FontIcon>
+                </IconButton>
+                <IconButton onClick={goToLogout} style={style} tooltip="Déconnexion">
+                    <FontIcon className={'material-icons'} color="white">power_settings_new</FontIcon>
                 </IconButton>
             </AppBar>
         );

@@ -14,6 +14,10 @@ export function getToken() {
     return me.token;
 }
 
+export function logout() {
+    store.clear();
+}
+
 export function signinSuccess(user) {
     store.set('me', user);
 
