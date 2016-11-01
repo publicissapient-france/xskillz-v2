@@ -10,7 +10,7 @@
     "db-reset": "db-migrate --env tests reset --config database/database.json --migrations-dir database/migrations ",
     "migrate": "npm run db-reset && db-migrate --env tests up --config database/database.json --migrations-dir database/migrations",
     "pretest": "npm run lint && npm run migrate",
-    "test": "PORT=8081 RDS_HOST='skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=skillztests RDS_USER=skillztests RDS_PASSWORD=skillztests ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha --timeout 10000 --report lcovonly -- --recursive -R spec tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "PORT=8081 RDS_HOST='skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=skillztests RDS_USER=skillztests RDS_PASSWORD=skillztests ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --timeout 10000 --recursive -R spec tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "posttest": "./node_modules/istanbul/lib/cli.js report clover"
   },
   "pre-commit": [
