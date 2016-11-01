@@ -36,7 +36,7 @@ class UserItem extends Component {
                             </div>
                             <div className="user-right">
                                 <p>
-                                    <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
+                                    <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/> {user.manager && <span className="managed-by">managé par {user.manager.name}</span>}
                                 </p>
                                 <div className="user-chips">
                                     {_(user.domains)

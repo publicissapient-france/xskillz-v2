@@ -54,4 +54,42 @@ describe('UserService', () => {
         });
 
     });
+
+    describe('User', () => {
+        let sandbox;
+        beforeEach(() => {
+            sandbox = sinon.sandbox.create();
+        });
+        afterEach(() => sandbox.restore());
+
+        it('It should not attach manager if it does not have one', done => {
+            const user = {id: 1, name: 'Julien'};
+            UserService
+                .attachManager(user)
+                .then((_user) => {
+                    assert.deepEqual(_user, user);
+                })
+                .then(done)
+                .catch(done);
+        });
+        it('It should attach manager if it does have one', done => {
+            sandbox
+                .stub(UserRepository, 'findUserById')
+                .returns(Promise.resolve({user_id: 1, user_name: "Christophe Heubès"}));
+
+            const user = {id: 1, name: 'Julien', manager_id: 12};
+            UserService
+                .attachManager(user)
+                .then((_user) => {
+                    assert.deepEqual(_user, {
+                        id: 1,
+                        name: 'Julien',
+                        manager_id: 12,
+                        manager: {user_id: 1, user_name: "Christophe Heubès"}
+                    });
+                })
+                .then(done)
+                .catch(done);
+        });
+    });
 });

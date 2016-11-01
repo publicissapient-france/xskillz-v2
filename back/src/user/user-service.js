@@ -18,7 +18,8 @@ const createUser = raw => {
         id: raw.id,
         gravatarUrl: gravatar.url(raw.email),
         experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0,
-        phone: raw.phone
+        phone: raw.phone,
+        manager_id: raw.manager_id
     };
 };
 
@@ -85,6 +86,7 @@ const createUserById = (id) => {
     return Repository
         .findUserById(id)
         .then((user) => createUser(user))
+        .then((user) => attachManager(user))
         .then((dbUser) => {
             user = _.assignWith(user, dbUser);
             return SkillService.findUserSkillsById(user.id);
@@ -130,6 +132,19 @@ const groupUsersByManager = users => {
         .sortBy(manager => manager.manager.name)
         .value();
     return Promise.resolve(usersByManagers);
+};
+
+const attachManager = user => {
+    if (!user.manager_id) {
+        return Promise.resolve(user);
+    }
+    return Repository
+        .findUserById(user.manager_id)
+        .then((manager) => {
+            delete manager.password;
+            user.manager = manager;
+            return user;
+        });
 };
 
 module.exports = {
@@ -178,11 +193,6 @@ module.exports = {
                 _user.interested = (user.interested[0] === 1);
                 return _user;
             }),
-
-    getUserById: (userId) =>
-        Repository
-            .findUserById(userId)
-            .then((user) => createUserById(user.id)),
 
     getUsersWebVersion: (query) => {
         let usersPromise;
@@ -294,5 +304,6 @@ module.exports = {
     getUserByToken: (token) =>
         Repository.getUserByToken(token),
 
-    createUserById
+    createUserById,
+    attachManager
 };
