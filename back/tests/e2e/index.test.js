@@ -9,7 +9,7 @@ describe('API', function () {
         require('../../src/index');
     });
     beforeEach(() => Database.clear());
-    it('GET /', (done) => {
+    it('should show You know, for skills :)', (done) => {
         API
             .getRoot()
             .then((res) => {
@@ -19,7 +19,7 @@ describe('API', function () {
             .catch(done);
     });
 
-    it('GET /domains', (done) => {
+    it('get all domains', (done) => {
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => API.signin('jsmadja@xebia.fr'))
@@ -36,7 +36,7 @@ describe('API', function () {
             .catch(done);
     });
 
-    it('DELETE /domains/:id', (done) => {
+    it('should delete a domain', (done) => {
         // Given
         let user;
         API.createUser('Julien', 'jsmadja@xebia.fr')
@@ -57,7 +57,7 @@ describe('API', function () {
             .catch(done);
     });
 
-    it('GET /skills', (done) => {
+    it('should get all skills', (done) => {
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => API.signin('jsmadja@xebia.fr'))
@@ -85,7 +85,7 @@ describe('API', function () {
             .catch((err) => done(err));
     });
 
-    it('POST /skills', (done) => {
+    it('should add a skill on two different users', (done) => {
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => API.signin('jsmadja@xebia.fr'))
@@ -112,7 +112,7 @@ describe('API', function () {
             .catch((err) => done(err));
     });
 
-    it('PUT /skills', (done) => {
+    it('should merge two skills', (done) => {
         // Given
         let user;
         API.createUser('Julien', 'jsmadja@xebia.fr')
@@ -137,7 +137,7 @@ describe('API', function () {
             .catch((err) => done(err));
     });
 
-    it('GET /users', (done) => {
+    it('should get all users', (done) => {
         let domain;
         let user;
         // Given
@@ -178,7 +178,7 @@ describe('API', function () {
             .catch(done);
     });
 
-    it('GET /updates', (done) => {
+    it('should get all updates', (done) => {
         // Given
         let user;
         API.createUser('Julien', 'jsmadja2@xebia.fr')
