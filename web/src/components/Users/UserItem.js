@@ -1,20 +1,22 @@
 import React, {Component, PropTypes} from "react";
-
 import Paper from "material-ui/Paper";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
-
 import LabelButton from "../LabelButton";
 import SkillCard from "../Skills/SkillCard";
-
-import Phone from '../../assets/phone.svg';
-
-import './UserItem.less';
+import Phone from "../../assets/phone.svg";
+import "./UserItem.less";
 
 const styles = {
     domainName: {
         marginRight: '5px',
         color: 'white',
+        display: 'inline-block'
+    },
+    experience: {
+        marginRight: '5px',
+        color: 'white',
+        backgroundColor: '#9b59b6',
         display: 'inline-block'
     }
 };
@@ -36,7 +38,8 @@ class UserItem extends Component {
                             </div>
                             <div className="user-right">
                                 <p>
-                                    <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/> {user.manager && <span className="managed-by">managé par {user.manager.name}</span>}
+                                    <LabelButton label={user.name} onClick={()=>onUserClick(user.id)}/>
+                                    {user.manager && <span className="managed-by">managé par {user.manager.name}</span>}
                                 </p>
                                 <div className="user-chips">
                                     {_(user.domains)
@@ -46,6 +49,8 @@ class UserItem extends Component {
                                                 {domain.name || 'Sans domaine'}
                                             </Chip>
                                         ).value()}
+                                    {user.experienceCounter > 0 &&
+                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor} labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
                                 </div>
                                 {user.phone && <div className="profile">
                                     <img src={Phone} alt="téléphone"/><a href={`tel:${user.phone}`}>{user.phone}</a>

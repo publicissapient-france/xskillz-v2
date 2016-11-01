@@ -304,6 +304,11 @@ module.exports = {
     getUserByToken: (token) =>
         Repository.getUserByToken(token),
 
+    getUserById: (userId) =>
+        Repository
+            .findUserById(userId)
+            .then((user) => createUserById(user.id)),
+
     createUserById,
     attachManager
 };
