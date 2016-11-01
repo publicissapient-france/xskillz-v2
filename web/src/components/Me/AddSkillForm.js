@@ -1,11 +1,12 @@
-import React, {Component, PropTypes} from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import EditableStars from './EditableStars';
-import EditableLike from './EditableLike';
-import _ from 'lodash';
-import './AddSkillForm.less';
+import React, {Component, PropTypes} from "react";
+import AutoComplete from "material-ui/AutoComplete";
+import RaisedButton from "material-ui/RaisedButton";
+import Paper from "material-ui/Paper";
+import EditableStars from "./EditableStars";
+import EditableLike from "./EditableLike";
+import _ from "lodash";
+import "./AddSkillForm.less";
+import Snackbar from "material-ui/Snackbar";
 
 class AddSkillForm extends Component {
     constructor(props) {
@@ -26,17 +27,22 @@ class AddSkillForm extends Component {
     onLikeSelected = like => this.setState({interested: like});
 
     onSubmitClicked() {
+        this.setState({submit: true});
         this.props.addSkill(this.state);
     }
 
     onNewRequest = (name, index) => {
+        this.setState({submit: false});
         const skill = this.props.skills.list[index];
         if (skill) {
             this.setState({name: skill.name, id: skill.id, domain: skill.domain});
         }
     };
 
-    onUpdateInput = (searchText, nameArray) => this.setState({name: searchText, id: null, domain: {id: null}});
+    onUpdateInput = (searchText, nameArray) => {
+        this.setState({submit: false});
+        this.setState({name: searchText, id: null, domain: {id: null}})
+    };
 
     render() {
         const nameArray = [];
@@ -66,6 +72,11 @@ class AddSkillForm extends Component {
                             <RaisedButton primary label="Ajouter" onClick={::this.onSubmitClicked}/>
                         </div>
                     </div>
+                    <Snackbar
+                        bodyStyle={{backgroundColor: '#008500'}}
+                        open={this.state.submit}
+                        message={`Compétence ${this.state.name} ajoutée.`}
+                        autoHideDuration={3000}/>
                 </Paper>
             </div>
         );
