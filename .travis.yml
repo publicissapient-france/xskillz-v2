@@ -1,3 +1,5 @@
+env:
+  - CXX=g++-4.8
 language: node_js
 node_js:
   - "6"
@@ -5,7 +7,7 @@ node_js:
 addons:
   apt:
     packages:
-    - bcrypt
-    - node-gyp
+    - gcc-4.8
+    - g++-4.8
 
 script: cd back && npm install && npm test
