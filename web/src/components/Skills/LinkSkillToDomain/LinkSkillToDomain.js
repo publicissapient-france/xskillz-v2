@@ -1,10 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import SelectField from 'material-ui/SelectField';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
-import _ from 'lodash';
-import AutoComplete from 'material-ui/AutoComplete';
+import React, {Component, PropTypes} from "react";
+import SelectField from "material-ui/SelectField";
+import RaisedButton from "material-ui/RaisedButton";
+import MenuItem from "material-ui/MenuItem";
+import Paper from "material-ui/Paper";
+import _ from "lodash";
+import AutoComplete from "material-ui/AutoComplete";
+import Snackbar from "material-ui/Snackbar";
 
 class LinkSkillToDomain extends Component {
 
@@ -19,14 +20,23 @@ class LinkSkillToDomain extends Component {
         this.state = {skillId: null, domainId: null};
     }
 
-    changeDomain = (event, index, value) => this.setState({domainId: value});
+    changeDomain = (event, index, value) => this.setState({domainId: value, domainName: this.props.domains[index].name});
 
     linkSkillToDomain = () => {
+        this.setState({submit: true});
         const {skillId, domainId} = this.state;
         this.props.linkSkillToDomain({skill: {id: skillId}, domain: {id: domainId}});
     };
 
-    onSkillChange = (name, index) => index >= 0 && this.setState({skillId: this.props.skills[index].id});
+    onSkillChange = (name, index) => {
+        if (index >= 0) {
+            this.setState(
+                {
+                    skillId: this.props.skills[index].id,
+                    skillName: this.props.skills[index].name
+                });
+        }
+    };
 
     render() {
         const {domains, skills} = this.props;
@@ -38,7 +48,7 @@ class LinkSkillToDomain extends Component {
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
                 <h3>Ranger les compétences par domaine</h3>
-                <div style={{float:'left'}}>
+                <div style={{float: 'left'}}>
                     <AutoComplete
                         floatingLabelText="Compétence à ranger"
                         hintText="Chercher la compétence"
@@ -57,6 +67,11 @@ class LinkSkillToDomain extends Component {
                 <div style={{marginTop: '1rem'}}>
                     <RaisedButton label="Valider" primary={true} onClick={::this.linkSkillToDomain}/>
                 </div>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={this.state.submit}
+                    message={`Compétence ${this.state.skillName} rangée dans le domaine ${this.state.domainName}.`}
+                    autoHideDuration={3000}/>
             </Paper>
         );
     }
