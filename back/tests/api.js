@@ -13,9 +13,10 @@ module.exports = {
                 if (err) Promise.reject(err);
             }),
 
-    getUsers: (name, email) =>
+    getUsers: (token) =>
         request
             .get(`${host}/users`)
+            .set('token', token)
             .end((err) => {
                 if (err) Promise.reject(err);
             }),
@@ -72,25 +73,28 @@ module.exports = {
                 if (err) Promise.reject(err);
             }),
 
-    addSkillToDomain: (id, domain_id) =>
+    addSkillToDomain: (id, domain_id, token) =>
         request
             .post(`${host}/domains/${domain_id}/skills`)
+            .set('token', token)
             .send({id})
             .end((err) => {
                 if (err) return Promise.reject(err);
             }),
 
-    mergeSkills: (from, to) =>
+    mergeSkills: (from, to, token) =>
         request
             .put(`${host}/skills`)
+            .set('token', token)
             .send({from, to})
             .end((err) => {
                 if (err) return Promise.reject(err);
             }),
 
-    getUpdates: () =>
+    getUpdates: (token) =>
         request
             .get(`${host}/updates`)
+            .set('token', token)
             .end((err) => {
                 if (err) return Promise.reject(err);
             })

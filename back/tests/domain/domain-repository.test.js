@@ -1,16 +1,12 @@
 'use strict';
 
 const assert = require('assert');
-const Database = require('../../src/database');
-const Repository = require('../repository');
 const DomainRepository = require('../../src/domain/domain-repository');
-
-Repository.init({db: Database});
-DomainRepository.init({db: Database});
+const Database = require('../../src/database');
 
 describe('Domain Repository', () => {
     beforeEach(() => {
-        return Repository.clear()
+        return Database.clear()
     });
 
     it('should add new domains and get it', (done) => {

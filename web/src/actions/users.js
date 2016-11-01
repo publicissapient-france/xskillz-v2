@@ -1,8 +1,7 @@
-import fetch from 'isomorphic-fetch';
-import {browserHistory} from 'react-router';
-import store from 'store';
-import Config from '../Config';
-import {getToken} from './auth';
+import fetch from "isomorphic-fetch";
+import {browserHistory} from "react-router";
+import Config from "../Config";
+import {getToken} from "./auth";
 
 export const REQUEST_USERS_BY_SKILL = 'REQUEST_USERS_BY_SKILL';
 export const RECEIVE_USERS_BY_SKILL = 'RECEIVE_USERS_BY_SKILL';
@@ -228,7 +227,9 @@ export function promoteManager(id) {
     return dispatch => {
         const config = {
             method: 'POST',
-            token: getToken()
+            headers: {
+                token: getToken()
+            }
         };
         return fetch(`${Config.apiURL}/users/${id}/manager`, config)
             .then(response => {

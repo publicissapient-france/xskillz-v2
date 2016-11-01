@@ -14,20 +14,33 @@ const connection = Mysql.createConnection({
 });
 connection.connect();
 
-const Database = {
-    query: (sql, values) => {
-        values = values || [];
-        return new Promise((resolve, reject) => {
-            connection.query(sql, (err, rows) => {
-                if (err) {
-                    log.error(err.message);
-                    reject(err);
-                } else {
-                    resolve(rows);
-                }
-            }, values);
-        });
+const query = (sql, values) => {
+    if (connection.debug) {
+        console.log(sql);
     }
+    values = values || [];
+    return new Promise((resolve, reject) => {
+        connection.query(sql, (err, rows) => {
+            if (err) {
+                log.error(err.message);
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        }, values)
+    });
+};
+
+const Database = {
+    clear: () =>
+        query('DELETE FROM UserSkill')
+            .then(() => query('DELETE FROM Token'))
+            .then(() => query('DELETE FROM UserSkill'))
+            .then(() => query('DELETE FROM UserRole'))
+            .then(() => query('DELETE FROM User'))
+            .then(() => query('DELETE FROM Skill'))
+            .then(() => query('DELETE FROM Domain')),
+    query
 };
 
 module.exports = Database;

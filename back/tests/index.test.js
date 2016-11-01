@@ -2,17 +2,14 @@
 
 const assert = require('assert');
 const Database = require('../src/database');
-const Repository = require('./repository');
 const API = require('./api');
-
-Repository.init({db:Database});
 
 describe('API', function () {
     before(() => {
         require('../src/index');
     });
     beforeEach(() => {
-        return Repository.clear();
+        return Database.clear();
     });
     it('GET /', (done) => {
         API
@@ -71,6 +68,7 @@ describe('API', function () {
                     [
                         {
                             domain: {
+                                color: null,
                                 id: null,
                                 name: null
                             },
@@ -97,6 +95,7 @@ describe('API', function () {
                 assert.deepEqual(res.body, [
                     {
                         "domain": {
+                            color: null,
                             "id": null,
                             "name": null
                         },
@@ -124,7 +123,7 @@ describe('API', function () {
             .then((res) => {
                 const skillId1 = res.body[0].id;
                 const skillId2 = res.body[1].id;
-                return API.mergeSkills(skillId1, skillId2);
+                return API.mergeSkills(skillId1, skillId2, user.token);
             })
             // Then
             .then((res) => {
@@ -136,6 +135,7 @@ describe('API', function () {
 
     it('GET /users', (done) => {
         let domain;
+        let user;
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
             .then(() => API.addDomain('MyDomain'))
@@ -143,10 +143,13 @@ describe('API', function () {
                 domain = res.body;
             })
             .then(() => API.signin('jsmadja@xebia.fr'))
-            .then((res) => API.addSkill('Skill', 2, true, res.body.token))
-            .then((res) => API.addSkillToDomain(res.body.skill_id, domain.id))
+            .then((res) => {
+                user = res.body;
+                return API.addSkill('Skill', 2, true, user.token);
+            })
+            .then((res) => API.addSkillToDomain(res.body.skill_id, domain.id, user.token))
             // When
-            .then(() => API.getUsers())
+            .then(() => API.getUsers(user.token))
             // Then
             .then((res) => {
                 const users = res.body;
@@ -157,7 +160,7 @@ describe('API', function () {
                     [
                         {
                             "domains": [
-                                {color:"#CCCCCC", score:2, name:"MyDomain"}
+                                {color: "#CCCCCC", score: 2, name: "MyDomain"}
                             ],
                             "experienceCounter": 0,
                             "gravatarUrl": "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
@@ -180,7 +183,7 @@ describe('API', function () {
                 return API.addSkill('Skill3', 2, true, user.token)
             })
             .then((res) => API.addSkill('Skill4', 1, false, user.token))
-            .then(() => API.getUpdates())
+            .then(() => API.getUpdates(user.token))
             .then((res) => {
                 assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name).sort(), ["Skill3", "Skill4"]);
             })

@@ -30,7 +30,6 @@ describe('UserService', () => {
                         }
                     ]));
 
-            UserService.init({UserRepository});
             UserService
                 .getManagement()
                 .then(management => {

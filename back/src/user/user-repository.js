@@ -1,14 +1,12 @@
 'use strict';
 
 const Promise = require('bluebird');
-var Bcrypt = require('bcrypt-then');
+const Bcrypt = require('bcrypt-then');
 const saltRounds = 10;
 
-const UserRepository = {
+const Database = require('../database');
 
-    init: (args) => {
-        this.db = args.db;
-    },
+const UserRepository = {
 
     findUserByEmailAndPassword: (email, password) =>
         UserRepository
@@ -46,7 +44,7 @@ const UserRepository = {
             }),
 
     findUserByEmail: (email) =>
-        this.db.query(`
+        Database.query(`
             SELECT *
             FROM User 
             WHERE email = '${email}'
@@ -55,18 +53,18 @@ const UserRepository = {
         }),
 
     getUserByToken: (token) =>
-        this.db.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
+        Database.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
             .then((users) => users[0]),
 
     findUserById: (id) =>
-        this.db.query(`
+        Database.query(`
             SELECT user.* 
             FROM User user 
             WHERE user.id = ${id}
     `).then((users) => users[0]),
 
     findUsersBySkill: (id) =>
-        this.db.query(`
+        Database.query(`
             SELECT user.*, level, interested
             FROM UserSkill user_skill 
             JOIN User user ON user.id = user_skill.user_id 
@@ -75,7 +73,7 @@ const UserRepository = {
     `),
 
     findUserRolesById: (id) =>
-        this.db.query(`
+        Database.query(`
             SELECT name
             FROM UserRole user_role
             JOIN Role role ON role.id = user_role.roles_id
@@ -83,14 +81,14 @@ const UserRepository = {
         `),
 
     getUsers: () =>
-        this.db.query(`
+        Database.query(`
             SELECT * 
             FROM User
             ORDER BY name
     `),
 
     getWebUsers: () =>
-        this.db.query(`
+        Database.query(`
         SELECT u.id AS user_id, u.name AS user_name, u.email AS email,d.name AS domain_name, d.id AS domain_id, d.color AS domain_color, u.diploma AS diploma, SUM(level) AS domain_score
         FROM UserSkill us
         JOIN Skill s ON s.id = us.skill_id
@@ -100,7 +98,7 @@ const UserRepository = {
     `),
 
     getWebUsersWithRoles: (roles) =>
-        this.db.query(`
+        Database.query(`
             SELECT u.id AS user_id, u.name AS user_name, u.email AS email,d.name AS domain_name, d.id AS domain_id, d.color AS domain_color, u.diploma AS diploma, SUM(level) AS domain_score
             FROM UserSkill us
             JOIN Skill s ON s.id = us.skill_id
@@ -115,7 +113,7 @@ const UserRepository = {
         `),
 
     getUsersWithRoles: (roles) =>
-        this.db.query(`
+        Database.query(`
             SELECT *
             FROM User
             WHERE id IN (SELECT DISTINCT(user_id)
@@ -131,33 +129,33 @@ const UserRepository = {
                 user.password = hash;
             })
             .then(() =>
-                this.db.query(`
+                Database.query(`
                     INSERT INTO User (name, email, password)
                     VALUES ('${user.name}','${user.email}', '${user.password}')
             `)),
 
     deleteUserById: (id) =>
-        this.db.query(`DELETE FROM UserRole WHERE User_id = ${id}`).then(() =>
-            this.db.query(`DELETE FROM UserSkill WHERE user_id = ${id}`)).then(() =>
-            this.db.query(`DELETE FROM User WHERE id = ${id}`)),
+        Database.query(`DELETE FROM UserRole WHERE User_id = ${id}`).then(() =>
+            Database.query(`DELETE FROM UserSkill WHERE user_id = ${id}`)).then(() =>
+            Database.query(`DELETE FROM User WHERE id = ${id}`)),
 
     updateUser: (id, user) =>
-        this.db.query(`
+        Database.query(`
             UPDATE User
             SET diploma = '${user.diploma}'
             WHERE id = ${id}`),
 
     assignManager: (userId, managerId) =>
-        this.db.query(`
+        Database.query(`
             UPDATE User SET manager_id = ${managerId} WHERE id = ${userId}
         `),
 
     addRole: (user, roleName) =>
-        this.db.query(`SELECT DISTINCT id FROM Role WHERE name = '${roleName}'`)
-            .then((roles) => this.db.query(`INSERT INTO UserRole(User_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
+        Database.query(`SELECT DISTINCT id FROM Role WHERE name = '${roleName}'`)
+            .then((roles) => Database.query(`INSERT INTO UserRole(User_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
 
     getUpdates: () =>
-        this.db.query(`
+        Database.query(`
             SELECT domain.color, domain.id domain_id, domain.name domain_name, user.diploma user_diploma, user.email user_email, user.id user_id, user.name user_name, skill.id skill_id, user_skill.interested skill_interested, user_skill.level skill_level, skill.name skill_name, user_skill.updatedAt skill_date, user_skill.id user_skill_id
             FROM UserSkill user_skill
                 JOIN User user ON user_skill.user_id = user.id
@@ -168,7 +166,7 @@ const UserRepository = {
     `),
 
     addToken: (user, token) =>
-        this.db.query(`
+        Database.query(`
             INSERT INTO Token (token_value, user_id)
             VALUES ('${token}', ${user.id})
     `),
@@ -178,7 +176,7 @@ const UserRepository = {
             .then((user) => Bcrypt.hash(newPassword, saltRounds))
             .then((hash) => newPassword = hash)
             .then(() =>
-                this.db.query(
+                Database.query(
                     `
                         UPDATE User
                         SET password = '${newPassword}'
@@ -186,10 +184,10 @@ const UserRepository = {
                     `)
             ),
 
-    updatePhone: (userId, phone) => this.db.query(`UPDATE User SET phone = '${phone}' WHERE id = ${userId}`),
+    updatePhone: (userId, phone) => Database.query(`UPDATE User SET phone = '${phone}' WHERE id = ${userId}`),
 
     getManagement: () =>
-        this.db.query(`
+        Database.query(`
             SELECT
               user.id      user_id,
               user.name    user_name,

@@ -2,19 +2,14 @@
 
 const assert = require('assert');
 const Database = require('../../src/database');
-const Repository = require('../repository');
 const SkillRepository = require('../../src/skill/skill-repository');
 const UserRepository = require('../../src/user/user-repository');
 const _ = require('lodash');
 const moment = require('moment');
 
-Repository.init({db: Database});
-SkillRepository.init({db: Database});
-UserRepository.init({db: Database});
-
 describe('User Repository', () => {
     beforeEach(() => {
-        return Repository.clear()
+        return Database.clear()
     });
 
     it('should add new user and get it', (done) => {

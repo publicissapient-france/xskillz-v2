@@ -1,28 +1,9 @@
 'use strict';
 
-const Repository = require('./skill-repository');
+const SkillService = require('./skill-service');
 const log = require('winston');
 
-const createSkill = (skill) => {
-    return {
-        domain: {
-            id: skill.domain_id,
-            name: skill.domain_name,
-            color: skill.color
-        },
-        id: skill.id,
-        name: skill.name,
-        numAllies: skill.num_allies
-    };
-};
-
-
 module.exports = {
-    init: (args) => {
-        this.Repository = Repository;
-        this.Repository.init(args);
-    },
-
     addSkill: (req, res) => {
         var skillRequest = req.body;
         if (!skillRequest.name) {
@@ -30,32 +11,9 @@ module.exports = {
             return;
         }
         skillRequest.level = skillRequest.level || 0;
-        Repository
-            .findSkillByExactName(skillRequest.name)
-            .then((skill) => {
-                if (!skill) {
-                    throw new Error('Not Found');
-                }
-                skillRequest.id = skill.id;
-                return Repository.findUserSkillByUserIdAndSkillId(req.body.user_id, skill.id)
-                    .then((skills) => {
-                        if (skills.length > 0) {
-                            return Repository.updateUserSkillById(skill.id, skillRequest);
-                        } else {
-                            return Repository.addSkill(skillRequest);
-                        }
-                    });
-            })
-            .catch(() =>
-                Repository
-                    .addNewSkill(skillRequest.name)
-                    .then(() => Repository.findSkillByName(skillRequest.name))
-                    .then((skill) => {
-                        skillRequest.id = skill.id;
-                        return Repository.addSkill(skillRequest);
-                    }))
-            .then(() => Repository.findUserSkillByUserIdAndSkillId(skillRequest.user_id, skillRequest.id))
-            .then((userSkills) => res.json(userSkills[0]))
+        SkillService
+            .addSkill(req.body.user_id, skillRequest)
+            .then((userSkill) => res.json(userSkill))
             .catch((err) => {
                 log.error(err.message);
                 res.status(500).send(err.message)
@@ -67,7 +25,7 @@ module.exports = {
             res.status(401).send({deleted: false, error: `You're not logged in`});
             return;
         }
-        Repository
+        SkillService
             .deleteUserSkillById(req.params.id, req.body.user_id)
             .then(() => {
                 res.jsonp({deleted: true});
@@ -83,7 +41,7 @@ module.exports = {
             res.status(401).send({deleted: false, error: `You're not logged in`});
             return;
         }
-        Repository
+        SkillService
             .updateUserSkillById(req.params.id, req.body)
             .then(() => {
                 res.jsonp({updated: true});
@@ -95,9 +53,8 @@ module.exports = {
     },
 
     getSkills: (req, res) =>
-        Repository
+        SkillService
             .getSkills()
-            .map((skill)=> createSkill(skill))
             .then((skills) => {
                 res.jsonp(skills);
             })
@@ -111,7 +68,7 @@ module.exports = {
             res.status(401).send({error: `You're not logged in`});
             return;
         }
-        return Repository
+        SkillService
             .addSkillToDomain(req.params.id, req.body.id)
             .then((skills) => {
                 res.jsonp(skills);
@@ -127,7 +84,7 @@ module.exports = {
             res.status(401).send({error: `You're not logged in`});
             return;
         }
-        return Repository
+        SkillService
             .mergeSkills(req.body.from, req.body.to)
             .then(() => {
                 res.jsonp({merged: true});
