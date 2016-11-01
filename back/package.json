@@ -38,7 +38,7 @@
     "db-migrate": "^0.10.0-beta.13",
     "db-migrate-mysql": "1.1.10",
     "eslint": "3.9.1",
-    "istanbul": "1.1.0-alpha.1",
+    "istanbul": "^0.4.5",
     "mocha": "3.1.2",
     "nodemon": "^1.11.0",
     "npm-check": "^5.4.0",
