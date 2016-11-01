@@ -4,7 +4,7 @@ import UserItem from "./UserItem";
 import TextField from "material-ui/TextField";
 import Infinite from "react-infinite";
 import CircularProgress from "material-ui/CircularProgress";
-import diacritics from "diacritics";
+import {clean} from "../../services/strings";
 
 class UsersContent extends Component {
 
@@ -20,14 +20,10 @@ class UsersContent extends Component {
         }
     }
 
-    static cleanText(text) {
-        return diacritics.remove(text.toLowerCase());
-    }
-
     filter(list, value) {
-        value = UsersContent.cleanText(value);
+        value = clean(value);
         return _(list)
-            .filter(user => UsersContent.cleanText(user.name).indexOf(value) >= 0)
+            .filter(user => clean(user.name).indexOf(value) >= 0)
             .value();
     }
 

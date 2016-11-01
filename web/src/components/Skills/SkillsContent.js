@@ -1,11 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
-import AutoComplete from 'material-ui/AutoComplete';
-import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
-import CircularProgress from 'material-ui/CircularProgress';
-
-import UsersLevel from './UsersLevel/UsersLevel';
+import React, {Component, PropTypes} from "react";
+import _ from "lodash";
+import AutoComplete from "material-ui/AutoComplete";
+import CircularProgress from "material-ui/CircularProgress";
+import UsersLevel from "./UsersLevel/UsersLevel";
+import {clean} from "../../services/strings";
 
 class SkillsContent extends Component {
 
@@ -15,7 +13,7 @@ class SkillsContent extends Component {
     }
 
     componentDidMount() {
-        const { loaded } = this.props.skills;
+        const {loaded} = this.props.skills;
         if (!loaded) {
             this.props.fetchSkills();
         } else {
@@ -24,8 +22,8 @@ class SkillsContent extends Component {
     }
 
     componentDidUpdate() {
-        const { name } = this.props.location.query;
-        const { loaded } = this.props.skills;
+        const {name} = this.props.location.query;
+        const {loaded} = this.props.skills;
 
         if (loaded && name && this.search) {
             this.onNewRequest(name);
@@ -48,9 +46,16 @@ class SkillsContent extends Component {
         return ret;
     };
 
+    filter(searchText, key) {
+        if (!searchText) {
+            return true;
+        }
+        return clean(key).indexOf(clean(searchText)) >= 0;
+    }
+
     render() {
 
-        const { loaded } = this.props.skills;
+        const {loaded} = this.props.skills;
         const {onUserClick} = this.props;
 
         if (!loaded) {
@@ -65,7 +70,7 @@ class SkillsContent extends Component {
         var nameArray = [];
         _.each(skills, (s) => nameArray.push(s.name));
 
-        const { name } = this.props.location.query;
+        const {name} = this.props.location.query;
 
         const composedUsers = SkillsContent.composeUsers(19, users);
 
@@ -76,8 +81,8 @@ class SkillsContent extends Component {
                         autoFocus={true}
                         hintText={'Chercher une compétence ...'}
                         dataSource={nameArray}
-                        menuStyle={{cursor:'pointer'}}
-                        filter={AutoComplete.fuzzyFilter}
+                        menuStyle={{cursor: 'pointer'}}
+                        filter={::this.filter}
                         onNewRequest={::this.onNewRequest}
                         searchText={name}
                         maxSearchResults={10}/>
