@@ -7,7 +7,9 @@ const DomainRouter = {
         express
             .post('/domains', Security.requireLogin, DomainController.addDomain)
             .delete('/domains/:id', Security.requireLogin, DomainController.deleteDomain)
-            .get('/domains', DomainController.getDomains);
+            .get('/domains/full', DomainController.getDomainsWithSkills)
+            .get('/domains', DomainController.getDomains)
+
     }
 };
 module.exports = DomainRouter;

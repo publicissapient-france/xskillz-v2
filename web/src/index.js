@@ -18,6 +18,7 @@ import SigninPage from 'containers/Auth/SigninPage';
 import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
 import ApiPage from 'containers/Api/ApiPage';
+import DomainsPage from 'containers/Domains/DomainsPage';
 
 import configureStore from './store/configureStore';
 
@@ -52,6 +53,10 @@ ReactDOM.render(
                 <Route path="users"
                        components={{main: UsersPage, header: Header}}
                        dataTypePage="users"/>
+
+                <Route path="domains"
+                       components={{main: DomainsPage, header: Header}}
+                       dataTypePage="domains"/>
 
                 <Route path="user/:id"
                        components={{main: UserPage, header: Header}}

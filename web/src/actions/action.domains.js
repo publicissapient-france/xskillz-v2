@@ -4,6 +4,22 @@ import Config from '../Config';
 import {getToken} from './auth';
 
 export const DOMAINS_GOT = 'DOMAINS_GOT';
+export const REQUEST_DOMAINS = 'REQUEST_DOMAINS';
+export const RECEIVE_DOMAINS = 'RECEIVE_DOMAINS';
+
+export function requestDomainsWithSkills() {
+    return {
+        type: REQUEST_DOMAINS
+    }
+}
+export function receiveDomainsWithSkills(domains) {
+    return {
+        type: RECEIVE_DOMAINS,
+        payload: {
+            domains
+        }
+    }
+}
 
 export function domainsGot(domains) {
     return {
@@ -31,6 +47,27 @@ export function fetchDomains() {
                 }
             })
             .then(domains => dispatch(domainsGot(domains)));
+    }
+}
+
+export function fetchDomainsWithSkills() {
+    return (dispatch) => {
+        dispatch(requestDomainsWithSkills());
+        const config = {
+            method: 'GET',
+            headers: {
+                token: getToken()
+            }
+        };
+        return fetch(`${Config.apiURL}/domains/full`, config)
+            .then((response) => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(json => dispatch(receiveDomainsWithSkills(json)));
     }
 }
 

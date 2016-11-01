@@ -12,25 +12,29 @@ class HeaderContent extends Component {
         titles["management"] = "Management";
         titles["user/:id"] = "Profil";
         titles["users"] = "Tous les profils";
+        titles["domains"] = "Domaines";
         titles["settings"] = "Préférences";
         titles["help"] = "Aide";
         titles["logout"] = "Déconnexion";
         titles["updates"] = "Skillz";
 
-        const {goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings, goToUpdates, goToManagement, goToLogout} = this.props;
+        const {goToSkills, goToUsers, goToHelp, goToMe, route, goToSettings, goToDomains, goToUpdates, goToManagement, goToLogout} = this.props;
 
         const style = {height: 'auto'};
 
         return (
             <AppBar showMenuIconButton={false} title={titles[route.path]}>
                 <IconButton onClick={goToMe} style={style} tooltip="Mon profil">
-                    <FontIcon className={'material-icons'} color="white">home</FontIcon>
+                    <FontIcon className={'material-icons'} color="white">face</FontIcon>
                 </IconButton>
                 <IconButton onClick={goToSkills} style={style} tooltip="Chercher par compétences">
                     <FontIcon className={'material-icons'} color="white">search</FontIcon>
                 </IconButton>
                 <IconButton onClick={goToUsers} style={style} tooltip="Utilisateurs">
                     <FontIcon className={'material-icons'} color="white">supervisor_account</FontIcon>
+                </IconButton>
+                <IconButton onClick={goToDomains} style={style} tooltip="Domaines">
+                    <FontIcon className={'material-icons'} color="white">view_module</FontIcon>
                 </IconButton>
                 <IconButton onClick={goToUpdates} style={style} tooltip="Dernières mises à jour">
                     <FontIcon className={'material-icons'} color="white">update</FontIcon>

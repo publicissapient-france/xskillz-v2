@@ -17,5 +17,12 @@ module.exports = {
     deleteDomain: (req, res) =>
         DomainService
             .deleteDomain(req.params.id)
-            .then(() => res.jsonp({deleted: true}))
+            .then(() => res.jsonp({deleted: true})),
+
+    getDomainsWithSkills: (req, res) =>
+        DomainService
+            .getDomainsWithSkills()
+            .then((domains) => {
+                res.send({domains});
+            })
 };

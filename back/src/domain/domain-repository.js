@@ -22,6 +22,17 @@ const DomainRepository = {
             ORDER BY name ASC
     `),
 
+    getDomainsWithSkills: () =>
+        Database.query(`
+            SELECT
+              skill.id    skill_id,
+              skill.name  skill_name,
+              domain.id   domain_id,
+              domain.name domain_name,
+              color       domain_color
+            FROM Skill skill LEFT JOIN Domain domain ON domain.id = skill.domain_id
+    `),
+
     deleteDomain: (id) =>
         Database.query(`
             DELETE FROM Domain

@@ -1,4 +1,4 @@
-import { DOMAINS_GOT } from '../actions/action.domains';
+import { DOMAINS_GOT, RECEIVE_DOMAINS } from '../actions/action.domains';
 
 const initialState = {
     list: [],
@@ -7,6 +7,11 @@ const initialState = {
 
 export function domains(state = initialState, action) {
     switch (action.type) {
+        case RECEIVE_DOMAINS:
+            return Object.assign({}, state, {
+                domains: action.payload.domains.domains,
+                loaded: true
+            });
         case DOMAINS_GOT:
             return Object.assign({}, state, {
                 list: action.payload.domains,
