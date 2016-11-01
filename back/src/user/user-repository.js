@@ -196,7 +196,7 @@ const UserRepository = {
               manager.id   manager_id,
               manager.name manager_name
             FROM User user
-              JOIN User manager ON user.manager_id = manager.id
+              LEFT JOIN User manager ON user.manager_id = manager.id
     `)
 };
 

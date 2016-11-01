@@ -12,21 +12,15 @@ describe('UserService', () => {
             sandbox = sinon.sandbox.create();
         });
         afterEach(() => sandbox.restore());
-        it('Get users grouped by managers', done => {
+
+        it('Get users grouped by managers order by manager name', done => {
             sandbox
                 .stub(UserRepository, 'getManagement')
                 .returns(Promise.resolve(
                     [
-                        {
-                            user_id: 1,
-                            user_name: "Christophe Heubès"
-                        },
-                        {
-                            user_id: 2,
-                            user_name: "Julien Smadja",
-                            manager_id: 1,
-                            manager_name: "Christophe Heubès"
-                        }
+                        {user_id: 1, user_name: "Christophe Heubès", manager_id: null, manager_name: null},
+                        {user_id: 2, user_name: "Alban Smadja", manager_id: 1, manager_name: "Christophe Heubès"},
+                        {user_id: 3, user_name: "Benjamin Lacroix", manager_id: 2, manager_name: "Alban Smadja"}
                     ]));
 
             UserService
@@ -35,27 +29,21 @@ describe('UserService', () => {
                     assert.deepEqual(management,
                         [
                             {
-                                manager: {
-                                    name: "Christophe Heubès",
-                                    id: 1
-                                },
+                                manager: {id: 2, name: "Alban Smadja"},
                                 users: [
-                                    {
-                                        id: 2,
-                                        name: "Julien Smadja"
-                                    }
+                                    {id: 3, name: "Benjamin Lacroix"}
                                 ]
                             },
                             {
-                                manager: {
-                                    name: undefined,
-                                    id: undefined
-                                },
+                                manager: {name: "Christophe Heubès", id: 1},
                                 users: [
-                                    {
-                                        id: 1,
-                                        name: "Christophe Heubès"
-                                    }
+                                    {id: 2, name: "Alban Smadja"}
+                                ]
+                            },
+                            {
+                                manager: {name: null, id: null},
+                                users: [
+                                    {id: 1, name: "Christophe Heubès"}
                                 ]
                             }
                         ]
