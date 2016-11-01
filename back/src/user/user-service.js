@@ -20,7 +20,8 @@ const createUser = raw =>
         experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0,
         phone: raw.phone,
         manager_id: raw.manager_id,
-        readable_id: raw.name.toLowerCase().replace(' ', '-')
+        readable_id: raw.name.toLowerCase().replace(' ', '-'),
+        address: raw.address ? JSON.parse(raw.address) : null
     });
 
 const createDomain = domainSkills => {
@@ -307,9 +308,9 @@ module.exports = {
         Repository
             .updatePassword(userId, oldPassword, newPassword),
 
-    updatePhone: (userId, phone) =>
-        Repository
-            .updatePhone(userId, phone),
+    updatePhone: (userId, phone) => Repository.updatePhone(userId, phone),
+
+    updateAddress: (userId, address) => Repository.updateAddress(userId, address),
 
     getUserByToken: (token) =>
         Repository.getUserByToken(token),

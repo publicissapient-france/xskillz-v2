@@ -2,6 +2,7 @@
 
 const log = require('winston');
 const UserService = require('./user-service');
+const Promise = require('bluebird');
 
 module.exports = {
     addUser: (req, res) => {
@@ -194,9 +195,15 @@ module.exports = {
                     log.error(err.message);
                     res.status(500).jsonp({error: err.message});
                 });
-        } else if (userId && req.body.phone) {
-            UserService
-                .updatePhone(userId, req.body.phone)
+        } else if (userId && req.body.phone || req.body.address) {
+            const tasks = [];
+            if (req.body.phone) {
+                tasks.push(UserService.updatePhone(userId, req.body.phone));
+            }
+            if (req.body.address) {
+                tasks.push(UserService.updateAddress(userId, req.body.address));
+            }
+            Promise.all(tasks)
                 .then(() => res.status(200).jsonp({updated: true}))
                 .catch(err => res.status(500).jsonp({error: err.message}));
         }

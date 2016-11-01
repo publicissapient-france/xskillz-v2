@@ -195,6 +195,8 @@ const UserRepository = {
 
     updatePhone: (userId, phone) => Database.query(`UPDATE User SET phone = '${phone}' WHERE id = ${userId}`),
 
+    updateAddress: (userId, address) => Database.query(`UPDATE User SET address = '${JSON.stringify(address)}' WHERE id = ${userId}`),
+
     getManagement: () =>
         Database.query(`
             SELECT
