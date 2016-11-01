@@ -168,4 +168,18 @@ describe('User Repository', () => {
             .then(done)
             .catch(done);
     });
+
+    it('should return user by readable id', (done) => {
+        const email = 'email';
+        const name = 'Firstname Lastname';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByReadableId('firstname-lastname'))
+            .then((user) => {
+                assert.equal(user.name, 'Firstname Lastname');
+            })
+            .then(done)
+            .catch(done);
+    });
 });

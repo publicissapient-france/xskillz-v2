@@ -13,10 +13,14 @@ const UserRouter = {
             .post(UserController.addUser);
 
         express
-            .route('/users/:id')
+            .route('/users/:id([0-9]+)')
             .get(UserController.getUserById)
             .put(Security.requireLogin, UserController.updateUser)
             .delete(Security.requireLogin, UserController.deleteUserById);
+
+        express
+            .route('/users/:id([\\w\\-]+)')
+            .get(UserController.getUserByReadableId);
 
         express
             .get('/updates', Security.requireLogin, UserController.getUpdates)

@@ -12,16 +12,16 @@ const computeScore = skills =>
         .map((skill)=>skill.level)
         .reduce((sum, n) => sum + n, 0);
 
-const createUser = raw => {
-    return {
+const createUser = raw =>
+    ({
         name: raw.name,
         id: raw.id,
         gravatarUrl: gravatar.url(raw.email),
         experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0,
         phone: raw.phone,
-        manager_id: raw.manager_id
-    };
-};
+        manager_id: raw.manager_id,
+        readable_id: raw.name.toLowerCase().replace(' ', '-')
+    });
 
 const createDomain = domainSkills => {
     var domain = domainSkills[0];
@@ -50,7 +50,8 @@ const createUserUpdates = (userUpdates) => {
             name: user.user_name,
             id: user.user_id,
             gravatarUrl: gravatar.url(user.user_email),
-            experienceCounter: user.user_diploma ? new Date().getFullYear() - new Date(user.user_diploma).getFullYear() : 0
+            experienceCounter: user.user_diploma ? new Date().getFullYear() - new Date(user.user_diploma).getFullYear() : 0,
+            readable_id: user.user_name.toLowerCase().replace(' ', '-')
         },
         updates: userUpdates.map((userUpdate)=> {
             return {
@@ -81,12 +82,10 @@ const createUpdates = (updates) => {
     return response;
 };
 
-const createUserById = (id) => {
-    let user = {domains: []};
-    return Repository
-        .findUserById(id)
-        .then((user) => createUser(user))
-        .then((user) => attachManager(user))
+const populateUser = user => {
+    user = createUser(user);
+    user.domains = [];
+    return attachManager(user)
         .then((dbUser) => {
             user = _.assignWith(user, dbUser);
             return SkillService.findUserSkillsById(user.id);
@@ -106,6 +105,16 @@ const createUserById = (id) => {
         })
         .then(() => user);
 };
+
+const createUserById = (id) =>
+    Repository
+        .findUserById(id)
+        .then(populateUser);
+
+const createUserByReadableId = (id) =>
+    Repository
+        .findUserByReadableId(id)
+        .then(populateUser);
 
 const toSimpleUserObject = (user) => ({id: user.user_id, name: user.user_name});
 
@@ -220,7 +229,8 @@ module.exports = {
                                     color: domainRow.domain_color
                                 })
                             ),
-                            score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0)
+                            score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0),
+                            readable_id: user.user_name.toLowerCase().replace(' ', '-')
                         };
                     })
                     .sortBy('name');
@@ -310,5 +320,6 @@ module.exports = {
             .then((user) => createUserById(user.id)),
 
     createUserById,
+    createUserByReadableId,
     attachManager
 };

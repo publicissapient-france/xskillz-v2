@@ -65,6 +65,13 @@ const UserRepository = {
             WHERE user.id = ${id}
     `).then((users) => users[0]),
 
+    findUserByReadableId: (id) =>
+        Database.query(`
+            SELECT user.* 
+            FROM User user 
+            WHERE replace(lower(name), ' ', '-') = '${id}'
+    `).then((users) => users[0]),
+
     findUsersBySkill: (id) =>
         Database.query(`
             SELECT user.*, level, interested

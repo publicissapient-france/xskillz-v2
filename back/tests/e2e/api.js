@@ -21,6 +21,14 @@ module.exports = {
                 if (err) Promise.reject(err);
             }),
 
+    getUserById: (id, token) =>
+        request
+            .get(`${host}/users/${id}`)
+            .set('token', token)
+            .end((err) => {
+                if (err) Promise.reject(err);
+            }),
+
     getRoot: () =>
         request
             .get(`${host}/`)

@@ -11,7 +11,7 @@ class UpdateItem extends Component {
     render() {
 
         const { onUserClick, update, onSkillClick } = this.props;
-        const { name, gravatarUrl, id } = update.user;
+        const { name, gravatarUrl, id, readable_id } = update.user;
 
         return (
             <div className="user-row">
@@ -21,7 +21,7 @@ class UpdateItem extends Component {
                             <Avatar src={gravatarUrl} size={75}/>
                         </div>
                         <div className="user-right">
-                            <LabelButton label={name} onClick={()=>{onUserClick(id)}}/>
+                            <LabelButton label={name} onClick={()=>{onUserClick(readable_id)}}/>
                             <p className="user-update-label">{update.updates.length} nouvelle{update.updates.length>1?'s':''} compétence{update.updates.length>1?'s':''}</p>
                         </div>
                     </div>

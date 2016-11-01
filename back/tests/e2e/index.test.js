@@ -164,15 +164,43 @@ describe('API', function () {
                 assert.deepEqual(users,
                     [
                         {
-                            "domains": [
-                                {color: "#CCCCCC", score: 2, name: "MyDomain"}
-                            ],
-                            "experienceCounter": 0,
-                            "gravatarUrl": "//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc",
-                            "name": "Julien",
+                            domains: [ {color: '#CCCCCC', score: 2, name: 'MyDomain'}],
+                            experienceCounter: 0,
+                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                            name: 'Julien',
+                            readable_id: 'julien',
                             score: 2
                         }
                     ]);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should get user by readable id', (done) => {
+        // Given
+        API.createUser('Julien Smadja', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => API.getUserById('julien-smadja', res.body.token))
+            // Then
+            .then((res) => {
+                const user = res.body;
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        domains: [],
+                        experienceCounter: 0,
+                        gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: null,
+                        roles: [
+                            'Manager'
+                        ],
+                        score: 0,
+                        readable_id: 'julien-smadja'
+                    }
+                );
             })
             .then(done)
             .catch(done);

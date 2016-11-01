@@ -60,6 +60,18 @@ module.exports = {
             });
     },
 
+    getUserByReadableId: (req, res) => {
+        UserService
+            .createUserByReadableId(req.params.id)
+            .then((user) => {
+                res.json(user);
+            })
+            .catch((err) => {
+                log.error(err.message);
+                res.status(404).jsonp({error: `User #${req.params.id} not found`, message: err.message});
+            });
+    },
+
     getUsersMobileVersion: (req, res) => {
         UserService
             .getUsersMobileVersion(req.query)

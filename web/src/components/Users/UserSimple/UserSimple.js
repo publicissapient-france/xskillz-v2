@@ -24,7 +24,7 @@ class UserSimple extends Component {
 
         //noinspection JSUnresolvedVariable
         return (
-            <div className={"user-row user-interested-"+user.interested} onClick={()=>{::this.onUserClick(user.id)}}>
+            <div className={"user-row user-interested-"+user.interested} onClick={()=>{::this.onUserClick(user.readable_id)}}>
                 <Paper>
                     <div className={"user-content"}>
                         <div className="user-left">
