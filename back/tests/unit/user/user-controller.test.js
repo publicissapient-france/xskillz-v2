@@ -493,5 +493,19 @@ describe('UserController', () => {
                 .catch(done);
         });
 
+        it('should return json if get updates succeeded', done => {
+            sandbox
+                .stub(UserService, 'getUpdates')
+                .returns(Promise.resolve([]));
+
+            UserController
+                .getUpdates(req, res)
+                .then(() => {
+                    sinon.assert.calledWith(res.jsonp, []);
+                })
+                .then(done)
+                .catch(done);
+        });
+
     });
 });

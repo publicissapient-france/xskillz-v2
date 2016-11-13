@@ -187,6 +187,23 @@ describe('UserService', () => {
                 .catch(done);
         });
 
+        it('should assign manager to user', done => {
+            const userId = 234;
+            const managerId = 123;
+
+            const assignManager = sandbox
+                .stub(UserRepository, 'assignManager')
+                .returns(Promise.resolve());
+
+            UserService
+                .assignManager(userId, managerId)
+                .then(() => {
+                    sinon.assert.calledWith(assignManager, userId, managerId);
+                })
+                .then(done)
+                .catch(done);
+        });
+
         it('should get users', done => {
             sandbox
                 .stub(UserRepository, 'getUsers')
@@ -372,6 +389,120 @@ describe('UserService', () => {
                 .deleteUserById(userId)
                 .then(() => {
                     sinon.assert.calledWith(deleteUserById, userId);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get updates', done => {
+            sandbox
+                .stub(UserRepository, 'getUpdates')
+                .returns(Promise.resolve(
+                    [
+                        {
+                            "color": "#6186ea",
+                            "domain_id": 10,
+                            "domain_name": "Mobile",
+                            "user_diploma": null,
+                            "user_email": "mohayon@xebia.fr",
+                            "user_id": 272,
+                            "user_name": "Michaël OHAYON",
+                            "skill_id": 1040,
+                            "skill_interested": false,
+                            "skill_level": 1,
+                            "skill_name": "Ionic",
+                            "skill_date": "2016-11-10 13:06:52",
+                            "user_skill_id": 7730
+                        },
+                        {
+                            "color": "#d7d5d0",
+                            "domain_id": 5,
+                            "domain_name": "Data",
+                            "user_diploma": null,
+                            "user_email": "mohayon@xebia.fr",
+                            "user_id": 272,
+                            "user_name": "Michaël OHAYON",
+                            "skill_id": 943,
+                            "skill_interested": true,
+                            "skill_level": 1,
+                            "skill_name": "tensorflow",
+                            "skill_date": "2016-11-10 13:05:37",
+                            "user_skill_id": 7729
+                        },
+                        {
+                            "color": "#6186ea",
+                            "domain_id": 10,
+                            "domain_name": "Mobile",
+                            "user_diploma": null,
+                            "user_email": "mohayon@xebia.fr",
+                            "user_id": 272,
+                            "user_name": "Michaël OHAYON",
+                            "skill_id": 940,
+                            "skill_interested": true,
+                            "skill_level": 1,
+                            "skill_name": "Firebase",
+                            "skill_date": "2016-11-10 13:04:37",
+                            "user_skill_id": 7728
+                        }
+                    ]
+                ));
+
+            UserService
+                .getUpdates()
+                .then((updates) => {
+                    assert.deepEqual(updates,
+                        [
+                            {
+                                "updates": [
+                                    {
+                                        "date": "2016-11-10 13:06:52",
+                                        "id": 7730,
+                                        "skill": {
+                                            "color": "#6186ea",
+                                            "domain": "Mobile",
+                                            "id": 1040,
+                                            "interested": false,
+                                            "level": 1,
+                                            "name": "Ionic"
+                                        }
+                                    },
+                                    {
+                                        "date": "2016-11-10 13:05:37",
+                                        "id": 7729,
+                                        "skill": {
+                                            "color": "#d7d5d0",
+                                            "domain": "Data",
+                                            "id": 943,
+                                            "interested": false,
+                                            "level": 1,
+                                            "name": "tensorflow"
+                                        }
+                                    },
+                                    {
+                                        "date": "2016-11-10 13:04:37",
+                                        "id": 7728,
+                                        "skill": {
+                                            "color": "#6186ea",
+                                            "domain": "Mobile",
+                                            "id": 940,
+                                            "interested": false,
+                                            "level": 1,
+                                            "name": "Firebase"
+                                        }
+                                    }
+                                ],
+                                "user": {
+                                    "address": null,
+                                    "experienceCounter": 0,
+                                    "gravatarUrl": "//www.gravatar.com/avatar/fd10bdaf3f264f4054a95ceaa6118b14",
+                                    "id": 272,
+                                    "manager_id": undefined,
+                                    "name": "Michaël OHAYON",
+                                    "phone": undefined,
+                                    "readable_id": "michaël-ohayon"
+                                }
+                            }
+                        ]);
                 })
                 .then(done)
                 .catch(done);

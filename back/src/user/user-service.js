@@ -5,6 +5,7 @@ const _ = require('lodash');
 const gravatar = require('gravatar');
 const uuid = require('uuid');
 const User = require('./user');
+const Updates = require('./updates');
 
 const SkillService = require('../skill/skill-service');
 
@@ -31,45 +32,6 @@ const createDomain = domainSkills => {
             })
             .value()
     };
-};
-
-const createUserUpdates = (userUpdates) => {
-    var user = userUpdates[0];
-    return {
-        user: {
-            name: user.user_name,
-            id: user.user_id,
-            gravatarUrl: gravatar.url(user.user_email),
-            experienceCounter: user.user_diploma ? new Date().getFullYear() - new Date(user.user_diploma).getFullYear() : 0,
-            readable_id: user.user_name.toLowerCase().replace(' ', '-')
-        },
-        updates: userUpdates.map((userUpdate)=> {
-            return {
-                id: userUpdate.user_skill_id,
-                skill: {
-                    id: userUpdate.skill_id,
-                    interested: userUpdate.skill_interested[0] === 1,
-                    level: userUpdate.skill_level,
-                    name: userUpdate.skill_name,
-                    color: userUpdate.color,
-                    domain: userUpdate.domain_name
-                },
-                date: userUpdate.skill_date
-            };
-        })
-    };
-};
-
-const createUpdates = (updates) => {
-    const response = [];
-    _(updates)
-        .groupBy((update)=>update.user_id)
-        .values()
-        .value()
-        .forEach((userUpdates) => {
-            response.push(createUserUpdates(userUpdates));
-        });
-    return response;
 };
 
 const populateUser = user => {
@@ -279,13 +241,24 @@ module.exports = {
             );
     },
 
-    assignManager: (userId, managerId) =>
-        Repository
-            .assignManager(userId, managerId),
+    assignManager: (userId, managerId) => Repository.assignManager(userId, managerId),
 
     updateUser: (userId, body) => Repository.updateUser(userId, body),
 
-    getUpdates: () => Repository.getUpdates().then((updates) => createUpdates(updates)),
+    getUpdates: () =>
+        Repository
+            .getUpdates()
+            .then(updates => {
+                const response = [];
+                _(updates)
+                    .groupBy(update => update.user_id)
+                    .values()
+                    .value()
+                    .forEach((userUpdates) => {
+                        response.push(new Updates(userUpdates));
+                    });
+                return response;
+            }),
 
     updatePassword: (userId, oldPassword, newPassword) => Repository.updatePassword(userId, oldPassword, newPassword),
 

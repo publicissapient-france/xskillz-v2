@@ -367,22 +367,4 @@ describe('API', function () {
             .then(done)
             .catch(done);
     });
-
-    it('should get all updates', (done) => {
-        // Given
-        let user;
-        API.createUser('Julien', 'jsmadja2@xebia.fr')
-            .then(() => API.signin('jsmadja2@xebia.fr'))
-            .then((res) => {
-                user = res.body;
-                return API.addSkill('Skill3', 2, true, user.token);
-            })
-            .then(() => API.addSkill('Skill4', 1, false, user.token))
-            .then(() => API.getUpdates(user.token))
-            .then((res) => {
-                assert.deepEqual(res.body[0].updates.map((update)=>update.skill.name).sort(), ["Skill3", "Skill4"]);
-            })
-            .then(done)
-            .catch((err) => done(err));
-    });
 });

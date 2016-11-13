@@ -14,7 +14,6 @@ class User {
         this.readable_id = raw.name.toLowerCase().replace(/ /g, "-");
         this.address = raw.address ? JSON.parse(raw.address) : null;
     }
-
 }
 
 module.exports = User;
