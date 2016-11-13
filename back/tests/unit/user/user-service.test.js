@@ -359,5 +359,22 @@ describe('UserService', () => {
                 .then(done)
                 .catch(done);
         });
+
+        it('should delete user', done => {
+            const userId = 234;
+
+            const deleteUserById =
+                sandbox
+                    .stub(UserRepository, 'deleteUserById')
+                    .returns(Promise.resolve());
+
+            UserService
+                .deleteUserById(userId)
+                .then(() => {
+                    sinon.assert.calledWith(deleteUserById, userId);
+                })
+                .then(done)
+                .catch(done);
+        });
     });
 });

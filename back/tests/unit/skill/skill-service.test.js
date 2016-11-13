@@ -108,5 +108,19 @@ describe('SkillService', () => {
                 .catch(done);
         });
 
+        it('should remove domain from skills', done => {
+            const removeDomainFromSkills =
+                sandbox.stub(SkillRepository, 'removeDomainFromSkills')
+                    .returns(Promise.resolve());
+
+            SkillService
+                .removeDomainFromSkills(5)
+                .then(() => {
+                    sinon.assert.calledWith(removeDomainFromSkills, 5);
+                })
+                .then(done)
+                .catch(done);
+        });
+
     });
 });

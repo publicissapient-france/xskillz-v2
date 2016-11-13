@@ -26,12 +26,44 @@ describe('DomainController', () => {
         it('should return domains with skills', done => {
             sandbox
                 .stub(DomainService, 'getDomainsWithSkills')
-                .returns(Promise.resolve([{domain:'domain'}]));
+                .returns(Promise.resolve([{domain: 'domain'}]));
 
             DomainController
                 .getDomainsWithSkills(req, res)
                 .then(() => {
-                    sinon.assert.calledWith(res.jsonp, {domains:[{domain:'domain'}]});
+                    sinon.assert.calledWith(res.jsonp, {domains: [{domain: 'domain'}]});
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should return domains', done => {
+            sandbox
+                .stub(DomainService, 'getDomains')
+                .returns(Promise.resolve([{domain: 'domain'}]));
+
+            DomainController
+                .getDomains(req, res)
+                .then(() => {
+                    sinon.assert.calledWith(res.jsonp, [{domain: 'domain'}]);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should delete a domain', done => {
+            sandbox
+                .stub(DomainService, 'deleteDomain')
+                .returns(Promise.resolve());
+
+            req.params = {
+                id: 1
+            };
+
+            DomainController
+                .deleteDomain(req, res)
+                .then(() => {
+                    sinon.assert.calledWith(res.jsonp, {deleted: true});
                 })
                 .then(done)
                 .catch(done);

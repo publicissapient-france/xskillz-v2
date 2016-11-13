@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const assert = require('assert');
 
 const DomainService = require('../../../src/domain/domain-service');
+const SkillService = require('../../../src/skill/skill-service');
 const DomainRepository = require('../../../src/domain/domain-repository');
 
 describe('DomainService', () => {
@@ -13,7 +14,7 @@ describe('DomainService', () => {
         });
         afterEach(() => sandbox.restore());
 
-        it('Get get domains with skills', done => {
+        it('should get domains with skills', done => {
             sandbox
                 .stub(DomainRepository, 'getDomainsWithSkills')
                 .returns(Promise.resolve(
@@ -78,6 +79,53 @@ describe('DomainService', () => {
                             }
                         ]
                     );
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get domains', done => {
+            sandbox
+                .stub(DomainRepository, 'getDomains')
+                .returns(Promise.resolve(
+                    [
+                        {
+                            domain_id: 9,
+                            domain_name: 'Back',
+                            domain_color: '#e23d27'
+                        }
+                    ]));
+
+            DomainService
+                .getDomains()
+                .then(domains => {
+                    assert.deepEqual(domains,
+                        [
+                            {
+                                domain_id: 9,
+                                domain_name: 'Back',
+                                domain_color: '#e23d27'
+                            }
+                        ]
+                    );
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should delete a domain', done => {
+            sandbox
+                .stub(SkillService, 'removeDomainFromSkills')
+                .returns(Promise.resolve());
+
+            const deleteDomain = sandbox
+                .stub(DomainRepository, 'deleteDomain')
+                .returns(Promise.resolve());
+
+            DomainService
+                .deleteDomain(5)
+                .then(() => {
+                    sinon.assert.calledWith(deleteDomain, 5);
                 })
                 .then(done)
                 .catch(done);

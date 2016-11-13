@@ -19,23 +19,6 @@ describe('API', function () {
             .catch(done);
     });
 
-    it('get all domains', (done) => {
-        // Given
-        API.createUser('Julien', 'jsmadja@xebia.fr')
-            .then(() => API.signin('jsmadja@xebia.fr'))
-            .then((res) => API.addDomain('MyDomain', res.body.token))
-            // When
-            .then(() => API.getDomains())
-            // Then
-            .then((res) => {
-                const domain = res.body[0];
-                delete domain.id;
-                assert.deepEqual(res.body, [{name: 'MyDomain', color: '#CCCCCC'}]);
-            })
-            .then(done)
-            .catch(done);
-    });
-
     it('get me', (done) => {
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
@@ -59,27 +42,6 @@ describe('API', function () {
                     ],
                     score: 0
                 });
-            })
-            .then(done)
-            .catch(done);
-    });
-
-    it('should delete a domain', (done) => {
-        // Given
-        let user;
-        API.createUser('Julien', 'jsmadja@xebia.fr')
-            .then(() => API.signin('jsmadja@xebia.fr'))
-            .then((res) => user = res.body)
-            .then(() => API.addDomain('MyDomain', user.token))
-            .then(() => API.getDomains())
-            // When
-            .then((res) => API.deleteDomain(res.body[0].id, user.token))
-            // Then
-            .then((res) => {
-                assert.deepEqual(res.body,
-                    {
-                        "deleted": true
-                    });
             })
             .then(done)
             .catch(done);
@@ -424,21 +386,6 @@ describe('API', function () {
             .catch((err) => done(err));
     });
 
-    it('should delete an user', (done) => {
-        // Given
-        let user;
-        API.createUser('Julien', 'jsmadja@xebia.fr')
-            .then(res => user = res.body)
-            .then(() => API.createUser('Benjamin', 'blacroix@xebia.fr'))
-            .then(() => API.signin('blacroix@xebia.fr'))
-            .then((res) => API.deleteUser(user.id, res.body.token))
-            .then((res) => {
-                assert.deepEqual(res.body, {deleted: true});
-            })
-            .then(done)
-            .catch((err) => done(err));
-    });
-
     it('should assign a user', (done) => {
         // Given
         let user;
@@ -446,11 +393,11 @@ describe('API', function () {
             .then(res => user = res.body)
             .then(() => API.createUser('Benjamin', 'blacroix@xebia.fr'))
             .then(() => API.signin('blacroix@xebia.fr'))
-            .then((res) => API.assignManager(user.id, res.body.id, res.body.token))
-            .then((res) => {
+            .then(res => API.assignManager(user.id, res.body.id, res.body.token))
+            .then(res => {
                 assert.deepEqual(res.body, {assigned: true});
             })
             .then(done)
-            .catch((err) => done(err));
+            .catch(err => done(err));
     });
 });

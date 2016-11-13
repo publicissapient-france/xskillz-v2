@@ -37,7 +37,7 @@ module.exports = {
             .addDomain(name, color)
             .then(() => DomainRepository.findDomainByName(name)),
 
-    deleteDomain: (id) =>
+    deleteDomain: id =>
         SkillService
             .removeDomainFromSkills(id)
             .then(() => DomainRepository.deleteDomain(id))

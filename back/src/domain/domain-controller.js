@@ -2,11 +2,10 @@
 
 const DomainService = require('./domain-service');
 module.exports = {
-    getDomains: (req, res) => {
+    getDomains: (req, res) =>
         DomainService
             .getDomains()
-            .then(domains => res.send(domains));
-    },
+            .then(domains => res.jsonp(domains)),
     addDomain: (req, res) =>
         DomainService
             .addDomain(req.body.name, req.body.color)
