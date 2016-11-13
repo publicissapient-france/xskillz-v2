@@ -4,6 +4,7 @@ const Repository = require('./user-repository');
 const _ = require('lodash');
 const gravatar = require('gravatar');
 const uuid = require('uuid');
+const User = require('./user');
 
 const SkillService = require('../skill/skill-service');
 
@@ -11,18 +12,6 @@ const computeScore = skills =>
     _(skills)
         .map((skill)=>skill.level)
         .reduce((sum, n) => sum + n, 0);
-
-const createUser = raw =>
-    ({
-        name: raw.name,
-        id: raw.id,
-        gravatarUrl: gravatar.url(raw.email),
-        experienceCounter: raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0,
-        phone: raw.phone,
-        manager_id: raw.manager_id,
-        readable_id: raw.name.toLowerCase().replace(' ', '-'),
-        address: raw.address ? JSON.parse(raw.address) : null
-    });
 
 const createDomain = domainSkills => {
     var domain = domainSkills[0];
@@ -84,7 +73,7 @@ const createUpdates = (updates) => {
 };
 
 const populateUser = user => {
-    user = createUser(user);
+    user = new User(user);
     user.domains = [];
     return attachManager(user)
         .then((dbUser) => {
@@ -198,7 +187,7 @@ module.exports = {
         Repository
             .findUsersBySkill(skillId)
             .map((user)=> {
-                const _user = createUser(user);
+                const _user = new User(user);
                 _user.level = user.level;
                 _user.interested = (user.interested[0] === 1);
                 return _user;
@@ -255,7 +244,7 @@ module.exports = {
         } else {
             usersPromise = Repository.getUsers();
         }
-        return usersPromise.map(user => createUser(user));
+        return usersPromise.map(user => new User(user));
     },
 
     deleteUserById: (userId) =>
