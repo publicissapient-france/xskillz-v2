@@ -456,5 +456,42 @@ describe('UserController', () => {
                 .catch(done);
         });
 
+        it('should return json if delete user succeeded', done => {
+            sandbox
+                .stub(UserService, 'deleteUserById')
+                .returns(Promise.resolve({}));
+
+            req.params = {
+                id: 1
+            };
+
+            UserController
+                .deleteUserById(req, res)
+                .then(() => {
+                    sinon.assert.calledWith(res.jsonp, {deleted: true});
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should return json if assign manager succeeded', done => {
+            sandbox
+                .stub(UserService, 'assignManager')
+                .returns(Promise.resolve({}));
+
+            req.params = {
+                id: 1,
+                managedId: 2
+            };
+
+            UserController
+                .assignManager(req, res)
+                .then(() => {
+                    sinon.assert.calledWith(res.jsonp, {assigned: true});
+                })
+                .then(done)
+                .catch(done);
+        });
+
     });
 });

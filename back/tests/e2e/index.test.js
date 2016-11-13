@@ -385,19 +385,4 @@ describe('API', function () {
             .then(done)
             .catch((err) => done(err));
     });
-
-    it('should assign a user', (done) => {
-        // Given
-        let user;
-        API.createUser('Julien', 'jsmadja@xebia.fr')
-            .then(res => user = res.body)
-            .then(() => API.createUser('Benjamin', 'blacroix@xebia.fr'))
-            .then(() => API.signin('blacroix@xebia.fr'))
-            .then(res => API.assignManager(user.id, res.body.id, res.body.token))
-            .then(res => {
-                assert.deepEqual(res.body, {assigned: true});
-            })
-            .then(done)
-            .catch(err => done(err));
-    });
 });
