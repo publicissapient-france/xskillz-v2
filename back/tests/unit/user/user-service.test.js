@@ -1,8 +1,10 @@
 const sinon = require('sinon');
 const assert = require('assert');
+const Promise = require('bluebird');
 
 const UserService = require('../../../src/user/user-service');
 const UserRepository = require('../../../src/user/user-repository');
+const SkillService = require('../../../src/skill/skill-service');
 
 describe('UserService', () => {
 
@@ -87,6 +89,272 @@ describe('UserService', () => {
                         manager_id: 12,
                         manager: {user_id: 1, user_name: "Christophe Heubès"}
                     });
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should update user', done => {
+            const userId = 234;
+            const body = {};
+
+            const updateUser =
+                sandbox
+                    .stub(UserRepository, 'updateUser')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updateUser(userId, body)
+                .then(() => {
+                    sinon.assert.calledWith(updateUser, userId, body);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should update password', done => {
+            const userId = 234;
+            const oldPassword = 'p1';
+            const newPassword = 'p2';
+
+            const updatePassword =
+                sandbox
+                    .stub(UserRepository, 'updatePassword')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updatePassword(userId, oldPassword, newPassword)
+                .then(() => {
+                    sinon.assert.calledWith(updatePassword, userId, oldPassword, newPassword);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should update password', done => {
+            const userId = 234;
+            const phone = '0134567897';
+
+            const updatePhone =
+                sandbox
+                    .stub(UserRepository, 'updatePhone')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updatePhone(userId, phone)
+                .then(() => {
+                    sinon.assert.calledWith(updatePhone, userId, phone);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should update address', done => {
+            const userId = 234;
+            const address = '1 rue du yaourt';
+
+            const updateAddress =
+                sandbox
+                    .stub(UserRepository, 'updateAddress')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updateAddress(userId, address)
+                .then(() => {
+                    sinon.assert.calledWith(updateAddress, userId, address);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should promote to manager', done => {
+            const userId = 234;
+
+            sandbox
+                .stub(UserRepository, 'findUserById')
+                .returns(Promise.resolve({id: userId}));
+
+            const addRole = sandbox
+                .stub(UserRepository, 'addRole')
+                .returns(Promise.resolve());
+
+            UserService
+                .promoteToManager(userId)
+                .then(() => {
+                    sinon.assert.calledWith(addRole, {id: userId}, 'Manager');
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get users', done => {
+            sandbox
+                .stub(UserRepository, 'getUsers')
+                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
+
+            UserService
+                .getUsers({})
+                .then((users) => {
+                    assert.deepEqual(users, [
+                        {
+                            address: null,
+                            experienceCounter: 6,
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            id: 1,
+                            manager_id: undefined,
+                            name: 'Julien',
+                            phone: undefined,
+                            readable_id: 'julien'
+                        }
+                    ]);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get users with roles', done => {
+            sandbox
+                .stub(UserRepository, 'getUsersWithRoles')
+                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
+
+            UserService
+                .getUsers({with_roles: 'Manager'})
+                .then((users) => {
+                    assert.deepEqual(users, [
+                        {
+                            address: null,
+                            experienceCounter: 6,
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            id: 1,
+                            manager_id: undefined,
+                            name: 'Julien',
+                            phone: undefined,
+                            readable_id: 'julien'
+                        }
+                    ]);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get users (mobile)', done => {
+            sandbox
+                .stub(UserRepository, 'getUsers')
+                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
+
+            sandbox
+                .stub(UserRepository, 'findUserById')
+                .returns(Promise.resolve({id: 1, diploma: '2010', name: 'Julien'}));
+
+            sandbox
+                .stub(SkillService, 'findUserSkillsById')
+                .returns(Promise.resolve([]));
+
+            sandbox
+                .stub(UserRepository, 'findUserRolesById')
+                .returns(Promise.resolve([]));
+
+            UserService
+                .getUsersMobileVersion({})
+                .then((users) => {
+                    assert.deepEqual(users, [
+                        {
+                            address: null,
+                            experienceCounter: 6,
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            id: 1,
+                            manager_id: undefined,
+                            name: 'Julien',
+                            phone: undefined,
+                            readable_id: 'julien',
+                            domains: [],
+                            roles: [],
+                            score: 0
+                        }
+                    ]);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get users with roles (mobile)', done => {
+            sandbox
+                .stub(UserRepository, 'getUsersWithRoles')
+                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
+
+            sandbox
+                .stub(UserRepository, 'findUserById')
+                .returns(Promise.resolve({id: 1, diploma: '2010', name: 'Julien'}));
+
+            sandbox
+                .stub(SkillService, 'findUserSkillsById')
+                .returns(Promise.resolve([]));
+
+            sandbox
+                .stub(UserRepository, 'findUserRolesById')
+                .returns(Promise.resolve([]));
+
+            UserService
+                .getUsersMobileVersion({with_roles: 'Manager'})
+                .then((users) => {
+                    assert.deepEqual(users, [
+                        {
+                            address: null,
+                            experienceCounter: 6,
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            id: 1,
+                            manager_id: undefined,
+                            name: 'Julien',
+                            phone: undefined,
+                            readable_id: 'julien',
+                            domains: [],
+                            roles: [],
+                            score: 0
+                        }
+                    ]);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should get users web version', done => {
+            sandbox
+                .stub(UserRepository, 'getWebUsersWithRoles')
+                .returns(Promise.resolve([
+                    {
+                        id: 1,
+                        diploma: '2010',
+                        email: 'jsmadja@xebia.fr',
+                        user_name: 'Julien',
+                        user_id: 2,
+                        domain_id: 4,
+                        domain_name: 'Back',
+                        domain_score: 7,
+                        domain_color: 'black'
+                    }
+                ]));
+
+            UserService
+                .getUsersWebVersion({with_roles: 'Manager'})
+                .then((users) => {
+                    assert.deepEqual(users, [
+                        {
+                            domains: [
+                                {
+                                    color: 'black',
+                                    id: 4,
+                                    name: 'Back',
+                                    score: 7
+                                }
+                            ],
+                            experienceCounter: 6,
+                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                            id: 2,
+                            name: 'Julien',
+                            readable_id: 'julien',
+                            score: 7
+                        }
+                    ]);
                 })
                 .then(done)
                 .catch(done);

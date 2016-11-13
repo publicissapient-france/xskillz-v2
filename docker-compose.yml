@@ -13,6 +13,18 @@ services:
     networks:
       - backend
 
+  db_tests:
+      image: mysql:5.7
+      environment:
+        - MYSQL_ROOT_PASSWORD=admin
+        - MYSQL_DATABASE=skillz
+        - MYSQL_USER=skillz
+        - MYSQL_PASSWORD=skillz
+      ports:
+        - 3307:3306
+      networks:
+        - backend
+
   back:
     build: ./back
     image: xebiafrance/skillz-back

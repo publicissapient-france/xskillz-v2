@@ -169,6 +169,22 @@ describe('User Repository', () => {
             .catch(done);
     });
 
+    it('should return users with roles (Web)', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.addRole(user, 'Manager'))
+            .then(() => UserRepository.getWebUsersWithRoles('Manager'))
+            .then((users) => {
+                assert.equal(users[0].email, email);
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should return user by readable id', (done) => {
         const email = 'email';
         const name = 'Firstname Lastname';
@@ -178,6 +194,179 @@ describe('User Repository', () => {
             .then(() => UserRepository.findUserByReadableId('firstname-lastname'))
             .then((user) => {
                 assert.equal(user.name, 'Firstname Lastname');
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should return management', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        let manager, managedUser;
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then(user => UserRepository.addRole(user, 'Manager'))
+            .then(() => UserRepository.getUsersWithRoles('Manager'))
+            .then(users => manager = users[0])
+            .then(() => UserRepository.addNewUser({email: 'blacroix@xebia.fr', name: 'Benjamin Lacroix', password: 'password'}))
+            .then(() => UserRepository.findUserByEmail('blacroix@xebia.fr'))
+            .then((user) => {
+                managedUser = user;
+                return UserRepository.assignManager(user.id, manager.id);
+            })
+            .then(() => UserRepository.getManagement())
+            .then((management) => {
+                assert.deepEqual(management,
+                    [
+                        {
+                            manager_id: manager.id,
+                            manager_name: manager.name,
+                            user_id: managedUser.id,
+                            user_name: managedUser.name
+                        },
+                        {
+                            manager_id: null,
+                            manager_name: null,
+                            user_id: manager.id,
+                            user_name: manager.name
+                        }
+                    ]);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should find user by email and password', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+            .then(user => {
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        address: null,
+                        diploma: null,
+                        email: 'jsmadja@xebia.fr',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: null
+                    }
+                );
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should find user by id and password', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+            .then((user) => UserRepository.findUserByIdAndPassword(user.id, password))
+            .then(user => {
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        address: null,
+                        diploma: null,
+                        email: 'jsmadja@xebia.fr',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: null
+                    }
+                );
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should find update password', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+            .then((user) => UserRepository.updatePassword(user.id, password, 'newpassword'))
+            .then(() => UserRepository.findUserByEmailAndPassword(email, 'newpassword'))
+            .then(user => {
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        address: null,
+                        diploma: null,
+                        email: 'jsmadja@xebia.fr',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: null
+                    }
+                );
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should find update phone', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email, password))
+            .then((user) => UserRepository.updatePhone(user.id, '01.23.45.67.89'))
+            .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+            .then(user => {
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        address: null,
+                        diploma: null,
+                        email: 'jsmadja@xebia.fr',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: '01.23.45.67.89'
+                    }
+                );
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should find update address', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email, password))
+            .then((user) => UserRepository.updateAddress(user.id, '1 rue du yaourt'))
+            .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+            .then(user => {
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        address: '"1 rue du yaourt"',
+                        diploma: null,
+                        email: 'jsmadja@xebia.fr',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: null
+                    }
+                );
             })
             .then(done)
             .catch(done);

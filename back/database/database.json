@@ -26,10 +26,11 @@
   },
   "tests": {
     "driver": "mysql",
-    "user": "skillztests",
-    "password": "skillztests",
-    "host": "skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
-    "database": "skillztests",
+    "user": "skillz",
+    "password": "skillz",
+    "host": "localhost",
+    "database": "skillz",
+    "port": "3307",
     "multipleStatements": true
   },
   "sql-file": true

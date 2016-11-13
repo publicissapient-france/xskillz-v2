@@ -33,13 +33,15 @@ const query = (sql, values) => {
 
 const Database = {
     clear: () =>
-        query('DELETE FROM UserSkill')
+        query('SET FOREIGN_KEY_CHECKS=0')
+            .then(() => query('DELETE FROM UserSkill'))
             .then(() => query('DELETE FROM Token'))
             .then(() => query('DELETE FROM UserSkill'))
             .then(() => query('DELETE FROM UserRole'))
             .then(() => query('DELETE FROM User'))
             .then(() => query('DELETE FROM Skill'))
-            .then(() => query('DELETE FROM Domain')),
+            .then(() => query('DELETE FROM Domain'))
+            .then(() => query('SET FOREIGN_KEY_CHECKS=1')),
     query
 };
 

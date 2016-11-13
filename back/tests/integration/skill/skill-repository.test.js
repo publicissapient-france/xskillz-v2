@@ -67,7 +67,6 @@ describe('Skill Repository', () => {
             .catch(done);
     });
 
-
     it('should merge two skills', (done) => {
         const email = 'email';
         const name = 'name';
@@ -139,6 +138,74 @@ describe('Skill Repository', () => {
             .then(() => SkillRepository.findSkillByName(skill.name))
             .then((skill) => {
                 assert.equal(skill.domain_id, null);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should should delete user skill', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        const skillName = 'skill';
+
+        let user, skill;
+
+        SkillRepository
+            .addNewSkill(skillName)
+            .then(() => SkillRepository.findSkillByName(skillName))
+            .then(_skill => skill = _skill)
+            .then(() => UserRepository.addNewUser({email, name, password}))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then(_user => user = _user)
+            .then(() => SkillRepository.addSkill({interested: true, level: 2, id: skill.id, user_id: user.id}))
+            .then(() => SkillRepository.findUserSkillsById(user.id))
+            .then(userSkills => {
+                assert.equal(userSkills.length , 1);
+            })
+            .then(() => {
+                SkillRepository.deleteUserSkillById(skill.id, user.id);
+            })
+            .then(() => SkillRepository.findUserSkillsById(user.id))
+            .then(userSkills => {
+                assert.equal(userSkills.length , 0);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should update skill', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        const skillName = 'skill';
+
+        let user, skill;
+
+        SkillRepository
+            .addNewSkill(skillName)
+            .then(() => SkillRepository.findSkillByName(skillName))
+            .then(_skill => skill = _skill)
+            .then(() => UserRepository.addNewUser({email, name, password}))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then(_user => user = _user)
+            .then(() => SkillRepository.addSkill({interested: true, level: 2, id: skill.id, user_id: user.id}))
+            .then(() => SkillRepository.findUserSkillsById(user.id))
+            .then(userSkills => {
+                const userSkill = userSkills[0];
+                assert.equal(userSkill.user_id, user.id);
+                assert.equal(userSkill.skill_id, skill.id);
+                assert.equal(userSkill.interested, true);
+                assert.equal(userSkill.level, 2);
+            })
+            .then(() => SkillRepository.updateUserSkillById(skill.id, {interested: false, level: 1, id: skill.id, user_id: user.id}))
+            .then(() => SkillRepository.findUserSkillsById(user.id))
+            .then(userSkills => {
+                const userSkill = userSkills[0];
+                assert.equal(userSkill.user_id, user.id);
+                assert.equal(userSkill.skill_id, skill.id);
+                assert.equal(userSkill.interested, false);
+                assert.equal(userSkill.level, 1);
             })
             .then(done)
             .catch(done);

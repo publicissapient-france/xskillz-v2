@@ -20,13 +20,14 @@ module.exports = {
     addSkill: (userId, skillRequest) =>
         Repository
             .findSkillByExactName(skillRequest.name)
-            .then((skill) => {
+            .then(skill => {
                 if (!skill) {
                     throw new Error('Not Found');
                 }
                 skillRequest.id = skill.id;
-                return Repository.findUserSkillByUserIdAndSkillId(userId, skill.id)
-                    .then((skills) => {
+                return Repository
+                    .findUserSkillByUserIdAndSkillId(userId, skill.id)
+                    .then(skills => {
                         if (skills.length > 0) {
                             return Repository.updateUserSkillById(skill.id, skillRequest);
                         }
@@ -37,12 +38,12 @@ module.exports = {
                 Repository
                     .addNewSkill(skillRequest.name)
                     .then(() => Repository.findSkillByName(skillRequest.name))
-                    .then((skill) => {
+                    .then(skill => {
                         skillRequest.id = skill.id;
                         return Repository.addSkill(skillRequest);
                     }))
             .then(() => Repository.findUserSkillByUserIdAndSkillId(skillRequest.user_id, skillRequest.id))
-            .then((userSkills) => userSkills[0]),
+            .then(userSkills => userSkills[0]),
 
     deleteUserSkillById: (skillId, userId) =>
         Repository

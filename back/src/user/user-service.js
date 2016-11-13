@@ -234,7 +234,7 @@ module.exports = {
                             readable_id: user.user_name.toLowerCase().replace(' ', '-')
                         };
                     })
-                    .sortBy('name');
+                    .sortBy('name').value();
             });
     },
 
@@ -245,8 +245,7 @@ module.exports = {
         } else {
             usersPromise = Repository.getUsers();
         }
-        return usersPromise
-            .map((user)=> createUserById(user.id));
+        return usersPromise.map(user => createUserById(user.id));
     },
 
     getUsers: (query) => {
@@ -256,7 +255,7 @@ module.exports = {
         } else {
             usersPromise = Repository.getUsers();
         }
-        return usersPromise.map((user)=> createUser(user));
+        return usersPromise.map(user => createUser(user));
     },
 
     deleteUserById: (userId) =>
@@ -295,18 +294,11 @@ module.exports = {
         Repository
             .assignManager(userId, managerId),
 
-    updateUser: (userId, body) =>
-        Repository
-            .updateUser(userId, body),
+    updateUser: (userId, body) => Repository.updateUser(userId, body),
 
-    getUpdates: () =>
-        Repository
-            .getUpdates()
-            .then((updates) => createUpdates(updates)),
+    getUpdates: () => Repository.getUpdates().then((updates) => createUpdates(updates)),
 
-    updatePassword: (userId, oldPassword, newPassword) =>
-        Repository
-            .updatePassword(userId, oldPassword, newPassword),
+    updatePassword: (userId, oldPassword, newPassword) => Repository.updatePassword(userId, oldPassword, newPassword),
 
     updatePhone: (userId, phone) => Repository.updatePhone(userId, phone),
 

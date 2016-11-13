@@ -1,191 +1,115 @@
 'use strict';
 
-const log = require('winston');
 const UserService = require('./user-service');
 const Promise = require('bluebird');
+const Controllers = require('../controllers.js');
+
+const onError = Controllers.onError;
 
 module.exports = {
-    addUser: (req, res) => {
+
+    addUser: (req, res) =>
         UserService
             .addUser(req.body)
-            .then((user) => {
-                res.json(user);
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).send(err.message);
-            });
-    },
-    getUsersBySkillMobileVersion: (req, res) => {
+            .then(user => res.json(user))
+            .catch(err => onError(err, res)),
+
+    getUsersBySkillMobileVersion: (req, res) =>
         UserService
             .getUsersBySkillMobileVersion(req.params.id)
-            .then((users) => res.json(users))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `Users not found`});
-            });
-    },
+            .then(users => res.json(users))
+            .catch(err => onError(err, res, 404, 'Users not found')),
 
-    getUsersBySkill: (req, res) => {
+    getUsersBySkill: (req, res) =>
         UserService
             .getUsersBySkill(req.params.id)
-            .then((users) => res.json(users))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `Users not found`});
-            });
-    },
+            .then(users => res.json(users))
+            .catch(err => onError(err, res, 404, 'Users not found')),
 
-    getCurrentUser: (req, res) => {
+    getCurrentUser: (req, res) =>
         UserService
             .getUserById(req.body.user_id)
-            .then((user) => res.json(user))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `Users not found`});
-            });
-    },
+            .then(user => res.jsonp(user))
+            .catch(err => onError(err, res, 404, 'User not found')),
 
     getUserByToken: (token) =>
         UserService.getUserByToken(token),
 
-    getUserById: (req, res) => {
+    getUserById: (req, res) =>
         UserService
             .createUserById(req.params.id)
-            .then((user) => {
-                res.json(user);
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `User #${req.params.id} not found`, message: err.message});
-            });
-    },
+            .then(user => res.jsonp(user))
+            .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
 
-    getUserByReadableId: (req, res) => {
+    getUserByReadableId: (req, res) =>
         UserService
             .createUserByReadableId(req.params.id)
-            .then((user) => {
-                res.json(user);
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `User #${req.params.id} not found`, message: err.message});
-            });
-    },
+            .then(user => res.json(user))
+            .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
 
-    getUsersMobileVersion: (req, res) => {
+    getUsersMobileVersion: (req, res) =>
         UserService
             .getUsersMobileVersion(req.query)
-            .then((users) => res.json(users))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `Users not found`, cause: err.message});
-            });
-    },
+            .then(users => res.json(users))
+            .catch(err => onError(err, res, 404, `Users not found`)),
 
-    getUsersWebVersion: (req, res) => {
+    getUsersWebVersion: (req, res) =>
         UserService
             .getUsersWebVersion(req.query)
-            .then((users) => res.json(users))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(404).jsonp({error: `Users not found`, cause: err.message});
-            });
-    },
+            .then(users => res.json(users))
+            .catch(err => onError(err, res, 404, `Users not found`)),
 
-    deleteUserById: (req, res) => {
+    deleteUserById: (req, res) =>
         UserService
             .deleteUserById(req.params.id)
             .then(() => res.jsonp({deleted: true}))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({cause: err.message});
-            });
-    },
+            .catch(err => onError(err, res)),
 
-    signin: (req, res) => {
+    signin: (req, res) =>
         UserService
             .signIn(req.body)
-            .then((user) => {
-                res.status(200).jsonp(user);
-            })
-            .catch((err) => {
-                log.error(err);
-                res.status(404).jsonp({error: `User ${req.body.email} not found`});
-            });
-    },
+            .then(user => res.jsonp(user))
+            .catch(err => onError(err, res, 404, `User ${req.body.email} not found`)),
 
-    assignManager: (req, res) => {
+    assignManager: (req, res) =>
         UserService
             .assignManager(req.params.id, req.params.managerId)
-            .then(() => {
-                res.jsonp({assigned: true});
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({error: err.message});
-            });
-    },
+            .then(() => res.jsonp({assigned: true}))
+            .catch(err => onError(err, res)),
 
-    updateUser: (req, res) => {
+    updateUser: (req, res) =>
         UserService
             .updateUser(req.params.id, req.body)
-            .then(()=> {
-                res.jsonp({updated: true});
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({error: err.message});
-            });
-    },
+            .then(() => res.jsonp({updated: true}))
+            .catch(err => onError(err, res)),
 
-    getUpdates: (req, res) => {
+    getUpdates: (req, res) =>
         UserService
             .getUpdates()
-            .then((updates) => {
-                res.jsonp(updates);
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({error: err.message});
-            });
-    },
+            .then(updates => res.jsonp(updates))
+            .catch(err => onError(err, res)),
 
-    promoteToManager: (req, res) => {
+    promoteToManager: (req, res) =>
         UserService
             .promoteToManager(req.params.id)
-            .then(() => {
-                res.jsonp({updated: true});
-            })
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({error: err.message});
-            });
-    },
+            .then(() => res.jsonp({updated: true}))
+            .catch(err => onError(err, res)),
 
-    getManagement: (req, res) => {
+    getManagement: (req, res) =>
         UserService
             .getManagement()
-            .then((users) => res.jsonp({management: users}))
-            .catch((err) => {
-                log.error(err.message);
-                res.status(500).jsonp({error: err.message});
-            });
-    },
+            .then(users => res.jsonp({management: users}))
+            .catch(err => onError(err, res)),
 
     patchMe: (req, res) => {
         const userId = req.body.user_id;
-        if (userId && req.body.old_password && req.body.password) {
-            UserService
+        const updatePassword = () => {
+            return UserService
                 .updatePassword(userId, req.body.old_password, req.body.password)
-                .then(()=> {
-                    res.jsonp({updated: true});
-                })
-                .catch((err) => {
-                    log.error(err.message);
-                    res.status(500).jsonp({error: err.message});
-                });
-        } else if (userId && req.body.phone || req.body.address) {
+                .then(() => res.jsonp({updated: true}))
+                .catch(err => onError(err, res));
+        };
+        const updatePhoneAndAddress = () => {
             const tasks = [];
             if (req.body.phone) {
                 tasks.push(UserService.updatePhone(userId, req.body.phone));
@@ -193,9 +117,15 @@ module.exports = {
             if (req.body.address) {
                 tasks.push(UserService.updateAddress(userId, req.body.address));
             }
-            Promise.all(tasks)
-                .then(() => res.status(200).jsonp({updated: true}))
-                .catch(err => res.status(500).jsonp({error: err.message}));
+            return Promise.all(tasks)
+                .then(() => res.jsonp({updated: true}))
+                .catch(err => onError(err, res));
+        };
+        if (userId && req.body.old_password && req.body.password) {
+            return updatePassword();
+        }
+        if (userId && req.body.phone || req.body.address) {
+            return updatePhoneAndAddress();
         }
     }
 };
