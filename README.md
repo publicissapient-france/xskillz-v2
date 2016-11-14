@@ -25,8 +25,6 @@ cd xskillz-v2
 
 ### Step 2: Retrieve and build
 
-# Dependencies
-
 ```bash
 cd web
 npm i
