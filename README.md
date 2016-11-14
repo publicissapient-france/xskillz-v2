@@ -16,21 +16,20 @@ Skillz allows you to get a full overview of all your team mate's skills.
 
 ## Quickstart
 
-### Step 1 : Clone this repository
+### Step 1: Clone this repository
 
 ```bash
 git clone git@github.com:xebia-france/xskillz-v2.git
 cd xskillz-v2
 ```
 
-### Step 2 : Retrieve and build
+### Step 2: Retrieve and build
 
 # Dependencies
-g++
 
 ```bash
 cd web
-npm install
+npm i
 npm run build
 cd ..
 docker-compose up --build
@@ -41,6 +40,37 @@ Have a coffee, it takes some time.
 ### Step 3 : Enter your skills
 
 Open your browser and go to http://localhost
+
+## Contribute
+
+### Step 1: Clone this repository
+
+```bash
+git clone git@github.com:xebia-france/xskillz-v2.git
+cd xskillz-v2
+```
+
+### Step 2:
+
+### Web application
+
+```bash
+cd web/
+npm i
+npm start
+```
+
+### Back end + database
+
+```
+docker-compose up db
+```
+
+```
+cd back/
+npm i
+npm run dev
+```
 
 ## Technology inside
 
