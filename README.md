@@ -1,3 +1,5 @@
+### Kanban board
+
 [![Stories in Ready](https://badge.waffle.io/xebia-france/xskillz-v2.png?label=ready&title=Ready)](https://waffle.io/xebia-france/xskillz-v2)
 
 ### Back
