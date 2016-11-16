@@ -33,5 +33,13 @@
     "port": "3307",
     "multipleStatements": true
   },
+  "itests": {
+    "driver": "mysql",
+    "user": "skillztests",
+    "password": "skillztests",
+    "host": "skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com",
+    "database": "skillztests",
+    "multipleStatements": true
+  },
   "sql-file": true
 }

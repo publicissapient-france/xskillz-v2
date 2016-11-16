@@ -12,4 +12,4 @@ addons:
     - gcc-4.8
     - g++-4.8
 
-script: cd back && npm install && npm test
+script: cd back && npm install && npm run itest
