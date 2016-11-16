@@ -15,12 +15,15 @@ addons:
 services:
   - docker
 
-
-script: cd back && npm install && npm run itest
+script: cd back && npm install && npm run itest && cd ../web && npm install && npm test
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    cd ../back
+    make;
+    make push-image;
+    cd ../web;
     make;
     make push-image;
     fi
