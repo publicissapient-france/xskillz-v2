@@ -182,7 +182,7 @@ module.exports = {
                                 })
                             ),
                             score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0),
-                            readable_id: user.user_name.toLowerCase().replace(' ', '-')
+                            readable_id: user.user_name.toLowerCase().replace(/ /g, "-")
                         };
                     })
                     .sortBy('name').value();
