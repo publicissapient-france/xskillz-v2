@@ -60,7 +60,6 @@ export function signin(email, password) {
 
 export const USER_CREATED = 'USER_CREATED';
 
-
 export function userCreated() {
     return {
         type: USER_CREATED
@@ -98,6 +97,7 @@ export function createUser(name, email, password) {
 
         return fetch(`${Config.apiURL}/users`, config)
             .then(response => {
+                debugger;
                 if (response.status >= 400) {
                     throw new Error("Signin error");
                 } else {
@@ -105,6 +105,35 @@ export function createUser(name, email, password) {
                 }
             })
             .then(() => dispatch(userCreated()))
+            .catch(() => dispatch(userCreateError()));
+    }
+}
+
+export function signup(name, email, password) {
+    return dispatch => {
+
+        dispatch(createUserLoading());
+
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name, email, password})
+        };
+
+        return fetch(`${Config.apiURL}/users`, config)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error("Signin error");
+                } else {
+                    return response.json();
+                }
+            })
+            .then(user => {
+                dispatch(signinSuccess(user));
+                browserHistory.push('/me');
+            })
             .catch(() => dispatch(userCreateError()));
     }
 }

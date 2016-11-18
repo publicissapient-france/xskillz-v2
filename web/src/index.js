@@ -15,6 +15,7 @@ import ManagementPage from 'containers/Management/ManagementPage';
 import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
+import SignupPage from 'containers/Auth/SignupPage';
 import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
 import ApiPage from 'containers/Api/ApiPage';
@@ -37,6 +38,9 @@ ReactDOM.render(
                 <Route path="signin"
                        components={{main: SigninPage}}
                        dataTypePage="signin"/>
+
+                <Route path="signup"
+                       components={{main: SignupPage}}/>
 
                 <Route path="updates"
                        components={{main: UpdatesPage, header: Header}}
