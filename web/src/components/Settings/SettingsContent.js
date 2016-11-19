@@ -10,7 +10,6 @@ import AddDomain from '../Domain/Add/AddDomain';
 import DeleteDomain from '../Domain/Del/DeleteDomain';
 import _ from 'lodash';
 import PromoteManager from '../Manager/PromoteManager';
-import ChangePassword from '../Me/ChangePassword/ChangePassword';
 import CreateUser from '../Users/CreateUser/CreateUser';
 
 class SettingsContent extends Component {
@@ -59,9 +58,9 @@ class SettingsContent extends Component {
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
-        const {me, auth} = this.props;
+        const {auth} = this.props;
         const {
-            createUser, changePassword, promoteManager, fetchManagers, linkSkillToDomain,
+            createUser, promoteManager, fetchManagers, linkSkillToDomain,
             mergeSkills, addDomain, deleteDomain, saveDiploma, assignUserToManager, users, fetchUsers
         } = this.props;
         return (
@@ -82,7 +81,6 @@ class SettingsContent extends Component {
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}
                         {this.isManager() && <PromoteManager users={users} promoteManager={promoteManager}/>}
-                        <ChangePassword me={me} changePassword={changePassword}/>
                         {this.isManager() && <CreateUser auth={auth} createUser={createUser}/>}
                     </Tab>
                     <Tab label="QR Code">

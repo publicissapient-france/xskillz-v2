@@ -15,7 +15,7 @@ class AddSkillForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {id: null, domain: {id: null}, name: null, level: 0, interested: false, submit: false};
+        this.state = {id: null, domain: {id: null}, name: '', level: 0, interested: false, submit: false};
     }
 
     componentDidMount() {

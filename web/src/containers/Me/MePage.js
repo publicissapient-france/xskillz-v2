@@ -5,6 +5,7 @@ import {browserHistory} from "react-router";
 
 import {fetchMe, updateProfile} from '../../actions/action.me';
 import {fetchSkills, addSkill, updateSkill, removeSkill} from '../../actions/skills';
+import {changePassword} from '../../actions/action.me';
 
 const mapStateToProps = state => {
     return {
@@ -21,7 +22,8 @@ const mapDispatchToProps = dispatch => {
         addSkill: skill => dispatch(addSkill(skill)),
         updateSkill: skill => dispatch(updateSkill(skill)),
         removeSkill: id => dispatch(removeSkill(id)),
-        updateProfile: profile => dispatch(updateProfile(profile))
+        updateProfile: profile => dispatch(updateProfile(profile)),
+        changePassword: (oldPwd, newPwd) => dispatch(changePassword(oldPwd, newPwd))
     };
 };
 

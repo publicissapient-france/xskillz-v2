@@ -1,13 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 
 import validator from 'validator';
+import _ from 'lodash';
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Geosuggest from 'react-geosuggest';
 
-import _ from 'lodash';
+import ChangePassword from './ChangePassword/ChangePassword';
 
 import './ProfileForm.less';
 
@@ -15,7 +16,8 @@ class ProfileForm extends Component {
 
     static propTypes = {
         updateProfile: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired
+        user: PropTypes.object.isRequired,
+        changePassword: PropTypes.func
     };
 
     constructor(props) {
@@ -66,12 +68,13 @@ class ProfileForm extends Component {
     render() {
         const {phone, isPhoneValid} = this.state;
         const errorPhone = isPhoneValid ? '' : 'Numéro invalide';
-        const address = this.props.user.address;
+        const {user:{address}, user, changePassword} = this.props;
         const fixtures = [{label: 'Xebia', location: {lat: 48.8755622, lng: 2.3088289}}];
         return (
             <div className="profile-form">
                 <Paper>
                     <div className="content">
+                        <h3>Informations personnelles</h3>
                         <div>
                             <TextField value={phone || this.props.user.phone} hintText="0600000000"
                                        errorText={errorPhone}
@@ -85,7 +88,7 @@ class ProfileForm extends Component {
                                 placeholder="Adresse d'activité"
                                 country="fr"
                                 onSuggestSelect={::this.selectAddress}
-                                initialValue={address ? address.label : null}
+                                initialValue={address ? address.label : ''}
                                 fixtures={fixtures}/>
                         </div>
                         <div className="button">
@@ -93,6 +96,7 @@ class ProfileForm extends Component {
                         </div>
                     </div>
                 </Paper>
+                <ChangePassword me={user} changePassword={changePassword}/>
             </div>
         )
     }

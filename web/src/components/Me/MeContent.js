@@ -16,12 +16,12 @@ class MeContent extends Component {
 
     render() {
         const user = this.props.me;
-        const {updateSkill, removeSkill, updateProfile} = this.props;
+        const {updateSkill, removeSkill, updateProfile, changePassword} = this.props;
 
         return (
             <div className="content">
                 <Tabs>
-                    <Tab label="Mes compétences">
+                    <Tab label="Compétences">
                         <AddSkillForm
                             skills={this.props.skills}
                             fetchSkills={this.props.fetchSkills}
@@ -34,8 +34,8 @@ class MeContent extends Component {
                                   removeSkill={removeSkill}
                                   details/>
                     </Tab>
-                    <Tab label="Mes informations personnelles">
-                        <ProfileForm updateProfile={updateProfile} user={user}/>
+                    <Tab label="Info">
+                        <ProfileForm updateProfile={updateProfile} user={user} changePassword={changePassword}/>
                     </Tab>
                 </Tabs>
             </div>
