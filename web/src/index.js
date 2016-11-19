@@ -21,6 +21,7 @@ import SettingsPage from 'containers/Settings/SettingsPage';
 import ApiPage from 'containers/Api/ApiPage';
 import DomainsPage from 'containers/Domains/DomainsPage';
 
+import {checkPermission} from './services/permissions';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
@@ -31,7 +32,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
 
-            <Redirect from="/" to="updates"/>
+            <Redirect from="/" to="me"/>
 
             <Route path="/" component={App}>
 
@@ -44,11 +45,11 @@ ReactDOM.render(
 
                 <Route path="updates"
                        components={{main: UpdatesPage, header: Header}}
-                       dataTypePage="updates"/>
+                       dataTypePage="updates" onEnter={checkPermission}/>
 
                 <Route path="skills"
                        components={{main: SkillsPage, header: Header}}
-                       dataTypePage="skills"/>
+                       dataTypePage="skills" onEnter={checkPermission}/>
 
                 <Route path="skills?name=:name"
                        components={{main: SkillsPage, header: Header}}
@@ -56,7 +57,7 @@ ReactDOM.render(
 
                 <Route path="users"
                        components={{main: UsersPage, header: Header}}
-                       dataTypePage="users"/>
+                       dataTypePage="users" onEnter={checkPermission}/>
 
                 <Route path="domains"
                        components={{main: DomainsPage, header: Header}}
@@ -80,11 +81,11 @@ ReactDOM.render(
 
                 <Route path="management"
                        components={{main: ManagementPage, header: Header}}
-                       dataTypePage="management"/>
+                       dataTypePage="management" onEnter={checkPermission}/>
 
                 <Route path="settings"
                        components={{main: SettingsPage, header: Header}}
-                       dataTypePage="settings"/>
+                       dataTypePage="settings" onEnter={checkPermission}/>
 
                 <Route path="api"
                        components={{main: ApiPage, header: Header}}

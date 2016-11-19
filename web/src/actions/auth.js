@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-
 import store from 'store';
 
 import Config from '../Config';
@@ -52,7 +51,7 @@ export function signin(email, password) {
             })
             .then(json => {
                 dispatch(signinSuccess(json));
-                browserHistory.push('/updates');
+                browserHistory.push('/me');
             })
             .catch(() => dispatch(signinError()));
     }
