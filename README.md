@@ -16,6 +16,13 @@ Skillz allows you to get a full overview of all your team mate's skills.
 
 ## Quickstart
 
+### Step 0 : Create database workspace
+
+```bash
+sudo mkdir -p /opt/skillz/data
+sudo chmod 777 /opt/skillz/data
+```
+
 ### Step 1: Clone this repository
 
 ```bash

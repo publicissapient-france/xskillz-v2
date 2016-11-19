@@ -13,7 +13,7 @@ services:
     networks:
       - backend
     volumes:
-      - /opt/xskillz/data:/var/lib/mysql  
+      - /opt/skillz/data:/var/lib/mysql
 
   db_tests:
       image: mysql:5.7
