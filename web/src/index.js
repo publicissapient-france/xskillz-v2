@@ -16,6 +16,7 @@ import Header from 'containers/Header/Header';
 import UpdatesPage from 'containers/Updates/UpdatesPage';
 import SigninPage from 'containers/Auth/SigninPage';
 import SignupPage from 'containers/Auth/SignupPage';
+import UnauthorizedPage from 'containers/Auth/UnauthorizedPage';
 import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
 import ApiPage from 'containers/Api/ApiPage';
@@ -90,6 +91,9 @@ ReactDOM.render(
                 <Route path="api"
                        components={{main: ApiPage, header: Header}}
                        dataType="api"/>
+
+                <Route path="unauthorized"
+                       components={{main: UnauthorizedPage, header: Header}}/>
 
                 <Route status={404}
                        path="*"
