@@ -3,6 +3,7 @@ import UserItem from '../Users/UserItem';
 
 import AddSkillForm from './AddSkillForm';
 import ProfileForm from './ProfileForm';
+import {Tabs, Tab} from "material-ui/Tabs";
 
 class MeContent extends Component {
 
@@ -19,18 +20,24 @@ class MeContent extends Component {
 
         return (
             <div className="content">
-                <ProfileForm updateProfile={updateProfile} user={user}/>
-                <AddSkillForm
-                    skills={this.props.skills}
-                    fetchSkills={this.props.fetchSkills}
-                    addSkill={this.props.addSkill}/>
-                <UserItem user={user}
-                          onUserClick={()=> {
-                          }}
-                          onSkillClick={this.props.onSkillClick}
-                          updateSkill={updateSkill}
-                          removeSkill={removeSkill}
-                          details/>
+                <Tabs>
+                    <Tab label="Mes compétences">
+                        <AddSkillForm
+                            skills={this.props.skills}
+                            fetchSkills={this.props.fetchSkills}
+                            addSkill={this.props.addSkill}/>
+                        <UserItem user={user}
+                                  onUserClick={()=> {
+                                  }}
+                                  onSkillClick={this.props.onSkillClick}
+                                  updateSkill={updateSkill}
+                                  removeSkill={removeSkill}
+                                  details/>
+                    </Tab>
+                    <Tab label="Mes informations personnelles">
+                        <ProfileForm updateProfile={updateProfile} user={user}/>
+                    </Tab>
+                </Tabs>
             </div>
         );
     }

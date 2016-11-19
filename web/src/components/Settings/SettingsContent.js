@@ -1,29 +1,16 @@
 import React, {Component, PropTypes} from "react";
-
 import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
-
 import AssignUserToManager from "../Manager/AssignUserToManager";
-
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
-
 import {Tabs, Tab} from "material-ui/Tabs";
-
 import Config from '../../Config';
-
 import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
-
 import MergeSkills from '../Skills/MergeSkills/MergeSkills';
-
 import AddDomain from '../Domain/Add/AddDomain';
-
 import DeleteDomain from '../Domain/Del/DeleteDomain';
-
 import _ from 'lodash';
-
 import PromoteManager from '../Manager/PromoteManager';
-
 import ChangePassword from '../Me/ChangePassword/ChangePassword';
-
 import CreateUser from '../Users/CreateUser/CreateUser';
 
 class SettingsContent extends Component {
