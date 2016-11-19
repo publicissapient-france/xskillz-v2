@@ -77,6 +77,10 @@ npm i
 npm run dev
 ```
 
+### Role and permission
+
+See [Skillz roles](https://docs.google.com/a/xebia.fr/spreadsheets/d/1TyjiQKdXQw42U7t9fj1ZsPzw7VMLDilrBFWIo20jF8k/edit)
+
 ## Technology inside
 
 * NodeJS
