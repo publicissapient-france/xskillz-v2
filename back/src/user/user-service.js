@@ -235,7 +235,7 @@ module.exports = {
             .then((user) =>
                 Repository.findUserRolesById(user.id)
                     .then((roles) => {
-                        user.roles = roles;
+                        user.roles = _.map(roles, role => role.name.toLowerCase());
                         return user;
                     })
             );

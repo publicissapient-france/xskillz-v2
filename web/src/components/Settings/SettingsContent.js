@@ -1,16 +1,18 @@
 import React, {Component, PropTypes} from "react";
+import {Tabs, Tab} from "material-ui/Tabs";
+
 import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
 import AssignUserToManager from "../Manager/AssignUserToManager";
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
-import {Tabs, Tab} from "material-ui/Tabs";
 import Config from '../../Config';
 import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
 import MergeSkills from '../Skills/MergeSkills/MergeSkills';
 import AddDomain from '../Domain/Add/AddDomain';
 import DeleteDomain from '../Domain/Del/DeleteDomain';
-import _ from 'lodash';
 import PromoteManager from '../Manager/PromoteManager';
 import CreateUser from '../Users/CreateUser/CreateUser';
+
+import {hasRole, MANAGER} from '../../services/permissions';
 
 class SettingsContent extends Component {
 
@@ -46,15 +48,6 @@ class SettingsContent extends Component {
         }
     };
 
-    isManager = () => {
-        let manager = false;
-        _.each(_.keys(this.props.auth.me.roles), key => {
-            if (manager) return;
-            manager = this.props.auth.me.roles[key].name === 'Manager';
-        });
-        return manager;
-    };
-
     render() {
         const domains = this.props.domains.list;
         const skills = this.props.skills.list;
@@ -70,18 +63,18 @@ class SettingsContent extends Component {
                         <LinkSkillToDomain domains={domains} skills={skills} linkSkillToDomain={linkSkillToDomain}/>
                         <MergeSkills skills={skills} mergeSkills={mergeSkills}/>
                     </Tab>
-                    {this.isManager() && <Tab label="Domaines">
+                    {hasRole(MANAGER) && <Tab label="Domaines">
                         <AddDomain addDomain={addDomain}/>
                         <DeleteDomain deleteDomain={deleteDomain} domains={domains}/>
                     </Tab>}
 
                     <Tab label="Utilisateurs">
-                        {this.isManager() && <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>}
-                        {this.isManager() &&
+                        {hasRole(MANAGER) && <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>}
+                        {hasRole(MANAGER) &&
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}
-                        {this.isManager() && <PromoteManager users={users} promoteManager={promoteManager}/>}
-                        {this.isManager() && <CreateUser auth={auth} createUser={createUser}/>}
+                        {hasRole(MANAGER) && <PromoteManager users={users} promoteManager={promoteManager}/>}
+                        {hasRole(MANAGER) && <CreateUser auth={auth} createUser={createUser}/>}
                     </Tab>
                     <Tab label="QR Code">
                         <QRCodeURL url={Config.apiURL}/>
