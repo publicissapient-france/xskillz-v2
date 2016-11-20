@@ -1,39 +1,40 @@
 [data-page-type="users"], [data-page-type="me"], [data-page-type="user"], [data-page-type="domains"] {
 
-  .domains-content {
-    border-radius: 2px;
-    position: relative;
-    padding: 1rem .5rem .5rem 0;
-  }
+    .domains-content {
+        border-radius: 2px;
+        position: relative;
+        padding: 1rem .5rem .5rem 0;
+        margin-top: 10px;
+    }
 
-  .domain-info {
-    position: relative;
-    border: none;
-    background-color: white;
-    flex-basis: 32%;
-    cursor: pointer;
-  }
+    .domain-info {
+        position: relative;
+        border: none;
+        background-color: white;
+        flex-basis: 32%;
+        cursor: pointer;
+    }
 
-  .skills-content {
-    display: flex;
-    flex-wrap: wrap;
-    flex: 0 0 100%;
-  }
+    .skills-content {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 100%;
+    }
 
-  .interested-icon {
-    margin-right: 5px;
-  }
+    .interested-icon {
+        margin-right: 5px;
+    }
 
-  .user-chips {
-    display: block;
-  }
+    .user-chips {
+        display: block;
+    }
 
-  .skill-interested-false {
-    opacity: $interested-opacity;
-  }
+    .skill-interested-false {
+        opacity: $interested-opacity;
+    }
 
-  .managed-by {
-    font-size: 12px;
-  }
+    .managed-by {
+        font-size: 12px;
+    }
 
 }
