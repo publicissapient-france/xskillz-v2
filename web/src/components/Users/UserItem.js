@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from "react";
+import moment from 'moment';
 
 import Paper from "material-ui/Paper";
 import Avatar from "material-ui/Avatar";
@@ -82,6 +83,11 @@ class UserItem extends Component {
                                     label={user.address.label}
                                     icon={<FontIcon className="material-icons" color="black">place</FontIcon>}
                                     target="_blank"/>
+                            </div>}
+                            {user.availability_date && <div>
+                                <FlatButton
+                                    label={moment(user.availability_date).format('DD/MM/YY')}
+                                    icon={<FontIcon className="material-icons" color="black">access_time</FontIcon>}/>
                             </div>}
                         </div>
 
