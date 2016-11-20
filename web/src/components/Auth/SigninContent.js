@@ -1,11 +1,15 @@
 import React, {Component, PropTypes} from "react";
+import {Link} from 'react-router';
+
+import {API_SIGNIN_ERROR} from "../../actions/auth";
+
 import TextField from "material-ui/TextField";
+import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import Card from "material-ui/Card";
-import "./SigninContent.less";
-import {browserHistory} from "react-router";
 import Snackbar from "material-ui/Snackbar";
-import {API_SIGNIN_ERROR} from "../../actions/auth";
+
+import "./SigninContent.less";
 
 class SigninContent extends Component {
 
@@ -38,10 +42,6 @@ class SigninContent extends Component {
         });
     };
 
-    goToSignUp = (event) => {
-        browserHistory.push('/signup')
-    };
-
     render() {
 
         const style = {
@@ -51,7 +51,6 @@ class SigninContent extends Component {
         };
 
         const {email, password} = this.state;
-        const {goToSignup} = this.props;
 
         return (
             <div>
@@ -59,7 +58,8 @@ class SigninContent extends Component {
                     <Card style={style.card}>
                         <img src="/images/logo.png" width={200} alt="logo skillz"/>
                         <div>
-                            <TextField fullWidth floatingLabelText="Email" onChange={::this.onEmailChanged} value={email}/>
+                            <TextField fullWidth floatingLabelText="Email" onChange={::this.onEmailChanged}
+                                       value={email}/>
                         </div>
                         <div>
                             <TextField fullWidth floatingLabelText="Mot de passe" onChange={::this.onPasswordChanged}
@@ -69,6 +69,10 @@ class SigninContent extends Component {
                             <RaisedButton primary style={style.button} label="Se connecter"/>
                             <input type="submit" style={style.input}/>
                         </div>
+                        <Link to={'/signup'}>
+                            <FlatButton style={{marginTop: '10px'}}
+                                        label="S'inscrire" primary/>
+                        </Link>
                     </Card>
                 </form>
                 <Snackbar

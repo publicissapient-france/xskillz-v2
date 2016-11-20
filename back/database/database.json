@@ -15,6 +15,14 @@
     "database": "skillz",
     "multipleStatements": true
   },
+  "ac": {
+    "driver": "mysql",
+    "user": "skillz",
+    "password": "skillz",
+    "host": "35.156.78.0",
+    "database": "skillz",
+    "multipleStatements": true
+  },
   "dev": {
     "driver": "mysql",
     "user": "skillz",

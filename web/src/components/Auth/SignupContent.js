@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from "react";
+import {Link} from 'react-router';
 
 import isEmail from "validator/lib/isEmail";
 
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import Card from "material-ui/Card";
-import Snackbar from "material-ui/Snackbar";
-import {API_SIGNIN_ERROR} from "../../actions/auth";
+import FlatButton from 'material-ui/FlatButton';
 
 import './SignupContent.less';
 
@@ -110,6 +110,10 @@ class SigninContent extends Component {
                             <RaisedButton primary style={style.button} label="S'inscrire"/>
                             <input type="submit" style={style.input}/>
                         </div>
+                        <Link to={'/signin'}>
+                            <FlatButton style={{marginTop: '10px'}}
+                                        label="Se connecter" primary/>
+                        </Link>
                     </Card>
                 </form>
                 {/*<Snackbar*/}

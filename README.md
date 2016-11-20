@@ -33,6 +33,7 @@ cd xskillz-v2
 ### Step 2: Retrieve and build
 
 ```bash
+sudo apt-get install bcrypt
 cd web
 npm i
 npm run build
