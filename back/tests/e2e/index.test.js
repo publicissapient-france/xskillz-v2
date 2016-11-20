@@ -41,7 +41,8 @@ describe('API', function () {
                         'Manager'
                     ],
                     score: 0,
-                    seniority: 0
+                    seniority: 0,
+                    availability_date: null
                 });
             })
             .then(done)
@@ -101,7 +102,8 @@ describe('API', function () {
                             name: 'Julien',
                             phone: null,
                             readable_id: 'julien',
-                            seniority: 0
+                            seniority: 0,
+                            availability_date: null
                         }
                     ]);
                 done();
@@ -152,7 +154,8 @@ describe('API', function () {
                                 'Manager'
                             ],
                             score: 2,
-                            seniority: 0
+                            seniority: 0,
+                            availability_date: null
                         }
                     ]);
                 done();
@@ -306,7 +309,8 @@ describe('API', function () {
                             phone: null,
                             roles: [
                                 'Manager'
-                            ]
+                            ],
+                            availability_date: null
                         }
                     ]);
             })
@@ -337,7 +341,8 @@ describe('API', function () {
                         ],
                         score: 0,
                         readable_id: 'julien-smadja',
-                        seniority: 0
+                        seniority: 0,
+                        availability_date: null
                     }
                 );
             })
@@ -368,7 +373,8 @@ describe('API', function () {
                         ],
                         score: 0,
                         readable_id: 'clément-smadja',
-                        seniority: 0
+                        seniority: 0,
+                        availability_date: null
                     }
                 );
             })

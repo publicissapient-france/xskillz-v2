@@ -134,6 +134,26 @@ describe('UserService', () => {
                 .catch(done);
         });
 
+        it('should update user availability date', done => {
+            const userId = 234;
+            const body = {
+                availability_date: '2015-01-01'
+            };
+
+            const updateUserAvailabilityDate =
+                sandbox
+                    .stub(UserRepository, 'updateUserAvailabilityDate')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updateUser(userId, body)
+                .then(() => {
+                    sinon.assert.calledWith(updateUserAvailabilityDate, userId, body);
+                })
+                .then(done)
+                .catch(done);
+        });
+
         it('should update password', done => {
             const userId = 234;
             const oldPassword = 'p1';
@@ -246,7 +266,8 @@ describe('UserService', () => {
                             readable_id: 'julien',
                             seniority: 3,
                             score: undefined,
-                            domains: undefined
+                            domains: undefined,
+                            availability_date: null
                         }
                     ]);
                 })
@@ -274,7 +295,8 @@ describe('UserService', () => {
                             readable_id: 'julien',
                             seniority: 0,
                             score: undefined,
-                            domains: undefined
+                            domains: undefined,
+                            availability_date: null
                         }
                     ]);
                 })
@@ -315,7 +337,8 @@ describe('UserService', () => {
                             domains: [],
                             roles: [],
                             score: 0,
-                            seniority: 0
+                            seniority: 0,
+                            availability_date: null
                         }
                     ]);
                 })
@@ -356,7 +379,8 @@ describe('UserService', () => {
                             domains: [],
                             roles: [],
                             score: 0,
-                            seniority: 0
+                            seniority: 0,
+                            availability_date: null
                         }
                     ]);
                 })
@@ -403,8 +427,8 @@ describe('UserService', () => {
                             manager_id: undefined,
                             address: null,
                             phone: undefined,
-                            seniority: 0
-
+                            seniority: 0,
+                            availability_date: null
                         }
                     ]);
                 })

@@ -16,6 +16,7 @@ class User {
         this.seniority = raw.employee_date ? new Date().getFullYear() - new Date(raw.employee_date).getFullYear() : 0;
         this.domains = raw.domains;
         this.score = raw.score;
+        this.availability_date = raw.availability_date;
     }
 }
 

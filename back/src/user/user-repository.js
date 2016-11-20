@@ -162,6 +162,12 @@ const UserRepository = {
             SET employee_date = '${user.employee_date}'
             WHERE id = ${id}`),
 
+    updateUserAvailabilityDate: (id, user) =>
+        Database.query(`
+            UPDATE User
+            SET availability_date = '${user.availability_date}'
+            WHERE id = ${id}`),
+
     assignManager: (userId, managerId) =>
         Database.query(`
             UPDATE User SET manager_id = ${managerId} WHERE id = ${userId}

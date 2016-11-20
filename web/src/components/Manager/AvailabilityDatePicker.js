@@ -5,10 +5,10 @@ import Paper from 'material-ui/Paper';
 import AutoComplete from 'material-ui/AutoComplete';
 import _ from 'lodash';
 
-class EmployeeDatePicker extends Component {
+class AvailabilityDatePicker extends Component {
 
     static propTypes = {
-        saveEmployeeDate: PropTypes.func.isRequired,
+        saveAvailabilityDate: PropTypes.func.isRequired,
         users: PropTypes.object.isRequired
     };
 
@@ -23,7 +23,7 @@ class EmployeeDatePicker extends Component {
 
     onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
-    saveEmployeeDate = () => this.props.saveEmployeeDate(this.state.userId, this.state.date);
+    saveAvailabilityDate = () => this.props.saveAvailabilityDate(this.state.userId, this.state.date);
 
     render() {
         const {date} = this.state;
@@ -34,7 +34,7 @@ class EmployeeDatePicker extends Component {
         }
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
-                <h3>Définir la date de démarrage dans la société</h3>
+                <h3>Définir la date de disponibilité</h3>
                 <div>
                     <AutoComplete
                         floatingLabelText="Équipier"
@@ -46,17 +46,17 @@ class EmployeeDatePicker extends Component {
                 </div>
                 <div>
                     <DatePicker
-                        hintText="Embauché le"
+                        hintText="Disponible le"
                         value={date}
                         onChange={::this.onChangeDate}
                         shouldDisableDate={this.disableWeekends}/>
                 </div>
                 <div style={{marginTop: '1rem', clear: 'both'}}>
-                    <RaisedButton label="Valider" primary={true} onClick={::this.saveEmployeeDate}/>
+                    <RaisedButton label="Valider" primary={true} onClick={::this.saveAvailabilityDate}/>
                 </div>
             </Paper>
         )
     }
 }
 
-export default EmployeeDatePicker;
+export default AvailabilityDatePicker;

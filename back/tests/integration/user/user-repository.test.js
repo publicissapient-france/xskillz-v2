@@ -134,6 +134,22 @@ describe('User Repository', () => {
             .catch(done);
     });
 
+    it('should update user availability date', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.updateUserAvailabilityDate(user.id, {availability_date: '2016-11-15'}))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => {
+                assert.ok(user.availability_date);
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should return managers', (done) => {
         const email = 'email';
         const name = 'name';

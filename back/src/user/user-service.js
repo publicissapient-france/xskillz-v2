@@ -248,8 +248,11 @@ module.exports = {
         if (body.employee_date) {
             updateFunction = Repository.updateUserEmployeeDate;
         }
+        if (body.availability_date) {
+            updateFunction = Repository.updateUserAvailabilityDate;
+        }
         if (!updateFunction) {
-            throw new Error('Invalid paramters');
+            throw new Error('Invalid parameters');
         }
         return updateFunction(userId, body);
     },

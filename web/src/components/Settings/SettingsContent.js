@@ -3,6 +3,7 @@ import {Tabs, Tab} from "material-ui/Tabs";
 
 import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
 import EmployeeDatePicker from "../Manager/EmployeeDatePicker";
+import AvailabilityDatePicker from "../Manager/AvailabilityDatePicker";
 import AssignUserToManager from "../Manager/AssignUserToManager";
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
 import Config from '../../Config';
@@ -26,7 +27,8 @@ class SettingsContent extends Component {
         addDomain: PropTypes.func.isRequired,
         mergeSkills: PropTypes.func.isRequired,
         saveDiploma: PropTypes.func.isRequired,
-        saveEMployeeDate: PropTypes.func.isRequired,
+        saveEmployeeDate: PropTypes.func.isRequired,
+        saveAvailabilityDate: PropTypes.func.isRequired,
         auth: PropTypes.object.isRequired,
         fetchManagers: PropTypes.func.isRequired,
         promoteManager: PropTypes.func.isRequired,
@@ -56,7 +58,7 @@ class SettingsContent extends Component {
         const {auth} = this.props;
         const {
             createUser, promoteManager, fetchManagers, linkSkillToDomain,
-            mergeSkills, addDomain, deleteDomain, saveDiploma, saveEmployeeDate, assignUserToManager, users, fetchUsers
+            mergeSkills, addDomain, deleteDomain, saveDiploma, saveEmployeeDate, saveAvailabilityDate, assignUserToManager, users, fetchUsers
         } = this.props;
         return (
             <div className="content">
@@ -73,6 +75,7 @@ class SettingsContent extends Component {
                     <Tab label="Utilisateurs">
                         {hasRole(MANAGER) && <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>}
                         {hasRole(MANAGER) && <EmployeeDatePicker saveEmployeeDate={saveEmployeeDate} users={users}/>}
+                        {hasRole(MANAGER) && <AvailabilityDatePicker saveAvailabilityDate={saveAvailabilityDate} users={users}/>}
                         {hasRole(MANAGER) &&
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}

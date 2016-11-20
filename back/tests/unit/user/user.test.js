@@ -27,7 +27,8 @@ describe('User', () => {
             readable_id: 'julien',
             seniority: 0,
             domains:  undefined,
-            score: undefined
+            score: undefined,
+            availability_date: null
         });
         done();
     });
@@ -53,7 +54,8 @@ describe('User', () => {
             readable_id: 'antoine-le-taxin',
             seniority: 0,
             domains: undefined,
-            score: undefined
+            score: undefined,
+            availability_date: null
         });
         done();
     });
