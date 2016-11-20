@@ -53,7 +53,7 @@ class AddSkillForm extends Component {
 
         return (
             <div className="add-skill-form">
-                <Paper>
+                <Paper style={{margin: '.5em', padding: '10px'}}>
                     <div className="content">
                         <div className="autocomplete">
                             <AutoComplete hintText={'Ajouter une compétence ...'}

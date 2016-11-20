@@ -41,7 +41,7 @@ class UserItem extends Component {
             // noinspection JSUnresolvedFunction
             return (
                 <div className="user-row">
-                    <Paper>
+                    <Paper style={{margin: '.5em', padding: '10px'}}>
                         <div className="user-content">
                             <div className="user-left">
                                 <Avatar src={user.gravatarUrl} size={75} style={{paddingTop: 0}}/>
@@ -60,9 +60,11 @@ class UserItem extends Component {
                                             </Chip>
                                         ).value()}
                                     {user.experienceCounter > 0 &&
-                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor} labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
+                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor}
+                                          labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
                                     {user.seniority > 0 &&
-                                    <Chip style={styles.seniority} backgroundColor={styles.seniority.backgroundColor} labelStyle={styles.seniority}>{user.seniority} ans</Chip>}
+                                    <Chip style={styles.seniority} backgroundColor={styles.seniority.backgroundColor}
+                                          labelStyle={styles.seniority}>{user.seniority} ans</Chip>}
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,14 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+h3 {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 100;
+}
+
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px white inset;
 }
@@ -18,7 +26,6 @@ input:-webkit-autofill {
     }
 
     .user-row {
-        margin: .2rem;
         position: relative;
     }
 
@@ -32,11 +39,10 @@ input:-webkit-autofill {
         display: flex;
 
         .user-left {
-            margin: .8rem;
         }
 
         .user-right {
-            margin: .8rem;
+            margin-left: 10px;
         }
 
         .user-update-label {

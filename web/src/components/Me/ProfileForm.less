@@ -1,51 +1,45 @@
 .profile-form {
 
-  margin: .2rem;
+  .button {
+    margin: 2rem 0 0 0;
+  }
 
-  .content {
-    padding: 1rem;
+  .geosuggest-content {
+    margin-top: 20px;
 
-    .button {
-      margin: 2rem 0 0 0;
+    .label {
+      color: #808080;
+      font-size: 12px;
+      font-weight: 100;
+      font-family: 'Roboto', sans-serif;
     }
 
-    .geosuggest-content {
-      margin-top: 20px;
+    .geosuggest__input-wrapper {
+      width: 100%;
 
-      .label {
-        color: #808080;
-        font-size: 12px;
-        font-weight: 100;
-        font-family: 'Roboto', sans-serif;
-      }
-
-      .geosuggest__input-wrapper {
+      .geosuggest__input {
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
         width: 100%;
-
-        .geosuggest__input {
-          border: none;
-          border-bottom: 1px solid #e0e0e0;
-          width: 100%;
-          font-size: 1em;
-          outline: none;
-          line-height: 30px;
-        }
+        font-size: 1em;
+        outline: none;
+        line-height: 30px;
       }
+    }
 
-      .geosuggest__suggests-wrapper {
+    .geosuggest__suggests-wrapper {
 
-        .geosuggest__suggests {
+      .geosuggest__suggests {
 
-          list-style: none;
-          padding: 10px;
-          border: 1px solid #e0e0e0;
-          margin-top: 0;
-          border-top: none;
-          line-height: 30px;
+        list-style: none;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        margin-top: 0;
+        border-top: none;
+        line-height: 30px;
 
-          &.geosuggest__suggests--hidden {
-            display: none;
-          }
+        &.geosuggest__suggests--hidden {
+          display: none;
         }
       }
     }

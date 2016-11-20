@@ -73,7 +73,7 @@ class ProfileForm extends Component {
         const phoneValue = (phone || this.props.user.phone) || '';
         return (
             <div className="profile-form">
-                <Paper>
+                <Paper style={{margin: '.5em', padding: '10px'}}>
                     <div className="content">
                         <h3>Informations personnelles</h3>
                         <div>

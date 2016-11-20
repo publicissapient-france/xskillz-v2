@@ -37,7 +37,7 @@ class ChangePassword extends Component {
         const successOpen = (submit && changePassword.success) || false;
         const errorOpen = (submit && changePassword.error) || false;
         return (
-            <Paper style={{marginTop: '.2rem', padding: '1rem'}}>
+            <Paper style={{margin: '.5em', padding: '10px'}}>
                 <h3>Changer de mot de passe</h3>
                 <form>
                     <TextField

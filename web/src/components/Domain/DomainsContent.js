@@ -6,6 +6,7 @@ class DomainsContent extends Component {
     componentDidMount() {
         this.props.fetchDomainsWithSkills();
     }
+
     render() {
         const {loaded, domains} = this.props.domains;
         if (!loaded) {
@@ -15,10 +16,8 @@ class DomainsContent extends Component {
         }
         return (
             <div className="domains">
-                {
-                    domains && domains.map((domain, index) => (
-                        <DomainItem domain={domain} key={index} onSkillClick={this.props.onSkillClick} />))
-                }
+                {domains && domains.map((domain, index) => (
+                    <DomainItem domain={domain} key={index} onSkillClick={this.props.onSkillClick}/>))}
             </div>
         )
     }
