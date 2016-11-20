@@ -1,6 +1,5 @@
 import store from 'store';
 
-export const UPDATES = 'updates';
 export const SKILLS = 'skills';
 export const USERS = 'users';
 export const MANAGEMENT = 'management';

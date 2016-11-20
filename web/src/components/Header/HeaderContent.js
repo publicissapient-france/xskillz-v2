@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import {hasRole, UPDATES, SKILLS, USERS, MANAGEMENT, SETTINGS} from '../../services/permissions';
+import {hasRole, SKILLS, USERS, MANAGEMENT, SETTINGS} from '../../services/permissions';
 
 import AppBar from "material-ui/AppBar";
 import FontIcon from "material-ui/FontIcon";
@@ -18,17 +18,13 @@ class HeaderContent extends Component {
         titles["settings"] = "Préférences";
         titles["help"] = "Aide";
         titles["logout"] = "Déconnexion";
-        titles["updates"] = "Skillz";
 
-        const {goToSkills, goToUsers, goToHelp, goToMe, goToSettings, goToDomains, goToUpdates, goToManagement, goToLogout} = this.props;
+        const {goToSkills, goToUsers, goToHelp, goToMe, goToSettings, goToDomains, goToManagement, goToLogout} = this.props;
 
         const style = {height: 'auto'};
 
         return (
             <AppBar showMenuIconButton={false}>
-                {hasRole(UPDATES) && <IconButton onClick={goToUpdates} style={style} tooltip="Dernières mises à jour">
-                    <FontIcon className={'material-icons'} color="white">home</FontIcon>
-                </IconButton>}
                 <IconButton onClick={goToMe} style={style} tooltip="Mon profil">
                     <FontIcon className={'material-icons'} color="white">face</FontIcon>
                 </IconButton>

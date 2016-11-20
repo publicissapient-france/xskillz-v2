@@ -40,41 +40,6 @@ describe('User Repository', () => {
             .catch(done);
     });
 
-    it('should create a new user, a new skill and assign it and get updates', (done) => {
-        const email = 'email';
-        const name = 'name';
-        const password = 'password';
-        const skillName = 'skill';
-
-        let user, skill;
-
-        SkillRepository
-            .addNewSkill(skillName)
-            .then(() => SkillRepository.findSkillByName(skillName))
-            .then((_skill) => {
-                skill = _skill;
-            })
-            .then(() => UserRepository.addNewUser({email, name, password}))
-            .then(() => UserRepository.findUserByEmail(email))
-            .then((_user) => {
-                user = _user;
-            })
-            .then(() => SkillRepository.addSkill({interested: true, level: 2, id: skill.id, user_id: user.id}))
-            .then(() => UserRepository.getUpdates())
-            .then((updates) => {
-                assert.deepEqual(_.pick(updates[0], ['skill_level', 'skill_name', 'user_email', 'user_name']),
-                    {
-                        "skill_level": 2,
-                        "skill_name": "skill",
-                        "user_email": "email",
-                        "user_name": "name"
-                    }
-                );
-            })
-            .then(done)
-            .catch(done);
-    });
-
     it('should create a new user, a new skill and assign it and get user by skill', (done) => {
         const email = 'email';
         const name = 'name';

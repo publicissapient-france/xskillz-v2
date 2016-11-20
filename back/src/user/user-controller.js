@@ -83,12 +83,6 @@ module.exports = {
             .then(() => res.jsonp({updated: true}))
             .catch(err => onError(err, res)),
 
-    getUpdates: (req, res) =>
-        UserService
-            .getUpdates()
-            .then(updates => res.jsonp(updates))
-            .catch(err => onError(err, res)),
-
     promoteToManager: (req, res) =>
         UserService
             .promoteToManager(req.params.id)

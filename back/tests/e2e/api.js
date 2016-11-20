@@ -120,11 +120,5 @@ module.exports = {
             request
                 .put(`${host}/skills`)
                 .set('token', token)
-                .send({from, to})),
-
-    getUpdates: (token) =>
-        execute(
-            request
-                .get(`${host}/updates`)
-                .set('token', token))
+                .send({from, to}))
 };

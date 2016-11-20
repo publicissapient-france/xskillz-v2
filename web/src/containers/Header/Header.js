@@ -16,7 +16,6 @@ const mapDispatchToProps = () => {
         goToUsers: () => browserHistory.push('/users'),
         goToDomains: () => browserHistory.push('/domains'),
         goToManagement: () => browserHistory.push('/management'),
-        goToUpdates: () => browserHistory.push('/updates'),
         goToHelp: () => browserHistory.push('/help'),
         goToMe: () => browserHistory.push('/me'),
         goToSettings: () => browserHistory.push('/settings'),

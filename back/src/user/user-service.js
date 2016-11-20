@@ -4,7 +4,6 @@ const Repository = require('./user-repository');
 const _ = require('lodash');
 const uuid = require('uuid');
 const User = require('./user');
-const Updates = require('./updates');
 
 const SkillService = require('../skill/skill-service');
 
@@ -254,21 +253,6 @@ module.exports = {
         }
         return updateFunction(userId, body);
     },
-
-    getUpdates: () =>
-        Repository
-            .getUpdates()
-            .then(updates => {
-                const response = [];
-                _(updates)
-                    .groupBy(update => update.user_id)
-                    .values()
-                    .value()
-                    .forEach((userUpdates) => {
-                        response.push(new Updates(userUpdates));
-                    });
-                return response;
-            }),
 
     updatePassword: (userId, oldPassword, newPassword) => Repository.updatePassword(userId, oldPassword, newPassword),
 

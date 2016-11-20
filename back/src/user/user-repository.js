@@ -171,17 +171,6 @@ const UserRepository = {
         Database.query(`SELECT DISTINCT id FROM Role WHERE name = '${roleName}'`)
             .then((roles) => Database.query(`INSERT INTO UserRole(user_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
 
-    getUpdates: () =>
-        Database.query(`
-            SELECT domain.color, domain.id domain_id, domain.name domain_name, user.diploma user_diploma, user.email user_email, user.id user_id, user.name user_name, skill.id skill_id, user_skill.interested skill_interested, user_skill.level skill_level, skill.name skill_name, user_skill.updatedAt skill_date, user_skill.id user_skill_id
-            FROM UserSkill user_skill
-                JOIN User user ON user_skill.user_id = user.id
-                JOIN Skill skill ON skill.id = user_skill.skill_id
-                LEFT JOIN Domain domain ON domain.id = skill.domain_id
-            ORDER BY user_skill.updatedAt DESC, domain_name
-            LIMIT 20
-    `),
-
     addToken: (user, token) =>
         Database.query(`
             INSERT INTO Token (token_value, user_id)

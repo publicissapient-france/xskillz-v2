@@ -23,7 +23,6 @@ const UserRouter = {
             .get(UserController.getUserByReadableId);
 
         express
-            .get('/updates', Security.requireLogin, UserController.getUpdates)
             .patch('/me', Security.requireLogin, UserController.patchMe)
             .post('/me', Security.requireLogin, UserController.getCurrentUser)
             .get('/web/users', UserController.getUsersWebVersion)

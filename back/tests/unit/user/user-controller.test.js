@@ -224,21 +224,6 @@ describe('UserController', () => {
                 .catch(done);
         });
 
-        it('should return code 500 with error if get updates failed', done => {
-            sandbox
-                .stub(UserService, 'getUpdates')
-                .returns(Promise.reject(new Error('error')));
-
-            UserController
-                .getUpdates(req, res)
-                .then(() => {
-                    sinon.assert.calledWith(res.status, 500);
-                    sinon.assert.calledWith(res.send, 'error');
-                })
-                .then(done)
-                .catch(done);
-        });
-
         it('should return code 500 with error if promote manager failed', done => {
             sandbox
                 .stub(UserService, 'promoteToManager')
@@ -488,20 +473,6 @@ describe('UserController', () => {
                 .assignManager(req, res)
                 .then(() => {
                     sinon.assert.calledWith(res.jsonp, {assigned: true});
-                })
-                .then(done)
-                .catch(done);
-        });
-
-        it('should return json if get updates succeeded', done => {
-            sandbox
-                .stub(UserService, 'getUpdates')
-                .returns(Promise.resolve([]));
-
-            UserController
-                .getUpdates(req, res)
-                .then(() => {
-                    sinon.assert.calledWith(res.jsonp, []);
                 })
                 .then(done)
                 .catch(done);
