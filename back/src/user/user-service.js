@@ -263,6 +263,9 @@ module.exports = {
 
     updateAddress: (userId, address) => Repository.updateAddress(userId, address),
 
+    updateAvailability: (userId, availability) =>
+        Repository.updateUserAvailabilityDate(userId, {availability_date: availability}),
+
     getUserByToken: (token) =>
         Repository.getUserByToken(token),
 

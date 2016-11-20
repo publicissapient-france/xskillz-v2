@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import AutoComplete from 'material-ui/AutoComplete';
+import areIntlLocalesSupported from 'intl-locales-supported';
 import _ from 'lodash';
 
 class AvailabilityDatePicker extends Component {
@@ -26,6 +27,15 @@ class AvailabilityDatePicker extends Component {
     saveAvailabilityDate = () => this.props.saveAvailabilityDate(this.state.userId, this.state.date);
 
     render() {
+        let DateTimeFormat;
+        // Use the native Intl.DateTimeFormat if available, or a polyfill if not.
+        if (areIntlLocalesSupported(['fr'])) {
+            DateTimeFormat = global.Intl.DateTimeFormat;
+        } else {
+            const IntlPolyfill = require('intl');
+            DateTimeFormat = IntlPolyfill.DateTimeFormat;
+            require('intl/locale-data/jsonp/fr');
+        }
         const {date} = this.state;
         const users = this.props.users.list;
         let userNames = [];
@@ -46,10 +56,14 @@ class AvailabilityDatePicker extends Component {
                 </div>
                 <div>
                     <DatePicker
+                        DateTimeFormat={DateTimeFormat}
                         hintText="Disponible le"
+                        floatingLabelText="Disponible le"
                         value={date}
                         onChange={::this.onChangeDate}
-                        shouldDisableDate={this.disableWeekends}/>
+                        minDate={new Date()}
+                        shouldDisableDate={this.disableWeekends}
+                        locale="fr"/>
                 </div>
                 <div style={{marginTop: '1rem', clear: 'both'}}>
                     <RaisedButton label="Valider" primary={true} onClick={::this.saveAvailabilityDate}/>

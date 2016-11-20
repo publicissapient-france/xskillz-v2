@@ -64,6 +64,8 @@
     "history": "^4.4.0",
     "immutable": "^3.8.1",
     "imports-loader": "^0.6.4",
+    "intl": "1.2.5",
+    "intl-locales-supported": "1.0.0",
     "isomorphic-fetch": "^2.2.1",
     "istanbul": "^1.1.0-alpha.1",
     "jsdom": "^9.4.0",

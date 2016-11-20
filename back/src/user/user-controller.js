@@ -103,13 +103,16 @@ module.exports = {
                 .then(() => res.jsonp({updated: true}))
                 .catch(err => onError(err, res));
         };
-        const updatePhoneAndAddress = () => {
+        const updateUser = () => {
             const tasks = [];
             if (req.body.phone) {
                 tasks.push(UserService.updatePhone(userId, req.body.phone));
             }
             if (req.body.address) {
                 tasks.push(UserService.updateAddress(userId, req.body.address));
+            }
+            if (req.body.availability) {
+                tasks.push(UserService.updateAvailability(userId, req.body.availability));
             }
             return Promise.all(tasks)
                 .then(() => res.jsonp({updated: true}))
@@ -118,8 +121,8 @@ module.exports = {
         if (userId && req.body.old_password && req.body.password) {
             return updatePassword();
         }
-        if (userId && req.body.phone || req.body.address) {
-            return updatePhoneAndAddress();
+        if (userId && req.body.phone || req.body.address || req.body.availability) {
+            return updateUser();
         }
     }
 };
