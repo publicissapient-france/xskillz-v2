@@ -93,6 +93,10 @@ class ProfileForm extends Component {
         const {user:{address, availability_date}, user, changePassword} = this.props;
         const fixtures = [{label: 'Xebia', location: {lat: 48.8755622, lng: 2.3088289}}];
         const phoneValue = (phone || this.props.user.phone) || '';
+        let date = availability;
+        if (!date && availability_date) {
+            date = moment(availability_date).toDate()
+        }
         return (
             <div className="profile-form">
                 <Paper style={{margin: '.5em', padding: '10px'}}>
@@ -119,7 +123,7 @@ class ProfileForm extends Component {
                                 DateTimeFormat={DateTimeFormat}
                                 hintText="Disponible le"
                                 floatingLabelText="Disponible le"
-                                value={availability || moment(availability_date).toDate()}
+                                value={date}
                                 onChange={::this.setAvailability}
                                 minDate={new Date()}
                                 shouldDisableDate={::this.disableWeekends}
