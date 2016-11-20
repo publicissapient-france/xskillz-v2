@@ -13,6 +13,9 @@ class User {
         this.manager_id = raw.manager_id;
         this.readable_id = raw.name.toLowerCase().replace(/ /g, "-");
         this.address = raw.address ? JSON.parse(raw.address) : null;
+        this.seniority = raw.employee_date ? new Date().getFullYear() - new Date(raw.employee_date).getFullYear() : 0;
+        this.domains = raw.domains;
+        this.score = raw.score;
     }
 }
 

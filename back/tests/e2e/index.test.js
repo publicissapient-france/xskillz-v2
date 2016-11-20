@@ -40,7 +40,8 @@ describe('API', function () {
                     roles: [
                         'Manager'
                     ],
-                    score: 0
+                    score: 0,
+                    seniority: 0
                 });
             })
             .then(done)
@@ -99,7 +100,8 @@ describe('API', function () {
                             manager_id: null,
                             name: 'Julien',
                             phone: null,
-                            readable_id: 'julien'
+                            readable_id: 'julien',
+                            seniority: 0
                         }
                     ]);
                 done();
@@ -149,7 +151,8 @@ describe('API', function () {
                             roles: [
                                 'Manager'
                             ],
-                            score: 2
+                            score: 2,
+                            seniority: 0
                         }
                     ]);
                 done();
@@ -239,10 +242,12 @@ describe('API', function () {
                         {
                             domains: [{color: '#CCCCCC', score: 2, name: 'MyDomain'}],
                             experienceCounter: 0,
-                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
                             name: 'Julien',
                             readable_id: 'julien',
-                            score: 2
+                            score: 2,
+                            seniority: 0,
+                            address: null
                         }
                     ]);
             })
@@ -296,6 +301,7 @@ describe('API', function () {
                             name: 'Julien',
                             readable_id: 'julien',
                             score: 2,
+                            seniority: 0,
                             manager_id: null,
                             phone: null,
                             roles: [
@@ -330,7 +336,8 @@ describe('API', function () {
                             'Manager'
                         ],
                         score: 0,
-                        readable_id: 'julien-smadja'
+                        readable_id: 'julien-smadja',
+                        seniority: 0
                     }
                 );
             })
@@ -360,7 +367,8 @@ describe('API', function () {
                             'Manager'
                         ],
                         score: 0,
-                        readable_id: 'clément-smadja'
+                        readable_id: 'clément-smadja',
+                        seniority: 0
                     }
                 );
             })

@@ -110,9 +110,10 @@ export function saveDiploma(userId, diploma) {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
+                'Content-Type': 'application/json',
                 token: getToken()
             },
-            body: JSON.stringify({diploma})
+            body: JSON.stringify({diploma: diploma.toISOString().split('T')[0]})
         };
         return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then(response => {
@@ -123,6 +124,38 @@ export function saveDiploma(userId, diploma) {
                 }
             })
             .then(responseBody => dispatch(diplomaSaved()));
+    };
+}
+
+
+export const EMPLOYEE_DATE_SAVED = 'EMPLOYEE_DATE_SAVED';
+
+export function employeeDate() {
+    return {
+        type: EMPLOYEE_DATE_SAVED
+    }
+}
+
+export function saveEmployeeDate(userId, employeeDate) {
+    return dispatch => {
+        const config = {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                token: getToken()
+            },
+            body: JSON.stringify({employee_date: employeeDate.toISOString().split('T')[0]})
+        };
+        return fetch(`${Config.apiURL}/users/${userId}`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(responseBody => dispatch(employeeDateSaved()));
     };
 }
 

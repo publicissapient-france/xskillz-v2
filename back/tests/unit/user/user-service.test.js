@@ -94,19 +94,41 @@ describe('UserService', () => {
                 .catch(done);
         });
 
-        it('should update user', done => {
+        it('should update user diploma', done => {
             const userId = 234;
-            const body = {};
+            const body = {
+                diploma: '2015-01-01'
+            };
 
-            const updateUser =
+            const updateUserDiploma =
                 sandbox
-                    .stub(UserRepository, 'updateUser')
+                    .stub(UserRepository, 'updateUserDiploma')
                     .returns(Promise.resolve());
 
             UserService
                 .updateUser(userId, body)
                 .then(() => {
-                    sinon.assert.calledWith(updateUser, userId, body);
+                    sinon.assert.calledWith(updateUserDiploma, userId, body);
+                })
+                .then(done)
+                .catch(done);
+        });
+
+        it('should update user employee date', done => {
+            const userId = 234;
+            const body = {
+                employee_date: '2015-01-01'
+            };
+
+            const updateUserEmployeeDate =
+                sandbox
+                    .stub(UserRepository, 'updateUserEmployeeDate')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updateUser(userId, body)
+                .then(() => {
+                    sinon.assert.calledWith(updateUserEmployeeDate, userId, body);
                 })
                 .then(done)
                 .catch(done);
@@ -207,7 +229,7 @@ describe('UserService', () => {
         it('should get users', done => {
             sandbox
                 .stub(UserRepository, 'getUsers')
-                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
+                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien', employee_date: '2013'}]));
 
             UserService
                 .getUsers({})
@@ -221,7 +243,10 @@ describe('UserService', () => {
                             manager_id: undefined,
                             name: 'Julien',
                             phone: undefined,
-                            readable_id: 'julien'
+                            readable_id: 'julien',
+                            seniority: 3,
+                            score: undefined,
+                            domains: undefined
                         }
                     ]);
                 })
@@ -246,7 +271,10 @@ describe('UserService', () => {
                             manager_id: undefined,
                             name: 'Julien',
                             phone: undefined,
-                            readable_id: 'julien'
+                            readable_id: 'julien',
+                            seniority: 0,
+                            score: undefined,
+                            domains: undefined
                         }
                     ]);
                 })
@@ -286,7 +314,8 @@ describe('UserService', () => {
                             readable_id: 'julien',
                             domains: [],
                             roles: [],
-                            score: 0
+                            score: 0,
+                            seniority: 0
                         }
                     ]);
                 })
@@ -326,7 +355,8 @@ describe('UserService', () => {
                             readable_id: 'julien',
                             domains: [],
                             roles: [],
-                            score: 0
+                            score: 0,
+                            seniority: 0
                         }
                     ]);
                 })
@@ -365,11 +395,16 @@ describe('UserService', () => {
                                 }
                             ],
                             experienceCounter: 6,
-                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
                             id: 2,
                             name: 'Julien',
                             readable_id: 'julien',
-                            score: 7
+                            score: 7,
+                            manager_id: undefined,
+                            address: null,
+                            phone: undefined,
+                            seniority: 0
+
                         }
                     ]);
                 })
@@ -492,14 +527,17 @@ describe('UserService', () => {
                                     }
                                 ],
                                 "user": {
-                                    "address": null,
-                                    "experienceCounter": 0,
-                                    "gravatarUrl": "//www.gravatar.com/avatar/fd10bdaf3f264f4054a95ceaa6118b14",
-                                    "id": 272,
-                                    "manager_id": undefined,
-                                    "name": "Michaël OHAYON",
-                                    "phone": undefined,
-                                    "readable_id": "michaël-ohayon"
+                                    address: null,
+                                    experienceCounter: 0,
+                                    gravatarUrl: '//www.gravatar.com/avatar/fd10bdaf3f264f4054a95ceaa6118b14',
+                                    id: 272,
+                                    manager_id: undefined,
+                                    name: 'Michaël OHAYON',
+                                    phone: undefined,
+                                    readable_id: 'michaël-ohayon',
+                                    seniority: 0,
+                                    domains: undefined,
+                                    score: undefined
                                 }
                             }
                         ]);

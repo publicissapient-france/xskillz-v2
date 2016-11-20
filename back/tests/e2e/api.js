@@ -7,7 +7,10 @@ const host = 'localhost:' + (process.env.PORT || 8080);
 const execute = (fn) =>
     fn
         .end((err) => {
-            if (err) Promise.reject(err);
+            if (err) {
+                console.error(err);
+                return Promise.reject(err);
+            }
         });
 
 module.exports = {

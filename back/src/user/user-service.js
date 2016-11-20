@@ -2,7 +2,6 @@
 
 const Repository = require('./user-repository');
 const _ = require('lodash');
-const gravatar = require('gravatar');
 const uuid = require('uuid');
 const User = require('./user');
 const Updates = require('./updates');
@@ -168,11 +167,11 @@ module.exports = {
                     .groupBy('user_id')
                     .map((domainRows) => {
                         var user = domainRows[0];
-                        return {
+                        return new User({
                             id: user.user_id,
                             name: user.user_name,
-                            gravatarUrl: gravatar.url(user.email),
-                            experienceCounter: user.diploma ? new Date().getFullYear() - new Date(user.diploma).getFullYear() : 0,
+                            gravatarUrl: user.email,
+                            diploma: user.diploma,
                             domains: domainRows.map((domainRow) =>
                                 ({
                                     id: domainRow.domain_id,
@@ -181,9 +180,8 @@ module.exports = {
                                     color: domainRow.domain_color
                                 })
                             ),
-                            score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0),
-                            readable_id: user.user_name.toLowerCase().replace(/ /g, "-")
-                        };
+                            score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0)
+                        });
                     })
                     .sortBy('name').value();
             });
@@ -243,7 +241,19 @@ module.exports = {
 
     assignManager: (userId, managerId) => Repository.assignManager(userId, managerId),
 
-    updateUser: (userId, body) => Repository.updateUser(userId, body),
+    updateUser: (userId, body) => {
+        let updateFunction;
+        if (body.diploma) {
+            updateFunction = Repository.updateUserDiploma;
+        }
+        if (body.employee_date) {
+            updateFunction = Repository.updateUserEmployeeDate;
+        }
+        if (!updateFunction) {
+            throw new Error('Invalid paramters');
+        }
+        return updateFunction(userId, body);
+    },
 
     getUpdates: () =>
         Repository

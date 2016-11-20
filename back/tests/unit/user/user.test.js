@@ -24,7 +24,10 @@ describe('User', () => {
             manager_id: 2,
             name: 'Julien',
             phone: '01.43.00.65.78',
-            readable_id: 'julien'
+            readable_id: 'julien',
+            seniority: 0,
+            domains:  undefined,
+            score: undefined
         });
         done();
     });
@@ -36,7 +39,8 @@ describe('User', () => {
             email: 'jsmadja@xebia.fr',
             diploma: '2014',
             phone: '01.43.00.65.78',
-            manager_id: 2
+            manager_id: 2,
+            seniority: 0
         });
         assert.deepEqual(user, {
             address: null,
@@ -46,7 +50,10 @@ describe('User', () => {
             manager_id: 2,
             name: 'Antoine Le Taxin',
             phone: '01.43.00.65.78',
-            readable_id: 'antoine-le-taxin'
+            readable_id: 'antoine-le-taxin',
+            seniority: 0,
+            domains: undefined,
+            score: undefined
         });
         done();
     });

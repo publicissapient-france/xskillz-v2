@@ -22,6 +22,12 @@ const styles = {
         color: 'white',
         backgroundColor: '#9b59b6',
         display: 'inline-block'
+    },
+    seniority: {
+        marginRight: '5px',
+        color: 'white',
+        backgroundColor: '#f1c40f',
+        display: 'inline-block'
     }
 };
 
@@ -54,8 +60,9 @@ class UserItem extends Component {
                                             </Chip>
                                         ).value()}
                                     {user.experienceCounter > 0 &&
-                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor}
-                                          labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
+                                    <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor} labelStyle={styles.experience}>{user.experienceCounter} XP</Chip>}
+                                    {user.seniority > 0 &&
+                                    <Chip style={styles.seniority} backgroundColor={styles.seniority.backgroundColor} labelStyle={styles.seniority}>{user.seniority} ans</Chip>}
                                 </div>
                             </div>
                         </div>

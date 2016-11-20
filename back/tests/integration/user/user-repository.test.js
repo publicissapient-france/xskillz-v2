@@ -137,17 +137,33 @@ describe('User Repository', () => {
             .catch(done);
     });
 
-    it('should update user', (done) => {
+    it('should update user diploma', (done) => {
         const email = 'email';
         const name = 'name';
         const password = 'password';
         UserRepository
             .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmail(email))
-            .then((user) => UserRepository.updateUser(user.id, {diploma: '2015-01-01'}))
+            .then((user) => UserRepository.updateUserDiploma(user.id, {diploma: '2015-01-01'}))
             .then(() => UserRepository.findUserByEmail(email))
             .then((user) => {
                 assert.ok(user.diploma);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should update user employee date', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.updateUserEmployeeDate(user.id, {employee_date: '2016-11-15'}))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => {
+                assert.ok(user.employee_date);
             })
             .then(done)
             .catch(done);
@@ -249,17 +265,7 @@ describe('User Repository', () => {
             .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmailAndPassword(email, password))
             .then(user => {
-                delete user.id;
-                assert.deepEqual(user,
-                    {
-                        address: null,
-                        diploma: null,
-                        email: 'jsmadja@xebia.fr',
-                        manager_id: null,
-                        name: 'Julien Smadja',
-                        phone: null
-                    }
-                );
+                assert.equal(user.email,'jsmadja@xebia.fr');
             })
             .then(done)
             .catch(done);
@@ -275,17 +281,7 @@ describe('User Repository', () => {
             .then(() => UserRepository.findUserByEmailAndPassword(email, password))
             .then((user) => UserRepository.findUserByIdAndPassword(user.id, password))
             .then(user => {
-                delete user.id;
-                assert.deepEqual(user,
-                    {
-                        address: null,
-                        diploma: null,
-                        email: 'jsmadja@xebia.fr',
-                        manager_id: null,
-                        name: 'Julien Smadja',
-                        phone: null
-                    }
-                );
+                assert.equal(user.email, 'jsmadja@xebia.fr');
             })
             .then(done)
             .catch(done);
@@ -302,17 +298,7 @@ describe('User Repository', () => {
             .then((user) => UserRepository.updatePassword(user.id, password, 'newpassword'))
             .then(() => UserRepository.findUserByEmailAndPassword(email, 'newpassword'))
             .then(user => {
-                delete user.id;
-                assert.deepEqual(user,
-                    {
-                        address: null,
-                        diploma: null,
-                        email: 'jsmadja@xebia.fr',
-                        manager_id: null,
-                        name: 'Julien Smadja',
-                        phone: null
-                    }
-                );
+                assert.equal(user.email, 'jsmadja@xebia.fr');
             })
             .then(done)
             .catch(done);
@@ -329,17 +315,7 @@ describe('User Repository', () => {
             .then((user) => UserRepository.updatePhone(user.id, '01.23.45.67.89'))
             .then(() => UserRepository.findUserByEmailAndPassword(email, password))
             .then(user => {
-                delete user.id;
-                assert.deepEqual(user,
-                    {
-                        address: null,
-                        diploma: null,
-                        email: 'jsmadja@xebia.fr',
-                        manager_id: null,
-                        name: 'Julien Smadja',
-                        phone: '01.23.45.67.89'
-                    }
-                );
+                assert.equal(user.phone, '01.23.45.67.89');
             })
             .then(done)
             .catch(done);
@@ -356,17 +332,7 @@ describe('User Repository', () => {
             .then((user) => UserRepository.updateAddress(user.id, '1 rue du yaourt'))
             .then(() => UserRepository.findUserByEmailAndPassword(email, password))
             .then(user => {
-                delete user.id;
-                assert.deepEqual(user,
-                    {
-                        address: '"1 rue du yaourt"',
-                        diploma: null,
-                        email: 'jsmadja@xebia.fr',
-                        manager_id: null,
-                        name: 'Julien Smadja',
-                        phone: null
-                    }
-                );
+                assert.equal(user.address, '"1 rue du yaourt"');
             })
             .then(done)
             .catch(done);

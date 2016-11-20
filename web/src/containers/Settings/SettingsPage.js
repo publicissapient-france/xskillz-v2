@@ -6,7 +6,7 @@ import SettingsContent from '../../components/Settings/SettingsContent'
 
 import {fetchDomains, linkSkillToDomain, deleteDomain, addDomain} from '../../actions/action.domains';
 import {fetchSkills, mergeSkills} from '../../actions/skills';
-import {saveDiploma} from '../../actions/users'
+import {saveDiploma, saveEmployeeDate} from '../../actions/users'
 import {fetchUsers, assignUserToManager, fetchManagers, promoteManager} from '../../actions/users';
 import {createUser} from '../../actions/auth';
 
@@ -28,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
     addDomain: payload => dispatch(addDomain(payload)),
     mergeSkills: payload => dispatch(mergeSkills(payload)),
     saveDiploma: (userId, date) => dispatch(saveDiploma(userId, date)),
+    saveEmployeeDate: (userId, date) => dispatch(saveEmployeeDate(userId, date)),
     fetchUsers: () => dispatch(fetchUsers()),
     assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId)),
     fetchManagers: () => dispatch(fetchManagers()),

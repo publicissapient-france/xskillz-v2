@@ -150,10 +150,16 @@ const UserRepository = {
             .then(() => Database.query(`DELETE FROM UserSkill WHERE user_id = ${id}`))
             .then(() => Database.query(`DELETE FROM User WHERE id = ${id}`)),
 
-    updateUser: (id, user) =>
+    updateUserDiploma: (id, user) =>
         Database.query(`
             UPDATE User
             SET diploma = '${user.diploma}'
+            WHERE id = ${id}`),
+
+    updateUserEmployeeDate: (id, user) =>
+        Database.query(`
+            UPDATE User
+            SET employee_date = '${user.employee_date}'
             WHERE id = ${id}`),
 
     assignManager: (userId, managerId) =>
