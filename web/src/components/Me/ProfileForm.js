@@ -70,13 +70,14 @@ class ProfileForm extends Component {
         const errorPhone = isPhoneValid ? '' : 'Numéro invalide';
         const {user:{address}, user, changePassword} = this.props;
         const fixtures = [{label: 'Xebia', location: {lat: 48.8755622, lng: 2.3088289}}];
+        const phoneValue = (phone || this.props.user.phone) || '';
         return (
             <div className="profile-form">
                 <Paper>
                     <div className="content">
                         <h3>Informations personnelles</h3>
                         <div>
-                            <TextField value={phone || this.props.user.phone} hintText="0600000000"
+                            <TextField value={phoneValue} hintText="0600000000"
                                        errorText={errorPhone}
                                        floatingLabelText="Téléphone"
                                        onChange={::this.setPhone}

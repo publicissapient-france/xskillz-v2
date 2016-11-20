@@ -9,8 +9,7 @@ export const MANAGER = 'manager';
 export function hasRole(role) {
     const me = store.get('me');
     const normalizedRole = role.replace(/\//, '').toLowerCase();
-    if (me) {
-        debugger;
+    if (me.roles) {
         return me.roles.indexOf(normalizedRole) >= 0;
     }
     return false;

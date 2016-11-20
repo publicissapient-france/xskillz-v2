@@ -96,7 +96,6 @@ export function createUser(name, email, password) {
 
         return fetch(`${Config.apiURL}/users`, config)
             .then(response => {
-                debugger;
                 if (response.status >= 400) {
                     throw new Error("Signin error");
                 } else {
