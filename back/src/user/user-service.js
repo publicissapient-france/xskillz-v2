@@ -51,8 +51,8 @@ const populateUser = user => {
         })
         .then(() => user.domains.sort((d1, d2) => d2.score - d1.score))
         .then(() => Repository.findUserRolesById(user.id))
-        .then((roles) => {
-            user.roles = roles.map((r)=>r.name);
+        .then(roles => {
+            user.roles = roles.map(r => r.name);
         })
         .then(() => user);
 };
