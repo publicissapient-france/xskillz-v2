@@ -20,7 +20,8 @@ script: cd back && npm install && npm run itest && cd ../web && npm install && n
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    cd ../back
+    cd ../back;
+    pwd;
     make;
     make push-image;
     cd ../web;
