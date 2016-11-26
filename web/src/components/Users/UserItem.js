@@ -9,6 +9,8 @@ import FontIcon from 'material-ui/FontIcon';
 
 import LabelButton from "../LabelButton";
 import SkillCard from "../Skills/SkillCard";
+import {Tabs, Tab} from "material-ui/Tabs";
+import SaleCard from '../Me/SaleCard';
 
 import "./UserItem.less";
 
@@ -90,35 +92,42 @@ class UserItem extends Component {
                                     icon={<FontIcon className="material-icons" color="black">access_time</FontIcon>}/>
                             </div>}
                         </div>
-
-                        {details && user.domains &&
-                        <div style={{paddingBottom: '.1rem'}}>
-                            {user.domains.map((domain, index) => {
-                                return (
-                                    <div key={index} className={'domains-content'}
-                                         style={{backgroundColor: domain.color}}>
-                                        <div className={`domain-name domain-${domain.name}`}
-                                             style={{color: domain.color}}>{domain.name || 'Sans domaine'}</div>
-                                        <div className="skills-content">
-                                            {domain.skills.map((skill, index) => {
-                                                // noinspection JSUnresolvedVariable
-                                                return (
-                                                    <SkillCard updateSkill={updateSkill} key={index} skill={skill}
-                                                               onSkillClick={onSkillClick} removeSkill={removeSkill}/>
-                                                );
-                                            })}
+                        {
+                            details && user.domains &&
+                            <Tabs>
+                                <Tab label="Compétences">
+                                <div style={{paddingBottom: '.1rem'}}>
+                                {user.domains.map((domain, index) => {
+                                    return (
+                                        <div key={index} className={'domains-content'}
+                                             style={{backgroundColor: domain.color}}>
+                                            <div className={`domain-name domain-${domain.name}`}
+                                                 style={{color: domain.color}}>{domain.name || 'Sans domaine'}</div>
+                                            <div className="skills-content">
+                                                {domain.skills.map((skill, index) => {
+                                                    // noinspection JSUnresolvedVariable
+                                                    return (
+                                                        <SkillCard updateSkill={updateSkill} key={index} skill={skill}
+                                                                   onSkillClick={onSkillClick} removeSkill={removeSkill}/>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
-                        </div>}
+                                    );
+                                })}
+                            </div>
+                                </Tab>
+                                <Tab label="Carte Commerciale">
+                                    <SaleCard user={user} />
+                                </Tab>
+                            </Tabs>
+                        }
                     </Paper>
                 </div>
             );
         }
         return <div></div>;
     }
-
 }
 
 export default UserItem;

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import UserItem from '../Users/UserItem';
 
 import AddSkillForm from './AddSkillForm';
+import SaleCard from './SaleCard';
 import ProfileForm from './ProfileForm';
 import {Tabs, Tab} from "material-ui/Tabs";
 
@@ -36,6 +37,9 @@ class MeContent extends Component {
                     </Tab>
                     <Tab label="Info">
                         <ProfileForm updateProfile={updateProfile} user={user} changePassword={changePassword}/>
+                    </Tab>
+                    <Tab label="Carte Commerciale">
+                        <SaleCard user={user} />
                     </Tab>
                 </Tabs>
             </div>

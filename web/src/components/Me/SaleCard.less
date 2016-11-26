@@ -1,0 +1,59 @@
+.sale-card {
+
+  .content {
+    font-size: 1.5em;
+    line-height: 1.5em;
+
+    .name, .date {
+      font-size: 2em;
+      line-height: 2em;
+    }
+
+    .name {
+      font-weight: bold;
+    }
+
+    .date {
+      text-align: right;
+      padding-right: 30px !important;
+    }
+
+    .row {
+      display: flex;
+      border: solid 1px black;
+      flex-wrap: wrap;
+      div {
+        flex-grow: 1;
+        padding: 5px;
+        flex-basis: 33%;
+      }
+      p {
+        font-weight: bold;
+      }
+
+      &:last-of-type {
+        min-height: 300px;
+        p {
+          text-align: center;
+        }
+      }
+
+      .row-content {
+        column-count: 1;
+        border-right: solid 1px black;
+        padding-left: 0;
+        min-height: 230px;
+        margin-top: 0;
+        li {
+          list-style: none;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 200px;
+        }
+      }
+
+    }
+
+  }
+}
