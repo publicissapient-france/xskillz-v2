@@ -8,6 +8,8 @@ const onError = Controllers.onError;
 module.exports = {
     command: (req, res) =>
         BotService.process(req.body)
-            .then(data => res.json(data))
+            .then(data => {
+                res.json(data)
+            })
             .catch(err => onError(err, res, 404))
 };

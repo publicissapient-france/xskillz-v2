@@ -56,15 +56,18 @@ const userToSlack = (user) => {
 
 module.exports = {
     process: (payload) => {
-        const command = new Command(payload);
-        switch (command.type) {
-            case COMMAND_TYPE.profile:
-                return UserService.createUserByReadableId(command.value)
-                    .then(user => {
-                        return userToSlack(user);
-                    });
-            default:
-                return Promise.reject(new Error('Unknown command'));
-        }
+        const p = new Promise(function (resolve, reject) {
+            const command = new Command(payload);
+            switch (command.type) {
+                case COMMAND_TYPE.profile:
+                    return UserService.createUserByReadableId(command.value)
+                        .then(user => {
+                            return resolve(userToSlack(user));
+                        }).catch(reject);
+                default:
+                    return reject(new Error('Unknown command'));
+            }
+        });
+        return p.catch(err => Promise.reject(err));
     }
 };
