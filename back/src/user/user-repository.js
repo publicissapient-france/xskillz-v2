@@ -54,6 +54,15 @@ const UserRepository = {
                 return users[0];
             }),
 
+    findUserByLogin: (login) =>
+        Database
+            .query(`
+                SELECT *
+                FROM User
+                WHERE email like '%${login}%'
+            `)
+            .then(users => users[0]),
+
     getUserByToken: (token) =>
         Database.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
             .then((users) => users[0]),
@@ -209,6 +218,13 @@ const UserRepository = {
               manager.name manager_name
             FROM User user
               LEFT JOIN User manager ON user.manager_id = manager.id
+    `),
+
+    findMatchingUsers: value =>
+        Database.query(`
+            SELECT *
+            FROM User
+            WHERE LOWER(name) like LOWER('%${value}%')
     `)
 };
 

@@ -196,6 +196,48 @@ describe('User Repository', () => {
             .catch(done);
     });
 
+    it('should return user by login', (done) => {
+        const email = 'jsmadja@mycompany.com';
+        const name = 'Firstname Lastname';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByLogin('jsmadja'))
+            .then((user) => {
+                assert.equal(user.name, 'Firstname Lastname');
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should return matching users by firstname', (done) => {
+        const email = 'jsmadja@mycompany.com';
+        const name = 'Julien Lastname';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findMatchingUsers('julien'))
+            .then(users => {
+                assert.equal(users[0].name, 'Julien Lastname');
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should return matching users by lastname', (done) => {
+        const email = 'jsmadja@mycompany.com';
+        const name = 'Julien Smadja';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findMatchingUsers('smadja'))
+            .then(users => {
+                assert.equal(users[0].name, 'Julien Smadja');
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should return management', (done) => {
         const email = 'jsmadja@xebia.fr';
         const name = 'Julien Smadja';
@@ -209,7 +251,11 @@ describe('User Repository', () => {
             .then(user => UserRepository.addRole(user, 'Manager'))
             .then(() => UserRepository.getUsersWithRoles('Manager'))
             .then(users => manager = users[0])
-            .then(() => UserRepository.addNewUser({email: 'blacroix@xebia.fr', name: 'Benjamin Lacroix', password: 'password'}))
+            .then(() => UserRepository.addNewUser({
+                email: 'blacroix@xebia.fr',
+                name: 'Benjamin Lacroix',
+                password: 'password'
+            }))
             .then(() => UserRepository.findUserByEmail('blacroix@xebia.fr'))
             .then((user) => {
                 managedUser = user;
@@ -246,7 +292,7 @@ describe('User Repository', () => {
             .addNewUser({email, name, password})
             .then(() => UserRepository.findUserByEmailAndPassword(email, password))
             .then(user => {
-                assert.equal(user.email,'jsmadja@xebia.fr');
+                assert.equal(user.email, 'jsmadja@xebia.fr');
             })
             .then(done)
             .catch(done);

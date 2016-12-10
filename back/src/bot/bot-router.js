@@ -6,7 +6,7 @@ const BotRouter = {
     register: (express) => {
         express
             .route('/bot/skillz')
-            .post(BotController.command)
+            .post(BotController.command);
     }
 };
 
