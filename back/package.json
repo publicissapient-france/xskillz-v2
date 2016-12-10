@@ -20,7 +20,7 @@
     "preitest": "npm run lint && npm run imigrate",
     "postitest": "npm run posttest",
 
-    "dump": "/Applications/MAMP/Library/bin/mysqldump --host=\"skillz.xebia.fr\" skillz -u skillz -p  > dump.sql"
+    "dump": "/Applications/MAMP/Library/bin/mysqldump --host=\"ec2-52-209-161-67.eu-west-1.compute.amazonaws.com\" skillz -u skillz -p  > dump.sql"
   },
   "pre-commit": [
     "test"
