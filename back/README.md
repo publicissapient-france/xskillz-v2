@@ -29,3 +29,16 @@ Go to database and type
 ## Run SQL migration
 
 >db-migrate up --env dev
+
+## Connect Skillz to slack
+
+You can control skillz with slack  by adding a slach command on your slack team.
+
+1. Go to your custom integrations > https://YOUR_SLACK_DOMAIN.slack.com/apps/manage/custom-integrations
+2. Add a slash command with URL : http://YOUR_SKILLZ_API_URL/bot/skillz (method POST), for example '/skillz'
+3. Save integration
+
+Now you can use ```/skillz profile firstname-lastname``` on slack to view a user's profile
+
+If you run skillz on localhost you can use tool like [ngrok](https://ngrok.com) to expose your local server to internet 
+

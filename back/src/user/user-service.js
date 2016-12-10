@@ -66,6 +66,16 @@ const createUserByReadableId = (id) =>
         .findUserByReadableId(id)
         .then(populateUser);
 
+const createUserByLogin = (login) =>
+    Repository
+        .findUserByLogin(login)
+        .then(user => {
+            if(user) {
+                return populateUser(user);
+            }
+            return user;
+        });
+
 const toSimpleUserObject = (user) => ({id: user.user_id, name: user.user_name});
 
 const groupUsersByManager = users => {
@@ -276,5 +286,9 @@ module.exports = {
 
     createUserById,
     createUserByReadableId,
-    attachManager
+    createUserByLogin,
+    attachManager,
+
+    findMatchingUsers: value =>
+        Repository.findMatchingUsers(value)
 };
