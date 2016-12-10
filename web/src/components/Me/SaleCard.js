@@ -45,17 +45,21 @@ class SaleCard extends Component {
         super(props);
     }
 
+    isNew() {
+        return this.props.user.seniority <= 0 ? 'new' : '';
+    }
+
     render() {
         const {user} = this.props;
         return (
             <div className="sale-card">
                 <Paper>
-                    <div className="content">
+                    <div className={`content ${this.isNew()}`}>
                         <div className="row">
                             <div className="name">
                                 {user.name}
                             </div>
-                            <div className="date"><b>{moment(user.availability_date).format('DD/MM')}</b></div>
+                            <div className="date"><b>{user.availability_date ? moment(user.availability_date).format('DD/MM') : ''}</b></div>
                         </div>
                         <div className="row">
                             <div className="experience">
