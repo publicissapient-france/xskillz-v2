@@ -166,6 +166,20 @@ describe('User Repository', () => {
             .catch(done);
     });
 
+    it('should return users (Web)', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.getWebUsers())
+            .then((users) => {
+                assert.equal(users[0].email, email);
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should return users with roles (Web)', (done) => {
         const email = 'email';
         const name = 'name';
