@@ -42,6 +42,8 @@ CREATE TABLE UserRole (
   roles_id BIGINT(20) NOT NULL
 );
 
+CREATE UNIQUE INDEX User_email_uindex ON skillz.User (email);
+
 ALTER TABLE Skill
   ADD CONSTRAINT FKp3u11et3dob7e60q6j2yysphn FOREIGN KEY (domain_id) REFERENCES Domain (id);
 ALTER TABLE User
