@@ -72,7 +72,11 @@ class AddSkillForm extends Component {
                             <EditableLike like={false} handleClick={::this.onLikeSelected}/>
                         </div>
                         <div className="button">
-                            <RaisedButton primary label="Ajouter" onClick={::this.onSubmitClicked}/>
+                            <RaisedButton
+                              primary
+                              label="Ajouter"
+                              onClick={::this.onSubmitClicked}
+                              disabled={_.isEmpty(this.state.name)}/>
                         </div>
                     </div>
                 </Paper>

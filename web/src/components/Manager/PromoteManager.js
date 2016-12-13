@@ -39,7 +39,11 @@ class PromoteManager extends Component {
                         maxSearchResults={10}
                         onNewRequest={::this.onUserChange}/>
                     <div style={{marginTop: '1rem'}}>
-                        <RaisedButton label="Promouvoir" primary={true} onClick={::this.promoteManager}/>
+                        <RaisedButton
+                          label="Promouvoir"
+                          primary={true}
+                          onClick={::this.promoteManager}
+                          disabled={_.isNull(userId)}/>
                     </div>
                 </div>
             </Paper>

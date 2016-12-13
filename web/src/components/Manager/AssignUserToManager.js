@@ -33,7 +33,7 @@ class AssignUserToManager extends Component {
     assignUserToManager = () => this.props.assignUserToManager(this.state.userId, this.state.managerId);
 
     render() {
-        const {managerId} = this.state;
+        const {managerId, userId} = this.state;
         const users = this.props.users.list;
         let userNames = [];
         if (users) {
@@ -60,7 +60,11 @@ class AssignUserToManager extends Component {
                     </SelectField>
                 </div>
                 <div style={{marginTop: '1rem'}}>
-                    <RaisedButton label="Valider" primary={true} onClick={::this.assignUserToManager}/>
+                    <RaisedButton
+                      label="Valider"
+                      primary={true}
+                      onClick={::this.assignUserToManager}
+                      disabled={_.isNull(userId) || _.isNull(managerId)}/>
                 </div>
             </Paper>
         )

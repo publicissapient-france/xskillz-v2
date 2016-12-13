@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from "react";
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
+import _ from 'lodash';
 
 class DeleteDomain extends Component {
 
@@ -35,7 +35,11 @@ class DeleteDomain extends Component {
                                                                   primaryText={domain.name}/>)}
                     </SelectField>
                     <div style={{marginTop: '1rem'}}>
-                        <RaisedButton label="Supprimer" primary={true} onClick={::this.deleteDomain}/>
+                        <RaisedButton
+                          label="Supprimer"
+                          primary={true}
+                          onClick={::this.deleteDomain}
+                          disabled={_.isNull(domainId)}/>
                     </div>
                 </div>
             </Paper>

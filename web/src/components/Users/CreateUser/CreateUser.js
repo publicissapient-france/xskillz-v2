@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import Snackbar from 'material-ui/Snackbar';
+import _ from 'lodash';
 
 class CreateUser extends Component {
 
@@ -32,6 +33,7 @@ class CreateUser extends Component {
     };
 
     render() {
+        const {name, email, password} = this.state;
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
                 <h3>Créer un utilisateur</h3>
@@ -46,7 +48,11 @@ class CreateUser extends Component {
                         <TextField floatingLabelText="Mot de passe" onBlur={::this.setPassword} type="password"/>
                     </div>
                     <div style={{marginTop: '1rem'}}>
-                        <RaisedButton label="Créer" primary={true} onClick={::this.createUser}/>
+                        <RaisedButton
+                          label="Créer"
+                          primary={true}
+                          onClick={::this.createUser}
+                          disabled={_.isEmpty(name) || _.isEmpty(email) || _.isEmpty(password)}/>
                     </div>
                 </div>
                 <Snackbar
