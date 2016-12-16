@@ -47,6 +47,10 @@ class AddSkillForm extends Component {
         this.setState({name: searchText, id: null, domain: {id: null}})
     };
 
+    onSnackBarClose() {
+        this.setState({submit: false});
+    }
+
     render() {
         const nameArray = [];
         _.each(this.props.skills.list, skill => nameArray.push(skill.name));
@@ -80,7 +84,8 @@ class AddSkillForm extends Component {
                     bodyStyle={{backgroundColor: '#008500'}}
                     open={this.state.submit}
                     message={`Compétence ${this.state.name} ajoutée.`}
-                    autoHideDuration={3000}/>
+                    autoHideDuration={3000}
+                    onRequestClose={::this.onSnackBarClose}/>
             </div>
         );
     }
