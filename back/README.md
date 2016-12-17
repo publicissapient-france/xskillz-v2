@@ -10,15 +10,38 @@
 
 ## Launch all tests (unit, integration, end-to-end)
 
+First, start the test database with :
+
+>docker-compose up db_tests 
+
+Then
+
 >npm test
 
 ## Run server (dev mode)
 
 >npm run dev
 
+You can then check the following URLs :
+
+* [http://localhost:8080/users]()
+* [http://localhost:8080/users/1]()
+* [http://localhost:8080/web/users]()
+* [http://localhost:8080/mobile/users]()
+* [http://localhost:8080/skills]()
+
 ## Run server (production mode)
 
+First, start the production database with :
+
+>docker-compose up db 
+
+Then
+
 >npm start
+
+You can check the process with [PM2](http://pm2.keymetrics.io/) by passing the process id (`pm2 show <pid>`). Check the logs under  `~/.pm2/logs`. Shutdown the process with `pm2 stop <pid>`
+
 
 ## Create SQL migration file
 
