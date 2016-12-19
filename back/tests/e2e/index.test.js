@@ -245,7 +245,7 @@ describe('API', function () {
                         {
                             domains: [{color: '#CCCCCC', score: 2, name: 'MyDomain'}],
                             experienceCounter: 0,
-                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
                             name: 'Julien',
                             readable_id: 'julien',
                             score: 2,

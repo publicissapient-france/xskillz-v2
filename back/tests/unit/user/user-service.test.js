@@ -419,7 +419,7 @@ describe('UserService', () => {
                                 }
                             ],
                             experienceCounter: 6,
-                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
                             id: 2,
                             name: 'Julien',
                             readable_id: 'julien',

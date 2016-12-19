@@ -179,7 +179,7 @@ module.exports = {
                         return new User({
                             id: user.user_id,
                             name: user.user_name,
-                            gravatarUrl: user.email,
+                            email: user.email,
                             diploma: user.diploma,
                             domains: domainRows.map((domainRow) =>
                                 ({
