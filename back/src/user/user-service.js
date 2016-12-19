@@ -258,6 +258,9 @@ module.exports = {
         if (body.employee_date) {
             updateFunction = Repository.updateUserEmployeeDate;
         }
+        if (body.employee_end_date) {
+            updateFunction = Repository.updateUserEmployeeEndDate;
+        }
         if (body.availability_date) {
             updateFunction = Repository.updateUserAvailabilityDate;
         }

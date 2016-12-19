@@ -129,13 +129,11 @@ export function saveDiploma(userId, diploma) {
 
 
 export const EMPLOYEE_DATE_SAVED = 'EMPLOYEE_DATE_SAVED';
-
 export function employeeDateSaved() {
     return {
         type: EMPLOYEE_DATE_SAVED
     }
 }
-
 export function saveEmployeeDate(userId, employeeDate) {
     return dispatch => {
         const config = {
@@ -156,6 +154,35 @@ export function saveEmployeeDate(userId, employeeDate) {
                 }
             })
             .then(responseBody => dispatch(employeeDateSaved()));
+    };
+}
+
+export const EMPLOYEE_END_DATE_SAVED = 'EMPLOYEE_END_DATE_SAVED';
+export function employeeEndDateSaved() {
+    return {
+        type: EMPLOYEE_END_DATE_SAVED
+    }
+}
+export function saveEmployeeEndDate(userId, employeeEndDate) {
+    return dispatch => {
+        const config = {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                token: getToken()
+            },
+            body: JSON.stringify({employee_end_date: employeeEndDate.toISOString().split('T')[0]})
+        };
+        return fetch(`${Config.apiURL}/users/${userId}`, config)
+            .then(response => {
+                if (response.status >= 400 && response.status <= 403) {
+                    browserHistory.push('/signin');
+                } else {
+                    return response.json();
+                }
+            })
+            .then(responseBody => dispatch(employeeEndDateSaved()));
     };
 }
 
