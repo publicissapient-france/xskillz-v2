@@ -87,6 +87,7 @@ const UserRepository = {
             FROM UserSkill user_skill 
             JOIN User user ON user.id = user_skill.user_id 
             WHERE skill_id = ${id}
+            AND (employee_end_date IS NULL OR employee_end_date > current_date)
             ORDER BY interested DESC, user.name
     `),
 
@@ -112,6 +113,7 @@ const UserRepository = {
             LEFT JOIN UserSkill us ON u.id = us.user_id
             LEFT JOIN Skill s ON s.id = us.skill_id
             LEFT JOIN Domain d ON d.id = s.domain_id
+            WHERE employee_end_date IS NULL OR employee_end_date > current_date
             GROUP BY u.id, s.domain_id      
     `),
 
@@ -139,6 +141,7 @@ const UserRepository = {
                                 JOIN Role r ON r.id = ur.roles_id
                                 WHERE r.name IN ('${roles}')
                         )
+            AND employee_end_date IS NULL OR employee_end_date > current_date
         `),
 
     addNewUser: (user) =>
@@ -224,6 +227,8 @@ const UserRepository = {
               manager.name manager_name
             FROM User user
               LEFT JOIN User manager ON user.manager_id = manager.id
+            WHERE (user.employee_end_date IS NULL OR user.employee_end_date > current_date)
+            AND (manager.employee_end_date IS NULL OR manager.employee_end_date > current_date)
     `),
 
     findMatchingUsers: value =>

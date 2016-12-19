@@ -74,6 +74,36 @@ describe('User Repository', () => {
             .catch(done);
     });
 
+    it('should not return users by skill if they left company', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        const skillName = 'skill';
+
+        let user, skill;
+
+        SkillRepository
+            .addNewSkill(skillName)
+            .then(() => SkillRepository.findSkillByName(skillName))
+            .then((_skill) => {
+                skill = _skill;
+            })
+            .then(() => UserRepository.addNewUser({email, name, password}))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((_user) => {
+                user = _user;
+            })
+            .then(() => SkillRepository.addSkill({interested: true, level: 2, id: skill.id, user_id: user.id}))
+            .then(() => UserRepository.updateUserEmployeeEndDate(user.id, {employee_end_date: '2010-11-15'}))
+            .then(() => SkillRepository.findSkillByName(skillName))
+            .then((skill) => UserRepository.findUsersBySkill(skill.id))
+            .then((users) => {
+                assert.equal(users.length, 0);
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should delete user', (done) => {
         const email = 'email';
         const name = 'name';
@@ -175,6 +205,40 @@ describe('User Repository', () => {
             .then(() => UserRepository.getWebUsers())
             .then((users) => {
                 assert.equal(users[0].email, email);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should return not return users who left company', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.updateUserEmployeeEndDate(user.id, {employee_end_date: '2010-11-15'}))
+            .then(() => UserRepository.getWebUsers())
+            .then((users) => {
+                assert.equal(users.length, 0);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should return not return users (with roles) who left company', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.addRole(user, 'Manager'))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.updateUserEmployeeEndDate(user.id, {employee_end_date: '2010-11-15'}))
+            .then(() => UserRepository.getUsersWithRoles('Manager'))
+            .then((users) => {
+                assert.equal(users.length, 0);
             })
             .then(done)
             .catch(done);
@@ -285,6 +349,46 @@ describe('User Repository', () => {
                             user_id: managedUser.id,
                             user_name: managedUser.name
                         },
+                        {
+                            manager_id: null,
+                            manager_name: null,
+                            user_id: manager.id,
+                            user_name: manager.name
+                        }
+                    ]);
+            })
+            .then(done)
+            .catch(done);
+    });
+
+    it('should return management without user who left company', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        let manager, managedUser;
+
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then(user => UserRepository.addRole(user, 'Manager'))
+            .then(() => UserRepository.getUsersWithRoles('Manager'))
+            .then(users => manager = users[0])
+            .then(() => UserRepository.addNewUser({
+                email: 'blacroix@xebia.fr',
+                name: 'Benjamin Lacroix',
+                password: 'password'
+            }))
+            .then(() => UserRepository.findUserByEmail('blacroix@xebia.fr'))
+            .then((user) => {
+                managedUser = user;
+                return UserRepository.assignManager(user.id, manager.id);
+            })
+            .then(() => UserRepository.updateUserEmployeeEndDate(managedUser.id, {employee_end_date: '2010-11-15'}))
+            .then(() => UserRepository.getManagement())
+            .then((management) => {
+                assert.deepEqual(management,
+                    [
                         {
                             manager_id: null,
                             manager_name: null,
