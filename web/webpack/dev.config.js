@@ -14,10 +14,17 @@ module.exports = {
     },
 
     module: {
-        loaders: [{
-            test: /\.scss$/,
-            loader: 'style!css?localIdentName=[path][name]--[local]!postcss-loader!sass'
-        }]
+        loaders: [
+            {
+                test: /\.js$/,
+                loaders: ['react-hot', 'babel-loader'],
+                exclude: /node_modules/
+            },
+            {
+                test: /\.scss$/,
+                loader: 'style!css?localIdentName=[path][name]--[local]!postcss-loader!sass'
+            }
+        ]
     },
 
     plugins: [

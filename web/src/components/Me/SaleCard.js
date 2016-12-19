@@ -66,7 +66,7 @@ class SaleCard extends Component {
                                 <Chip style={styles.domain} labelStyle={styles.domainName}
                                       backgroundColor={user.domains && user.domains[0].color}>{user.domains && user.domains[0].name}</Chip>
                                 {user.domains && user.domains[1] && <Chip style={styles.domain} labelStyle={styles.domainName}
-                                      backgroundColor={user.domains && user.domains[1].color}>{user.domains && user.domains[1].name}</Chip>}
+                                      backgroundColor={user.domains[1].color}>{user.domains[1].name}</Chip>}
                                 {user.experienceCounter > 0 &&
                                 <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor}
                                       labelStyle={styles.label}>{user.experienceCounter} XP</Chip>}
