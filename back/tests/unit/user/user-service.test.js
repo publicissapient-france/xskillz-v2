@@ -134,6 +134,26 @@ describe('UserService', () => {
                 .catch(done);
         });
 
+        it('should update user employee end date', done => {
+            const userId = 234;
+            const body = {
+                employee_end_date: '2015-01-01'
+            };
+
+            const updateUserEmployeeEndDate =
+                sandbox
+                    .stub(UserRepository, 'updateUserEmployeeEndDate')
+                    .returns(Promise.resolve());
+
+            UserService
+                .updateUser(userId, body)
+                .then(() => {
+                    sinon.assert.calledWith(updateUserEmployeeEndDate, userId, body);
+                })
+                .then(done)
+                .catch(done);
+        });
+
         it('should update user availability date', done => {
             const userId = 234;
             const body = {

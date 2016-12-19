@@ -1,0 +1,1 @@
+ALTER TABLE User DROP COLUMN employee_end_date;

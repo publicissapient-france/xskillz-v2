@@ -3,6 +3,7 @@ import {Tabs, Tab} from "material-ui/Tabs";
 
 import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
 import EmployeeDatePicker from "../Manager/EmployeeDatePicker";
+import EmployeeEndDatePicker from "../Manager/EmployeeEndDatePicker";
 import AvailabilityDatePicker from "../Manager/AvailabilityDatePicker";
 import AssignUserToManager from "../Manager/AssignUserToManager";
 import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
@@ -28,6 +29,7 @@ class SettingsContent extends Component {
         mergeSkills: PropTypes.func.isRequired,
         saveDiploma: PropTypes.func.isRequired,
         saveEmployeeDate: PropTypes.func.isRequired,
+        saveEmployeeEndDate: PropTypes.func.isRequired,
         saveAvailabilityDate: PropTypes.func.isRequired,
         auth: PropTypes.object.isRequired,
         fetchManagers: PropTypes.func.isRequired,
@@ -58,7 +60,7 @@ class SettingsContent extends Component {
         const {auth} = this.props;
         const {
             createUser, promoteManager, fetchManagers, linkSkillToDomain,
-            mergeSkills, addDomain, deleteDomain, saveDiploma, saveEmployeeDate, saveAvailabilityDate, assignUserToManager, users, fetchUsers
+            mergeSkills, addDomain, deleteDomain, saveDiploma, saveEmployeeDate, saveEmployeeEndDate, saveAvailabilityDate, assignUserToManager, users, fetchUsers
         } = this.props;
         return (
             <div className="content">
@@ -75,6 +77,7 @@ class SettingsContent extends Component {
                     <Tab label="Utilisateurs">
                         {hasRole(MANAGER) && <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>}
                         {hasRole(MANAGER) && <EmployeeDatePicker saveEmployeeDate={saveEmployeeDate} users={users}/>}
+                        {hasRole(MANAGER) && <EmployeeEndDatePicker saveEmployeeEndDate={saveEmployeeEndDate} users={users}/>}
                         {hasRole(MANAGER) && <AvailabilityDatePicker saveAvailabilityDate={saveAvailabilityDate} users={users}/>}
                         {hasRole(MANAGER) &&
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}

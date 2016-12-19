@@ -378,4 +378,20 @@ describe('User Repository', () => {
             .then(done)
             .catch(done);
     });
+
+    it('should update user employee end date', (done) => {
+        const email = 'email';
+        const name = 'name';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => UserRepository.updateUserEmployeeEndDate(user.id, {employee_end_date: '2016-11-15'}))
+            .then(() => UserRepository.findUserByEmail(email))
+            .then((user) => {
+                assert.ok(user.employee_end_date);
+            })
+            .then(done)
+            .catch(done);
+    });
 });

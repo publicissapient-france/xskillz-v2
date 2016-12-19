@@ -171,6 +171,12 @@ const UserRepository = {
             SET employee_date = '${user.employee_date}'
             WHERE id = ${id}`),
 
+    updateUserEmployeeEndDate: (id, user) =>
+        Database.query(`
+            UPDATE User
+            SET employee_end_date = '${user.employee_end_date}'
+            WHERE id = ${id}`),
+
     updateUserAvailabilityDate: (id, user) =>
         Database.query(`
             UPDATE User
