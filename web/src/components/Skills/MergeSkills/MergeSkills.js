@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import AutoComplete from 'material-ui/AutoComplete';
+import _ from 'lodash';
 
 class MergeSkills extends Component {
 
@@ -25,6 +26,7 @@ class MergeSkills extends Component {
 
     render() {
         const {skills} = this.props;
+        const {fromId, toId} = this.state;
         let skillNames = [];
         if (skills) {
             skillNames = _.flatMap(skills, skill => skill.name);
@@ -51,7 +53,11 @@ class MergeSkills extends Component {
                         onNewRequest={::this.onToNewRequest}/>
                 </div>
                 <div style={{marginTop: '1rem'}}>
-                    <RaisedButton label="Valider" primary={true} onClick={::this.mergeSkills}/>
+                    <RaisedButton
+                      label="Valider"
+                      primary={true}
+                      onClick={::this.mergeSkills}
+                      disabled={_.isNull(fromId) || _.isNull(toId)}/>
                 </div>
             </Paper>
         );

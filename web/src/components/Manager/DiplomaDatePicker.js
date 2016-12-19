@@ -28,7 +28,7 @@ class DiplomaDatePicker extends Component {
     saveDiploma = () => this.props.saveDiploma(this.state.userId, this.state.date);
 
     render() {
-        const {date} = this.state;
+        const {date, userId} = this.state;
         const users = this.props.users.list;
         let userNames = [];
         if (users) {
@@ -54,7 +54,11 @@ class DiplomaDatePicker extends Component {
                         shouldDisableDate={this.disableWeekends}/>
                 </div>
                 <div style={{marginTop: '1rem', clear: 'both'}}>
-                    <RaisedButton label="Valider" primary={true} onClick={::this.saveDiploma}/>
+                    <RaisedButton
+                      label="Valider"
+                      primary={true}
+                      onClick={::this.saveDiploma}
+                      disabled={_.isNull(userId) || _.isNull(date)}/>
                 </div>
             </Paper>
         )

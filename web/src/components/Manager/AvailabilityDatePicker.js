@@ -36,7 +36,7 @@ class AvailabilityDatePicker extends Component {
             DateTimeFormat = IntlPolyfill.DateTimeFormat;
             require('intl/locale-data/jsonp/fr');
         }
-        const {date} = this.state;
+        const {date, userId} = this.state;
         const users = this.props.users.list;
         let userNames = [];
         if (users) {
@@ -66,7 +66,11 @@ class AvailabilityDatePicker extends Component {
                         locale="fr"/>
                 </div>
                 <div style={{marginTop: '1rem', clear: 'both'}}>
-                    <RaisedButton label="Valider" primary={true} onClick={::this.saveAvailabilityDate}/>
+                    <RaisedButton
+                      label="Valider"
+                      primary={true}
+                      onClick={::this.saveAvailabilityDate}
+                      disabled={_.isNull(userId) || _.isNull(date)}/>
                 </div>
             </Paper>
         )

@@ -40,7 +40,7 @@ class LinkSkillToDomain extends Component {
 
     render() {
         const {domains, skills} = this.props;
-        const {domainId} = this.state;
+        const {domainId, skillId} = this.state;
         let skillNames = [];
         if (skills) {
             skillNames = _.flatMap(skills, skill => skill.name);
@@ -65,7 +65,11 @@ class LinkSkillToDomain extends Component {
                     </SelectField>
                 </div>
                 <div style={{marginTop: '1rem'}}>
-                    <RaisedButton label="Valider" primary={true} onClick={::this.linkSkillToDomain}/>
+                    <RaisedButton
+                      label="Valider"
+                      primary={true}
+                      onClick={::this.linkSkillToDomain}
+                      disabled={_.isNull(skillId) || _.isNull(domainId)}/>
                 </div>
                 <Snackbar
                     bodyStyle={{backgroundColor: '#008500'}}
