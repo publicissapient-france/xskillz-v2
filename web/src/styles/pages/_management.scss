@@ -10,10 +10,16 @@
       .manager {
         font-weight: bold;
         margin-bottom: 10px;
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       .user {
         font-size: 14px;
+        &:hover {
+          cursor: pointer;
+        }
       }
 
     }

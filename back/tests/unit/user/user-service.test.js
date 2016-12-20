@@ -31,21 +31,21 @@ describe('UserService', () => {
                     assert.deepEqual(management,
                         [
                             {
-                                manager: {id: 2, name: "Alban Smadja"},
+                                manager: {id: 2, name: 'Alban Smadja', readable_id: 'alban-smadja'},
                                 users: [
-                                    {id: 3, name: "Benjamin Lacroix"}
+                                    {id: 3, name: 'Benjamin Lacroix', readable_id: 'benjamin-lacroix'}
                                 ]
                             },
                             {
-                                manager: {name: "Christophe Heubès", id: 1},
+                                manager: {name: 'Christophe Heubès', id: 1, readable_id: 'christophe-heubès'},
                                 users: [
-                                    {id: 2, name: "Alban Smadja"}
+                                    {id: 2, name: 'Alban Smadja', readable_id: 'alban-smadja'}
                                 ]
                             },
                             {
-                                manager: {name: null, id: null},
+                                manager: {name: null, id: null, readable_id: undefined},
                                 users: [
-                                    {id: 1, name: "Christophe Heubès"}
+                                    {id: 1, name: 'Christophe Heubès', readable_id: 'christophe-heubès'}
                                 ]
                             }
                         ]

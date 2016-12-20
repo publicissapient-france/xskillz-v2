@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 import {browserHistory} from "react-router";
 import UserContent from "../../components/Users/UserContent";
 import {getUserById} from "../../actions/user";

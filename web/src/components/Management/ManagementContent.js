@@ -17,7 +17,7 @@ class ManagementContent extends Component {
             <div className="management-content">
                 {
                     management && management.map((manager, index) => (
-                        <ManagerItem manager={manager} key={index} />))
+                        <ManagerItem manager={manager} key={index} onUserClick={this.props.onUserClick} />))
                 }
             </div>
         )
