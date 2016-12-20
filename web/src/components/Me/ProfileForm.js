@@ -58,7 +58,7 @@ class ProfileForm extends Component {
             profile.address = address;
         }
         if (availability) {
-            profile.availability = moment(availability).add(1, 'd').toDate().toISOString().split('T')[0];
+            profile.availability = moment(availability).format('YYYY-MM-DD');
         }
         if (!_.isEmpty(profile)) {
             this.props.updateProfile(profile);

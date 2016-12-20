@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import AutoComplete from 'material-ui/AutoComplete';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import _ from 'lodash';
+import moment from 'moment';
 
 class AvailabilityDatePicker extends Component {
 
@@ -24,7 +25,7 @@ class AvailabilityDatePicker extends Component {
 
     onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
-    saveAvailabilityDate = () => this.props.saveAvailabilityDate(this.state.userId, this.state.date);
+    saveAvailabilityDate = () => this.props.saveAvailabilityDate(this.state.userId, moment(this.state.date).format('YYYY-MM-DD'));
 
     render() {
         let DateTimeFormat;

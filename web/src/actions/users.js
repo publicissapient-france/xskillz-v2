@@ -2,6 +2,7 @@ import fetch from "isomorphic-fetch";
 import {browserHistory} from "react-router";
 import Config from "../Config";
 import {getToken} from "./auth";
+import moment from 'moment';
 
 export const REQUEST_USERS_BY_SKILL = 'REQUEST_USERS_BY_SKILL';
 export const RECEIVE_USERS_BY_SKILL = 'RECEIVE_USERS_BY_SKILL';
@@ -113,7 +114,7 @@ export function saveDiploma(userId, diploma) {
                 'Content-Type': 'application/json',
                 token: getToken()
             },
-            body: JSON.stringify({diploma: diploma.toISOString().split('T')[0]})
+            body: JSON.stringify({diploma: moment(diploma).format('YYYY-MM-DD')})
         };
         return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then(response => {
@@ -143,7 +144,7 @@ export function saveEmployeeDate(userId, employeeDate) {
                 'Content-Type': 'application/json',
                 token: getToken()
             },
-            body: JSON.stringify({employee_date: employeeDate.toISOString().split('T')[0]})
+            body: JSON.stringify({employee_date: moment(employeeDate).format('YYYY-MM-DD')})
         };
         return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then(response => {
@@ -172,7 +173,7 @@ export function saveEmployeeEndDate(userId, employeeEndDate) {
                 'Content-Type': 'application/json',
                 token: getToken()
             },
-            body: JSON.stringify({employee_end_date: employeeEndDate.toISOString().split('T')[0]})
+            body: JSON.stringify({employee_end_date: moment(employeeEndDate).format('YYYY-MM-DD')})
         };
         return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then(response => {
@@ -203,7 +204,7 @@ export function saveAvailabilityDate(userId, availabilityDate) {
                 'Content-Type': 'application/json',
                 token: getToken()
             },
-            body: JSON.stringify({availability_date: availabilityDate.toISOString().split('T')[0]})
+            body: JSON.stringify({availability_date: availabilityDate})
         };
         return fetch(`${Config.apiURL}/users/${userId}`, config)
             .then(response => {
