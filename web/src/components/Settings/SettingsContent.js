@@ -35,7 +35,6 @@ class SettingsContent extends Component {
         fetchManagers: PropTypes.func.isRequired,
         promoteManager: PropTypes.func.isRequired,
         fetchUsers: PropTypes.func.isRequired,
-        changePassword: PropTypes.func.isRequired,
         me: PropTypes.object.isRequired
     };
 

@@ -18,7 +18,7 @@ class CreateUser extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {name: null, email: null, password: null};
+        this.state = {name: null, email: null, password: null, submit: false};
     }
 
     setName = event => this.setState({name: event.currentTarget.value});

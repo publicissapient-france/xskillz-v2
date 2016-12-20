@@ -93,9 +93,9 @@ class ProfileForm extends Component {
         const {user:{address, availability_date}, user, changePassword} = this.props;
         const fixtures = [{label: 'Xebia', location: {lat: 48.8755622, lng: 2.3088289}}];
         const phoneValue = (phone || this.props.user.phone) || '';
-        let date = availability;
+        let date = availability ? new Date(availability) : undefined;
         if (!date && availability_date) {
-            date = moment(availability_date).toDate()
+            date = moment(availability_date).toDate();
         }
         return (
             <div className="profile-form">

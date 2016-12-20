@@ -17,7 +17,7 @@ class LinkSkillToDomain extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {skillId: null, domainId: null};
+        this.state = {skillId: null, domainId: null, submit: false};
     }
 
     changeDomain = (event, index, value) => this.setState({domainId: value, domainName: this.props.domains[index].name});
