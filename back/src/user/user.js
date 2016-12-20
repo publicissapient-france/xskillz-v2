@@ -11,13 +11,27 @@ class User {
         this.experienceCounter = raw.diploma ? new Date().getFullYear() - new Date(raw.diploma).getFullYear() : 0;
         this.phone = raw.phone;
         this.manager_id = raw.manager_id;
-        this.readable_id = raw.name.toLowerCase().replace(/ /g, "-");
+        this.readable_id = User.toReadableId(raw.name);
         this.address = raw.address ? JSON.parse(raw.address) : null;
         this.seniority = raw.employee_date ? new Date().getFullYear() - new Date(raw.employee_date).getFullYear() : 0;
         this.domains = raw.domains;
         this.score = raw.score;
         this.availability_date = raw.availability_date;
+        this.default_password = raw.default_password === 1;
     }
+
+    expurge() {
+        delete this.password;
+        delete this.default_password;
+        return this;
+    }
+
+    static toReadableId(name) {
+        if (name) {
+            return name.toLowerCase().replace(/ /g, "-");
+        }
+    }
+
 }
 
 module.exports = User;

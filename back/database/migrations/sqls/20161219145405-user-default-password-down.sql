@@ -1,0 +1,1 @@
+ALTER TABLE User DROP COLUMN default_password;

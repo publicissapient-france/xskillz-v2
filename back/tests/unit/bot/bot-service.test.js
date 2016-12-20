@@ -55,6 +55,9 @@ describe('BotService', () => {
         sandbox
             .stub(UserService, 'createUserByLogin')
             .returns(Promise.resolve());
+        sandbox
+            .stub(UserService, 'findMatchingUsers')
+            .returns(Promise.resolve([]));
         BotService
             .process(new Command({text: 'profile jsmadja'}))
             .then(slackUserSuggestion => {

@@ -444,6 +444,7 @@ describe('User Repository', () => {
             .then(() => UserRepository.findUserByEmailAndPassword(email, 'newpassword'))
             .then(user => {
                 assert.equal(user.email, 'jsmadja@xebia.fr');
+                assert.equal(user.default_password, 0);
             })
             .then(done)
             .catch(done);

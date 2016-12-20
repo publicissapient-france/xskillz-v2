@@ -1,10 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import UserItem from '../Users/UserItem';
-
-import AddSkillForm from './AddSkillForm';
-import SaleCard from './SaleCard';
-import ProfileForm from './ProfileForm';
+import React, {Component, PropTypes} from "react";
+import UserItem from "../Users/UserItem";
+import AddSkillForm from "./AddSkillForm";
+import SaleCard from "./SaleCard";
+import ProfileForm from "./ProfileForm";
 import {Tabs, Tab} from "material-ui/Tabs";
+import Snackbar from "material-ui/Snackbar";
 
 class MeContent extends Component {
 
@@ -18,7 +18,6 @@ class MeContent extends Component {
     render() {
         const user = this.props.me;
         const {updateSkill, removeSkill, updateProfile, changePassword} = this.props;
-
         return (
             <div className="content">
                 <Tabs>
@@ -28,22 +27,35 @@ class MeContent extends Component {
                             fetchSkills={this.props.fetchSkills}
                             addSkill={this.props.addSkill}/>
                         <UserItem user={user}
-                                  onUserClick={()=> {
+                                  onUserClick={() => {
                                   }}
                                   onSkillClick={this.props.onSkillClick}
                                   updateSkill={updateSkill}
                                   removeSkill={removeSkill}
                                   details/>
+                        <Snackbar
+                            bodyStyle={{backgroundColor: '#CC0000'}}
+                            open={this.shouldWarnAboutDefaultPassword()}
+                            message="Veuillez changez votre mot de passe immédiatement (Onglet INFO)."
+                        />
                     </Tab>
                     <Tab label="Info">
                         <ProfileForm updateProfile={updateProfile} user={user} changePassword={changePassword}/>
                     </Tab>
                     <Tab label="Carte Commerciale">
-                        <SaleCard user={user} />
+                        <SaleCard user={user}/>
                     </Tab>
                 </Tabs>
             </div>
         );
+    }
+
+    shouldWarnAboutDefaultPassword() {
+        if (!this.props.me.loaded || this.alreadyWarned) {
+            return false;
+        }
+        this.alreadyWarned = true;
+        return !!this.props.me.default_password;
     }
 }
 

@@ -77,7 +77,7 @@ describe('UserService', () => {
         it('It should attach manager if it does have one', done => {
             sandbox
                 .stub(UserRepository, 'findUserById')
-                .returns(Promise.resolve({user_id: 1, user_name: "Christophe Heubès"}));
+                .returns(Promise.resolve({id: 2, name: "Christophe Heubès"}));
 
             const user = {id: 1, name: 'Julien', manager_id: 12};
             UserService
@@ -87,7 +87,20 @@ describe('UserService', () => {
                         id: 1,
                         name: 'Julien',
                         manager_id: 12,
-                        manager: {user_id: 1, user_name: "Christophe Heubès"}
+                        manager: {
+                            address: null,
+                            availability_date: undefined,
+                            domains: undefined,
+                            experienceCounter: 0,
+                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
+                            id: 2,
+                            manager_id: undefined,
+                            name: 'Christophe Heubès',
+                            phone: undefined,
+                            readable_id: 'christophe-heubès',
+                            score: undefined,
+                            seniority: 0
+                        }
                     });
                 })
                 .then(done)
@@ -343,7 +356,7 @@ describe('UserService', () => {
 
             UserService
                 .getUsersMobileVersion({})
-                .then((users) => {
+                .then(users => {
                     assert.deepEqual(users, [
                         {
                             address: null,
@@ -358,7 +371,7 @@ describe('UserService', () => {
                             roles: [],
                             score: 0,
                             seniority: 0,
-                            availability_date: null
+                            availability_date: undefined
                         }
                     ]);
                 })

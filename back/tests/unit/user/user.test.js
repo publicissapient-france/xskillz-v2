@@ -9,6 +9,7 @@ describe('User', () => {
             name: 'Julien',
             id: 1,
             email: 'jsmadja@xebia.fr',
+            default_password: 0,
             diploma: '2014',
             phone: '01.43.00.65.78',
             manager_id: 2,
@@ -22,13 +23,14 @@ describe('User', () => {
             gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
             id: 1,
             manager_id: 2,
+            default_password: false,
             name: 'Julien',
             phone: '01.43.00.65.78',
             readable_id: 'julien',
             seniority: 0,
             domains:  undefined,
             score: undefined,
-            availability_date: null
+            availability_date: undefined
         });
         done();
     });
@@ -55,7 +57,8 @@ describe('User', () => {
             seniority: 0,
             domains: undefined,
             score: undefined,
-            availability_date: null
+            availability_date: undefined,
+            default_password: false
         });
         done();
     });

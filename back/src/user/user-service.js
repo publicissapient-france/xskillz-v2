@@ -9,7 +9,7 @@ const SkillService = require('../skill/skill-service');
 
 const computeScore = skills =>
     _(skills)
-        .map((skill)=>skill.level)
+        .map((skill) => skill.level)
         .reduce((sum, n) => sum + n, 0);
 
 const createDomain = domainSkills => {
@@ -20,7 +20,7 @@ const createDomain = domainSkills => {
         score: computeScore(domainSkills),
         color: domain.domain_color || 'pink',
         skills: _(domainSkills)
-            .map((skill)=> {
+            .map((skill) => {
                 return {
                     id: skill.skill_id,
                     interested: skill.interested,
@@ -35,6 +35,7 @@ const createDomain = domainSkills => {
 const populateUser = user => {
     user = new User(user);
     user.domains = [];
+    const findUserRolesById = Repository.findUserRolesById;
     return attachManager(user)
         .then((dbUser) => {
             user = _.assignWith(user, dbUser);
@@ -49,7 +50,7 @@ const populateUser = user => {
                 .forEach((domainSkills) => user.domains.push(createDomain(domainSkills)));
         })
         .then(() => user.domains.sort((d1, d2) => d2.score - d1.score))
-        .then(() => Repository.findUserRolesById(user.id))
+        .then(() => findUserRolesById(user.id))
         .then(roles => {
             user.roles = roles.map(r => r.name);
         })
@@ -64,13 +65,14 @@ const createUserById = (id) =>
 const createUserByReadableId = (id) =>
     Repository
         .findUserByReadableId(id)
-        .then(populateUser);
+        .then(populateUser)
+        .then(user => user.expurge());
 
 const createUserByLogin = (login) =>
     Repository
         .findUserByLogin(login)
         .then(user => {
-            if(user) {
+            if (user) {
                 return populateUser(user);
             }
             return user;
@@ -109,9 +111,8 @@ const attachManager = user => {
     }
     return Repository
         .findUserById(user.manager_id)
-        .then((manager) => {
-            delete manager.password;
-            user.manager = manager;
+        .then(manager => {
+            user.manager = new User(manager).expurge();
             return user;
         });
 };
@@ -151,13 +152,13 @@ module.exports = {
     getUsersBySkillMobileVersion: (skillId) =>
         Repository
             .findUsersBySkill(skillId)
-            .map((user)=> createUserById(user.id)),
+            .map((user) => createUserById(user.id).then(user => user.expurge())),
 
     getUsersBySkill: (skillId) =>
         Repository
             .findUsersBySkill(skillId)
-            .map((user)=> {
-                const _user = new User(user);
+            .map((user) => {
+                const _user = new User(user).expurge();
                 _user.level = user.level;
                 _user.interested = (user.interested[0] === 1);
                 return _user;
@@ -190,7 +191,7 @@ module.exports = {
                                 })
                             ),
                             score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0)
-                        });
+                        }).expurge();
                     })
                     .sortBy('name').value();
             });
@@ -203,7 +204,7 @@ module.exports = {
         } else {
             usersPromise = Repository.getUsers();
         }
-        return usersPromise.map(user => createUserById(user.id));
+        return usersPromise.map(user => createUserById(user.id).then(user => user.expurge()));
     },
 
     getUsers: (query) => {
@@ -213,7 +214,9 @@ module.exports = {
         } else {
             usersPromise = Repository.getUsers();
         }
-        return usersPromise.map(user => new User(user));
+        return usersPromise.map(user => {
+            return new User(user).expurge();
+        });
     },
 
     deleteUserById: (userId) =>

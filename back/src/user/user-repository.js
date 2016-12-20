@@ -209,7 +209,7 @@ const UserRepository = {
                 Database.query(
                     `
                         UPDATE User
-                        SET password = '${newPassword}'
+                        SET password = '${newPassword}', default_password = FALSE
                         WHERE id = ${userId}
                     `)
             ),
