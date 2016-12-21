@@ -5,6 +5,7 @@ import SaleCard from "./SaleCard";
 import ProfileForm from "./ProfileForm";
 import {Tabs, Tab} from "material-ui/Tabs";
 import Snackbar from "material-ui/Snackbar";
+import {hasRole, CARD} from '../../services/permissions';
 
 class MeContent extends Component {
 
@@ -42,9 +43,11 @@ class MeContent extends Component {
                     <Tab label="Info">
                         <ProfileForm updateProfile={updateProfile} user={user} changePassword={changePassword}/>
                     </Tab>
-                    <Tab label="Carte Commerciale">
+                    {hasRole(CARD) &&
+                    <Tab label="Carte">
                         <SaleCard user={user}/>
                     </Tab>
+                    }
                 </Tabs>
             </div>
         );

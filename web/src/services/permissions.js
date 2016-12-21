@@ -4,6 +4,8 @@ export const SKILLS = 'skills';
 export const USERS = 'users';
 export const MANAGEMENT = 'management';
 export const SETTINGS = 'settings';
+export const CARD = 'card';
+
 export const MANAGER = 'manager';
 
 export function hasRole(role) {

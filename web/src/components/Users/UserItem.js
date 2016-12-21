@@ -12,6 +12,8 @@ import SkillCard from "../Skills/SkillCard";
 import {Tabs, Tab} from "material-ui/Tabs";
 import SaleCard from '../Me/SaleCard';
 
+import {hasRole, CARD} from '../../services/permissions'
+
 import "./UserItem.less";
 
 const styles = {
@@ -39,6 +41,50 @@ class UserItem extends Component {
     render() {
         const user = this.props.user;
         const {onUserClick, onSkillClick, updateSkill, removeSkill, details} = this.props;
+        const me = window.location.pathname === '/me';
+        const userDetails = /^\/user\/.*$/.test(window.location.pathname);
+
+        let competencies = '';
+        if (user.domains && details) {
+            competencies = (
+                <div style={{paddingBottom: '.1rem'}}>
+                    {user.domains.map((domain, index) => {
+                        return (
+                            <div key={index} className={'domains-content'}
+                                 style={{backgroundColor: domain.color}}>
+                                <div className={`domain-name domain-${domain.name}`}
+                                     style={{color: domain.color}}>{domain.name || 'Sans domaine'}</div>
+                                <div className="skills-content">
+                                    {domain.skills.map((skill, index) => {
+                                        // noinspection JSUnresolvedVariable
+                                        return (
+                                            <SkillCard updateSkill={updateSkill} key={index}
+                                                       skill={skill}
+                                                       onSkillClick={onSkillClick}
+                                                       removeSkill={removeSkill}/>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        let competenciesAndCard = competencies;
+        if (hasRole(CARD) && userDetails) {
+            competenciesAndCard = (
+                <Tabs>
+                    <Tab label="Compétences">
+                        {competencies}
+                    </Tab>
+                    <Tab label="Carte">
+                        <SaleCard user={user}/>
+                    </Tab>
+                </Tabs>
+            );
+        }
 
         if (user) {
             // noinspection JSUnresolvedFunction
@@ -51,7 +97,7 @@ class UserItem extends Component {
                             </div>
                             <div className="user-right">
                                 <p>
-                                    <LabelButton label={user.name} onClick={()=>onUserClick(user.readable_id)}/>
+                                    <LabelButton label={user.name} onClick={() => onUserClick(user.readable_id)}/>
                                     {user.manager && <span className="managed-by">managé par {user.manager.name}</span>}
                                 </p>
                                 <div className="user-chips">
@@ -92,36 +138,9 @@ class UserItem extends Component {
                                     icon={<FontIcon className="material-icons" color="black">access_time</FontIcon>}/>
                             </div>}
                         </div>
-                        {
-                            details && user.domains &&
-                            <Tabs>
-                                <Tab label="Compétences">
-                                <div style={{paddingBottom: '.1rem'}}>
-                                {user.domains.map((domain, index) => {
-                                    return (
-                                        <div key={index} className={'domains-content'}
-                                             style={{backgroundColor: domain.color}}>
-                                            <div className={`domain-name domain-${domain.name}`}
-                                                 style={{color: domain.color}}>{domain.name || 'Sans domaine'}</div>
-                                            <div className="skills-content">
-                                                {domain.skills.map((skill, index) => {
-                                                    // noinspection JSUnresolvedVariable
-                                                    return (
-                                                        <SkillCard updateSkill={updateSkill} key={index} skill={skill}
-                                                                   onSkillClick={onSkillClick} removeSkill={removeSkill}/>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                                </Tab>
-                                <Tab label="Carte Commerciale">
-                                    <SaleCard user={user} />
-                                </Tab>
-                            </Tabs>
-                        }
+
+                        {competenciesAndCard}
+
                     </Paper>
                 </div>
             );
