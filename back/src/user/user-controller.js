@@ -95,6 +95,8 @@ module.exports = {
             .then(users => res.jsonp({management: users}))
             .catch(err => onError(err, res)),
 
+    findUserRolesById: userId => UserService.findUserRolesById(userId),
+
     patchMe: (req, res) => {
         const userId = req.body.user_id;
         const updatePassword = () => {

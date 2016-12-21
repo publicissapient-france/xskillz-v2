@@ -118,6 +118,8 @@ const attachManager = user => {
 };
 
 module.exports = {
+    findUserRolesById: userId => Repository.findUserRolesById(userId),
+
     getManagement: () =>
         Repository
             .getManagement()

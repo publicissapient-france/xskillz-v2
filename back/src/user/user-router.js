@@ -2,6 +2,7 @@
 
 const UserController = require('./user-controller');
 const Security = require('../security');
+const ROLES = require('../security').ROLES;
 
 const UserRouter = {
 
@@ -9,14 +10,14 @@ const UserRouter = {
 
         express
             .route('/users')
-            .get(UserController.getUsersWebVersion)
+            .get(Security.require([ROLES.users]), UserController.getUsersWebVersion)
             .post(UserController.addUser);
 
         express
             .route('/users/:id([0-9]+)')
             .get(UserController.getUserById)
-            .put(Security.requireLogin, UserController.updateUser)
-            .delete(Security.requireLogin, UserController.deleteUserById);
+            .put(Security.require([ROLES.users]), UserController.updateUser)
+            .delete(Security.require([ROLES.users]), UserController.deleteUserById);
 
         express
             .route('/users/:id([\\w%\\-]+)')
@@ -43,15 +44,20 @@ const UserRouter = {
         if (token) {
             UserController
                 .getUserByToken(token)
-                .then((user) => {
+                .then(user => {
                     if (user) {
                         req.body.user_id = user.id;
+                        return UserController.findUserRolesById(user.id)
+                    }
+                    return null;
+                })
+                .then(roles => {
+                    if (roles) {
+                        req.body.user_roles = roles.map(r => r.name);
                     }
                     next();
                 })
-                .catch(() => {
-                    next();
-                });
+                .catch(next);
         } else {
             next();
         }
