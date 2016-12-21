@@ -59,13 +59,17 @@ class SaleCard extends Component {
                             <div className="name">
                                 {user.name}
                             </div>
-                            <div className="date"><b>{user.availability_date ? moment(user.availability_date).format('DD/MM') : ''}</b></div>
+                            <div className="date">
+                                <b>{user.availability_date ? moment(user.availability_date).format('DD/MM') : ''}</b>
+                            </div>
                         </div>
                         <div className="row">
                             <div className="experience">
+                                {user.domains && user.domains.length > 0 &&
                                 <Chip style={styles.domain} labelStyle={styles.domainName}
-                                      backgroundColor={user.domains && user.domains[0].color}>{user.domains && user.domains[0].name}</Chip>
-                                {user.domains && user.domains[1] && <Chip style={styles.domain} labelStyle={styles.domainName}
+                                      backgroundColor={user.domains[0].color}>{user.domains[0].name}</Chip>}
+                                {user.domains && user.domains.length > 1 &&
+                                <Chip style={styles.domain} labelStyle={styles.domainName}
                                       backgroundColor={user.domains[1].color}>{user.domains[1].name}</Chip>}
                                 {user.experienceCounter > 0 &&
                                 <Chip style={styles.experience} backgroundColor={styles.experience.backgroundColor}
@@ -74,7 +78,7 @@ class SaleCard extends Component {
                                 <Chip style={styles.seniority} backgroundColor={styles.seniority.backgroundColor}
                                       labelStyle={styles.label}>{user.seniority} ans</Chip>}
                             </div>
-                            <div>Habite à : </div>
+                            <div>Habite à :</div>
                         </div>
                         <div className="row">
                             <div>Manageur : <b>{user.manager && user.manager.name}</b></div>
@@ -84,7 +88,7 @@ class SaleCard extends Component {
                         <div className="row">
                             <div>
                                 <p>Compétences</p>
-                                <ul className="row-content"></ul>
+                                <ul className="row-content"/>
                             </div>
                             <div>
                                 <p>Souhaits</p>
