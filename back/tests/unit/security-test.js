@@ -18,7 +18,6 @@ describe('Security', () => {
 
         // THEN
         expect(next.callCount).to.equal(1);
-        expect(res.status().send.callCount).to.equal(0);
         done();
     });
 
@@ -33,7 +32,6 @@ describe('Security', () => {
 
         // THEN
         expect(next.callCount).to.equal(0);
-        expect(res.status().send.callCount).to.equal(1);
         done();
     });
 });
