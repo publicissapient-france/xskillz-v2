@@ -47,7 +47,7 @@ const UserRouter = {
                 .then(user => {
                     if (user) {
                         req.body.user_id = user.id;
-                        return UserController.findUserRolesById(user.id)
+                        return UserController.findUserRolesById(user.id);
                     }
                     return null;
                 })
