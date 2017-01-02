@@ -1,6 +1,8 @@
 'use strict';
 
 const UserService = require('./user-service');
+const NotificationService = require('../notification/notification-service');
+const TEMPLATE = require('../notification/notification-service').TEMPLATE;
 const Promise = require('bluebird');
 const Controllers = require('../controllers.js');
 
@@ -11,6 +13,13 @@ module.exports = {
     addUser: (req, res) =>
         UserService
             .addUser(req.body)
+            .then(user => {
+                NotificationService.notify(TEMPLATE.WELCOME, user)
+                    .catch(() => {
+                        // ignore error
+                    });
+                return user;
+            })
             .then(user => res.json(user))
             .catch(err => onError(err, res)),
 

@@ -65,3 +65,19 @@ Now you can use ```/skillz profile firstname-lastname``` on slack to view a user
 
 If you run skillz on localhost you can use tool like [ngrok](https://ngrok.com) to expose your local server to internet 
 
+## Notification
+
+Skillz can notify users by email.
+
+Notification available for now:
+
+- Welcome message when user subscribe
+
+To enable email notification you need to configure Mailgun in environment variable:
+
+```
+MAILGUN_API_KEY: Your personal Mailgun API key
+MAILGUN_DOMAIN: Your personal Mailgun Domain
+MAILGUN_FROM: Sender of email
+NOTIFICATION_WELCOME_PATH: path to utf8 file corresponding to welcome message
+```
