@@ -37,7 +37,7 @@ NotificationService.notifyWelcome = data => {
                     subject: 'Bienvenue sur Skillz',
                     text: util.format(content, data.name)
                 }).then(data => (data), error => {
-                    throw error
+                    throw error;
                 });
             });
     }
@@ -47,10 +47,7 @@ NotificationService.notifyWelcome = data => {
 NotificationService.notify = (template, data) => {
     if (notificationEnabled) {
         mailgun = require('mailgun-js')({apiKey, domain});
-        switch (template) {
-            default:
-                return NotificationService.notifyWelcome(data);
-        }
+        return NotificationService.notifyWelcome(data);
     }
     return Promise.resolve();
 };
