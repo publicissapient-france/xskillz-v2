@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const Promise = require('bluebird');
+const moment = require('moment');
 
 const UserService = require('../../../src/user/user-service');
 const UserRepository = require('../../../src/user/user-repository');
@@ -290,14 +291,14 @@ describe('UserService', () => {
                     assert.deepEqual(users, [
                         {
                             address: null,
-                            experienceCounter: 6,
+                            experienceCounter: moment().year() - 2010,
                             gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
                             id: 1,
                             manager_id: undefined,
                             name: 'Julien',
                             phone: undefined,
                             readable_id: 'julien',
-                            seniority: 3,
+                            seniority: moment().year()-2013,
                             score: undefined,
                             domains: undefined,
                             availability_date: null
@@ -319,7 +320,7 @@ describe('UserService', () => {
                     assert.deepEqual(users, [
                         {
                             address: null,
-                            experienceCounter: 6,
+                            experienceCounter: moment().year() - 2010,
                             gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
                             id: 1,
                             manager_id: undefined,
@@ -360,7 +361,7 @@ describe('UserService', () => {
                     assert.deepEqual(users, [
                         {
                             address: null,
-                            experienceCounter: 6,
+                            experienceCounter: moment().year() - 2010,
                             gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
                             id: 1,
                             manager_id: undefined,
@@ -402,7 +403,7 @@ describe('UserService', () => {
                     assert.deepEqual(users, [
                         {
                             address: null,
-                            experienceCounter: 6,
+                            experienceCounter: moment().year() - 2010,
                             gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
                             id: 1,
                             manager_id: undefined,
@@ -451,7 +452,7 @@ describe('UserService', () => {
                                     score: 7
                                 }
                             ],
-                            experienceCounter: 6,
+                            experienceCounter: moment().year() - 2010,
                             gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
                             id: 2,
                             name: 'Julien',

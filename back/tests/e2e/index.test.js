@@ -31,7 +31,7 @@ describe('API', function () {
                 assert.deepEqual(res.body, {
                     address: null,
                     domains: [],
-                    default_password: true,
+                    default_password: false,
                     experienceCounter: 0,
                     gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
                     manager_id: null,

@@ -1,4 +1,5 @@
 const assert = require('assert');
+const moment = require('moment');
 
 const User = require('../../../src/user/user');
 
@@ -19,7 +20,7 @@ describe('User', () => {
             address: {
                 value: '1 rue du Yaourt'
             },
-            experienceCounter: 2,
+            experienceCounter: moment().year() - 2014,
             gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
             id: 1,
             manager_id: 2,
@@ -47,7 +48,7 @@ describe('User', () => {
         });
         assert.deepEqual(user, {
             address: null,
-            experienceCounter: 2,
+            experienceCounter: moment().year() - 2014,
             gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
             id: 1,
             manager_id: 2,
