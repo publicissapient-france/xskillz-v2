@@ -106,8 +106,8 @@ export class HelpPage extends Component {
                 <Paper style={style}>
                     <h3>J'ai trouvé un bug, j'ai une idée, j'ai une question, qui puis-je contacter ?</h3>
                     <p style={{marginTop}}>
-                        Vous pouvez contacter skillz@xebia.fr ou ouvrir une demande <a
-                        href="https://github.com/xebia-france/xskillz-v2/issues" target="blank">ici</a>.
+                        Vous pouvez ouvrir une demande sur <a
+                        href="https://github.com/xebia-france/xskillz-v2/issues" target="blank">Github</a>.
                     </p>
                 </Paper>
             </div>
