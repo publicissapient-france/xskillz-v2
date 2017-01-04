@@ -34,7 +34,7 @@ NotificationService.notifyWelcome = data => {
                 return mailgun.messages().send({
                     from,
                     to: data.email,
-                    subject: 'Bienvenue sur Skillz',
+                    subject: 'Confirmation inscription Skillz',
                     text: util.format(content, data.name)
                 }).then(data => (data), error => {
                     throw error;
