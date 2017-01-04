@@ -81,3 +81,11 @@ MAILGUN_DOMAIN: Your personal Mailgun Domain
 MAILGUN_FROM: Sender of email
 NOTIFICATION_WELCOME_PATH: path to utf8 file corresponding to welcome message
 ```
+
+- HipChat bot when user subscribe
+
+To enable HipChat bot notification you need to configure a bot for a room
+
+```
+HIPCHAT_ROOM: https://<DOMAIN>.hipchat.com/v2/room/<ROOM_ID>/notification?auth_token=<TOKEN>
+```

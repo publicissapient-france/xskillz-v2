@@ -47,7 +47,10 @@ NotificationService.notifyWelcome = data => {
 NotificationService.notify = (template, data) => {
     if (notificationEnabled) {
         mailgun = require('mailgun-js')({apiKey, domain});
-        return NotificationService.notifyWelcome(data);
+        return NotificationService.notifyWelcome(data)
+            .catch(() => {
+                // ignore error
+            });
     }
     return Promise.resolve();
 };

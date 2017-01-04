@@ -2,6 +2,8 @@
 
 const UserService = require('./user-service');
 const NotificationService = require('../notification/notification-service');
+const BotService = require('../notification/bot-service');
+const MESSAGES = require('../notification/bot-service').MESSAGES;
 const TEMPLATE = require('../notification/notification-service').TEMPLATE;
 const Promise = require('bluebird');
 const Controllers = require('../controllers.js');
@@ -14,10 +16,8 @@ module.exports = {
         UserService
             .addUser(req.body)
             .then(user => {
-                NotificationService.notify(TEMPLATE.WELCOME, user)
-                    .catch(() => {
-                        // ignore error
-                    });
+                NotificationService.notify(TEMPLATE.WELCOME, user);
+                BotService.notify(MESSAGES.WELCOME, user);
                 return user;
             })
             .then(user => res.json(user))

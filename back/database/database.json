@@ -19,7 +19,7 @@
     "driver": "mysql",
     "user": "skillz",
     "password": "skillz",
-    "host": "35.156.78.0",
+    "host": "35.156.124.207",
     "database": "skillz",
     "multipleStatements": true
   },
