@@ -126,7 +126,10 @@ module.exports = {
                 tasks.push(UserService.updateAvailability(userId, req.body.availability));
             }
             if (req.body.employee_date) {
-                tasks.push(UserService.updateEmployeeDate(userId, req.body.employee_date))
+                tasks.push(UserService.updateEmployeeDate(userId, req.body.employee_date));
+            }
+            if (req.body.diploma) {
+                tasks.push(UserService.updateDiploma(userId, req.body.diploma));
             }
             return Promise.all(tasks)
                 .then(() => res.jsonp({updated: true}))
@@ -139,7 +142,8 @@ module.exports = {
             req.body.phone ||
             req.body.address ||
             req.body.availability ||
-            req.body.employee_date) {
+            req.body.employee_date ||
+            req.body.diploma) {
             return updateUser();
         }
     }

@@ -186,7 +186,7 @@ module.exports = {
                 return _(rows)
                     .groupBy('user_id')
                     .map((domainRows) => {
-                        var user = domainRows[0];
+                        const user = domainRows[0];
                         return new User({
                             id: user.user_id,
                             name: user.user_name,
@@ -290,6 +290,8 @@ module.exports = {
     updateAddress: (userId, address) => Repository.updateAddress(userId, address),
 
     updateEmployeeDate: (userId, employee_date) => Repository.updateUserEmployeeDate(userId, {employee_date}),
+
+    updateDiploma: (userId, diploma) => Repository.updateUserDiploma(userId, {diploma}),
 
     updateAvailability: (userId, availability_date) =>
         Repository.updateUserAvailabilityDate(userId, {availability_date}),

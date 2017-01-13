@@ -42,7 +42,7 @@ const UserRouter = {
     middleware: (req, res, next) => {
         const token = req.headers.token;
         if (token) {
-            UserController
+            return UserController
                 .getUserByToken(token)
                 .then(user => {
                     if (user) {
@@ -55,12 +55,11 @@ const UserRouter = {
                     if (roles) {
                         req.body.user_roles = roles.map(r => r.name);
                     }
-                    next();
+                    return next();
                 })
                 .catch(next);
-        } else {
-            next();
         }
+        return next();
     }
 };
 

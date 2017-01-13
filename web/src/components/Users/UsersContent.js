@@ -3,14 +3,17 @@ import _ from "lodash";
 import UserItem from "./UserItem";
 import TextField from "material-ui/TextField";
 import Infinite from "react-infinite";
+import RadioButtonGroup from "material-ui/RadioButton/RadioButtonGroup";
+import RadioButton from "material-ui/RadioButton/RadioButton";
 import CircularProgress from "material-ui/CircularProgress";
+
 import {clean} from "../../services/strings";
 
 class UsersContent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: null};
+        this.state = {users: null, sort: 'alphabetic'};
     }
 
     componentDidMount() {
@@ -29,16 +32,18 @@ class UsersContent extends Component {
 
     queryChange = (event, value) => {
         if (value.length > 2) {
-            var filteredUsers = this.filter(this.props.users.list, value);
+            const filteredUsers = this.filter(this.props.users.list, value);
             this.setState({users: filteredUsers});
         } else {
             this.setState({users: this.props.users.list});
         }
     };
 
+    onSortChange = (event, sort) => this.setState({sort});
+
     render() {
-        const {loaded} = this.props.users;
-        const {onUserClick, onSkillClick, removeUser} = this.props;
+        const {onUserClick, onSkillClick, removeUser, users:{loaded}} = this.props;
+        const {sort} = this.state;
 
         if (!loaded) {
             return (
@@ -46,12 +51,31 @@ class UsersContent extends Component {
             );
         }
 
-        const users = this.state.users || this.props.users.list;
+        let users = this.state.users || this.props.users.list;
+
+        if (sort === 'experience') {
+            users = _.sortBy(users, [user => user.experienceCounter]);
+        } else {
+            users = _.sortBy(users, [user => user.name.toUpperCase()]);
+        }
 
         return (
             <div className="content">
-                <TextField hintText="Nom ou prénom (min: 3 caractères)" style={{margin: '.8rem'}}
+                <TextField hintText="Nom ou prénom (min: 3 caractères)"
+                           style={{margin: '.8rem'}}
                            onChange={::this.queryChange}/>
+                <RadioButtonGroup
+                    defaultSelected="alphabetic"
+                    name="sort"
+                    style={{margin: '0 10px 20px 10px'}}
+                    onChange={this.onSortChange}>
+                    <RadioButton
+                        value="alphabetic"
+                        label="Alphabétique"/>
+                    <RadioButton
+                        value="experience"
+                        label="Expérience"/>
+                </RadioButtonGroup>
                 <Infinite useWindowAsScrollContainer elementHeight={110}>
                     {users.map((user, index) => <UserItem user={user}
                                                           onUserClick={onUserClick}

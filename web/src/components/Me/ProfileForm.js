@@ -27,12 +27,12 @@ class ProfileForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {phone: '', isPhoneValid: true, availability: '', employeeDate: '', open: true};
+        this.state = {phone: '', isPhoneValid: true, availability: '', formDiploma: '', open: true};
     }
 
     setAvailability = (event, availability) => this.setState({availability});
 
-    setEmployeeDate = (event, employeeDate) => this.setState({employeeDate});
+    setDiploma = (event, formDiploma) => this.setState({formDiploma});
 
     disableWeekends = date => date.getDay() === 0 || date.getDay() === 6;
 
@@ -55,7 +55,7 @@ class ProfileForm extends Component {
     submitProfile = () => {
         const profile = {};
         const DATE_FORMAT = 'YYYY-MM-DD';
-        const {phone, isPhoneValid, address, isAddressValid, availability, employeeDate} = this.state;
+        const {phone, isPhoneValid, address, isAddressValid, availability, formDiploma} = this.state;
         if (isPhoneValid && phone.length > 0) {
             profile.phone = phone;
         }
@@ -65,8 +65,8 @@ class ProfileForm extends Component {
         if (availability) {
             profile.availability = moment(availability).format(DATE_FORMAT);
         }
-        if (employeeDate) {
-            profile.employee_date = moment(employeeDate).format(DATE_FORMAT)
+        if (formDiploma) {
+            profile.diploma = moment(formDiploma).format(DATE_FORMAT)
         }
         if (!_.isEmpty(profile)) {
             this.props.updateProfile(profile);
@@ -98,18 +98,18 @@ class ProfileForm extends Component {
             require('intl/locale-data/jsonp/fr');
         }
 
-        const {phone, isPhoneValid, availability, employeeDate} = this.state;
+        const {phone, isPhoneValid, availability, formDiploma} = this.state;
         const errorPhone = isPhoneValid ? '' : 'Numéro invalide';
-        const {user:{address, availability_date, employee_date}, user, changePassword} = this.props;
+        const {user:{address, availability_date, diploma}, user, changePassword} = this.props;
         const fixtures = [{label: 'Xebia', location: {lat: 48.8755622, lng: 2.3088289}}];
         const phoneValue = (phone || this.props.user.phone) || '';
         let date = availability ? new Date(availability) : undefined;
         if (!date && availability_date) {
             date = moment(availability_date).toDate();
         }
-        let employee = employeeDate ? new Date(employeeDate) : undefined;
-        if (!employeeDate && employee_date) {
-            employee = moment(employee_date).toDate();
+        let localDiploma = formDiploma ? new Date(formDiploma) : undefined;
+        if (!localDiploma && diploma) {
+            localDiploma = moment(diploma).toDate();
         }
         return (
             <div className="profile-form">
@@ -148,8 +148,8 @@ class ProfileForm extends Component {
                                 DateTimeFormat={DateTimeFormat}
                                 hintText="Diplômé le"
                                 floatingLabelText="Diplômé le"
-                                value={employee}
-                                onChange={::this.setEmployeeDate}
+                                value={localDiploma}
+                                onChange={::this.setDiploma}
                                 shouldDisableDate={::this.disableWeekends}
                                 locale="fr"/>
                         </div>
