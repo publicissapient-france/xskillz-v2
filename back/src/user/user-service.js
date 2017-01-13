@@ -78,7 +78,11 @@ const createUserByLogin = (login) =>
             return user;
         });
 
-const toSimpleUserObject = (user) => ({id: user.user_id, name: user.user_name, readable_id: User.toReadableId(user.user_name)});
+const toSimpleUserObject = (user) => ({
+    id: user.user_id,
+    name: user.user_name,
+    readable_id: User.toReadableId(user.user_name)
+});
 
 const groupUsersByManager = users => {
     const managersById = _(users).keyBy('manager_id').value();
@@ -86,7 +90,11 @@ const groupUsersByManager = users => {
         .keys()
         .map(manager_id => {
             const manager = {
-                manager: {name: managersById[manager_id].manager_name, id: managersById[manager_id].manager_id, readable_id: User.toReadableId(managersById[manager_id].manager_name)},
+                manager: {
+                    name: managersById[manager_id].manager_name,
+                    id: managersById[manager_id].manager_id,
+                    readable_id: User.toReadableId(managersById[manager_id].manager_name)
+                },
                 users: _(users)
                     .filter((user) => user.manager_id == manager_id)
                     .map(toSimpleUserObject)
@@ -281,8 +289,10 @@ module.exports = {
 
     updateAddress: (userId, address) => Repository.updateAddress(userId, address),
 
-    updateAvailability: (userId, availability) =>
-        Repository.updateUserAvailabilityDate(userId, {availability_date: availability}),
+    updateEmployeeDate: (userId, employee_date) => Repository.updateUserEmployeeDate(userId, {employee_date}),
+
+    updateAvailability: (userId, availability_date) =>
+        Repository.updateUserAvailabilityDate(userId, {availability_date}),
 
     getUserByToken: (token) =>
         Repository.getUserByToken(token),

@@ -1,10 +1,17 @@
-import {RECEIVE_ME, CHANGE_PASSWORD_ERROR, PASSWORD_CHANGED, CHANGE_PASSWORD_LOADING} from '../actions/action.me';
+import {
+    RECEIVE_ME,
+    CHANGE_PASSWORD_ERROR,
+    PASSWORD_CHANGED,
+    CHANGE_PASSWORD_LOADING,
+    PROFILE_UPDATED
+} from '../actions/action.me';
 import {SKILL_REMOVED, SKILL_ADDED, SKILL_UPDATED} from '../actions/skills';
 import _ from 'lodash';
 
 const initialState = {
     loaded: false,
-    changePassword: {}
+    changePassword: {},
+    updateProfile: {}
 };
 
 export function me(state = initialState, action) {
@@ -59,6 +66,8 @@ export function me(state = initialState, action) {
             return {...state, changePassword: {error: false, success: true}};
         case CHANGE_PASSWORD_LOADING:
             return {...state, changePassword: {error: false, success: false}};
+        case PROFILE_UPDATED:
+            return {...state, updateProfile: {error: false, success: true}};
         default:
             return state;
     }

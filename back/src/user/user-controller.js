@@ -125,6 +125,9 @@ module.exports = {
             if (req.body.availability) {
                 tasks.push(UserService.updateAvailability(userId, req.body.availability));
             }
+            if (req.body.employee_date) {
+                tasks.push(UserService.updateEmployeeDate(userId, req.body.employee_date))
+            }
             return Promise.all(tasks)
                 .then(() => res.jsonp({updated: true}))
                 .catch(err => onError(err, res));
@@ -132,7 +135,11 @@ module.exports = {
         if (userId && req.body.old_password && req.body.password) {
             return updatePassword();
         }
-        if (userId && req.body.phone || req.body.address || req.body.availability) {
+        if (userId &&
+            req.body.phone ||
+            req.body.address ||
+            req.body.availability ||
+            req.body.employee_date) {
             return updateUser();
         }
     }

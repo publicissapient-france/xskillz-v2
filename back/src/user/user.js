@@ -18,6 +18,7 @@ class User {
         this.score = raw.score;
         this.availability_date = raw.availability_date;
         this.default_password = raw.default_password === 1;
+        this.employee_date = raw.employee_date;
     }
 
     expurge() {
