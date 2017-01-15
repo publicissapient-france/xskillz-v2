@@ -100,7 +100,9 @@ describe('UserService', () => {
                             phone: undefined,
                             readable_id: 'christophe-heubès',
                             score: undefined,
-                            seniority: 0
+                            seniority: 0,
+                            diploma: undefined,
+                            employee_date: undefined
                         }
                     });
                 })
@@ -298,10 +300,12 @@ describe('UserService', () => {
                             name: 'Julien',
                             phone: undefined,
                             readable_id: 'julien',
-                            seniority: moment().year()-2013,
+                            seniority: moment().year() - 2013,
                             score: undefined,
                             domains: undefined,
-                            availability_date: null
+                            availability_date: undefined,
+                            diploma: '2010',
+                            employee_date: '2013'
                         }
                     ]);
                 })
@@ -330,7 +334,9 @@ describe('UserService', () => {
                             seniority: 0,
                             score: undefined,
                             domains: undefined,
-                            availability_date: null
+                            availability_date: undefined,
+                            diploma: 2010,
+                            employee_date: undefined
                         }
                     ]);
                 })
@@ -372,7 +378,9 @@ describe('UserService', () => {
                             roles: [],
                             score: 0,
                             seniority: 0,
-                            availability_date: undefined
+                            availability_date: undefined,
+                            diploma: '2010',
+                            employee_date: undefined
                         }
                     ]);
                 })
@@ -414,7 +422,9 @@ describe('UserService', () => {
                             roles: [],
                             score: 0,
                             seniority: 0,
-                            availability_date: null
+                            availability_date: undefined,
+                            diploma: '2010',
+                            employee_date: undefined
                         }
                     ]);
                 })
@@ -462,7 +472,9 @@ describe('UserService', () => {
                             address: null,
                             phone: undefined,
                             seniority: 0,
-                            availability_date: null
+                            availability_date: undefined,
+                            diploma: '2010',
+                            employee_date: undefined
                         }
                     ]);
                 })

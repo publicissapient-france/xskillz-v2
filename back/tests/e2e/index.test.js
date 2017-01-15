@@ -43,7 +43,9 @@ describe('API', function () {
                     ],
                     score: 0,
                     seniority: 0,
-                    availability_date: null
+                    availability_date: null,
+                    diploma: null,
+                    employee_date: null
                 });
             })
             .then(done)
@@ -104,7 +106,9 @@ describe('API', function () {
                             phone: null,
                             readable_id: 'julien',
                             seniority: 0,
-                            availability_date: null
+                            availability_date: null,
+                            diploma: undefined,
+                            employee_date: undefined
                         }
                     ]);
                 done();
@@ -156,7 +160,9 @@ describe('API', function () {
                             ],
                             score: 2,
                             seniority: 0,
-                            availability_date: null
+                            availability_date: null,
+                            diploma: null,
+                            employee_date: null
                         }
                     ]);
                 done();
@@ -251,7 +257,8 @@ describe('API', function () {
                             readable_id: 'julien',
                             score: 2,
                             seniority: 0,
-                            address: null
+                            address: null,
+                            diploma: null
                         }
                     ]);
             })
@@ -311,7 +318,9 @@ describe('API', function () {
                             roles: [
                                 'Manager'
                             ],
-                            availability_date: null
+                            availability_date: null,
+                            diploma: null,
+                            employee_date: null
                         }
                     ]);
             })
@@ -343,7 +352,9 @@ describe('API', function () {
                         score: 0,
                         readable_id: 'julien-smadja',
                         seniority: 0,
-                        availability_date: null
+                        availability_date: null,
+                        diploma: null,
+                        employee_date: null
                     }
                 );
             })
@@ -375,7 +386,9 @@ describe('API', function () {
                         score: 0,
                         readable_id: 'clément-smadja',
                         seniority: 0,
-                        availability_date: null
+                        availability_date: null,
+                        diploma: null,
+                        employee_date: null
                     }
                 );
             })

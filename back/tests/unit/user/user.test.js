@@ -31,7 +31,9 @@ describe('User', () => {
             seniority: 0,
             domains:  undefined,
             score: undefined,
-            availability_date: undefined
+            availability_date: undefined,
+            diploma: '2014',
+            employee_date: undefined
         });
         done();
     });
@@ -59,7 +61,9 @@ describe('User', () => {
             domains: undefined,
             score: undefined,
             availability_date: undefined,
-            default_password: false
+            default_password: false,
+            diploma: '2014',
+            employee_date: undefined
         });
         done();
     });
