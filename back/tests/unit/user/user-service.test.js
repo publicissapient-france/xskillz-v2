@@ -102,7 +102,8 @@ describe('UserService', () => {
                             score: undefined,
                             seniority: 0,
                             diploma: undefined,
-                            employee_date: undefined
+                            employee_date: undefined,
+                            home: undefined
                         }
                     });
                 })
@@ -305,7 +306,8 @@ describe('UserService', () => {
                             domains: undefined,
                             availability_date: undefined,
                             diploma: '2010',
-                            employee_date: '2013'
+                            employee_date: '2013',
+                            home: undefined
                         }
                     ]);
                 })
@@ -336,7 +338,8 @@ describe('UserService', () => {
                             domains: undefined,
                             availability_date: undefined,
                             diploma: 2010,
-                            employee_date: undefined
+                            employee_date: undefined,
+                            home: undefined
                         }
                     ]);
                 })
@@ -380,7 +383,8 @@ describe('UserService', () => {
                             seniority: 0,
                             availability_date: undefined,
                             diploma: '2010',
-                            employee_date: undefined
+                            employee_date: undefined,
+                            home: undefined
                         }
                     ]);
                 })
@@ -424,7 +428,8 @@ describe('UserService', () => {
                             seniority: 0,
                             availability_date: undefined,
                             diploma: '2010',
-                            employee_date: undefined
+                            employee_date: undefined,
+                            home: undefined
                         }
                     ]);
                 })
@@ -474,7 +479,8 @@ describe('UserService', () => {
                             seniority: 0,
                             availability_date: undefined,
                             diploma: '2010',
-                            employee_date: undefined
+                            employee_date: undefined,
+                            home: undefined
                         }
                     ]);
                 })

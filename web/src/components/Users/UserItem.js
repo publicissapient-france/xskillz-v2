@@ -127,9 +127,16 @@ class UserItem extends Component {
                                 <FlatButton
                                     href={`https://www.google.fr/maps/place/${user.address.label}`}
                                     label={user.address.label}
-                                    icon={<FontIcon className="material-icons" color="black">place</FontIcon>}
+                                    icon={<FontIcon className="material-icons" color="black">work</FontIcon>}
                                     target="_blank"/>
                             </div>}
+                          {user.home && <div>
+                            <FlatButton
+                              href={`https://www.google.fr/maps/place/${user.home.label}`}
+                              label={user.home.label}
+                              icon={<FontIcon className="material-icons" color="black">place</FontIcon>}
+                              target="_blank"/>
+                          </div>}
                             {user.availability_date && <div>
                                 <FlatButton
                                     label={moment(user.availability_date).format('DD/MM/YY')}

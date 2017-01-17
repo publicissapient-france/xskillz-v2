@@ -29,11 +29,12 @@ describe('User', () => {
             phone: '01.43.00.65.78',
             readable_id: 'julien',
             seniority: 0,
-            domains:  undefined,
+            domains: undefined,
             score: undefined,
             availability_date: undefined,
             diploma: '2014',
-            employee_date: undefined
+            employee_date: undefined,
+            home: undefined
         });
         done();
     });
@@ -63,7 +64,8 @@ describe('User', () => {
             availability_date: undefined,
             default_password: false,
             diploma: '2014',
-            employee_date: undefined
+            employee_date: undefined,
+            home: undefined
         });
         done();
     });
