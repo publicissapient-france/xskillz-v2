@@ -111,7 +111,6 @@ class ProfileForm extends Component {
   };
 
   selectHome = suggest => {
-    debugger;
     //noinspection JSUnresolvedVariable
     this.setState({
       home: {
