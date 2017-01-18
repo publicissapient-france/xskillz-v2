@@ -45,7 +45,8 @@ describe('API', function () {
                     seniority: 0,
                     availability_date: null,
                     diploma: null,
-                    employee_date: null
+                    employee_date: null,
+                    home: null
                 });
             })
             .then(done)
@@ -108,7 +109,8 @@ describe('API', function () {
                             seniority: 0,
                             availability_date: null,
                             diploma: undefined,
-                            employee_date: undefined
+                            employee_date: undefined,
+                            home: null
                         }
                     ]);
                 done();
@@ -162,7 +164,8 @@ describe('API', function () {
                             seniority: 0,
                             availability_date: null,
                             diploma: null,
-                            employee_date: null
+                            employee_date: null,
+                            home: null
                         }
                     ]);
                 done();
@@ -258,7 +261,8 @@ describe('API', function () {
                             score: 2,
                             seniority: 0,
                             address: null,
-                            diploma: null
+                            diploma: null,
+                            home: null
                         }
                     ]);
             })
@@ -320,7 +324,8 @@ describe('API', function () {
                             ],
                             availability_date: null,
                             diploma: null,
-                            employee_date: null
+                            employee_date: null,
+                            home: null
                         }
                     ]);
             })
@@ -354,7 +359,8 @@ describe('API', function () {
                         seniority: 0,
                         availability_date: null,
                         diploma: null,
-                        employee_date: null
+                        employee_date: null,
+                        home: null
                     }
                 );
             })
@@ -388,7 +394,8 @@ describe('API', function () {
                         seniority: 0,
                         availability_date: null,
                         diploma: null,
-                        employee_date: null
+                        employee_date: null,
+                        home: null
                     }
                 );
             })
