@@ -11,7 +11,8 @@ import _ from 'lodash';
 const initialState = {
     loaded: false,
     changePassword: {},
-    updateProfile: {}
+    updateProfile: {},
+    updateSocial: {}
 };
 
 export function me(state = initialState, action) {

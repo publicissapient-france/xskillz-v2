@@ -1,0 +1,3 @@
+ALTER TABLE User DROP COLUMN twitter;
+ALTER TABLE User DROP COLUMN github;
+ALTER TABLE User DROP COLUMN linked_in;

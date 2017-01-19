@@ -34,7 +34,10 @@ describe('User', () => {
             availability_date: undefined,
             diploma: '2014',
             employee_date: undefined,
-            home: undefined
+            home: undefined,
+            github: undefined,
+            linked_in: undefined,
+            twitter: undefined
         });
         done();
     });
@@ -65,7 +68,10 @@ describe('User', () => {
             default_password: false,
             diploma: '2014',
             employee_date: undefined,
-            home: undefined
+            home: undefined,
+            github: undefined,
+            linked_in: undefined,
+            twitter: undefined
         });
         done();
     });

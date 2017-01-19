@@ -310,6 +310,12 @@ module.exports = {
 
     updateDiploma: (userId, diploma) => Repository.updateUserDiploma(userId, {diploma}),
 
+    updateTwitter: (userId, twitter) => Repository.updateUserTwitter(userId, {twitter}),
+
+    updateGithub: (userId, github) => Repository.updateUserGithub(userId, {github}),
+
+    updateLinkedIn: (userId, linkedIn) => Repository.updateUserLinkedIn(userId, {linkedIn}),
+
     updateAvailability: (userId, availability_date) =>
         Repository.updateUserAvailabilityDate(userId, {availability_date}),
 

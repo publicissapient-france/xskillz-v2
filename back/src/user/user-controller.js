@@ -152,6 +152,15 @@ module.exports = {
             if (req.body.diploma) {
                 tasks.push(UserService.updateDiploma(userId, req.body.diploma));
             }
+            if (req.body.twitter) {
+                tasks.push(UserService.updateTwitter(userId, req.body.twitter));
+            }
+            if (req.body.linkedIn) {
+                tasks.push(UserService.updateLinkedIn(userId, req.body.linkedIn));
+            }
+            if (req.body.github) {
+                tasks.push(UserService.updateGithub(userId, req.body.github));
+            }
             return Promise.all(tasks)
                 .then(() => res.jsonp({updated: true}))
                 .catch(err => onError(err, res));
@@ -165,7 +174,10 @@ module.exports = {
             req.body.availability ||
             req.body.employee_date ||
             req.body.diploma ||
-            req.body.home) {
+            req.body.home ||
+            req.body.linkedIn ||
+            req.body.twitter ||
+            req.body.github) {
             return updateUser();
         } else {
             return res.jsonp({updated: false});

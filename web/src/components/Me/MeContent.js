@@ -18,7 +18,7 @@ class MeContent extends Component {
 
     render() {
         const user = this.props.me;
-        const {updateSkill, removeSkill, updateProfile, changePassword} = this.props;
+        const {updateSkill, removeSkill, updateProfile, changePassword, updateSocial} = this.props;
         return (
             <div className="content">
                 <Tabs>
@@ -41,7 +41,8 @@ class MeContent extends Component {
                         />
                     </Tab>
                     <Tab label="Info">
-                        <ProfileForm updateProfile={updateProfile} user={user} changePassword={changePassword}/>
+                        <ProfileForm updateProfile={updateProfile} user={user}
+                                     changePassword={changePassword}/>
                     </Tab>
                     {hasRole(CARD) &&
                     <Tab label="Carte">

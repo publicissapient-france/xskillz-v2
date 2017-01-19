@@ -103,7 +103,10 @@ describe('UserService', () => {
                             seniority: 0,
                             diploma: undefined,
                             employee_date: undefined,
-                            home: undefined
+                            home: undefined,
+                            github: undefined,
+                            linked_in: undefined,
+                            twitter: undefined
                         }
                     });
                 })
@@ -307,7 +310,10 @@ describe('UserService', () => {
                             availability_date: undefined,
                             diploma: '2010',
                             employee_date: '2013',
-                            home: undefined
+                            home: undefined,
+                            github: undefined,
+                            linked_in: undefined,
+                            twitter: undefined
                         }
                     ]);
                 })
@@ -339,7 +345,10 @@ describe('UserService', () => {
                             availability_date: undefined,
                             diploma: 2010,
                             employee_date: undefined,
-                            home: undefined
+                            home: undefined,
+                            github: undefined,
+                            linked_in: undefined,
+                            twitter: undefined
                         }
                     ]);
                 })
@@ -384,7 +393,10 @@ describe('UserService', () => {
                             availability_date: undefined,
                             diploma: '2010',
                             employee_date: undefined,
-                            home: undefined
+                            home: undefined,
+                            github: undefined,
+                            linked_in: undefined,
+                            twitter: undefined
                         }
                     ]);
                 })
@@ -429,7 +441,10 @@ describe('UserService', () => {
                             availability_date: undefined,
                             diploma: '2010',
                             employee_date: undefined,
-                            home: undefined
+                            home: undefined,
+                            github: undefined,
+                            linked_in: undefined,
+                            twitter: undefined
                         }
                     ]);
                 })
@@ -480,7 +495,10 @@ describe('UserService', () => {
                             availability_date: undefined,
                             diploma: '2010',
                             employee_date: undefined,
-                            home: undefined
+                            home: undefined,
+                            github: undefined,
+                            linked_in: undefined,
+                            twitter: undefined
                         }
                     ]);
                 })

@@ -171,6 +171,24 @@ const UserRepository = {
     getUserByIdAndPasswordToken: (id, passwordToken) =>
         Database.query(`SELECT id FROM User WHERE id = ${id} AND password_token = ${passwordToken}`),
 
+    updateUserLinkedIn: (id, user) =>
+        Database.query(`
+            UPDATE User
+            SET linked_in = '${user.linkedIn}'
+            WHERE id = ${id}`),
+
+    updateUserGithub: (id, user) =>
+        Database.query(`
+            UPDATE User
+            SET github = '${user.github}'
+            WHERE id = ${id}`),
+
+    updateUserTwitter: (id, user) =>
+        Database.query(`
+            UPDATE User
+            SET twitter = '${user.twitter}'
+            WHERE id = ${id}`),
+
     updateUserDiploma: (id, user) =>
         Database.query(`
             UPDATE User
