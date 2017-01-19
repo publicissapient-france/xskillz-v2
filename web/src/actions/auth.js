@@ -135,3 +135,75 @@ export function signup(name, email, password) {
             .catch(() => dispatch(userCreateError()));
     }
 }
+
+export const NOTIFY_PASSWORD_SUCCESS = 'NOTIFY_PASSWORD_SUCCESS';
+
+export function notifyPasswordSuccess() {
+    return {
+        type: NOTIFY_PASSWORD_SUCCESS
+    }
+}
+
+export const NOTIFY_PASSWORD_ERROR = 'NOTIFY_PASSWORD_ERROR';
+
+export function notifyPasswordError() {
+    return {
+        type: NOTIFY_PASSWORD_ERROR
+    }
+}
+
+export function notifyPasswordChange(email) {
+    return dispatch => {
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email})
+        };
+        return fetch(`${Config.apiURL}/notify-change-password`, config)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error(response.status);
+                }
+                return dispatch(notifyPasswordSuccess());
+            })
+            .catch(() => dispatch(notifyPasswordError()));
+    }
+}
+
+export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
+
+export function changePasswordSuccess() {
+    return {
+        type: CHANGE_PASSWORD_SUCCESS
+    }
+}
+
+export const CHANGE_PASSWORD_ERROR = 'CHANGE_PASSWORD_ERROR';
+
+export function changePasswordError() {
+    return {
+        type: CHANGE_PASSWORD_ERROR
+    }
+}
+
+export function changePassword(id, token, password) {
+    return dispatch => {
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id, token, password})
+        };
+        return fetch(`${Config.apiURL}/change-password`, config)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error(response.status);
+                }
+                return dispatch(changePasswordSuccess());
+            })
+            .catch(() => dispatch(changePasswordError()));
+    }
+}

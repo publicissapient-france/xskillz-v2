@@ -73,12 +73,17 @@ class SigninContent extends Component {
                             <FlatButton style={{marginTop: '10px'}}
                                         label="S'inscrire" primary/>
                         </Link>
+                        <div>
+                            <Link to={'/password'}>
+                                <FlatButton label="Mot de passe oublié" primary/>
+                            </Link>
+                        </div>
                     </Card>
                 </form>
                 <Snackbar
                     bodyStyle={{backgroundColor: '#FF0000'}}
                     open={this.state.error}
-                    message={`Mot de passe incorrect`}
+                    message={`Mot de passe incorrect.`}
                     autoHideDuration={3000}/>
             </div>
         )

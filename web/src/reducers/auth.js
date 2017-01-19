@@ -3,7 +3,11 @@ import {
     API_SIGNIN_ERROR,
     USER_CREATE_ERROR,
     USER_CREATED,
-    CREATE_USER_LOADING
+    CREATE_USER_LOADING,
+    NOTIFY_PASSWORD_ERROR,
+    NOTIFY_PASSWORD_SUCCESS,
+    CHANGE_PASSWORD_ERROR,
+    CHANGE_PASSWORD_SUCCESS
 } from '../actions/auth';
 
 import store from 'store';
@@ -12,7 +16,9 @@ const initialState = {
     tryCount: 0,
     success: false,
     me: store.get('me') || {},
-    createUser: {}
+    createUser: {},
+    notifyPassword: {},
+    changePassword: {}
 };
 
 export function auth(state = initialState, action) {
@@ -27,6 +33,14 @@ export function auth(state = initialState, action) {
             return {...state, createUser: {error: false, success: true}};
         case CREATE_USER_LOADING:
             return {...state, createUser: {error: false, success: false}};
+        case NOTIFY_PASSWORD_SUCCESS:
+            return {...state, notifyPassword: {success: true, error: false}};
+        case NOTIFY_PASSWORD_ERROR:
+            return {...state, notifyPassword: {error: true, success: false}};
+        case CHANGE_PASSWORD_SUCCESS:
+            return {...state, changePassword: {success: true, error: false}};
+        case CHANGE_PASSWORD_ERROR:
+            return {...state, changePassword: {error: true, success: false}};
         default:
             return state;
     }

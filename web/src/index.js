@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, Redirect, browserHistory} from 'react-router';
 
-
 import {App} from 'containers/App';
 import {NotFound} from 'containers/NotFound';
 import SkillsPage from 'containers/Skills/SkillsPage';
@@ -20,6 +19,8 @@ import MePage from 'containers/Me/MePage';
 import SettingsPage from 'containers/Settings/SettingsPage';
 import ApiPage from 'containers/Api/ApiPage';
 import DomainsPage from 'containers/Domains/DomainsPage';
+import RenewPasswordPage from 'containers/Auth/RenewPasswordPage';
+import ChangePasswordPage from 'containers/Auth/ChangePasswordPage';
 
 import {checkPermission} from './services/permissions';
 import configureStore from './store/configureStore';
@@ -86,6 +87,14 @@ ReactDOM.render(
                 <Route path="api"
                        components={{main: ApiPage, header: Header}}
                        dataType="api"/>
+
+                <Route path="password"
+                       components={{main: RenewPasswordPage}}
+                       dataType="password"/>
+
+                <Route path="change-password"
+                       components={{main: ChangePasswordPage}}
+                       dataType="password"/>
 
                 <Route path="unauthorized"
                        components={{main: UnauthorizedPage, header: Header}}/>

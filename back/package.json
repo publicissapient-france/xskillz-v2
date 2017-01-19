@@ -37,6 +37,8 @@
     "mailgun-js": "0.7.15",
     "moment": "2.15.2",
     "mysql-promise": "^3.1.0",
+    "nodemailer": "2.7.0",
+    "nodemailer-ses-transport": "1.5.0",
     "nodemon": "1.11.0",
     "pm2": "2.0.19",
     "promise": "^7.1.1",

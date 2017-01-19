@@ -26,6 +26,7 @@ const UserRouter = {
         express
             .patch('/me', Security.requireLogin, UserController.patchMe)
             .post('/me', Security.requireLogin, UserController.getCurrentUser)
+
             .get('/web/users', UserController.getUsersWebVersion)
             .get('/mobile/users', UserController.getUsersMobileVersion)
             .get('/mobile/skills/:id/users', UserController.getUsersBySkillMobileVersion)
@@ -36,7 +37,10 @@ const UserRouter = {
 
             .get('/management', UserController.getManagement)
 
-            .get('/skills/:id/users', UserController.getUsersBySkill);
+            .get('/skills/:id/users', UserController.getUsersBySkill)
+
+            .post('/notify-change-password', UserController.prepareChangePassword)
+            .post('/change-password', UserController.changePassword);
     },
 
     middleware: (req, res, next) => {
