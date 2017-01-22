@@ -38,7 +38,7 @@ module.exports = {
     prepareChangePassword: (req, res) =>
         UserService
             .generatePasswordTokenByEmail(req.body.email)
-            .then(() => res.send(200).end())
+            .then(() => res.sendStatus(200))
             .catch(err => onError(err, res, 404, 'User not found')),
 
     changePassword: (req, res) =>
@@ -50,7 +50,7 @@ module.exports = {
                 }
                 return UserService.changePassword(req.body.id, req.body.password);
             })
-            .then(() => res.send(202).end())
+            .then(() => res.sendStatus(202))
             .catch(err => onError(err, res, 404, err.message)),
 
     getCurrentUser: (req, res) =>

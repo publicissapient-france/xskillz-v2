@@ -178,7 +178,7 @@ module.exports = {
 
     generatePasswordTokenByEmail: email => {
         const token = new Date().getTime();
-        Repository.getUserByEmail(email)
+        return Repository.findUserByEmail(email)
             .then(user => Repository.updatePasswordToken(email, token)
                 .then(() => NotificationService.notify(TEMPLATE.CHANGE_PASSWORD, {id: user.id, token, email})));
     },
