@@ -89,7 +89,7 @@ export class HelpPage extends Component {
                                 <span
                                     className="interested-icon" style={{color: redA400}}>&#9829;</span></td>
                             <td>
-                                Très intéressé !
+                                Je veux en faire dans ma prochaine mission
                             </td>
                         </tr>
                         </tbody>

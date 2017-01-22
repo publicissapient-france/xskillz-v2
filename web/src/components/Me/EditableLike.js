@@ -33,7 +33,7 @@ class EditableLike extends Component {
         const { like } = this.state;
 
         return (
-            <div className="stars-content">
+            <div className="stars-content" title="Souhait pour sa prochaine mission">
                 {like && <span onClick={::this.handleClick} style={{ color: redA400 }}>&#9829;</span>}
                 {!like && <span onClick={::this.handleClick} style={{ color: grey500 }}>&#9825;</span>}
             </div>
