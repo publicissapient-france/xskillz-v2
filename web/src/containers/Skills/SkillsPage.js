@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchSkills: () => dispatch(fetchSkills()),
         fetchUsersBySkillId: (id, name) => {
             dispatch(fetchUsersBySkill(id));
-            browserHistory.push(`/skills?name=${name}`);
+            browserHistory.push(`/skills?name=${encodeURIComponent(name)}`);
         },
         onUserClick: id => browserHistory.push(`/user/${id}`)
     };
