@@ -38,7 +38,7 @@ module.exports = {
     prepareChangePassword: (req, res) =>
         UserService
             .generatePasswordTokenByEmail(req.body.email)
-            .then(() => res.sendStatus(200))
+            .then(data => res.json(data))
             .catch(err => onError(err, res, 404, 'User not found')),
 
     changePassword: (req, res) =>
