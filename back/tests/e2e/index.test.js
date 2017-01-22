@@ -46,7 +46,10 @@ describe('API', function () {
                     availability_date: null,
                     diploma: null,
                     employee_date: null,
-                    home: null
+                    home: null,
+                    twitter: null,
+                    github: null,
+                    linked_in: null
                 });
             })
             .then(done)
@@ -110,7 +113,10 @@ describe('API', function () {
                             availability_date: null,
                             diploma: undefined,
                             employee_date: undefined,
-                            home: null
+                            home: null,
+                            twitter: null,
+                            linked_in: null,
+                            github: null
                         }
                     ]);
                 done();
@@ -165,7 +171,10 @@ describe('API', function () {
                             availability_date: null,
                             diploma: null,
                             employee_date: null,
-                            home: null
+                            home: null,
+                            twitter: null,
+                            github: null,
+                            linked_in: null
                         }
                     ]);
                 done();
@@ -325,7 +334,10 @@ describe('API', function () {
                             availability_date: null,
                             diploma: null,
                             employee_date: null,
-                            home: null
+                            home: null,
+                            github: null,
+                            linked_in: null,
+                            twitter: null
                         }
                     ]);
             })
@@ -360,7 +372,10 @@ describe('API', function () {
                         availability_date: null,
                         diploma: null,
                         employee_date: null,
-                        home: null
+                        home: null,
+                        twitter: null,
+                        github: null,
+                        linked_in: null
                     }
                 );
             })
@@ -395,7 +410,10 @@ describe('API', function () {
                         availability_date: null,
                         diploma: null,
                         employee_date: null,
-                        home: null
+                        home: null,
+                        twitter: null,
+                        github: null,
+                        linked_in: null
                     }
                 );
             })
