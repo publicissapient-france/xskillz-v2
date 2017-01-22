@@ -46,7 +46,7 @@ module.exports = {
             .getUserByIdAndPasswordToken(req.body.id, req.body.token)
             .then(users => {
                 if (users.length < 1) {
-                    throw new Error(`Cannot find user by id and token (${req.body.id}, ${req.body.token})`)
+                    throw new Error(`Cannot find user by id and token (${req.body.id}, ${req.body.token})`);
                 }
                 return UserService.changePassword(req.body.id, req.body.password);
             })
