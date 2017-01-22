@@ -9,14 +9,14 @@
         top: 5px;
         left: 5px;
       }
-      .skill {
-        font-size: 14px;
-        margin-right: 5px;
-        &:hover {
-          cursor: pointer;
-          color: red;
-        }
-      }
     }
+  .skill {
+    font-size: 14px;
+    margin-right: 5px;
+    &:hover {
+      cursor: pointer;
+      color: red;
+    }
+  }
   }
 }
