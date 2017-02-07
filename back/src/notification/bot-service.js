@@ -19,7 +19,7 @@ BotService.notifyWelcome = data => {
         body: JSON.stringify({
             color: 'green',
             message: `${data.name} (${data.email}) s'est inscrit sur Skillz !`,
-            notify: false,
+            notify: true,
             message_format: 'text'
         }),
     }).then(() => {
