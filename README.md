@@ -102,16 +102,6 @@ MAIL_FROM=
 
 > To configure SES for notification
 
-### MailGun
-
-```bash
-MAILGUN_API_KEY=
-MAILGUN_DOMAIN=
-MAILGUN_FROM=
-```
-
-> To configure Mailgun for notification
-
 ### Role
 
 ```bash

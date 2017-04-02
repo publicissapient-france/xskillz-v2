@@ -1,14 +1,26 @@
 Bonjour %s,
-
-Bienvenue sur Skillz AllCraft, nous avons bien pris en compte les informations ajoutées. Dès qu'une mission correspondra à ton expertise nous te contacterons et nous ferons plus ample connaissance :)
-
+<br/>
+<br/>
+Bienvenue sur Skillz AllCraft, nous avons bien pris en compte les informations ajoutées.
+<br/>
+<br/>
+Dès qu'une mission correspondra à ton expertise nous te contacterons et nous ferons plus ample connaissance :)
+<br/>
+<br/>
 En attendant, afin de mieux connaître la méthodologie AllCraft, n’hésite pas à visiter la page méthode : https://allcraft.io/method
-
+<br/>
+<br/>
 Merci,
+<br/>
 À très bientôt,
-
+<br/>
+<br/>
 --
+<br/>
 AllCraft
+<br/>
 https://allcraft.io
+<br/>
 https://skillz.allcraft.io
+<br/>
 skillz@allcraft.io
