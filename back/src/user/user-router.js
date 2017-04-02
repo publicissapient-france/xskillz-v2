@@ -11,7 +11,11 @@ const UserRouter = {
         express
             .route('/users')
             .get(Security.require([ROLES.users]), UserController.getUsersWebVersion)
-            .post(UserController.addUser);
+            .post(Security.require([ROLES.manager]), UserController.addUser);
+
+        express
+            .route('/users/signup')
+            .post(UserController.signupUser);
 
         express
             .route('/users/:id([0-9]+)')

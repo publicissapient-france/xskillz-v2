@@ -3,7 +3,8 @@ const _ = require('lodash');
 
 module.exports = {
     ROLES: {
-        users: 'users'
+        users: 'users',
+        manager: 'Manager'
     },
     requireLogin: (req, res, next) => {
         if (!req.body.user_id) {

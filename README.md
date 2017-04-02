@@ -70,7 +70,7 @@ npm i
 npm run dev
 ```
 
-### Role and permission
+## Role and permission
 
 |Role|Description|
 |----|-----------|
@@ -80,6 +80,67 @@ npm run dev
 |card|Commercial card|
 |skills|Browse user by skill|
 |Manager|Manage user|
+
+## Configuration
+
+### HipChat
+
+```bash
+HIPCHAT_ROOM=
+```
+
+> To send signup event to HipChat:
+
+### SES
+
+```bash
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_SES_REGION=
+MAIL_FROM=
+```
+
+> To configure SES for notification
+
+### MailGun
+
+```bash
+MAILGUN_API_KEY=
+MAILGUN_DOMAIN=
+MAILGUN_FROM=
+```
+
+> To configure Mailgun for notification
+
+### Role
+
+```bash
+ROLE=settings,skills,card,management,users
+```
+
+> To configure role attached to created user (from settings as a Manager); coma separated
+
+### Signup
+
+```bash
+SIGNUP_DISABLE=true
+```
+
+> To disable signup
+
+### Notification
+
+```bash
+NOTIFICATION_PASSWORD_CHANGE_PATH=
+```
+
+> Path to password change email content
+
+```bash
+NOTIFICATION_WELCOME_PATH=
+```
+
+> Path to welcome email content
 
 ## Techs
 

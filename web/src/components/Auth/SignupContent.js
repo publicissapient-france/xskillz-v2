@@ -7,6 +7,7 @@ import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import Card from "material-ui/Card";
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
 import './SignupContent.less';
 
@@ -18,7 +19,7 @@ class SigninContent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {email: '', firstname: '', lastname: '', password: ''};
+        this.state = {email: '', firstname: '', lastname: '', password: '', snackOpen: false, submit: false};
     }
 
     onEmailChange = event => this.setState({email: event.target.value});
@@ -29,9 +30,9 @@ class SigninContent extends Component {
 
     onPasswordChange = event => this.setState({password: event.target.value});
 
-
     signup = event => {
         event.preventDefault();
+        this.setState({submit: true});
         const {email, firstname, lastname, password} = this.state;
         let error = false;
         if (!isEmail(email)) {
@@ -56,6 +57,10 @@ class SigninContent extends Component {
         this.props.signup(email, `${firstname} ${lastname}`, password);
     };
 
+    onSnackClose = () => {
+        this.setState({snackOpen: false, submit: false});
+    };
+
     render() {
 
         const style = {
@@ -64,7 +69,12 @@ class SigninContent extends Component {
             input: {display: 'none'}
         };
 
-        const {email, firstname, lastname, password, eError, fnError, lnError, pError} = this.state;
+        let {email, firstname, lastname, password, eError, fnError, lnError, pError, snackOpen, submit} = this.state;
+        const {auth:{createUser:{error}}} = this.props;
+
+        if (submit && error) {
+            snackOpen = true;
+        }
 
         return (
             <div>
@@ -116,11 +126,12 @@ class SigninContent extends Component {
                         </Link>
                     </Card>
                 </form>
-                {/*<Snackbar*/}
-                {/*bodyStyle={{backgroundColor: '#FF0000'}}*/}
-                {/*open={this.state.error}*/}
-                {/*message={`Mot de passe incorrect`}*/}
-                {/*autoHideDuration={3000}/>*/}
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#FF0000'}}
+                    open={snackOpen}
+                    message={`Impossible de s'inscrire :(`}
+                    onRequestClose={this.onSnackClose}
+                    autoHideDuration={3000}/>
             </div>
         )
     }

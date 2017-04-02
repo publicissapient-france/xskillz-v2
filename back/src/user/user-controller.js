@@ -1,12 +1,15 @@
 'use strict';
 
+const Promise = require('bluebird');
+
 const UserService = require('./user-service');
 const NotificationService = require('../notification/notification-service');
 const BotService = require('../notification/bot-service');
 const MESSAGES = require('../notification/bot-service').MESSAGES;
 const TEMPLATE = require('../notification/notification-service').TEMPLATE;
-const Promise = require('bluebird');
 const Controllers = require('../controllers.js');
+
+const SIGNUP_DISABLE = process.env.SIGNUP_DISABLE;
 
 const onError = Controllers.onError;
 
@@ -15,13 +18,24 @@ module.exports = {
     addUser: (req, res) =>
         UserService
             .addUser(req.body)
-            .then(user => {
-                NotificationService.notify(TEMPLATE.WELCOME, user);
-                BotService.notify(MESSAGES.WELCOME, user);
-                return user;
-            })
             .then(user => res.json(user))
             .catch(err => onError(err, res)),
+
+    signupUser: (req, res) => {
+        if (SIGNUP_DISABLE) {
+            return onError({message: 'Signup disabled'}, res, 401);
+        } else {
+            return UserService
+                .addUser(req.body)
+                .then(user => {
+                    NotificationService.notify(TEMPLATE.WELCOME, user);
+                    BotService.notify(MESSAGES.WELCOME, user);
+                    return user;
+                })
+                .then(user => res.json(user))
+                .catch(err => onError(err, res));
+        }
+    },
 
     getUsersBySkillMobileVersion: (req, res) =>
         UserService

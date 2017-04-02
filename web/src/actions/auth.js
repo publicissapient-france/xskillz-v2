@@ -89,7 +89,8 @@ export function createUser(name, email, password) {
         const config = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                token: getToken()
             },
             body: JSON.stringify({name, email, password})
         };
@@ -120,7 +121,7 @@ export function signup(name, email, password) {
             body: JSON.stringify({name, email, password})
         };
 
-        return fetch(`${Config.apiURL}/users`, config)
+        return fetch(`${Config.apiURL}/users/signup`, config)
             .then(response => {
                 if (response.status >= 400) {
                     throw new Error("Signin error");

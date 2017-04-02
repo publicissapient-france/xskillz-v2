@@ -6,7 +6,9 @@ import SignupContent from '../../components/Auth/SignupContent';
 
 import {signup} from '../../actions/auth';
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
 
 const mapDispatchToProps = dispatch => ({
     signup: (email, name, password) => dispatch(signup(name, email, password))
