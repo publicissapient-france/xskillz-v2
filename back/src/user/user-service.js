@@ -1,13 +1,16 @@
 'use strict';
 
-const Repository = require('./user-repository');
+const Promise = require('bluebird');
 const _ = require('lodash');
 const uuid = require('uuid');
-const User = require('./user');
 
+const Repository = require('./user-repository');
+const User = require('./user');
 const SkillService = require('../skill/skill-service');
 const NotificationService = require('../notification/notification-service');
 const TEMPLATE = require('../notification/notification-service').TEMPLATE;
+
+const DEFAULT_ROLES = process.env.ROLE ? process.env.ROLE.split(',') : [];
 
 const computeScore = skills =>
     _(skills)
@@ -143,16 +146,24 @@ module.exports = {
     addUser: (user) =>
         Repository.addNewUser(user)
             .then(() => Repository.findUserByEmail(user.email))
-            .then((dbUser) =>
-                Repository.getUsersWithRoles('Manager')
-                    .then((users) => {
-                        if (users.length === 0) {
-                            return Repository.addRole(dbUser, 'Manager').then(() => dbUser);
-                        }
-                        return dbUser;
-                    }))
-            .then(() => Repository.findUserByEmail(user.email))
-            .then((user) => {
+            .then((dbUser) => Repository.getUsersWithRoles('Manager')
+                .then((users) => {
+                    if (users.length === 0) {
+                        return Repository.addRole(dbUser, 'Manager').then(() => dbUser);
+                    }
+                    return dbUser;
+                }))
+            .then(user => {
+                if (DEFAULT_ROLES) {
+                    const tasks = [];
+                    _.each(DEFAULT_ROLES, role => tasks.push(Repository.addRole(user, role)));
+                    return Promise.all(tasks).then(() => {
+                        return user;
+                    });
+                }
+                return user;
+            })
+            .then(user => {
                 const token = uuid.v4();
                 return Repository.addToken(user, token)
                     .then(() => {
