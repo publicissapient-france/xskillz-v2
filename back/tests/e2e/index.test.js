@@ -8,7 +8,9 @@ describe('API', function () {
     before(() => {
         require('../../src/index');
     });
+
     beforeEach(() => Database.clear());
+
     it('should show You know, for skills :)', (done) => {
         API
             .getRoot()

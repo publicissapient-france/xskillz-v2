@@ -17,7 +17,7 @@ module.exports = {
     createUser: (name, email) =>
         execute(
             request
-                .post(`${host}/users`)
+                .post(`${host}/users/signup`)
                 .send({name, email, password: 'azerty'})),
 
     getUsers: (token) =>
