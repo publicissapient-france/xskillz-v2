@@ -39,7 +39,7 @@ class CreateUser extends Component {
                 <h3>Créer un utilisateur</h3>
                 <div>
                     <div>
-                        <TextField floatingLabelText="Nom" onBlur={::this.setName}/>
+                        <TextField floatingLabelText="Prénom Nom" onBlur={::this.setName}/>
                     </div>
                     <div>
                         <TextField floatingLabelText="Email" onBlur={::this.setEmail}/>
