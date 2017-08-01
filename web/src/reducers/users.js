@@ -1,4 +1,7 @@
-import {RECEIVE_USERS, RECEIVE_USER_BY_ID, REQUEST_USERS, REQUEST_USER_BY_ID, RECEIVE_USERS_BY_SKILL, RECEIVE_MANAGERS} from '../actions/users';
+import {
+    RECEIVE_USERS, RECEIVE_USER_BY_ID, REQUEST_USERS, REQUEST_USER_BY_ID, RECEIVE_USERS_BY_SKILL, RECEIVE_MANAGERS,
+    DIPLOMA_SAVED,
+} from '../actions/users';
 
 const initialState = {
     list: [],
@@ -40,6 +43,10 @@ export function users(state = initialState, action) {
         case RECEIVE_MANAGERS:
             return Object.assign({}, state, {
                 managers: action.payload.managers
+            });
+        case DIPLOMA_SAVED:
+            return Object.assign({}, state, {
+                diplomaSaved: true
             });
         default:
             return state;

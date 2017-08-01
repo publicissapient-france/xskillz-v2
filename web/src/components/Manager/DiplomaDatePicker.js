@@ -1,8 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import AutoComplete from 'material-ui/AutoComplete';
+import React, {Component, PropTypes} from 'react';
+import {Paper, RaisedButton, DatePicker, Snackbar, AutoComplete} from 'material-ui'
 import _ from 'lodash';
 
 class DiplomaDatePicker extends Component {
@@ -14,7 +11,7 @@ class DiplomaDatePicker extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {date: null, userId: null};
+        this.state = {date: null, userId: null, submit: false, snackOpen: false};
     }
 
     onChangeDate = (event, date) => this.setState({date});
@@ -23,11 +20,22 @@ class DiplomaDatePicker extends Component {
 
     onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
-    saveDiploma = () => this.props.saveDiploma(this.state.userId, this.state.date);
+    saveDiploma = () => {
+        this.setState({snackOpen: false, submit: true});
+        this.props.saveDiploma(this.state.userId, this.state.date);
+    };
+
+    onSnackClose = () => {
+        this.setState({snackOpen: false, submit: false});
+    };
 
     render() {
-        const {date, userId} = this.state;
+        let {date, userId, submit, snackOpen} = this.state;
         const users = this.props.users.list;
+        const diplomaSaved = this.props.users.diplomaSaved;
+        if (submit && diplomaSaved) {
+            snackOpen = true;
+        }
         let userNames = [];
         if (users) {
             userNames = _.flatMap(users, user => user.name);
@@ -53,11 +61,17 @@ class DiplomaDatePicker extends Component {
                 </div>
                 <div style={{marginTop: '1rem', clear: 'both'}}>
                     <RaisedButton
-                      label="Valider"
-                      primary={true}
-                      onClick={::this.saveDiploma}
-                      disabled={_.isNull(userId) || _.isNull(date)}/>
+                        label="Valider"
+                        primary={true}
+                        onClick={::this.saveDiploma}
+                        disabled={_.isNull(userId) || _.isNull(date)}/>
                 </div>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={snackOpen}
+                    message="Diplôme mis à jour"
+                    onRequestClose={::this.onSnackClose}
+                    autoHideDuration={3000}/>
             </Paper>
         )
     }
