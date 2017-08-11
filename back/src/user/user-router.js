@@ -63,7 +63,8 @@ const UserRouter = {
                     if (roles) {
                         req.body.user_roles = roles.map(r => r.name);
                     }
-                    return next();
+                    next();
+                    return Promise.resolve();
                 })
                 .catch(next);
         }

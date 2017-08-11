@@ -1,4 +1,4 @@
-import { RECEIVE_SKILLS, SKILL_GOT, SKILL_ADDED } from '../actions/skills';
+import { RECEIVE_SKILLS, SKILL_GOT, SKILL_ADDED, SKILLS_MERGED } from '../actions/skills';
 
 const initialState = {
     list: [],
@@ -19,6 +19,8 @@ export function skills(state = initialState, action) {
             });
         case SKILL_ADDED:
             return Object.assign({}, state, {loaded: false});
+        case SKILLS_MERGED:
+            return Object.assign({}, state, {skillsMerged: true});
         default:
             return state;
     }

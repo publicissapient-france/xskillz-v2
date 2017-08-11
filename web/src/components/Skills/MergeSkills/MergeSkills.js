@@ -1,9 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import SelectField from 'material-ui/SelectField';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
-import AutoComplete from 'material-ui/AutoComplete';
+import {Paper, RaisedButton, Snackbar, AutoComplete} from 'material-ui'
+
 import _ from 'lodash';
 
 class MergeSkills extends Component {
@@ -15,10 +12,15 @@ class MergeSkills extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {fromId: null, toId: null};
+        this.state = {fromId: null, toId: null, submit: false, snackOpen: false};
     }
 
-    mergeSkills = () => this.props.mergeSkills({from: this.state.fromId, to: this.state.toId});
+    mergeSkills = () => {
+        this.setState({snackOpen: false, submit: true});
+        return this.props.mergeSkills({ from: this.state.fromId, to: this.state.toId });
+    };
+
+    onSnackClose = () => this.setState({ snackOpen: false, submit: false });
 
     onFromNewRequest = (name, index) => index >= 0 && this.setState({fromId: this.props.skills[index].id});
 
@@ -26,7 +28,13 @@ class MergeSkills extends Component {
 
     render() {
         const {skills} = this.props;
-        const {fromId, toId} = this.state;
+        console.log(this.state);
+        let {fromId, toId, submit, snackOpen} = this.state;
+        const skillsMerged = this.state;
+        console.log(skillsMerged);
+        if (submit && skillsMerged) {
+            snackOpen = true;
+        }
         let skillNames = [];
         if (skills) {
             skillNames = _.flatMap(skills, skill => skill.name);
@@ -59,6 +67,12 @@ class MergeSkills extends Component {
                       onClick={::this.mergeSkills}
                       disabled={_.isNull(fromId) || _.isNull(toId)}/>
                 </div>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={snackOpen}
+                    message="Compétences fusionnées avec succès"
+                    onRequestClose={::this.onSnackClose}
+                    autoHideDuration={3000}/>
             </Paper>
         );
     }
