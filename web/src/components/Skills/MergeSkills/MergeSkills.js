@@ -28,10 +28,8 @@ class MergeSkills extends Component {
 
     render() {
         const {skills} = this.props;
-        console.log(this.state);
         let {fromId, toId, submit, snackOpen} = this.state;
         const skillsMerged = this.state;
-        console.log(skillsMerged);
         if (submit && skillsMerged) {
             snackOpen = true;
         }
