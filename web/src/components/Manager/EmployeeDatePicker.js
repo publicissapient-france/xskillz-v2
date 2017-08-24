@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import AutoComplete from 'material-ui/AutoComplete';
 import _ from 'lodash';
+import {Paper, RaisedButton, DatePicker, Snackbar, AutoComplete} from 'material-ui'
 
 class EmployeeDatePicker extends Component {
 
@@ -14,7 +11,7 @@ class EmployeeDatePicker extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {date: null, userId: null};
+        this.state = {date: null, userId: null, submit: false, snackOpen: false};
     }
 
     onChangeDate = (event, date) => this.setState({date});
@@ -23,11 +20,22 @@ class EmployeeDatePicker extends Component {
 
     onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
-    saveEmployeeDate = () => this.props.saveEmployeeDate(this.state.userId, this.state.date);
+    saveEmployeeDate = () => {
+        this.setState({snackOpen: false, submit: true});
+        return this.props.saveEmployeeDate(this.state.userId, this.state.date);
+    };
+
+    onSnackClose = () => {
+        this.setState({snackOpen: false, submit: false});
+    };
 
     render() {
-        const {date, userId} = this.state;
+        let {date, userId, submit, snackOpen} = this.state;
         const users = this.props.users.list;
+        const employeeDateSaved = this.props.users.employeeDateSaved;
+        if (submit && employeeDateSaved) {
+            snackOpen = true;
+        }
         let userNames = [];
         if (users) {
             userNames = _.flatMap(users, user => user.name);
@@ -58,6 +66,12 @@ class EmployeeDatePicker extends Component {
                       onClick={::this.saveEmployeeDate}
                       disabled={_.isNull(userId) || _.isNull(date)}/>
                 </div>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={snackOpen}
+                    message="Date de démarrage mise à jour"
+                    onRequestClose={::this.onSnackClose}
+                    autoHideDuration={3000}/>
             </Paper>
         )
     }
