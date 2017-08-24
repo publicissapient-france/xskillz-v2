@@ -55,7 +55,7 @@ class SettingsContent extends Component {
 
     render() {
         const domains = this.props.domains.list;
-        const skills = this.props.skills.list;
+        const skills = this.props.skills;
         const {auth} = this.props;
         const {
             createUser, promoteManager, fetchManagers, linkSkillToDomain,
