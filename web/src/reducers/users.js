@@ -1,6 +1,6 @@
 import {
     RECEIVE_USERS, RECEIVE_USER_BY_ID, REQUEST_USERS, REQUEST_USER_BY_ID, RECEIVE_USERS_BY_SKILL, RECEIVE_MANAGERS,
-    DIPLOMA_SAVED, EMPLOYEE_DATE_SAVED,
+    DIPLOMA_SAVED, EMPLOYEE_DATE_SAVED, EMPLOYEE_END_DATE_SAVED,
 } from '../actions/users';
 
 const initialState = {
@@ -51,6 +51,10 @@ export function users(state = initialState, action) {
         case EMPLOYEE_DATE_SAVED:
             return Object.assign({}, state, {
                 employeeDateSaved: true
+            });
+        case EMPLOYEE_END_DATE_SAVED:
+            return Object.assign({}, state, {
+                employeeEndDateSaved: true
             });
         default:
             return state;

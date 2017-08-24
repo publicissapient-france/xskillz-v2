@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import AutoComplete from 'material-ui/AutoComplete';
 import _ from 'lodash';
+import {Paper, RaisedButton, DatePicker, Snackbar, AutoComplete} from 'material-ui'
 
 class EmployeeEndDatePicker extends Component {
 
@@ -23,11 +20,22 @@ class EmployeeEndDatePicker extends Component {
 
     onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
-    saveEmployeeEndDate = () => this.props.saveEmployeeEndDate(this.state.userId, this.state.date);
+    saveEmployeeEndDate = () => {
+        this.setState({snackOpen: false, submit: true});
+        return this.props.saveEmployeeEndDate(this.state.userId, this.state.date);
+    };
+
+    onSnackClose = () => {
+        this.setState({snackOpen: false, submit: false});
+    };
 
     render() {
-        const {date, userId} = this.state;
+        let {date, userId, submit, snackOpen} = this.state;
         const users = this.props.users.list;
+        const employeeEndDateSaved = this.props.users.employeeEndDateSaved;
+        if (submit && employeeEndDateSaved) {
+            snackOpen = true;
+        }
         let userNames = [];
         if (users) {
             userNames = _.flatMap(users, user => user.name);
@@ -58,6 +66,12 @@ class EmployeeEndDatePicker extends Component {
                       onClick={::this.saveEmployeeEndDate}
                       disabled={_.isNull(userId) || _.isNull(date)}/>
                 </div>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={snackOpen}
+                    message="Date de départ mise à jour"
+                    onRequestClose={::this.onSnackClose}
+                    autoHideDuration={3000}/>
             </Paper>
         )
     }
