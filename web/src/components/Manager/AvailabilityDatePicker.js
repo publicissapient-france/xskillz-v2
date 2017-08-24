@@ -1,10 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import AutoComplete from 'material-ui/AutoComplete';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import _ from 'lodash';
+import {Paper, RaisedButton, DatePicker, Snackbar, AutoComplete} from 'material-ui'
 import moment from 'moment';
 
 class AvailabilityDatePicker extends Component {
@@ -16,7 +13,7 @@ class AvailabilityDatePicker extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {date: null, userId: null};
+        this.state = {date: null, userId: null, submit: false, snackOpen: false};
     }
 
     onChangeDate = (event, date) => this.setState({date});
@@ -25,7 +22,14 @@ class AvailabilityDatePicker extends Component {
 
     onUserChange = (name, index) => index >= 0 && this.setState({userId: this.props.users.list[index].id});
 
-    saveAvailabilityDate = () => this.props.saveAvailabilityDate(this.state.userId, moment(this.state.date).format('YYYY-MM-DD'));
+    saveAvailabilityDate = () => {
+        this.setState({snackOpen: false, submit: true});
+        return this.props.saveAvailabilityDate(this.state.userId, moment(this.state.date).format('YYYY-MM-DD'));
+    };
+
+    onSnackClose = () => {
+        this.setState({snackOpen: false, submit: false});
+    };
 
     render() {
         let DateTimeFormat;
@@ -37,8 +41,12 @@ class AvailabilityDatePicker extends Component {
             DateTimeFormat = IntlPolyfill.DateTimeFormat;
             require('intl/locale-data/jsonp/fr');
         }
-        const {date, userId} = this.state;
+        let {date, userId, submit, snackOpen} = this.state;
         const users = this.props.users.list;
+        const availabilityDateSaved = this.props.users.employeeAvailabilityDateSaved;
+        if (submit && availabilityDateSaved) {
+            snackOpen = true;
+        }
         let userNames = [];
         if (users) {
             userNames = _.flatMap(users, user => user.name);
@@ -73,6 +81,12 @@ class AvailabilityDatePicker extends Component {
                       onClick={::this.saveAvailabilityDate}
                       disabled={_.isNull(userId) || _.isNull(date)}/>
                 </div>
+                <Snackbar
+                    bodyStyle={{backgroundColor: '#008500'}}
+                    open={snackOpen}
+                    message="Date de disponibilité mise à jour"
+                    onRequestClose={::this.onSnackClose}
+                    autoHideDuration={3000}/>
             </Paper>
         )
     }
