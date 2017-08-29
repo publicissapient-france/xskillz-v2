@@ -140,3 +140,11 @@ NOTIFICATION_WELCOME_PATH=
 * MySQL
 
 Thanks to all those Open source projects which made such a project possible!
+
+## Troubleshooting
+
+>docker-compose up
+>ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?
+>If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+
+Type `usermod -aG docker ${USER}` then relog you.
