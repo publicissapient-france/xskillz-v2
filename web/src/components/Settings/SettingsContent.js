@@ -70,7 +70,7 @@ class SettingsContent extends Component {
                     </Tab>
                     {hasRole(MANAGER) && <Tab label="Domaines">
                         <AddDomain domains={domains} addDomain={addDomain}/>
-                        <DeleteDomain deleteDomain={deleteDomain} domains={domains.list}/>
+                        <DeleteDomain domains={domains} deleteDomain={deleteDomain}/>
                     </Tab>}
 
                     <Tab label="Utilisateurs">
