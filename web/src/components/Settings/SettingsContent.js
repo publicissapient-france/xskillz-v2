@@ -54,7 +54,7 @@ class SettingsContent extends Component {
     };
 
     render() {
-        const domains = this.props.domains.list;
+        const domains = this.props.domains;
         const skills = this.props.skills;
         const {auth} = this.props;
         const {
@@ -70,7 +70,7 @@ class SettingsContent extends Component {
                     </Tab>
                     {hasRole(MANAGER) && <Tab label="Domaines">
                         <AddDomain addDomain={addDomain}/>
-                        <DeleteDomain deleteDomain={deleteDomain} domains={domains}/>
+                        <DeleteDomain deleteDomain={deleteDomain} domains={domains.list}/>
                     </Tab>}
 
                     <Tab label="Utilisateurs">

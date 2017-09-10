@@ -33,9 +33,7 @@ class EmployeeEndDatePicker extends Component {
         let {date, userId, submit, snackOpen} = this.state;
         const users = this.props.users.list;
         const employeeEndDateSaved = this.props.users.employeeEndDateSaved;
-        if (submit && employeeEndDateSaved) {
-            snackOpen = true;
-        }
+        snackOpen = !!(submit && employeeEndDateSaved);
         let userNames = [];
         if (users) {
             userNames = _.flatMap(users, user => user.name);

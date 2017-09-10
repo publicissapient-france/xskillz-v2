@@ -6,7 +6,7 @@ import _ from 'lodash';
 class MergeSkills extends Component {
 
     static propTypes = {
-        skills: PropTypes.array.isRequired,
+        skills: PropTypes.object.isRequired,
         mergeSkills: PropTypes.func.isRequired
     };
 
@@ -28,10 +28,8 @@ class MergeSkills extends Component {
 
     render() {
         const { skills: { list, skillsMerged } } = this.props;
-        let { fromId, toId, submit, snackOpen } = this.state;
-        if (submit && skillsMerged) {
-            snackOpen = true;
-        }
+        let { fromId, toId, submit } = this.state;
+        const snackOpen = !!(submit && skillsMerged);
         let skillNames = [];
         if (list) {
             skillNames = _.flatMap(list, skill => skill.name);
