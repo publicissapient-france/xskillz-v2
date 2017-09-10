@@ -49,7 +49,6 @@ class AssignUserToManager extends Component {
     render() {
         const { managerId, userId } = this.state;
         const users = this.props.users.list;
-        console.log(this.props.users);
         const userAssigned = this.props.users.userAssigned;
         let { submit } = this.state;
         const snackOpen = !!(submit && userAssigned);

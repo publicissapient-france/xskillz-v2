@@ -10,6 +10,7 @@ import {
     REQUEST_USER_BY_ID,
     REQUEST_USERS,
     USER_ASSIGNED_TO_MANAGER,
+    MANAGER_PROMOTED,
 } from '../actions/users';
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
         loaded: false
     },
     userAssigned: false,
+    managerPromoted: false,
     loaded: false
 };
 
@@ -71,9 +73,15 @@ export function users(state = initialState, action) {
                 employeeAvailabilityDateSaved: true
             });
         case USER_ASSIGNED_TO_MANAGER:
-            return Object.assign({}, state, {
-                userAssigned: true,
-            });
+            return Object.assign({}, state,
+                {
+                    userAssigned: true,
+                });
+        case MANAGER_PROMOTED:
+            return Object.assign({}, state,
+                {
+                    managerPromoted: true,
+                });
         default:
             return state;
     }

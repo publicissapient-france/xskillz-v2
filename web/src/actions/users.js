@@ -6,14 +6,18 @@ import moment from 'moment';
 
 export const REQUEST_USERS_BY_SKILL = 'REQUEST_USERS_BY_SKILL';
 export const RECEIVE_USERS_BY_SKILL = 'RECEIVE_USERS_BY_SKILL';
-
 export const REQUEST_USERS = 'REQUEST_USERS';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
-
 export const REQUEST_USER_BY_ID = 'REQUEST_USER_BY_ID';
 export const RECEIVE_USER_BY_ID = 'RECEIVE_USER_BY_ID';
-
 export const USER_ASSIGNED_TO_MANAGER = 'USER_ASSIGNED_TO_MANAGER';
+export const MANAGER_PROMOTED = 'MANAGER_PROMOTED';
+export const DIPLOMA_SAVED = 'DIPLOMA_SAVED';
+export const EMPLOYEE_DATE_SAVED = 'EMPLOYEE_DATE_SAVED';
+export const EMPLOYEE_END_DATE_SAVED = 'EMPLOYEE_END_DATE_SAVED';
+export const RECEIVE_MANAGERS = 'RECEIVE_MANAGERS';
+export const AVAILABILITY_DATE_SAVED = 'AVAILABILITY_DATE_SAVED';
+export const USER_REMOVED = 'USER_REMOVED';
 
 export function requestUsersBySkill(skillId) {
     return {
@@ -98,8 +102,6 @@ export function fetchUsers() {
     };
 }
 
-export const DIPLOMA_SAVED = 'DIPLOMA_SAVED';
-
 export function diplomaSaved() {
     return {
         type: DIPLOMA_SAVED
@@ -130,7 +132,6 @@ export function saveDiploma(userId, diploma) {
 }
 
 
-export const EMPLOYEE_DATE_SAVED = 'EMPLOYEE_DATE_SAVED';
 export function employeeDateSaved() {
     return {
         type: EMPLOYEE_DATE_SAVED
@@ -159,7 +160,6 @@ export function saveEmployeeDate(userId, employeeDate) {
     };
 }
 
-export const EMPLOYEE_END_DATE_SAVED = 'EMPLOYEE_END_DATE_SAVED';
 export function employeeEndDateSaved() {
     return {
         type: EMPLOYEE_END_DATE_SAVED
@@ -187,8 +187,6 @@ export function saveEmployeeEndDate(userId, employeeEndDate) {
             .then(responseBody => dispatch(employeeEndDateSaved()));
     };
 }
-
-export const AVAILABILITY_DATE_SAVED = 'AVAILABILITY_DATE_SAVED';
 
 export function availabilityDateSaved() {
     return {
@@ -218,8 +216,6 @@ export function saveAvailabilityDate(userId, availabilityDate) {
             .then(responseBody => dispatch(availabilityDateSaved()));
     };
 }
-
-export const USER_REMOVED = 'USER_REMOVED';
 
 export function userRemoved(userId) {
     return {
@@ -277,8 +273,6 @@ export function assignUserToManager(userId, managerId) {
     }
 }
 
-export const RECEIVE_MANAGERS = 'RECEIVE_MANAGERS';
-
 export function receiveManagers(managers) {
     return {
         type: RECEIVE_MANAGERS,
@@ -305,8 +299,6 @@ export function fetchManagers() {
             .then(managers => dispatch(receiveManagers(managers)));
     };
 }
-
-export const MANAGER_PROMOTED = 'MANAGER_PROMOTED';
 
 export function managerPromoted() {
     return {
