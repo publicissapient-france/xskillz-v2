@@ -69,7 +69,7 @@ class SettingsContent extends Component {
                         <MergeSkills skills={skills} mergeSkills={mergeSkills}/>
                     </Tab>
                     {hasRole(MANAGER) && <Tab label="Domaines">
-                        <AddDomain addDomain={addDomain}/>
+                        <AddDomain domains={domains} addDomain={addDomain}/>
                         <DeleteDomain deleteDomain={deleteDomain} domains={domains.list}/>
                     </Tab>}
 

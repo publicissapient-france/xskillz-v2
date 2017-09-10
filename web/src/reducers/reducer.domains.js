@@ -1,4 +1,4 @@
-import { DOMAINS_GOT, RECEIVE_DOMAINS, SKILL_LINKED_TO_DOMAIN } from '../actions/action.domains';
+import { DOMAINS_GOT, RECEIVE_DOMAINS, SKILL_LINKED_TO_DOMAIN, DOMAIN_ADDED } from '../actions/action.domains';
 
 const initialState = {
     list: [],
@@ -20,6 +20,10 @@ export function domains(state = initialState, action) {
         case SKILL_LINKED_TO_DOMAIN:
             return Object.assign({}, state, {
                 skillLinked: true
+            });
+        case DOMAIN_ADDED:
+            return Object.assign({}, state, {
+                domainAdded: true
             });
         default:
             return state;
