@@ -20,7 +20,8 @@ export function skills(state = initialState, action) {
         case SKILL_ADDED:
             return Object.assign({}, state, {loaded: false});
         case SKILLS_MERGED:
-            return Object.assign({}, state, {skillsMerged: true});
+            return Object.assign({}, state, {
+                skillsMerged: true});
         default:
             return state;
     }

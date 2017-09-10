@@ -1,4 +1,4 @@
-import { RECEIVE_USERS, RECEIVE_USER_BY_ID, REQUEST_USERS, REQUEST_USER_BY_ID, RECEIVE_USERS_BY_SKILL  } from '../actions/users';
+import { RECEIVE_USER_BY_ID, REQUEST_USER_BY_ID } from '../actions/users';
 
 const initialState = {
     user: {},

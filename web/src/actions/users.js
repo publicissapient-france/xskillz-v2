@@ -13,6 +13,7 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const REQUEST_USER_BY_ID = 'REQUEST_USER_BY_ID';
 export const RECEIVE_USER_BY_ID = 'RECEIVE_USER_BY_ID';
 
+export const USER_ASSIGNED_TO_MANAGER = 'USER_ASSIGNED_TO_MANAGER';
 
 export function requestUsersBySkill(skillId) {
     return {
@@ -248,8 +249,6 @@ export function removeUser(userId) {
             .then(responseBody => dispatch(userRemoved(userId)))
     }
 }
-
-export const USER_ASSIGNED_TO_MANAGER = 'USER_ASSIGNED_TO_MANAGER';
 
 export function userAssignedToManager(userId, managerId) {
     return {

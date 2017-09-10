@@ -1,6 +1,15 @@
 import {
-    RECEIVE_USERS, RECEIVE_USER_BY_ID, REQUEST_USERS, REQUEST_USER_BY_ID, RECEIVE_USERS_BY_SKILL, RECEIVE_MANAGERS,
-    DIPLOMA_SAVED, EMPLOYEE_DATE_SAVED, EMPLOYEE_END_DATE_SAVED, AVAILABILITY_DATE_SAVED,
+    AVAILABILITY_DATE_SAVED,
+    DIPLOMA_SAVED,
+    EMPLOYEE_DATE_SAVED,
+    EMPLOYEE_END_DATE_SAVED,
+    RECEIVE_MANAGERS,
+    RECEIVE_USER_BY_ID,
+    RECEIVE_USERS,
+    RECEIVE_USERS_BY_SKILL,
+    REQUEST_USER_BY_ID,
+    REQUEST_USERS,
+    USER_ASSIGNED_TO_MANAGER,
 } from '../actions/users';
 
 const initialState = {
@@ -12,6 +21,7 @@ const initialState = {
         list: [],
         loaded: false
     },
+    userAssigned: false,
     loaded: false
 };
 
@@ -59,6 +69,10 @@ export function users(state = initialState, action) {
         case AVAILABILITY_DATE_SAVED:
             return Object.assign({}, state, {
                 employeeAvailabilityDateSaved: true
+            });
+        case USER_ASSIGNED_TO_MANAGER:
+            return Object.assign({}, state, {
+                userAssigned: true,
             });
         default:
             return state;
