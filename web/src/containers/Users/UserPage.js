@@ -7,7 +7,8 @@ import {getUserById} from "../../actions/user";
 const mapStateToProps = state => {
     return {
         user: state.user,
-        onSkillClick: name => browserHistory.push(`/skills?name=${name}`)
+        onSkillClick: name => browserHistory.push(`/skills?name=${name}`),
+        onUserClick: id => browserHistory.push(`/user/${id}`),
     }
 };
 

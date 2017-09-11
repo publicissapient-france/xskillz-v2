@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
 import UsersContent from '../../components/Users/UsersContent'

@@ -63,7 +63,6 @@ class UserItem extends Component {
     render() {
         const user = this.props.user;
         const {onUserClick, onSkillClick, updateSkill, removeSkill, details} = this.props;
-        const me = window.location.pathname === '/me';
         const userDetails = /^\/user\/.*$/.test(window.location.pathname);
 
         let competencies = '';
