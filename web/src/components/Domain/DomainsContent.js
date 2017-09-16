@@ -8,7 +8,7 @@ class DomainsContent extends Component {
     }
 
     render() {
-        const {loaded, domains} = this.props.domains;
+        const {loaded, list} = this.props.domains;
         if (!loaded) {
             return (
                 <CircularProgress style={{position: 'absolute', top: '10rem', margin: 'auto', left: 0, right: 0}}/>
@@ -16,7 +16,7 @@ class DomainsContent extends Component {
         }
         return (
             <div className="domains">
-                {domains && domains.map((domain, index) => (
+                {list && list.map((domain, index) => (
                     <DomainItem domain={domain} key={index} onSkillClick={this.props.onSkillClick}/>))}
             </div>
         )
