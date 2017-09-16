@@ -114,7 +114,7 @@ class UserItem extends Component {
                     <Paper style={{marginBottom: '.5em', padding: '10px'}}>
                         <div className="user-content">
                             <div className="user-left">
-                                <Avatar src={user.gravatarUrl} size={75} style={{paddingTop: 0}}/>
+                                <Avatar src={user.gravatarUrl} size={75} style={{paddingTop: 0}} onClick={() => onUserClick(user.readable_id)}/>
                             </div>
                             <div className="user-right">
                                 <p>
