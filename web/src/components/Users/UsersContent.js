@@ -76,13 +76,15 @@ class UsersContent extends Component {
                         value="experience"
                         label="Expérience"/>
                 </RadioButtonGroup>
+                <div  style={{padding: '.8rem'}}>
                 <Infinite useWindowAsScrollContainer elementHeight={110}>
                     {users.map((user, index) => <UserItem user={user}
                                                           onUserClick={onUserClick}
                                                           onSkillClick={onSkillClick}
                                                           key={index}
-                                                          removeUser={removeUser}/>)}
+                                                               removeUser={removeUser}/>)}
                 </Infinite>
+                </div>
             </div>
         )
     }

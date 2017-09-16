@@ -41,7 +41,7 @@ class UserItem extends Component {
         let render = '';
         if (twitter || linked_in || github) {
             render = (
-                <div style={{textAlign: 'center'}}>
+                <div>
                     {linked_in && <FlatButton
                         href={`https://www.linkedin.com/in/${linked_in}`}
                         icon={<LinkedInIcon/>}
@@ -62,7 +62,7 @@ class UserItem extends Component {
 
     render() {
         const user = this.props.user;
-        const {onUserClick, onSkillClick, updateSkill, removeSkill, details} = this.props;
+        const {onUserClick, onSkillClick, updateSkill, removeSkill, details, showSocial=true} = this.props;
         const userDetails = /^\/user\/.*$/.test(window.location.pathname);
 
         let competencies = '';
@@ -111,7 +111,7 @@ class UserItem extends Component {
             // noinspection JSUnresolvedFunction
             return (
                 <div className="user-row">
-                    <Paper style={{margin: '.5em', padding: '10px'}}>
+                    <Paper style={{marginBottom: '.5em', padding: '10px'}}>
                         <div className="user-content">
                             <div className="user-left">
                                 <Avatar src={user.gravatarUrl} size={75} style={{paddingTop: 0}}/>
@@ -160,13 +160,13 @@ class UserItem extends Component {
                                     icon={<FontIcon className="material-icons" color="black">place</FontIcon>}
                                     target="_blank"/>
                             </div>}
-                            {user.availability_date && <div>
+                            {user.availability_date && moment(user.availability_date).isAfter(moment.now()) && <div>
                                 <FlatButton
                                     label={moment(user.availability_date).format('DD/MM/YY')}
                                     icon={<FontIcon className="material-icons" color="black">access_time</FontIcon>}/>
                             </div>}
 
-                            {this.renderSocial()}
+                            {showSocial && this.renderSocial()}
 
                         </div>
 
