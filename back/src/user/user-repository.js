@@ -274,7 +274,9 @@ const UserRepository = {
             SELECT *
             FROM User
             WHERE LOWER(name) like LOWER('%${value}%')
-    `)
+    `),
+
+    addDefaultSkills: user => Database.query(`INSERT INTO UserSkill (user_id,skill_id) SELECT ${user.id},skill_id FROM DefaultSkill`),
 };
 
 module.exports = UserRepository;

@@ -164,6 +164,10 @@ module.exports = {
                 return user;
             })
             .then(user => {
+                return Repository.addDefaultSkills(user)
+                .then(() => user);
+            })
+            .then(user => {
                 const token = uuid.v4();
                 return Repository.addToken(user, token)
                     .then(() => {
