@@ -1,0 +1,15 @@
+CREATE TABLE DefaultSkill (
+    id       BIGINT(20) NOT NULL AUTO_INCREMENT,
+    skill_id BIGINT(20)          DEFAULT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE DefaultSkill ADD CONSTRAINT FK_Default_Skill FOREIGN KEY (skill_id) REFERENCES Skill (id);
+
+ALTER TABLE Domain ADD UNIQUE (name);
+
+ALTER TABLE Skill ADD UNIQUE (name);
+
+ALTER TABLE UserSkill ALTER COLUMN interested SET DEFAULT 0;
+
+ALTER TABLE UserSkill ALTER COLUMN level SET DEFAULT 0;

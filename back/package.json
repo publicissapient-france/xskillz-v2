@@ -17,7 +17,7 @@
     "preitest": "npm run lint && npm run imigrate",
     "itest": "PORT=8081 RDS_HOST='skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=skillztests RDS_USER=skillztests RDS_PASSWORD=skillztests ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --timeout 10000 --recursive -R spec tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "postitest": "npm run posttest",
-    "dump": "/Applications/MAMP/Library/bin/mysqldump --host=\"ec2-52-209-161-67.eu-west-1.compute.amazonaws.com\" skillz -u skillz -p  > dump.sql"
+    "dump": "/Applications/MAMP/Library/bin/mysqldump --host=\"ec2-54-229-205-2.eu-west-1.compute.amazonaws.com\" skillz -u skillz -p  > dump.sql"
   },
   "pre-commit": [
     "test"
