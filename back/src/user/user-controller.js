@@ -3,6 +3,7 @@
 const Promise = require('bluebird');
 
 const UserService = require('./user-service');
+const SkillService = require('../skill/skill-service');
 const NotificationService = require('../notification/notification-service');
 const BotService = require('../notification/bot-service');
 const MESSAGES = require('../notification/bot-service').MESSAGES;
@@ -17,124 +18,127 @@ module.exports = {
 
     addUser: (req, res) =>
         UserService
-            .addUser(req.body)
-            .then(user => res.json(user))
-            .catch(err => onError(err, res)),
+        .addUser(req.body)
+        .then(user => res.json(user))
+        .catch(err => onError(err, res)),
 
     signupUser: (req, res) => {
         if (SIGNUP_DISABLE) {
-            return onError({message: 'Signup disabled'}, res, 401);
+            return onError({ message: 'Signup disabled' }, res, 401);
         } else {
             return UserService
-                .addUser(req.body)
-                .then(user => {
-                    NotificationService.notify(TEMPLATE.WELCOME, user);
-                    BotService.notify(MESSAGES.WELCOME, user);
-                    return user;
-                })
-                .then(user => res.json(user))
-                .catch(err => onError(err, res));
+            .addUser(req.body)
+            .then(user => {
+                NotificationService.notify(TEMPLATE.WELCOME, user);
+                BotService.notify(MESSAGES.WELCOME, user);
+                return user;
+            })
+            .then(user => res.json(user))
+            .catch(err => onError(err, res));
         }
     },
 
     getUsersBySkillMobileVersion: (req, res) =>
         UserService
-            .getUsersBySkillMobileVersion(req.params.id)
-            .then(users => res.json(users))
-            .catch(err => onError(err, res, 404, 'Users not found')),
+        .getUsersBySkillMobileVersion(req.params.id)
+        .then(users => res.json(users))
+        .catch(err => onError(err, res, 404, 'Users not found')),
 
     getUsersBySkill: (req, res) =>
         UserService
-            .getUsersBySkill(req.params.id)
-            .then(users => res.json(users))
-            .catch(err => onError(err, res, 404, 'Users not found')),
+        .getUsersBySkill(req.params.id)
+        .then(users => {
+            return SkillService.findSkillById(req.params.id)
+            .then(skill => res.json({ skill, users }));
+        })
+        .catch(err => onError(err, res, 404, 'Users not found')),
 
     prepareChangePassword: (req, res) =>
         UserService
-            .generatePasswordTokenByEmail(req.body.email)
-            .then(data => res.json(data))
-            .catch(err => onError(err, res, 404, 'User not found')),
+        .generatePasswordTokenByEmail(req.body.email)
+        .then(data => res.json(data))
+        .catch(err => onError(err, res, 404, 'User not found')),
 
     changePassword: (req, res) =>
         UserService
-            .getUserByIdAndPasswordToken(req.body.id, req.body.token)
-            .then(users => {
-                if (users.length < 1) {
-                    throw new Error(`Cannot find user by id and token (${req.body.id}, ${req.body.token})`);
-                }
-                return UserService.changePassword(req.body.id, req.body.password);
-            })
-            .then(() => res.sendStatus(202))
-            .catch(err => onError(err, res, 404, err.message)),
+        .getUserByIdAndPasswordToken(req.body.id, req.body.token)
+        .then(users => {
+            if (users.length < 1) {
+                throw new Error(`Cannot find user by id and token (${req.body.id}, ${req.body.token})`);
+            }
+            return UserService.changePassword(req.body.id, req.body.password);
+        })
+        .then(() => res.sendStatus(202))
+        .catch(err => onError(err, res, 404, err.message)),
 
     getCurrentUser: (req, res) =>
         UserService
-            .getUserById(req.body.user_id)
-            .then(user => res.jsonp(user))
-            .catch(err => onError(err, res, 404, 'User not found')),
+        .getUserById(req.body.user_id)
+        .then(user => res.jsonp(user))
+        .catch(err => onError(err, res, 404, 'User not found')),
 
     getUserByToken: (token) =>
         UserService.getUserByToken(token),
 
     getUserById: (req, res) =>
         UserService
-            .createUserById(req.params.id)
-            .then(user => res.jsonp(user))
-            .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
+        .createUserById(req.params.id)
+        .then(user => res.jsonp(user))
+        .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
 
     getUserByReadableId: (req, res) =>
         UserService
-            .createUserByReadableId(req.params.id)
-            .then(user => res.json(user))
-            .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
+        .createUserByReadableId(req.params.id)
+        .then(user => res.json(user))
+        .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
 
     getUsersMobileVersion: (req, res) =>
         UserService
-            .getUsersMobileVersion(req.query)
-            .then(users => res.json(users))
-            .catch(err => onError(err, res, 404, `Users not found`)),
+        .getUsersMobileVersion(req.query)
+        .then(users => res.json(users))
+        .catch(err => onError(err, res, 404, `Users not found`)),
 
     getUsersWebVersion: (req, res) =>
         UserService
-            .getUsersWebVersion(req.query)
-            .then(users => res.json(users))
-            .catch(err => onError(err, res, 404, `Users not found`)),
+        .getUsersWebVersion(req.query)
+        .then(users => res.json(users))
+        .catch(err => onError(err, res, 404, `Users not found`)),
 
     deleteUserById: (req, res) =>
         UserService
-            .deleteUserById(req.params.id)
-            .then(() => res.jsonp({deleted: true}))
-            .catch(err => onError(err, res)),
+        .deleteUserById(req.params.id)
+        .then(() => res.jsonp({ deleted: true }))
+        .catch(err => onError(err, res)),
 
     signin: (req, res) =>
         UserService
-            .signIn(req.body)
-            .then(user => res.jsonp(user))
-            .catch(err => onError(err, res, 404, `User ${req.body.email} not found`)),
+        .signIn(req.body)
+        .then(user => res.jsonp(user))
+        .catch(err => onError(err, res, 404, `User ${req.body.email} not found`)),
 
     assignManager: (req, res) =>
         UserService
-            .assignManager(req.params.id, req.params.managerId)
-            .then(() => res.jsonp({assigned: true}))
-            .catch(err => onError(err, res)),
+        .assignManager(req.params.id, req.params.managerId)
+        .then(() => res.jsonp({ assigned: true }))
+        .catch(err => onError(err, res)),
 
     updateUser: (req, res) =>
         UserService
-            .updateUser(req.params.id, req.body)
-            .then(() => res.jsonp({updated: true}))
-            .catch(err => onError(err, res)),
+        .updateUser(req.params.id, req.body)
+        .then(() => res.jsonp({ updated: true }))
+        .catch(err => onError(err, res)),
 
     promoteToManager: (req, res) =>
         UserService
-            .promoteToManager(req.params.id)
-            .then(() => res.jsonp({updated: true}))
-            .catch(err => onError(err, res)),
+        .promoteToManager(req.params.id)
+        .then(() => res.jsonp({ updated: true }))
+        .catch(err => onError(err, res)),
 
     getManagement: (req, res) =>
         UserService
-            .getManagement()
-            .then(users => res.jsonp({management: users}))
-            .catch(err => onError(err, res)),
+        .getManagement()
+        .then(users => res.jsonp({ management: users }))
+        .catch(err => onError(err, res)),
 
     findUserRolesById: userId => UserService.findUserRolesById(userId),
 
@@ -142,9 +146,9 @@ module.exports = {
         const userId = req.body.user_id;
         const updatePassword = () => {
             return UserService
-                .updatePassword(userId, req.body.old_password, req.body.password)
-                .then(() => res.jsonp({updated: true}))
-                .catch(err => onError(err, res));
+            .updatePassword(userId, req.body.old_password, req.body.password)
+            .then(() => res.jsonp({ updated: true }))
+            .catch(err => onError(err, res));
         };
         const updateUser = () => {
             const tasks = [];
@@ -176,8 +180,8 @@ module.exports = {
                 tasks.push(UserService.updateGithub(userId, req.body.github));
             }
             return Promise.all(tasks)
-                .then(() => res.jsonp({updated: true}))
-                .catch(err => onError(err, res));
+            .then(() => res.jsonp({ updated: true }))
+            .catch(err => onError(err, res));
         };
         if (userId && req.body.old_password && req.body.password) {
             return updatePassword();
@@ -194,7 +198,7 @@ module.exports = {
             req.body.github) {
             return updateUser();
         } else {
-            return res.jsonp({updated: false});
+            return res.jsonp({ updated: false });
         }
     }
 };

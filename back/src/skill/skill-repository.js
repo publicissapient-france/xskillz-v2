@@ -68,6 +68,13 @@ const Repository = {
             WHERE LOWER(name) LIKE '%${name.toLowerCase()}%'
         `).then((skills) => skills[0]),
 
+    findSkillById: (id) =>
+        Database.query(`
+            SELECT * 
+            FROM Skill
+            WHERE id = ${id}
+    `).then(skills => skills[0]),
+
     findSkillByExactName: (name) =>
         Database.query(`
             SELECT * 
