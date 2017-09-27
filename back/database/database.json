@@ -15,6 +15,14 @@
         "database": "skillz",
         "multipleStatements": true
     },
+    "thiga": {
+        "driver": "mysql",
+        "user": "skillz",
+        "password": "skillz",
+        "host": "ec2-54-229-205-2.eu-west-1.compute.amazonaws.com",
+        "database": "skillz",
+        "multipleStatements": true
+    },
     "ac": {
         "driver": "mysql",
         "user": "skillz",

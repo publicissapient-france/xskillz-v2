@@ -55,7 +55,11 @@ const Repository = {
             SET skill_id = ${to}
             WHERE skill_id = ${from}
         `)
-            .then(() => Database.query(`DELETE FROM Skill WHERE id = ${from}`)),
+        .then(() => Database.query(`
+            DELETE FROM UserSkill
+            WHERE id NOT IN (SELECT * FROM (SELECT MIN(id) FROM UserSkill GROUP BY skill_id, user_id, level, interested) AS t)`))
+        .then(() => Database.query(`DELETE FROM Skill WHERE id = ${from}`))
+        .then(() => Database.query(`DELETE FROM DefaultSkill WHERE skill_id = ${from}`)),
 
     findSkillByName: (name) =>
         Database.query(`
@@ -87,12 +91,12 @@ const Repository = {
             WHERE user_id = ${id}
             ORDER BY level DESC, interested DESC, skill.name
     `)
-            .then((userSkills) => {
-                _.map(userSkills, (userSkill) => {
-                    userSkill.interested = userSkill.interested[0] == 1;
-                });
-                return userSkills;
-            }),
+        .then((userSkills) => {
+            _.map(userSkills, (userSkill) => {
+                userSkill.interested = userSkill.interested[0] == 1;
+            });
+            return userSkills;
+        }),
 
     findUserSkillByUserIdAndSkillId: (user_id, skill_id) =>
         Database.query(`
