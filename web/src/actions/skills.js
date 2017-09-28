@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
 import Config from '../Config';
-import {getToken} from './auth';
+import { getToken } from './auth';
 
 export const RECEIVE_SKILLS = 'RECEIVE_SKILLS';
 export const SKILL_GOT = 'SKILL_GOT';
@@ -28,14 +28,14 @@ export function fetchSkills() {
         };
 
         return fetch(`${Config.apiURL}/skills`, config)
-            .then(response => {
-                if (response.status >= 400 && response.status <= 403) {
-                    browserHistory.push('/signin');
-                } else {
-                    return response.json();
-                }
-            })
-            .then(skills => dispatch(receiveSkills(skills)));
+        .then(response => {
+            if (response.status >= 400 && response.status <= 403) {
+                browserHistory.push('/signin');
+            } else {
+                return response.json();
+            }
+        })
+        .then(skills => dispatch(receiveSkills(skills)));
     }
 }
 
@@ -51,7 +51,7 @@ export function skillGot(skill) {
 export function skillRemoved(id) {
     return {
         type: SKILL_REMOVED,
-        payload: {id}
+        payload: { id }
     };
 }
 
@@ -60,7 +60,7 @@ export const SKILL_UPDATED = 'SKILL_UPDATED';
 export function skillUpdated(skill) {
     return {
         type: SKILL_UPDATED,
-        payload: {skill}
+        payload: { skill }
     }
 }
 
@@ -76,16 +76,47 @@ export function updateSkill(skill) {
         };
 
         return fetch(`${Config.apiURL}/me/skills/${skill.id}`, config)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else if (response.status === 401) {
-                    browserHistory.push('/signin');
-                } else {
-                    throw new Error('Cannot add skill');
-                }
-            })
-            .then(json => dispatch(skillUpdated(skill)));
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                browserHistory.push('/signin');
+            } else {
+                throw new Error('Cannot add skill');
+            }
+        })
+        .then(json => dispatch(skillUpdated(skill)));
+    };
+}
+
+export const SKILL_DEFINITION_UPDATED = 'SKILL_DEFINITION_UPDATED';
+
+export function skillDefinitionUpdated(skill) {
+    return { type: SKILL_DEFINITION_UPDATED }
+}
+
+export function updateSkillDefinition(skillId, description) {
+    return dispatch => {
+        const config = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                token: getToken()
+            },
+            body: JSON.stringify({ description })
+        };
+
+        return fetch(`${Config.apiURL}/skills/${skillId}`, config)
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                browserHistory.push('/signin');
+            } else {
+                throw new Error('Cannot update skill definition');
+            }
+        })
+        .then(json => dispatch(skillDefinitionUpdated()));
     };
 }
 
@@ -94,7 +125,7 @@ export const SKILL_ADDED = 'SKILL_ADDED';
 export function skillAdded(skill) {
     return {
         type: SKILL_ADDED,
-        payload: {skill}
+        payload: { skill }
     }
 }
 
@@ -110,20 +141,20 @@ export function addSkill(skill) {
         };
 
         return fetch(`${Config.apiURL}/me/skills`, config)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else if (response.status === 401) {
-                    browserHistory.push('/signin');
-                } else {
-                    throw new Error('Cannot add skill');
-                }
-            })
-            .then(addedSkill => {
-                skill.id = addedSkill.id;
-                return skill
-            })
-            .then(skill => dispatch(skillAdded(skill)));
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                browserHistory.push('/signin');
+            } else {
+                throw new Error('Cannot add skill');
+            }
+        })
+        .then(addedSkill => {
+            skill.id = addedSkill.id;
+            return skill
+        })
+        .then(skill => dispatch(skillAdded(skill)));
     };
 }
 
@@ -137,16 +168,16 @@ export function removeSkill(id) {
         };
 
         return fetch(`${Config.apiURL}/me/skills/${id}`, config)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else if (response.status === 401) {
-                    browserHistory.push('/signin');
-                } else {
-                    throw new Error('Cannot remove skill');
-                }
-            })
-            .then(() => dispatch(skillRemoved(id)));
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                browserHistory.push('/signin');
+            } else {
+                throw new Error('Cannot remove skill');
+            }
+        })
+        .then(() => dispatch(skillRemoved(id)));
     };
 }
 
@@ -169,15 +200,15 @@ export function mergeSkills(payload) {
             body: JSON.stringify(payload)
         };
         return fetch(`${Config.apiURL}/skills`, config)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else if (response.status === 401) {
-                    browserHistory.push('/signin');
-                } else {
-                    throw new Error('Cannot merge skills');
-                }
-            })
-            .then(json => dispatch(skillMerged(json)));
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                browserHistory.push('/signin');
+            } else {
+                throw new Error('Cannot merge skills');
+            }
+        })
+        .then(json => dispatch(skillMerged(json)));
     }
 }

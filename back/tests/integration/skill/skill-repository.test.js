@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const Database = require('../../../src/database');
 const DomainRepository = require('../../../src/domain/domain-repository');
@@ -277,6 +275,18 @@ describe('Skill Repository', () => {
             assert.equal(userSkill.interested, false);
             assert.equal(userSkill.level, 1);
         })
+        .then(done)
+        .catch(done);
+    });
+
+    it('should add new skill and update its description', (done) => {
+        const skillName = 'skill';
+        SkillRepository
+        .addNewSkill(skillName)
+        .then(() => SkillRepository.findSkillByName(skillName))
+        .then(skill => SkillRepository.updateSkill(skill.id, { description: `My O' Description` }))
+        .then(() => SkillRepository.findSkillByName(skillName))
+        .then(skill => assert.equal(skill.description, `My O' Description`))
         .then(done)
         .catch(done);
     });
