@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 
 import SkillsContent from '../../components/Skills/SkillsContent'
 
-import { fetchSkills } from '../../actions/skills';
+import { fetchSkills, updateSkillDefinition } from '../../actions/skills';
 import { fetchUsersBySkill } from '../../actions/users';
 
 const mapStateToProps = (state) => {
@@ -22,7 +22,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(fetchUsersBySkill(id));
             browserHistory.push(`/skills?name=${encodeURIComponent(name)}`);
         },
-        onUserClick: id => browserHistory.push(`/user/${id}`)
+        onUserClick: id => browserHistory.push(`/user/${id}`),
+        updateSkillDefinition: (skillId, description) => {
+            dispatch(updateSkillDefinition(skillId, description));
+        }
     };
 };
 

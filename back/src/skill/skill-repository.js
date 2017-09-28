@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 
 const Database = require('../database');
@@ -111,7 +109,9 @@ const Repository = {
             FROM UserSkill
             WHERE user_id = ${user_id}
             AND skill_id = ${skill_id}
-        `)
+        `),
+
+    updateSkill: (skillId, skill) => Database.query(`UPDATE Skill SET description = '${_.replace(skill.description,`'`,`\\'`)}' WHERE id = ${skillId}`),
 };
 
 module.exports = Repository;

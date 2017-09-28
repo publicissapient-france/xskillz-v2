@@ -70,8 +70,8 @@ module.exports = {
         Repository
         .findUserSkillsById(userId),
 
-    findSkillById: skillId =>
-        Repository
-        .findSkillById(skillId)
+    findSkillById: skillId => Repository.findSkillById(skillId),
+
+    updateSkill: (skillId, skill) => Repository.updateSkill(skillId, skill),
 
 };

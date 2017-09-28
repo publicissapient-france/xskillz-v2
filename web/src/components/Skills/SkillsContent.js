@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from "react";
 import _ from "lodash";
-import { AutoComplete, CircularProgress } from "material-ui";
+import { AutoComplete, CircularProgress, RaisedButton, TextField, Snackbar } from "material-ui";
 import UsersLevel from "./UsersLevel/UsersLevel";
 import { clean } from "../../services/strings";
+import { hasRole, MANAGER } from '../../services/permissions';
 
 class SkillsContent extends Component {
 
     constructor(props) {
         super(props);
         this.search = true;
+        this.state = {};
     }
 
     componentDidMount() {
@@ -37,6 +39,17 @@ class SkillsContent extends Component {
         }
     }
 
+    updateDescription() {
+        if (this.state.description) {
+            this.setState({ submit: true, snackOpen: false });
+            this.props.updateSkillDefinition(this.props.users.bySkill.list.skill.id, this.state.description);
+        }
+    }
+
+    onChangeDescription(event, newValue) {
+        this.setState({ description: newValue.trim() });
+    }
+
     static composeUsers = (skillId, users) => {
         const ret = { 0: [], 1: [], 2: [], 3: [] };
         _.each(users, user => {
@@ -54,9 +67,12 @@ class SkillsContent extends Component {
         return clean(key).indexOf(clean(searchText)) >= 0;
     }
 
-    render() {
+    onSnackClose = () => this.setState({ snackOpen: false, submit: false });
 
-        const { loaded } = this.props.skills;
+    render() {
+        let { submit } = this.state;
+        const { loaded, skillDefinitionUpdated } = this.props.skills;
+        const snackOpen = !!(submit && skillDefinitionUpdated);
         const { onUserClick } = this.props;
 
         if (!loaded) {
@@ -87,7 +103,23 @@ class SkillsContent extends Component {
                         searchText={name}
                         maxSearchResults={10} />
                 </div>
-                {skill && <div className={'skill-description'} dangerouslySetInnerHTML={{ __html: skill.description }}></div>}
+                {skill &&
+                <div className={'skill-description'}>
+                    <TextField
+                        floatingLabelText="Description"
+                        disabled={!hasRole(MANAGER)}
+                        onChange={::this.onChangeDescription}
+                        defaultValue={skill.description}
+                        fullWidth={true}
+                        multiLine={true}
+                        rows={1}
+                        rowsMax={4}
+                    />
+                    {hasRole(MANAGER) &&
+                    <RaisedButton onClick={::this.updateDescription} style={{ marginTop: '.8rem' }} label="Modifier"
+                                  primary={true} />}
+                </div>
+                }
                 {composedUsers[3].length > 0 &&
                 <UsersLevel title="Experts" users={composedUsers[3]} onUserClick={onUserClick} />}
                 {composedUsers[2].length > 0 &&
@@ -96,6 +128,13 @@ class SkillsContent extends Component {
                 <UsersLevel title="Débutants" users={composedUsers[1]} onUserClick={onUserClick} />}
                 {composedUsers[0].length > 0 &&
                 <UsersLevel title="Intéressés" users={composedUsers[0]} onUserClick={onUserClick} />}
+
+                <Snackbar
+                    bodyStyle={{ backgroundColor: '#008500' }}
+                    open={snackOpen}
+                    message={'Compétence mise à jour'}
+                    onRequestClose={::this.onSnackClose}
+                    autoHideDuration={3000} />
             </div>
         )
     }
