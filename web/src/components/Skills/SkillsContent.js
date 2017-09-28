@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import _ from "lodash";
-import { AutoComplete, CircularProgress, RaisedButton, TextField, Snackbar } from "material-ui";
+import { AutoComplete, CircularProgress, RaisedButton, Snackbar, TextField } from "material-ui";
 import UsersLevel from "./UsersLevel/UsersLevel";
 import { clean } from "../../services/strings";
 import { hasRole, MANAGER } from '../../services/permissions';
@@ -25,7 +25,6 @@ class SkillsContent extends Component {
     componentDidUpdate() {
         const { name } = this.props.location.query;
         const { loaded } = this.props.skills;
-
         if (loaded && name && this.search) {
             this.onNewRequest(name);
             this.search = false;
@@ -83,6 +82,7 @@ class SkillsContent extends Component {
 
         const skills = this.props.skills.list;
         const { skill, users } = this.props.users.bySkill.list;
+
         const nameArray = [];
         _.each(skills, (s) => nameArray.push(s.name));
 
@@ -109,7 +109,7 @@ class SkillsContent extends Component {
                         floatingLabelText="Description"
                         disabled={!hasRole(MANAGER)}
                         onChange={::this.onChangeDescription}
-                        defaultValue={skill.description}
+                        value={this.state.description ? this.state.description : this.props.users.bySkill.list.skill.description}
                         fullWidth={true}
                         multiLine={true}
                         rows={1}
