@@ -54,4 +54,11 @@ module.exports = {
         .updateSkill(req.params.id, req.body)
         .then(() => res.jsonp({ updated: true }))
         .catch(err => Controllers.onError(err, res)),
+
+    exportUserSkills: (req, res) =>
+        SkillService
+        .exportUserSkills()
+        .then(skills => res.jsonp(skills))
+        .catch(err => Controllers.onError(err, res)),
+
 };

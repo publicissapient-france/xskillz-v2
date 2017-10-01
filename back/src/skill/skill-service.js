@@ -74,4 +74,5 @@ module.exports = {
 
     updateSkill: (skillId, skill) => Repository.updateSkill(skillId, skill),
 
+    exportUserSkills: () => Repository.exportUserSkills(),
 };

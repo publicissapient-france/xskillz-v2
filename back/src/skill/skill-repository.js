@@ -112,6 +112,34 @@ const Repository = {
         `),
 
     updateSkill: (skillId, skill) => Database.query(`UPDATE Skill SET description = '${_.replace(skill.description,`'`,`\\'`)}' WHERE id = ${skillId}`),
+
+    exportUserSkills: () => Database.query(`
+    SELECT
+      u.id              user_id,
+      u.name,
+      skill.name        skill_name,
+      us.level          skill_level,
+      us.interested     skill_interest,
+      skill.description skill_description,
+      domain.name       domain_name,
+      u.email,
+      u.phone,
+      u.address,
+      u.home,
+      u.github,
+      u.twitter,
+      u.linked_in,
+      u.employee_date,
+      u.employee_end_date,
+      u.availability_date,
+      manager.name
+    FROM UserSkill us
+      JOIN Skill skill ON skill.id = us.skill_id
+      JOIN User u ON u.id = us.user_id
+      LEFT JOIN User manager ON manager.id = u.manager_id
+      LEFT JOIN Domain domain ON domain.id = skill.domain_id
+    ORDER BY u.id
+    `),
 };
 
 module.exports = Repository;

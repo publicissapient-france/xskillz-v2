@@ -6,6 +6,7 @@ const Security = require('../security');
 const SkillRouter = {
     register: (express) => {
         express
+            .get('/skills/export', SkillController.exportUserSkills)
             .get('/skills', SkillController.getSkills)
             .put('/skills', Security.requireLogin, SkillController.merge)
             .post('/me/skills', Security.requireLogin, SkillController.addSkill)
