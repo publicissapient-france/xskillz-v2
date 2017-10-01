@@ -82,7 +82,6 @@
     "npm-check": "^5.2.2",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^1.1.1",
-    "qrcode.react": "^0.6.1",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.4.0",

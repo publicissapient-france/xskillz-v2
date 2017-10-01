@@ -37,23 +37,6 @@ describe('UserController', () => {
                 .catch(done);
         });
 
-        it('should return code 404 with error if users are not found (mobile)', done => {
-            sandbox
-                .stub(UserService, 'getUsersBySkillMobileVersion')
-                .returns(Promise.reject(new Error('error')));
-
-            req.params = {id: 0};
-
-            UserController
-                .getUsersBySkillMobileVersion(req, res)
-                .then(() => {
-                    sinon.assert.calledWith(res.status, 404);
-                    sinon.assert.calledWith(res.jsonp, {error: 'Users not found', cause: 'error'});
-                })
-                .then(done)
-                .catch(done);
-        });
-
         it('should return code 404 with error if users are not found', done => {
             sandbox
                 .stub(UserService, 'getUsersBySkill')
@@ -117,23 +100,6 @@ describe('UserController', () => {
                 .then(() => {
                     sinon.assert.calledWith(res.status, 404);
                     sinon.assert.calledWith(res.jsonp, {error: 'User #0 not found', cause: 'error'});
-                })
-                .then(done)
-                .catch(done);
-        });
-
-        it('should return code 404 with error if users are not found (mobile)', done => {
-            sandbox
-                .stub(UserService, 'getUsersMobileVersion')
-                .returns(Promise.reject(new Error('error')));
-
-            req.params = {id: 0};
-
-            UserController
-                .getUsersMobileVersion(req, res)
-                .then(() => {
-                    sinon.assert.calledWith(res.status, 404);
-                    sinon.assert.calledWith(res.jsonp, {error: 'Users not found', cause: 'error'});
                 })
                 .then(done)
                 .catch(done);

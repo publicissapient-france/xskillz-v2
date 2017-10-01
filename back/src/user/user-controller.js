@@ -5,8 +5,6 @@ const Promise = require('bluebird');
 const UserService = require('./user-service');
 const SkillService = require('../skill/skill-service');
 const NotificationService = require('../notification/notification-service');
-const BotService = require('../notification/bot-service');
-const MESSAGES = require('../notification/bot-service').MESSAGES;
 const TEMPLATE = require('../notification/notification-service').TEMPLATE;
 const Controllers = require('../controllers.js');
 
@@ -30,19 +28,12 @@ module.exports = {
             .addUser(req.body)
             .then(user => {
                 NotificationService.notify(TEMPLATE.WELCOME, user);
-                BotService.notify(MESSAGES.WELCOME, user);
                 return user;
             })
             .then(user => res.json(user))
             .catch(err => onError(err, res));
         }
     },
-
-    getUsersBySkillMobileVersion: (req, res) =>
-        UserService
-        .getUsersBySkillMobileVersion(req.params.id)
-        .then(users => res.json(users))
-        .catch(err => onError(err, res, 404, 'Users not found')),
 
     getUsersBySkill: (req, res) =>
         UserService
@@ -91,12 +82,6 @@ module.exports = {
         .createUserByReadableId(req.params.id)
         .then(user => res.json(user))
         .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
-
-    getUsersMobileVersion: (req, res) =>
-        UserService
-        .getUsersMobileVersion(req.query)
-        .then(users => res.json(users))
-        .catch(err => onError(err, res, 404, `Users not found`)),
 
     getUsersWebVersion: (req, res) =>
         UserService

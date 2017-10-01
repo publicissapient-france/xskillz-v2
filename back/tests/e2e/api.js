@@ -26,11 +26,6 @@ module.exports = {
                 .get(`${host}/users`)
                 .set('token', token)),
 
-    getUsersMobileVersion: () =>
-        execute(
-            request
-                .get(`${host}/mobile/users`)),
-
     getUserById: (id, token) =>
         execute(
             request
@@ -41,12 +36,6 @@ module.exports = {
         execute(
             request
                 .get(`${host}/skills/${id}/users`)
-                .set('token', token)),
-
-    getUsersBySkillMobileVersion: (id, token) =>
-        execute(
-            request
-                .get(`${host}/mobile/skills/${id}/users`)
                 .set('token', token)),
 
     getRoot: () =>

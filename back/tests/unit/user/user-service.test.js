@@ -5,7 +5,6 @@ const moment = require('moment');
 
 const UserService = require('../../../src/user/user-service');
 const UserRepository = require('../../../src/user/user-repository');
-const SkillService = require('../../../src/skill/skill-service');
 
 describe('UserService', () => {
 
@@ -344,102 +343,6 @@ describe('UserService', () => {
                             domains: undefined,
                             availability_date: undefined,
                             diploma: 2010,
-                            employee_date: undefined,
-                            home: undefined,
-                            github: undefined,
-                            linked_in: undefined,
-                            twitter: undefined
-                        }
-                    ]);
-                })
-                .then(done)
-                .catch(done);
-        });
-
-        it('should get users (mobile)', done => {
-            sandbox
-                .stub(UserRepository, 'getUsers')
-                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
-
-            sandbox
-                .stub(UserRepository, 'findUserById')
-                .returns(Promise.resolve({id: 1, diploma: '2010', name: 'Julien'}));
-
-            sandbox
-                .stub(SkillService, 'findUserSkillsById')
-                .returns(Promise.resolve([]));
-
-            sandbox
-                .stub(UserRepository, 'findUserRolesById')
-                .returns(Promise.resolve([]));
-
-            UserService
-                .getUsersMobileVersion({})
-                .then(users => {
-                    assert.deepEqual(users, [
-                        {
-                            address: null,
-                            experienceCounter: moment().year() - 2010,
-                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
-                            id: 1,
-                            manager_id: undefined,
-                            name: 'Julien',
-                            phone: undefined,
-                            readable_id: 'julien',
-                            domains: [],
-                            roles: [],
-                            score: 0,
-                            seniority: 0,
-                            availability_date: undefined,
-                            diploma: '2010',
-                            employee_date: undefined,
-                            home: undefined,
-                            github: undefined,
-                            linked_in: undefined,
-                            twitter: undefined
-                        }
-                    ]);
-                })
-                .then(done)
-                .catch(done);
-        });
-
-        it('should get users with roles (mobile)', done => {
-            sandbox
-                .stub(UserRepository, 'getUsersWithRoles')
-                .returns(Promise.resolve([{id: 1, diploma: '2010', name: 'Julien'}]));
-
-            sandbox
-                .stub(UserRepository, 'findUserById')
-                .returns(Promise.resolve({id: 1, diploma: '2010', name: 'Julien'}));
-
-            sandbox
-                .stub(SkillService, 'findUserSkillsById')
-                .returns(Promise.resolve([]));
-
-            sandbox
-                .stub(UserRepository, 'findUserRolesById')
-                .returns(Promise.resolve([]));
-
-            UserService
-                .getUsersMobileVersion({with_roles: 'Manager'})
-                .then((users) => {
-                    assert.deepEqual(users, [
-                        {
-                            address: null,
-                            experienceCounter: moment().year() - 2010,
-                            gravatarUrl: '//www.gravatar.com/avatar/d415f0e30c471dfdd9bc4f827329ef48',
-                            id: 1,
-                            manager_id: undefined,
-                            name: 'Julien',
-                            phone: undefined,
-                            readable_id: 'julien',
-                            domains: [],
-                            roles: [],
-                            score: 0,
-                            seniority: 0,
-                            availability_date: undefined,
-                            diploma: '2010',
                             employee_date: undefined,
                             home: undefined,
                             github: undefined,

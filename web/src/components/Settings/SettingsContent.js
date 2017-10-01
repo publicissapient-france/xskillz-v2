@@ -6,7 +6,6 @@ import EmployeeDatePicker from "../Manager/EmployeeDatePicker";
 import EmployeeEndDatePicker from "../Manager/EmployeeEndDatePicker";
 import AvailabilityDatePicker from "../Manager/AvailabilityDatePicker";
 import AssignUserToManager from "../Manager/AssignUserToManager";
-import QRCodeURL from "../Api/QRCodeURL/QRCodeURL";
 import Config from '../../Config';
 import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
 import MergeSkills from '../Skills/MergeSkills/MergeSkills';
@@ -83,9 +82,6 @@ class SettingsContent extends Component {
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}
                         {hasRole(MANAGER) && <PromoteManager users={users} promoteManager={promoteManager}/>}
                         {hasRole(MANAGER) && <CreateUser auth={auth} createUser={createUser}/>}
-                    </Tab>
-                    <Tab label="QR Code">
-                        <QRCodeURL url={Config.apiURL}/>
                     </Tab>
                 </Tabs>
             </div>);

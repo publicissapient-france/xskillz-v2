@@ -32,8 +32,6 @@ const UserRouter = {
             .post('/me', Security.requireLogin, UserController.getCurrentUser)
 
             .get('/web/users', UserController.getUsersWebVersion)
-            .get('/mobile/users', UserController.getUsersMobileVersion)
-            .get('/mobile/skills/:id/users', UserController.getUsersBySkillMobileVersion)
 
             .post('/users/:id/manager/:managerId', Security.requireLogin, UserController.assignManager)
             .post('/users/:id/manager', Security.requireLogin, UserController.promoteToManager)

@@ -5,7 +5,6 @@ const Express = require('express');
 const UserRouter = require('./user/user-router');
 const SkillRouter = require('./skill/skill-router');
 const DomainRouter = require('./domain/domain-router');
-const BotRouter = require('./bot/bot-router');
 
 const allowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -27,7 +26,6 @@ express
 UserRouter.register(express);
 DomainRouter.register(express);
 SkillRouter.register(express);
-BotRouter.register(express);
 
 express.listen(process.env.PORT || 8080, () => {
     console.log('Skillz is listening on port ' + (process.env.PORT || 8080));

@@ -136,65 +136,6 @@ describe('API', function() {
         .catch((err) => done(err));
     });
 
-    it('should get users by skill (mobile version)', (done) => {
-        // Given
-        let user;
-        API.createUser('Julien', 'jsmadja@xebia.fr')
-        .then(() => API.signin('jsmadja@xebia.fr'))
-        .then((res) => user = res.body)
-        .then(() => API.addSkill('Skill', 2, true, user.token))
-        // When
-        .then((res) => API.getUsersBySkillMobileVersion(res.body.skill_id, user.token))
-        // Then
-        .then((res) => {
-            const skills = res.body;
-            delete skills[0].id;
-            delete skills[0].domains[0].id;
-            delete skills[0].domains[0].skills[0].id;
-            assert.deepEqual(skills,
-                [
-                    {
-                        address: null,
-                        domains: [
-                            {
-                                color: 'pink',
-                                name: null,
-                                score: 2,
-                                skills: [
-                                    {
-                                        interested: true,
-                                        level: 2,
-                                        name: 'Skill'
-                                    }
-                                ]
-                            }
-                        ],
-                        experienceCounter: 0,
-                        gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
-                        manager_id: null,
-                        name: 'Julien',
-                        phone: null,
-                        readable_id: 'julien',
-                        roles: [
-                            'Manager'
-                        ],
-                        score: 2,
-                        seniority: 0,
-                        availability_date: null,
-                        diploma: null,
-                        employee_date: null,
-                        home: null,
-                        twitter: null,
-                        github: null,
-                        linked_in: null
-                    }
-                ]);
-            done();
-        })
-        .catch((err) => done(err));
-    });
-
-
     it('should add a skill on two different users', (done) => {
         // Given
         API.createUser('Julien', 'jsmadja@xebia.fr')
@@ -284,72 +225,6 @@ describe('API', function() {
                         address: null,
                         diploma: null,
                         home: null
-                    }
-                ]);
-        })
-        .then(done)
-        .catch(done);
-    });
-
-    it('should get all users (mobile version)', (done) => {
-        let domain;
-        let user;
-        // Given
-        API.createUser('Julien', 'jsmadja@xebia.fr')
-        .then(() => API.signin('jsmadja@xebia.fr'))
-        .then((res) => API.addDomain('MyDomain', res.body.token))
-        .then((res) => {
-            domain = res.body;
-        })
-        .then(() => API.signin('jsmadja@xebia.fr'))
-        .then((res) => {
-            user = res.body;
-            return API.addSkill('Skill', 2, true, user.token);
-        })
-        .then((res) => API.addSkillToDomain(res.body.skill_id, domain.id, user.token))
-        // When
-        .then(() => API.getUsersMobileVersion())
-        // Then
-        .then((res) => {
-            const users = res.body;
-            delete users[0].id;
-            delete users[0].domains[0].id;
-            delete users[0].domains[0].skills[0].id;
-
-            assert.deepEqual(users,
-                [
-                    {
-                        address: null,
-                        domains: [{
-                            color: '#CCCCCC',
-                            score: 2,
-                            name: 'MyDomain',
-                            skills: [
-                                {
-                                    interested: true,
-                                    level: 2,
-                                    name: 'Skill'
-                                }
-                            ]
-                        }],
-                        experienceCounter: 0,
-                        gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
-                        name: 'Julien',
-                        readable_id: 'julien',
-                        score: 2,
-                        seniority: 0,
-                        manager_id: null,
-                        phone: null,
-                        roles: [
-                            'Manager'
-                        ],
-                        availability_date: null,
-                        diploma: null,
-                        employee_date: null,
-                        home: null,
-                        github: null,
-                        linked_in: null,
-                        twitter: null
                     }
                 ]);
         })

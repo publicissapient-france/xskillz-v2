@@ -176,11 +176,6 @@ module.exports = {
                     });
             }),
 
-    getUsersBySkillMobileVersion: (skillId) =>
-        Repository
-            .findUsersBySkill(skillId)
-            .map((user) => createUserById(user.id).then(user => user.expurge())),
-
     getUsersBySkill: (skillId) =>
         Repository
             .findUsersBySkill(skillId)
@@ -235,16 +230,6 @@ module.exports = {
                     })
                     .sortBy('name').value();
             });
-    },
-
-    getUsersMobileVersion: (query) => {
-        let usersPromise;
-        if (query.with_roles) {
-            usersPromise = Repository.getUsersWithRoles(query.with_roles);
-        } else {
-            usersPromise = Repository.getUsers();
-        }
-        return usersPromise.map(user => createUserById(user.id).then(user => user.expurge()));
     },
 
     getUsers: (query) => {
