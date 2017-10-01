@@ -41,12 +41,12 @@ class SkillsContent extends Component {
     updateDescription() {
         if (this.state.description) {
             this.setState({ submit: true, snackOpen: false });
-            this.props.updateSkillDefinition(this.props.users.bySkill.list.skill.id, this.state.description);
+            this.props.updateSkillDefinition(this.props.users.bySkill.list.skill.id, this.state.description.trim());
         }
     }
 
-    onChangeDescription(event, newValue) {
-        this.setState({ description: newValue.trim() });
+    onChangeDescription(event, description) {
+        this.setState({ description });
     }
 
     static composeUsers = (skillId, users) => {
@@ -106,10 +106,9 @@ class SkillsContent extends Component {
                 {skill &&
                 <div className={'skill-description'}>
                     <TextField
-                        floatingLabelText="Description"
                         disabled={!hasRole(MANAGER)}
                         onChange={::this.onChangeDescription}
-                        value={this.state.description ? this.state.description : this.props.users.bySkill.list.skill.description}
+                        value={this.getDescriptionValue()}
                         fullWidth={true}
                         multiLine={true}
                         rows={1}
@@ -139,6 +138,15 @@ class SkillsContent extends Component {
         )
     }
 
+    getDescriptionValue() {
+        if (this.state && this.state.description) {
+            return this.state.description;
+        }
+        if (this.props.users.bySkill.list.skill && !(this.state && this.state.description !== undefined)) {
+            return this.props.users.bySkill.list.skill.description;
+        }
+        return '';
+    }
 }
 
 export default SkillsContent;
