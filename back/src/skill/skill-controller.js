@@ -58,7 +58,11 @@ module.exports = {
     exportUserSkills: (req, res) =>
         SkillService
         .exportUserSkills()
-        .then(skills => res.jsonp(skills))
+        .then(skills => {
+            res.set('Content-Disposition', 'attachment; filename=skillz.csv');
+            res.set('Content-Type', 'application/octet-stream');
+            return res.send(skills);
+        })
         .catch(err => Controllers.onError(err, res)),
 
 };
