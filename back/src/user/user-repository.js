@@ -1,5 +1,3 @@
-'use strict';
-
 const Promise = require('bluebird');
 const Bcrypt = require('bcrypt-then');
 const saltRounds = 10;
@@ -11,62 +9,62 @@ const UserRepository = {
 
     findUserByEmailAndPassword: (email, password) =>
         UserRepository
-            .findUserByEmail(email)
-            .then((user) => {
-                if (!user) {
-                    return Promise.reject(`Unable to find user with email ${email}`);
+        .findUserByEmail(email)
+        .then((user) => {
+            if (!user) {
+                return Promise.reject(`Unable to find user with email ${email}`);
+            }
+            return Bcrypt.compare(password, user.password)
+            .then((found) => {
+                if (found) {
+                    delete user.password;
+                    return Promise.resolve(user);
                 }
-                return Bcrypt.compare(password, user.password)
-                    .then((found) => {
-                        if (found) {
-                            delete user.password;
-                            return Promise.resolve(user);
-                        }
-                        return Promise.reject(new Error('Wrong password'));
-                    });
-            }),
+                return Promise.reject(new Error('Wrong password'));
+            });
+        }),
 
     findUserByIdAndPassword: (id, password) =>
         UserRepository
-            .findUserById(id)
-            .then((user) => {
-                if (!user) {
-                    return Promise.reject(`Unable to find user with id ${id}`);
+        .findUserById(id)
+        .then((user) => {
+            if (!user) {
+                return Promise.reject(`Unable to find user with id ${id}`);
+            }
+            return Bcrypt
+            .compare(password, user.password)
+            .then((found) => {
+                if (found) {
+                    delete user.password;
+                    return Promise.resolve(user);
                 }
-                return Bcrypt
-                    .compare(password, user.password)
-                    .then((found) => {
-                        if (found) {
-                            delete user.password;
-                            return Promise.resolve(user);
-                        }
-                        return Promise.reject(new Error('Wrong password'));
-                    });
-            }),
+                return Promise.reject(new Error('Wrong password'));
+            });
+        }),
 
     findUserByEmail: (email) =>
         Database
-            .query(`
+        .query(`
                     SELECT *
                     FROM User 
                     WHERE email = '${email}'
             `)
-            .then((users) => {
-                return users[0];
-            }),
+        .then((users) => {
+            return users[0];
+        }),
 
     findUserByLogin: (login) =>
         Database
-            .query(`
+        .query(`
                 SELECT *
                 FROM User
                 WHERE email like '%${login}%'
             `)
-            .then(users => users[0]),
+        .then(users => users[0]),
 
     getUserByToken: (token) =>
         Database.query(`SELECT user_id AS id FROM Token WHERE token_value = '${token}'`)
-            .then((users) => users[0]),
+        .then((users) => users[0]),
 
     findUserById: (id) =>
         Database.query(`
@@ -147,21 +145,21 @@ const UserRepository = {
 
     addNewUser: (user) =>
         Bcrypt.hash(user.password, saltRounds)
-            .then((hash) => {
-                user.password = hash;
-            })
-            .then(() =>
-                Database.query(`
+        .then((hash) => {
+            user.password = hash;
+        })
+        .then(() =>
+            Database.query(`
                     INSERT INTO User (name, email, password)
                     VALUES ('${user.name}','${user.email}', '${user.password}')
             `)),
 
     deleteUserById: (id) =>
         Database
-            .query(`DELETE FROM UserRole WHERE user_id = ${id}`)
-            .then(() => Database.query(`DELETE FROM Token WHERE user_id = ${id}`))
-            .then(() => Database.query(`DELETE FROM UserSkill WHERE user_id = ${id}`))
-            .then(() => Database.query(`DELETE FROM User WHERE id = ${id}`)),
+        .query(`DELETE FROM UserRole WHERE user_id = ${id}`)
+        .then(() => Database.query(`DELETE FROM Token WHERE user_id = ${id}`))
+        .then(() => Database.query(`DELETE FROM UserSkill WHERE user_id = ${id}`))
+        .then(() => Database.query(`DELETE FROM User WHERE id = ${id}`)),
 
     updatePasswordToken: (email, token) =>
         Database.query(`
@@ -221,7 +219,7 @@ const UserRepository = {
 
     addRole: (user, roleName) =>
         Database.query(`SELECT DISTINCT id FROM Role WHERE name = '${roleName}'`)
-            .then((roles) => Database.query(`INSERT INTO UserRole(user_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
+        .then((roles) => Database.query(`INSERT INTO UserRole(user_id,roles_id) VALUES (${user.id}, ${roles[0].id})`)),
 
     addToken: (user, token) =>
         Database.query(`
@@ -231,20 +229,20 @@ const UserRepository = {
 
     updatePassword: (userId, oldPassword, newPassword) =>
         UserRepository.findUserByIdAndPassword(userId, oldPassword)
-            .then(() => Bcrypt.hash(newPassword, saltRounds))
-            .then((hash) => newPassword = hash)
-            .then(() =>
-                Database.query(
-                    `
+        .then(() => Bcrypt.hash(newPassword, saltRounds))
+        .then((hash) => newPassword = hash)
+        .then(() =>
+            Database.query(
+                `
                         UPDATE User
                         SET password = '${newPassword}', default_password = FALSE
                         WHERE id = ${userId}
                     `)
-            ),
+        ),
 
     changePassword: (id, password) => {
         return Bcrypt.hash(password, saltRounds)
-            .then(hash => Database.query(`
+        .then(hash => Database.query(`
                 UPDATE User
                 SET password = '${hash}', default_password = FALSE
                 WHERE id = ${id}
