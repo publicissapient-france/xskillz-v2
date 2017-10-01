@@ -6,16 +6,16 @@ IMAGE_NAME=xebiafrance/$(NAME)
 all: package build-image
 
 install:
-	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm install
+	npm install
 
 test: install
-	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm test
+	npm test
 
 nodesass: test
-	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm rebuild node-sass
+	npm rebuild node-sass
 
 package: nodesass
-	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm run build:production
+	npm run build:production
 
 build-image:
 	docker build -t $(IMAGE_NAME) .
