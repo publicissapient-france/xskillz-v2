@@ -499,4 +499,34 @@ describe('User Repository', () => {
             .then(done)
             .catch(done);
     });
+
+    it('should update address with quote', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+        .addNewUser({email, name, password})
+        .then(() => UserRepository.findUserByEmail(email, password))
+        .then((user) => UserRepository.updateAddress(user.id, '12 rue d\'amsterdam'))
+        .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+        .then(user => assert.equal(user.address, '"12 rue d\'amsterdam"'))
+        .then(done)
+        .catch(done);
+    });
+
+    it('should update home with quote', (done) => {
+        const email = 'jsmadja@xebia.fr';
+        const name = 'Julien Smadja';
+        const password = 'password';
+
+        UserRepository
+        .addNewUser({email, name, password})
+        .then(() => UserRepository.findUserByEmail(email, password))
+        .then((user) => UserRepository.updateHome(user.id, '12 rue d\'amsterdam'))
+        .then(() => UserRepository.findUserByEmailAndPassword(email, password))
+        .then(user => assert.equal(user.home, '"12 rue d\'amsterdam"'))
+        .then(done)
+        .catch(done);
+    });
 });

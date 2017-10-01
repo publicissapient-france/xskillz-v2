@@ -3,6 +3,7 @@
 const Promise = require('bluebird');
 const Bcrypt = require('bcrypt-then');
 const saltRounds = 10;
+const _ = require('lodash');
 
 const Database = require('../database');
 
@@ -252,9 +253,9 @@ const UserRepository = {
 
     updatePhone: (userId, phone) => Database.query(`UPDATE User SET phone = '${phone}' WHERE id = ${userId}`),
 
-    updateAddress: (userId, address) => Database.query(`UPDATE User SET address = '${JSON.stringify(address)}' WHERE id = ${userId}`),
+    updateAddress: (userId, address) => Database.query(`UPDATE User SET address = '${_.replace(JSON.stringify(address), `'`, `\\'`)}' WHERE id = ${userId}`),
 
-    updateHome: (userId, home) => Database.query(`UPDATE User SET home = '${JSON.stringify(home)}' WHERE id = ${userId}`),
+    updateHome: (userId, home) => Database.query(`UPDATE User SET home = '${_.replace(JSON.stringify(home), `'`, `\\'`)}' WHERE id = ${userId}`),
 
     getManagement: () =>
         Database.query(`
