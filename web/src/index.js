@@ -107,3 +107,5 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+
+Raven.config('https://53e386cc1b4248d18936ae21ab0fa63e@sentry.io/224591').install();
