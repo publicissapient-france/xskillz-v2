@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
 import Config from '../Config';
 import { getToken } from './auth';
+import FileSaver from 'file-saver';
 
 export const RECEIVE_SKILLS = 'RECEIVE_SKILLS';
 export const SKILL_GOT = 'SKILL_GOT';
@@ -36,6 +37,18 @@ export function fetchSkills() {
             }
         })
         .then(skills => dispatch(receiveSkills(skills)));
+    }
+}
+
+export function exportSkills() {
+    return dispatch => {
+        const config = {
+            method: 'GET',
+            headers: { token: getToken() }
+        };
+        return fetch(`${Config.apiURL}/skills/export`, config)
+        .then(response => response.blob())
+        .then(blob => FileSaver.saveAs(blob, 'skillz.csv'));
     }
 }
 

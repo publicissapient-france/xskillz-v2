@@ -111,7 +111,7 @@ const Repository = {
             AND skill_id = ${skill_id}
         `),
 
-    updateSkill: (skillId, skill) => Database.query(`UPDATE Skill SET description = '${_.replace(skill.description,`'`,`\\'`)}' WHERE id = ${skillId}`),
+    updateSkill: (skillId, skill) => Database.query(`UPDATE Skill SET description = '${_.replace(skill.description, `'`, `\\'`)}' WHERE id = ${skillId}`),
 
     exportUserSkills: () => Database.query(`
     SELECT
@@ -126,20 +126,23 @@ const Repository = {
       u.phone,
       u.address,
       u.home,
-      u.github,
-      u.twitter,
-      u.linked_in,
       u.employee_date,
       u.employee_end_date,
       u.availability_date,
-      manager.name
+      manager.name manager
     FROM UserSkill us
       JOIN Skill skill ON skill.id = us.skill_id
       JOIN User u ON u.id = us.user_id
       LEFT JOIN User manager ON manager.id = u.manager_id
       LEFT JOIN Domain domain ON domain.id = skill.domain_id
     ORDER BY u.id
-    `),
+    `)
+    .then(skills => {
+        _.map(skills, skill => {
+            skill.skill_interest = skill.skill_interest[0] === 1;
+        });
+        return skills;
+    }),
 };
 
 module.exports = Repository;

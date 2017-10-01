@@ -1,12 +1,12 @@
-import React, {Component, PropTypes} from "react";
-import {Tabs, Tab} from "material-ui/Tabs";
+import React, { Component, PropTypes } from "react";
+import { Tab, Tabs } from "material-ui/Tabs";
+import { RaisedButton } from "material-ui";
 
 import DiplomaDatePicker from "../Manager/DiplomaDatePicker";
 import EmployeeDatePicker from "../Manager/EmployeeDatePicker";
 import EmployeeEndDatePicker from "../Manager/EmployeeEndDatePicker";
 import AvailabilityDatePicker from "../Manager/AvailabilityDatePicker";
 import AssignUserToManager from "../Manager/AssignUserToManager";
-import Config from '../../Config';
 import LinkSkillToDomain from "../Skills/LinkSkillToDomain/LinkSkillToDomain";
 import MergeSkills from '../Skills/MergeSkills/MergeSkills';
 import AddDomain from '../Domain/Add/AddDomain';
@@ -14,7 +14,7 @@ import DeleteDomain from '../Domain/Del/DeleteDomain';
 import PromoteManager from '../Manager/PromoteManager';
 import CreateUser from '../Users/CreateUser/CreateUser';
 
-import {hasRole, MANAGER} from '../../services/permissions';
+import { hasRole, MANAGER } from '../../services/permissions';
 
 class SettingsContent extends Component {
 
@@ -34,7 +34,8 @@ class SettingsContent extends Component {
         fetchManagers: PropTypes.func.isRequired,
         promoteManager: PropTypes.func.isRequired,
         fetchUsers: PropTypes.func.isRequired,
-        me: PropTypes.object.isRequired
+        me: PropTypes.object.isRequired,
+        exportSkills: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -52,10 +53,14 @@ class SettingsContent extends Component {
         }
     };
 
+    exportSkills = () => {
+        this.props.exportSkills();
+    };
+
     render() {
         const domains = this.props.domains;
         const skills = this.props.skills;
-        const {auth} = this.props;
+        const { auth } = this.props;
         const {
             createUser, promoteManager, fetchManagers, linkSkillToDomain,
             mergeSkills, addDomain, deleteDomain, saveDiploma, saveEmployeeDate, saveEmployeeEndDate, saveAvailabilityDate, assignUserToManager, users, fetchUsers
@@ -64,27 +69,33 @@ class SettingsContent extends Component {
             <div className="content">
                 <Tabs>
                     <Tab label="Compétences">
-                        <LinkSkillToDomain domains={domains} skills={skills} linkSkillToDomain={linkSkillToDomain}/>
-                        <MergeSkills skills={skills} mergeSkills={mergeSkills}/>
+                        <LinkSkillToDomain domains={domains} skills={skills} linkSkillToDomain={linkSkillToDomain} />
+                        <MergeSkills skills={skills} mergeSkills={mergeSkills} />
+                        <p style={{paddingLeft:'0.2em'}}>
+                            <RaisedButton label="Exporter" primary={true} onClick={::this.exportSkills} />
+                        </p>
                     </Tab>
                     {hasRole(MANAGER) && <Tab label="Domaines">
-                        <AddDomain domains={domains} addDomain={addDomain}/>
-                        <DeleteDomain domains={domains} deleteDomain={deleteDomain}/>
+                        <AddDomain domains={domains} addDomain={addDomain} />
+                        <DeleteDomain domains={domains} deleteDomain={deleteDomain} />
                     </Tab>}
 
                     <Tab label="Utilisateurs">
-                        {hasRole(MANAGER) && <DiplomaDatePicker saveDiploma={saveDiploma} users={users}/>}
-                        {hasRole(MANAGER) && <EmployeeDatePicker saveEmployeeDate={saveEmployeeDate} users={users}/>}
-                        {hasRole(MANAGER) && <EmployeeEndDatePicker saveEmployeeEndDate={saveEmployeeEndDate} users={users}/>}
-                        {hasRole(MANAGER) && <AvailabilityDatePicker saveAvailabilityDate={saveAvailabilityDate} users={users}/>}
+                        {hasRole(MANAGER) && <DiplomaDatePicker saveDiploma={saveDiploma} users={users} />}
+                        {hasRole(MANAGER) && <EmployeeDatePicker saveEmployeeDate={saveEmployeeDate} users={users} />}
+                        {hasRole(MANAGER) &&
+                        <EmployeeEndDatePicker saveEmployeeEndDate={saveEmployeeEndDate} users={users} />}
+                        {hasRole(MANAGER) &&
+                        <AvailabilityDatePicker saveAvailabilityDate={saveAvailabilityDate} users={users} />}
                         {hasRole(MANAGER) &&
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
-                                             fetchUsers={fetchUsers} fetchManagers={fetchManagers}/>}
-                        {hasRole(MANAGER) && <PromoteManager users={users} promoteManager={promoteManager}/>}
-                        {hasRole(MANAGER) && <CreateUser auth={auth} createUser={createUser}/>}
+                                             fetchUsers={fetchUsers} fetchManagers={fetchManagers} />}
+                        {hasRole(MANAGER) && <PromoteManager users={users} promoteManager={promoteManager} />}
+                        {hasRole(MANAGER) && <CreateUser auth={auth} createUser={createUser} />}
                     </Tab>
                 </Tabs>
             </div>);
     }
 }
+
 export default SettingsContent;

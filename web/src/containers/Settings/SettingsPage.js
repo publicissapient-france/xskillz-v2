@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import SettingsContent from '../../components/Settings/SettingsContent'
 
 import {fetchDomains, linkSkillToDomain, deleteDomain, addDomain} from '../../actions/action.domains';
-import {fetchSkills, mergeSkills} from '../../actions/skills';
+import {fetchSkills, mergeSkills, exportSkills} from '../../actions/skills';
 import {saveDiploma, saveEmployeeDate, saveEmployeeEndDate, saveAvailabilityDate} from '../../actions/users'
 import {fetchUsers, assignUserToManager, fetchManagers, promoteManager} from '../../actions/users';
 import {createUser} from '../../actions/auth';
@@ -35,7 +35,8 @@ const mapDispatchToProps = dispatch => ({
     assignUserToManager: (userId, managerId) => dispatch(assignUserToManager(userId, managerId)),
     fetchManagers: () => dispatch(fetchManagers()),
     promoteManager: id => dispatch(promoteManager(id)),
-    createUser: (name, email, password) => dispatch(createUser(name, email, password))
+    createUser: (name, email, password) => dispatch(createUser(name, email, password)),
+    exportSkills: () => dispatch(exportSkills()),
 });
 
 const SettingsPage = connect(

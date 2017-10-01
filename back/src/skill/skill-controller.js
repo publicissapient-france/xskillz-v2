@@ -1,7 +1,6 @@
-'use strict';
+const json2csv = require('json2csv');
 
 const SkillService = require('./skill-service');
-
 const Controllers = require('../controllers.js');
 
 module.exports = {
@@ -58,10 +57,11 @@ module.exports = {
     exportUserSkills: (req, res) =>
         SkillService
         .exportUserSkills()
-        .then(skills => {
+        .then(data => {
             res.set('Content-Disposition', 'attachment; filename=skillz.csv');
             res.set('Content-Type', 'application/octet-stream');
-            return res.send(skills);
+            const fields = ['user_id', 'name', 'skill_name', 'skill_level', 'skill_interest', 'skill_description', 'domain_name', 'email', 'phone', 'address', 'home', 'employee_date', 'employee_end_date', 'availability_date', 'manager'];
+            return res.send(json2csv({ data, fields: fields }));
         })
         .catch(err => Controllers.onError(err, res)),
 
