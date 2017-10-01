@@ -71,9 +71,9 @@ class SettingsContent extends Component {
                     <Tab label="Compétences">
                         <LinkSkillToDomain domains={domains} skills={skills} linkSkillToDomain={linkSkillToDomain} />
                         <MergeSkills skills={skills} mergeSkills={mergeSkills} />
-                        <p style={{paddingLeft:'0.2em'}}>
+                        <div style={{paddingLeft:'0.2em'}}>
                             <RaisedButton label="Exporter" primary={true} onClick={::this.exportSkills} />
-                        </p>
+                        </div>
                     </Tab>
                     {hasRole(MANAGER) && <Tab label="Domaines">
                         <AddDomain domains={domains} addDomain={addDomain} />

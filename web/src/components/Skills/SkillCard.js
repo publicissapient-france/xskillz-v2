@@ -59,7 +59,7 @@ class SkillCard extends Component {
 
                                       title="Souhait pour sa prochaine mission"
                                       style={{color: grey500, cursor:'pointer'}}>&#9825;</span>}
-                <Stars level={level} onStarClicked={::this.onStarClicked}/>
+                <Stars level={level||0} onStarClicked={::this.onStarClicked}/>
             </div>
         );
     }

@@ -63,6 +63,7 @@ class UsersContent extends Component {
             <div className="content">
                 <TextField hintText="Nom ou prénom (min: 3 caractères)"
                            style={{margin: '.8rem'}}
+                           fullWidth={true}
                            onChange={::this.queryChange}/>
                 <RadioButtonGroup
                     defaultSelected="alphabetic"

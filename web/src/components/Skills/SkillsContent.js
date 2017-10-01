@@ -101,11 +101,13 @@ class SkillsContent extends Component {
                         filter={::this.filter}
                         onNewRequest={::this.onNewRequest}
                         searchText={name}
+                        fullWidth={true}
                         maxSearchResults={10} />
                 </div>
                 {skill &&
                 <div className={'skill-description'}>
                     <TextField
+                        hintText={'Description'}
                         disabled={!hasRole(MANAGER)}
                         onChange={::this.onChangeDescription}
                         value={this.getDescriptionValue()}
@@ -139,13 +141,14 @@ class SkillsContent extends Component {
     }
 
     getDescriptionValue() {
+        let description = '';
         if (this.state && this.state.description) {
-            return this.state.description;
+            description = this.state.description;
         }
         if (this.props.users.bySkill.list.skill && !(this.state && this.state.description !== undefined)) {
-            return this.props.users.bySkill.list.skill.description;
+            description = this.props.users.bySkill.list.skill.description;
         }
-        return '';
+        return description || '';
     }
 }
 
