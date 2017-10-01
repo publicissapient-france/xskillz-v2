@@ -16,7 +16,7 @@
         "posttest": "./node_modules/istanbul/lib/cli.js report clover",
         "integration:migration:reset": "db-migrate --env itests reset --config database/database.json --migrations-dir database/migrations",
         "integration:migration:up": "db-migrate --env itests up --config database/database.json --migrations-dir database/migrations",
-        "imigrate": "npm run integration:migration:reset && integration:migration:up",
+        "imigrate": "npm run integration:migration:reset && npm run integration:migration:up",
         "preitest": "npm run lint && npm run imigrate",
         "itest": "PORT=8081 RDS_HOST='skillztests.c3fhpdl9pmsv.eu-central-1.rds.amazonaws.com' RDS_PORT=3306 RDS_DATABASE=skillztests RDS_USER=skillztests RDS_PASSWORD=skillztests ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --timeout 10000 --recursive -R spec tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
         "postitest": "npm run posttest",
