@@ -1,5 +1,6 @@
-const webpack = require('webpack'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const GenerateFilePlugin = require('generate-file-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -30,6 +31,7 @@ module.exports = {
             compress: {
                 warnings: false
             }
-        })
+        }),
+        new GenerateFilePlugin('app.id.js'),
     ]
 };
