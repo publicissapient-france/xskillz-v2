@@ -43,6 +43,6 @@ module.exports = {
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
         }),
-        new GenerateFilePlugin('app.id.js'),
+        new GenerateFilePlugin('app.info.js'),
     ]
 };

@@ -32,6 +32,6 @@ module.exports = {
                 warnings: false
             }
         }),
-        new GenerateFilePlugin('app.id.js'),
+        new GenerateFilePlugin('app.info.js'),
     ]
 };

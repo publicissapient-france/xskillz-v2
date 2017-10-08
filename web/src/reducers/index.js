@@ -7,6 +7,7 @@ import {me} from './reducer.me';
 import {user} from './reducer.user';
 import {domains} from './reducer.domains';
 import {management} from './reducer.management';
+import {appInfo} from './reducer.appInfo';
 
 const reducer = combineReducers({
     routing: routerReducer,
@@ -17,7 +18,8 @@ const reducer = combineReducers({
     me,
     user,
     domains,
-    management
+    management,
+    appInfo,
 });
 
 export default reducer;
