@@ -33,6 +33,8 @@ const UserRouter = {
 
             .get('/web/users', UserController.getUsersWebVersion)
 
+            .get('/kml/users', UserController.getUsersKmlVersion)
+
             .post('/users/:id/manager/:managerId', Security.requireLogin, UserController.assignManager)
             .post('/users/:id/manager', Security.requireLogin, UserController.promoteToManager)
             .post('/signin', UserController.signin)

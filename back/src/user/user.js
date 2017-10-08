@@ -24,6 +24,7 @@ class User {
         this.linked_in = raw.linked_in;
         this.github = raw.github;
         this.twitter = raw.twitter;
+        this.employee_end_date = raw.employee_end_date;
     }
 
     expurge() {

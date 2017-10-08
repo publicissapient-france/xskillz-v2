@@ -89,101 +89,116 @@ module.exports = {
         .then(users => res.json(users))
         .catch(err => onError(err, res, 404, `Users not found`)),
 
+    getUsersKmlVersion: (req, res) => {
+        return UserService
+        .getUsersKmlVersion()
+        .then(kml => res.send(kml))
+        .catch(err => onError(err, res, 404, `Users not found`));
+    },
+
     deleteUserById: (req, res) =>
         UserService
         .deleteUserById(req.params.id)
         .then(() => res.jsonp({ deleted: true }))
         .catch(err => onError(err, res)),
 
-    signin: (req, res) =>
-        UserService
-        .signIn(req.body)
-        .then(user => res.jsonp(user))
-        .catch(err => onError(err, res, 404, `User ${req.body.email} not found`)),
+    signin:
+        (req, res) =>
+            UserService
+            .signIn(req.body)
+            .then(user => res.jsonp(user))
+            .catch(err => onError(err, res, 404, `User ${req.body.email} not found`)),
 
-    assignManager: (req, res) =>
-        UserService
-        .assignManager(req.params.id, req.params.managerId)
-        .then(() => res.jsonp({ assigned: true }))
-        .catch(err => onError(err, res)),
+    assignManager:
+        (req, res) =>
+            UserService
+            .assignManager(req.params.id, req.params.managerId)
+            .then(() => res.jsonp({ assigned: true }))
+            .catch(err => onError(err, res)),
 
-    updateUser: (req, res) =>
-        UserService
-        .updateUser(req.params.id, req.body)
-        .then(() => res.jsonp({ updated: true }))
-        .catch(err => onError(err, res)),
-
-    promoteToManager: (req, res) =>
-        UserService
-        .promoteToManager(req.params.id)
-        .then(() => res.jsonp({ updated: true }))
-        .catch(err => onError(err, res)),
-
-    getManagement: (req, res) =>
-        UserService
-        .getManagement()
-        .then(users => res.jsonp({ management: users }))
-        .catch(err => onError(err, res)),
-
-    findUserRolesById: userId => UserService.findUserRolesById(userId),
-
-    patchMe: (req, res) => {
-        const userId = req.body.user_id;
-        const updatePassword = () => {
-            return UserService
-            .updatePassword(userId, req.body.old_password, req.body.password)
+    updateUser:
+        (req, res) =>
+            UserService
+            .updateUser(req.params.id, req.body)
             .then(() => res.jsonp({ updated: true }))
-            .catch(err => onError(err, res));
-        };
-        const updateUser = () => {
-            const tasks = [];
-            if (req.body.phone) {
-                tasks.push(UserService.updatePhone(userId, req.body.phone));
-            }
-            if (req.body.address) {
-                tasks.push(UserService.updateAddress(userId, req.body.address));
-            }
-            if (req.body.home) {
-                tasks.push(UserService.updateHome(userId, req.body.home));
-            }
-            if (req.body.availability) {
-                tasks.push(UserService.updateAvailability(userId, req.body.availability));
-            }
-            if (req.body.employee_date) {
-                tasks.push(UserService.updateEmployeeDate(userId, req.body.employee_date));
-            }
-            if (req.body.diploma) {
-                tasks.push(UserService.updateDiploma(userId, req.body.diploma));
-            }
-            if (req.body.twitter) {
-                tasks.push(UserService.updateTwitter(userId, req.body.twitter));
-            }
-            if (req.body.linkedIn) {
-                tasks.push(UserService.updateLinkedIn(userId, req.body.linkedIn));
-            }
-            if (req.body.github) {
-                tasks.push(UserService.updateGithub(userId, req.body.github));
-            }
-            return Promise.all(tasks)
+            .catch(err => onError(err, res)),
+
+    promoteToManager:
+        (req, res) =>
+            UserService
+            .promoteToManager(req.params.id)
             .then(() => res.jsonp({ updated: true }))
-            .catch(err => onError(err, res));
-        };
-        if (userId && req.body.old_password && req.body.password) {
-            return updatePassword();
+            .catch(err => onError(err, res)),
+
+    getManagement:
+        (req, res) =>
+            UserService
+            .getManagement()
+            .then(users => res.jsonp({ management: users }))
+            .catch(err => onError(err, res)),
+
+    findUserRolesById:
+        userId => UserService.findUserRolesById(userId),
+
+    patchMe:
+        (req, res) => {
+            const userId = req.body.user_id;
+            const updatePassword = () => {
+                return UserService
+                .updatePassword(userId, req.body.old_password, req.body.password)
+                .then(() => res.jsonp({ updated: true }))
+                .catch(err => onError(err, res));
+            };
+            const updateUser = () => {
+                const tasks = [];
+                if (req.body.phone) {
+                    tasks.push(UserService.updatePhone(userId, req.body.phone));
+                }
+                if (req.body.address) {
+                    tasks.push(UserService.updateAddress(userId, req.body.address));
+                }
+                if (req.body.home) {
+                    tasks.push(UserService.updateHome(userId, req.body.home));
+                }
+                if (req.body.availability) {
+                    tasks.push(UserService.updateAvailability(userId, req.body.availability));
+                }
+                if (req.body.employee_date) {
+                    tasks.push(UserService.updateEmployeeDate(userId, req.body.employee_date));
+                }
+                if (req.body.diploma) {
+                    tasks.push(UserService.updateDiploma(userId, req.body.diploma));
+                }
+                if (req.body.twitter) {
+                    tasks.push(UserService.updateTwitter(userId, req.body.twitter));
+                }
+                if (req.body.linkedIn) {
+                    tasks.push(UserService.updateLinkedIn(userId, req.body.linkedIn));
+                }
+                if (req.body.github) {
+                    tasks.push(UserService.updateGithub(userId, req.body.github));
+                }
+                return Promise.all(tasks)
+                .then(() => res.jsonp({ updated: true }))
+                .catch(err => onError(err, res));
+            };
+            if (userId && req.body.old_password && req.body.password) {
+                return updatePassword();
+            }
+            if (userId &&
+                req.body.phone ||
+                req.body.address ||
+                req.body.availability ||
+                req.body.employee_date ||
+                req.body.diploma ||
+                req.body.home ||
+                req.body.linkedIn ||
+                req.body.twitter ||
+                req.body.github) {
+                return updateUser();
+            } else {
+                return res.jsonp({ updated: false });
+            }
         }
-        if (userId &&
-            req.body.phone ||
-            req.body.address ||
-            req.body.availability ||
-            req.body.employee_date ||
-            req.body.diploma ||
-            req.body.home ||
-            req.body.linkedIn ||
-            req.body.twitter ||
-            req.body.github) {
-            return updateUser();
-        } else {
-            return res.jsonp({ updated: false });
-        }
-    }
-};
+}
+;
