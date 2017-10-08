@@ -15,6 +15,7 @@ const PATHS = {
 
 process.env.BABEL_ENV = ENV;
 
+// noinspection JSUnusedGlobalSymbols
 const common = {
     entry: [
         PATHS.app
@@ -68,7 +69,7 @@ const common = {
             {
                 test: /\.less$/,
                 loader: "style!css!less"
-            }
+            },
         ]
     },
 

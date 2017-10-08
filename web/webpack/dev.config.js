@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const GenerateFilePlugin = require('generate-file-plugin');
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
@@ -41,6 +42,7 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
-        })
+        }),
+        new GenerateFilePlugin('app.info.js'),
     ]
 };
