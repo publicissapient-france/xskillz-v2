@@ -87,15 +87,10 @@ NotificationService.notifyChangePassword = data => {
 
 NotificationService.notify = (template, data) => {
     if (template === NotificationService.TEMPLATE.WELCOME) {
-        return NotificationService.notifyWelcome(data)
-            .catch(() => {
-                // ignore error
-            });
-    } else if (template === NotificationService.TEMPLATE.CHANGE_PASSWORD) {
-        return NotificationService.notifyChangePassword(data)
-            .catch(() => {
-                // ignore error
-            });
+        return NotificationService.notifyWelcome(data);
+    }
+    if (template === NotificationService.TEMPLATE.CHANGE_PASSWORD) {
+        return NotificationService.notifyChangePassword(data);
     }
     return Promise.resolve();
 };
