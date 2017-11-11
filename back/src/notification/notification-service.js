@@ -35,7 +35,8 @@ NotificationService.notifyWelcome = data => {
                     transport: 'ses',
                     accessKeyId: awsKeyId,
                     secretAccessKey: awsSecretKey,
-                    region: awsRegion
+                    region: awsRegion,
+                    correctClockSkew: true,
                 });
                 const sendMail = Promise.promisify(transporterSES.sendMail).bind(transporterSES);
                 let text = util.format(content, data.name);
@@ -65,7 +66,8 @@ NotificationService.notifyChangePassword = data => {
                     transport: 'ses',
                     accessKeyId: awsKeyId,
                     secretAccessKey: awsSecretKey,
-                    region: awsRegion
+                    region: awsRegion,
+                    correctClockSkew: true,
                 });
                 const sendMail = Promise.promisify(transporterSES.sendMail).bind(transporterSES);
                 let text = util.format(content, data.id, data.token);
