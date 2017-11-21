@@ -40,7 +40,7 @@ class EmployeeEndDatePicker extends Component {
         }
         return (
             <Paper style={{margin: '.2rem', padding: '1rem'}}>
-                <h3>Définir la date de départ de la société</h3>
+                <h3>Définir la date de fin de contrat</h3>
                 <div>
                     <AutoComplete
                         floatingLabelText="Équipier"
@@ -52,7 +52,7 @@ class EmployeeEndDatePicker extends Component {
                 </div>
                 <div>
                     <DatePicker
-                        hintText="Départ le"
+                        hintText="Fin de contrat le"
                         value={date}
                         onChange={::this.onChangeDate}
                         shouldDisableDate={this.disableWeekends}/>
@@ -67,7 +67,7 @@ class EmployeeEndDatePicker extends Component {
                 <Snackbar
                     bodyStyle={{backgroundColor: '#008500'}}
                     open={snackOpen}
-                    message="Date de départ mise à jour"
+                    message="Date de fin de contrat mise à jour"
                     onRequestClose={::this.onSnackClose}
                     autoHideDuration={3000}/>
             </Paper>

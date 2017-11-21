@@ -81,17 +81,17 @@ class SettingsContent extends Component {
                     </Tab>}
 
                     <Tab label="Utilisateurs">
+                        {hasRole(MANAGER) && <CreateUser auth={auth} createUser={createUser} />}
                         {hasRole(MANAGER) && <DiplomaDatePicker saveDiploma={saveDiploma} users={users} />}
                         {hasRole(MANAGER) && <EmployeeDatePicker saveEmployeeDate={saveEmployeeDate} users={users} />}
-                        {hasRole(MANAGER) &&
-                        <EmployeeEndDatePicker saveEmployeeEndDate={saveEmployeeEndDate} users={users} />}
                         {hasRole(MANAGER) &&
                         <AvailabilityDatePicker saveAvailabilityDate={saveAvailabilityDate} users={users} />}
                         {hasRole(MANAGER) &&
                         <AssignUserToManager assignUserToManager={assignUserToManager} users={users}
                                              fetchUsers={fetchUsers} fetchManagers={fetchManagers} />}
+                        {hasRole(MANAGER) &&
+                        <EmployeeEndDatePicker saveEmployeeEndDate={saveEmployeeEndDate} users={users} />}
                         {hasRole(MANAGER) && <PromoteManager users={users} promoteManager={promoteManager} />}
-                        {hasRole(MANAGER) && <CreateUser auth={auth} createUser={createUser} />}
                     </Tab>
                 </Tabs>
             </div>);
