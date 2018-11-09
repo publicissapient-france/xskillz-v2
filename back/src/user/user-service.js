@@ -239,7 +239,9 @@ module.exports = {
                             color: domainRow.domain_color
                         })
                     ),
-                    score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0)
+                    score: _.reduce(domainRows, (sum, n) => sum + n.domain_score, 0),
+                    home: user.user_home,
+                    address: user.user_address,
                 }).expurge();
             })
             .sortBy('name').value();

@@ -107,7 +107,7 @@ const UserRepository = {
 
     getWebUsers: () =>
         Database.query(`
-        SELECT u.id AS user_id, u.name AS user_name, u.email AS email,d.name AS domain_name, d.id AS domain_id, d.color AS domain_color, u.diploma AS diploma, SUM(level) AS domain_score
+        SELECT u.home AS user_home, u.address AS user_address, u.id AS user_id, u.name AS user_name, u.email AS email,d.name AS domain_name, d.id AS domain_id, d.color AS domain_color, u.diploma AS diploma, SUM(level) AS domain_score
             FROM User u
             LEFT JOIN UserSkill us ON u.id = us.user_id
             LEFT JOIN Skill s ON s.id = us.skill_id
