@@ -32,6 +32,12 @@ module.exports = {
                 .get(`${host}/users/${id}`)
                 .set('token', token)),
 
+    getUserByEmail: (email, token) =>
+        execute(
+            request
+                .get(`${host}/users/by_email/${email}`)
+                .set('token', token)),
+
     getUsersBySkill: (id, token) =>
         execute(
             request

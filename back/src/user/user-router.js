@@ -24,6 +24,10 @@ const UserRouter = {
             .delete(Security.require([ROLES.users]), UserController.deleteUserById);
 
         express
+            .route('/users/by_email/:email([\\w%\\-@\\.]+)')
+            .get(UserController.getUserByEmail);
+
+        express
             .route('/users/:id([\\w%\\-]+)')
             .get(UserController.getUserByReadableId);
 

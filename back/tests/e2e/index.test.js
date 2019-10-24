@@ -273,6 +273,45 @@ describe('API', function() {
         .catch(done);
     });
 
+    it('should get user by email', (done) => {
+        // Given
+        API.createUser('Julien Smadja', 'jsmadja@xebia.fr')
+            .then(() => API.signin('jsmadja@xebia.fr'))
+            .then((res) => API.getUserByEmail('jsmadja@xebia.fr', res.body.token))
+            // Then
+            .then((res) => {
+                const user = res.body;
+                delete user.id;
+                assert.deepEqual(user,
+                    {
+                        address: null,
+                        domains: [],
+                        experienceCounter: 0,
+                        gravatarUrl: '//www.gravatar.com/avatar/7cad4fe46a8abe2eab1263b02b3c12bc',
+                        manager_id: null,
+                        name: 'Julien Smadja',
+                        phone: null,
+                        roles: [
+                            'Manager'
+                        ],
+                        score: 0,
+                        readable_id: 'julien-smadja',
+                        seniority: 0,
+                        availability_date: null,
+                        diploma: null,
+                        employee_date: null,
+                        employee_end_date: null,
+                        home: null,
+                        twitter: null,
+                        github: null,
+                        linked_in: null
+                    }
+                );
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should get user by readable id with accent', (done) => {
         // Given
         API.createUser('Clément Smadja', 'csmadja@xebia.fr')

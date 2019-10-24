@@ -15,7 +15,9 @@
         "deploy": "node ./scripts/deploy-surge.js",
         "connect": "sudo docker exec -i -t xskillzv2_web_1 /bin/bash",
         "docker:build": "npm run build:production && docker build -t xebiafrance/skillz-web .",
-        "docker:push": "docker push xebiafrance/skillz-web"
+        "docker:push": "docker push xebiafrance/skillz-web",
+        "docker:build:http": "npm run build:production && docker build -t xebiafrance/skillz-web-http .",
+        "docker:push:http": "docker push xebiafrance/skillz-web-http"
     },
     "repository": {
         "type": "git",

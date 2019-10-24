@@ -72,6 +72,12 @@ const createUserByReadableId = (id) =>
     .then(populateUser)
     .then(user => user.expurge());
 
+const createUserByEmail = (id) =>
+    Repository
+        .findUserByEmail(id)
+        .then(populateUser)
+        .then(user => user.expurge());
+
 const createUserByLogin = (login) =>
     Repository
     .findUserByLogin(login)
@@ -335,6 +341,7 @@ module.exports = {
 
     createUserById,
     createUserByReadableId,
+    createUserByEmail,
     createUserByLogin,
     attachManager,
 

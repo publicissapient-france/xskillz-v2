@@ -77,6 +77,12 @@ module.exports = {
         .then(user => res.jsonp(user))
         .catch(err => onError(err, res, 404, `User #${req.params.id} not found`)),
 
+    getUserByEmail: (req, res) =>
+        UserService
+            .createUserByEmail(req.params.email)
+            .then(user => res.json(user))
+            .catch(err => onError(err, res, 404, `User #${req.params.email} not found`)),
+
     getUserByReadableId: (req, res) =>
         UserService
         .createUserByReadableId(req.params.id)

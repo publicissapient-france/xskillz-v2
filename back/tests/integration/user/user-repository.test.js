@@ -274,6 +274,20 @@ describe('User Repository', () => {
             .catch(done);
     });
 
+    it('should return user by email', (done) => {
+        const email = 'email@company.com';
+        const name = 'Firstname Lastname';
+        const password = 'password';
+        UserRepository
+            .addNewUser({email, name, password})
+            .then(() => UserRepository.findUserByEmail('email@company.com'))
+            .then((user) => {
+                assert.equal(user.name, 'Firstname Lastname');
+            })
+            .then(done)
+            .catch(done);
+    });
+
     it('should return user by login', (done) => {
         const email = 'jsmadja@mycompany.com';
         const name = 'Firstname Lastname';
