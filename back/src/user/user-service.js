@@ -91,6 +91,8 @@ const createUserByLogin = (login) =>
 const toSimpleUserObject = (user) => ({
     id: user.user_id,
     name: user.user_name,
+    skill_count: user.skill_count,
+    last_skill_update: user.last_skill_update,
     readable_id: User.toReadableId(user.user_name)
 });
 

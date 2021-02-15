@@ -15,11 +15,25 @@
         }
       }
 
-      .user {
-        font-size: 14px;
+      .manager_table_header {
+        font-weight: bold;
+        margin-left: 20px;
+      }
+
+      .manager_table_row {
+        margin-left: 20px;
+        padding: 10px 0;
         &:hover {
           cursor: pointer;
+          background-color: rgba(0, 0, 0, 0.1);
         }
+      }
+
+
+      .manager_table_header, .manager_table_row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        font-size: 14px;
       }
 
     }
