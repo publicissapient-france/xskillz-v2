@@ -24,7 +24,7 @@ class ManagerItem extends Component {
                             <div className="manager_table_row" key={index} onClick={()=>onUserClick(user.readable_id)}>
                                 <span>{user.name}</span>
                                 <span>{user.skill_count}</span>
-                                <span>{moment(user.last_skill_update).format('YYYY-MM-DD')}</span>
+                                <span>{moment(user.last_skill_update).format('DD/MM/YYYY')}</span>
                             </div>)
                         )
                     }

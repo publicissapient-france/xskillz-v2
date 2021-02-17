@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {Paper, RaisedButton, DatePicker, Snackbar, AutoComplete} from 'material-ui'
 import _ from 'lodash';
 
+import DateTimeFormat from '../../tools/date';
+
 class DiplomaDatePicker extends Component {
 
     static propTypes = {
@@ -54,8 +56,10 @@ class DiplomaDatePicker extends Component {
                 </div>
                 <div>
                     <DatePicker
+                        DateTimeFormat={DateTimeFormat}
                         hintText="Diplômé le"
                         value={date}
+                        locale="fr"
                         onChange={::this.onChangeDate}
                         shouldDisableDate={this.disableWeekends}/>
                 </div>
