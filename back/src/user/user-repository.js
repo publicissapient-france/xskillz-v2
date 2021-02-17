@@ -258,12 +258,15 @@ const UserRepository = {
     getManagement: () =>
         Database.query(`
             SELECT
-              user.id      user_id,
-              user.name    user_name,
-              manager.id   manager_id,
-              manager.name manager_name
+              user.id                       user_id,
+              user.name                     user_name,
+              manager.id                    manager_id,
+              manager.name                  manager_name,
+              skills_list.count             skill_count,
+              skills_list.lastSkillUpdate   last_skill_update
             FROM User user
               LEFT JOIN User manager ON user.manager_id = manager.id
+              LEFT JOIN (SELECT COUNT(skill_id) as count, MAX(updatedAt) as lastSkillUpdate, user_id from UserSkill GROUP BY user_id) as skills_list ON skills_list.user_id = user.id
             WHERE (user.employee_end_date IS NULL OR user.employee_end_date > current_date)
             AND (manager.employee_end_date IS NULL OR manager.employee_end_date > current_date)
     `),

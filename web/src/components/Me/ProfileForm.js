@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 
 import validator from 'validator';
 import _ from 'lodash';
-import areIntlLocalesSupported from 'intl-locales-supported';
 import moment from 'moment';
 
 import Paper from 'material-ui/Paper';
@@ -14,6 +13,7 @@ import Geosuggest from 'react-geosuggest';
 
 import ChangePassword from './ChangePassword/ChangePassword';
 import SocialForm from './SocialForm';
+import DateTimeFormat from '../../tools/date';
 
 import './ProfileForm.less';
 
@@ -54,7 +54,7 @@ class ProfileForm extends Component {
 
     submitProfile = () => {
         const profile = {};
-        const DATE_FORMAT = 'YYYY-MM-DD';
+        const DATE_FORMAT = 'DD/MM/YYYY';
         const {phone, isPhoneValid, address, isAddressValid, availability, formDiploma, isHomeValid, home} = this.state;
         if (isPhoneValid && phone.length > 0) {
             profile.phone = phone;
@@ -133,17 +133,6 @@ class ProfileForm extends Component {
     };
 
     render() {
-
-        let DateTimeFormat;
-        // Use the native Intl.DateTimeFormat if available, or a polyfill if not.
-        if (areIntlLocalesSupported(['fr'])) {
-            DateTimeFormat = global.Intl.DateTimeFormat;
-        } else {
-            const IntlPolyfill = require('intl');
-            DateTimeFormat = IntlPolyfill.DateTimeFormat;
-            require('intl/locale-data/jsonp/fr');
-        }
-
         const {phone, isPhoneValid, availability, formDiploma, sent} = this.state;
         const errorPhone = isPhoneValid ? '' : 'Numéro invalide';
         const {user:{address, availability_date, diploma, home, updateProfile:{success, error}}, user, changePassword} = this.props;

@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import areIntlLocalesSupported from 'intl-locales-supported';
 import _ from 'lodash';
 import {Paper, RaisedButton, DatePicker, Snackbar, AutoComplete} from 'material-ui'
 import moment from 'moment';
+
+import DateTimeFormat from '../../tools/date';
 
 class AvailabilityDatePicker extends Component {
 
@@ -32,15 +33,6 @@ class AvailabilityDatePicker extends Component {
     };
 
     render() {
-        let DateTimeFormat;
-        // Use the native Intl.DateTimeFormat if available, or a polyfill if not.
-        if (areIntlLocalesSupported(['fr'])) {
-            DateTimeFormat = global.Intl.DateTimeFormat;
-        } else {
-            const IntlPolyfill = require('intl');
-            DateTimeFormat = IntlPolyfill.DateTimeFormat;
-            require('intl/locale-data/jsonp/fr');
-        }
         let {date, userId, submit, snackOpen} = this.state;
         const users = this.props.users.list;
         const availabilityDateSaved = this.props.users.employeeAvailabilityDateSaved;
