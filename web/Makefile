@@ -1,4 +1,4 @@
-NODE_VERSION=6.2
+NODE_VERSION=14
 
 NAME=skillz-web
 IMAGE_NAME=xebiafrance/$(NAME)
@@ -11,10 +11,7 @@ install:
 test: install
 	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm test
 
-nodesass: test
-	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm rebuild node-sass
-
-package: nodesass
+package: test
 	docker run --rm -t -v $(PWD):/usr/src/$(NAME) -w /usr/src/$(NAME) node:$(NODE_VERSION) npm run build:production
 
 build-image:

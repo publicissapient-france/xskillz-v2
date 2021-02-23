@@ -1,7 +1,5 @@
 # Kanban board
 
-[![Stories in Ready](https://badge.waffle.io/xebia-france/xskillz-v2.png?label=ready&title=Ready)](https://waffle.io/xebia-france/xskillz-v2)
-
 # Back
 
 [![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm) [![Coverage Status](https://coveralls.io/repos/github/xebia-france/xskillz-v2/badge.svg?branch=master)](https://coveralls.io/github/xebia-france/xskillz-v2?branch=master) [![Build Status](https://travis-ci.org/xebia-france/xskillz-v2.svg?branch=master)](https://travis-ci.org/xebia-france/xskillz-v2)
