@@ -28,7 +28,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "bcrypt": "1.0.3",
+        "bcrypt": "5.0.0",
         "bcrypt-then": "1.1.0",
         "bluebird": "3.5.0",
         "body-parser": "1.18.2",
