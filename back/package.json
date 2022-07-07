@@ -40,7 +40,7 @@
         "isomorphic-fetch": "2.2.1",
         "json2csv": "^3.11.2",
         "mailgun-js": "0.13.1",
-        "moment": "2.18.1",
+        "moment": "2.29.4",
         "mysql-promise": "4.1.0",
         "nodemailer": "2.7.0",
         "nodemailer-ses-transport": "1.5.0",
